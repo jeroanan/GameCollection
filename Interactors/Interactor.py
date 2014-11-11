@@ -3,9 +3,6 @@ class Interactor(object):
     def __init__(self):
         self.__gateway = None
 
-    def execute(self):
-        pass
-
     @property
     def games_gateway(self):
         return self.__gateway

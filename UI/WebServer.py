@@ -1,4 +1,5 @@
 import cherrypy
+from Game import Game
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -27,7 +28,15 @@ class WebServer(object):
         return self.renderer.render("addgame.html", title="Add Game")
 
     @cherrypy.expose
-    def savegame(self, **kwargs):
+    def savegame(self, title, numcopies, numboxed, nummanuals, platform=None):
+        interactor = self.__interactor_factory.create("AddGameInteractor")
+        game = Game()
+        game.title = title
+        game.num_copies = numcopies
+        game.num_boxed = numboxed
+        game.num_manuals = nummanuals
+        game.platform = platform
+        interactor.execute(game)
         raise cherrypy.HTTPRedirect("/")
 
     @cherrypy.expose()

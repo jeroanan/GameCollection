@@ -1,15 +1,16 @@
 import unittest
+
 from GamesGateway import GamesGateway
-from GetGamesInteractor import GetGamesInteractor
 from Interactors.AddGameInteractor import AddGameInteractor
+from Interactors.GetGamesInteractor import GetGamesInteractor
+from Interactors.InteractorFactory import InteractorFactory
 from Tests.Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
-from Tests.Interactors.InteractorFactory import InteractorFactory
 
 
 class TestInteractorFactory(unittest.TestCase):
 
     def setUp(self):
-        self.__target = InteractorFactory()
+        self.__target = InteractorFactory(GamesGateway())
 
     def test_create_unrecognised_type_string_throws_exception(self):
         self.assertRaises(UnrecognisedInteractorTypeException, self.__target.create, "InteractorType")

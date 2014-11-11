@@ -2,8 +2,9 @@ import unittest
 from unittest.mock import Mock
 
 from GamesGateway import GamesGateway
-from GetGamesInteractor import GetGamesInteractor
+from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.Interactor import Interactor
+
 
 
 class TestGetGamesInteractor(unittest.TestCase):
