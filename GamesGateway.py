@@ -1,6 +1,7 @@
 from Game import Game
 import uuid
 
+
 class GamesGateway(object):
 
     def __init__(self):
