@@ -1,14 +1,7 @@
-class GetGamesInteractor(object):
-    def __init__(self):
-        self.__gateway = None
+from Interactors.Interactor import Interactor
+
+
+class GetGamesInteractor(Interactor):
 
     def execute(self):
-        return self.__gateway.get_all_games()
-
-    @property
-    def games_gateway(self):
-        return self.__gateway
-
-    @games_gateway.setter
-    def games_gateway(self, value):
-        self.__gateway = value
+        return self.games_gateway.get_all_games()

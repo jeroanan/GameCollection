@@ -12,6 +12,9 @@ class GamesGateway(object):
     def get_all_games(self):
         return self.__games
 
+    def add_game(self, game):
+        pass
+
     def __get_mega_man_2(self):
         mega_man_2 = Game()
         mega_man_2.id = uuid.uuid4()

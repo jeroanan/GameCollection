@@ -1,0 +1,2 @@
+class UnrecognisedInteractorTypeException(Exception):
+    pass

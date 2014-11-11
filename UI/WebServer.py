@@ -1,23 +1,30 @@
 import cherrypy
-from jinja2 import Environment, PackageLoader
-from GamesGateway import GamesGateway
-from GetGamesInteractor import GetGamesInteractor
+from UI.TemplateRenderer import TemplateRenderer
 
 
 class WebServer(object):
 
-    def start(self):
-        cherrypy.quickstart(WebServer())
+    def __init__(self, interactor_factory=None, renderer=None):
+        self.__interactor_factory = interactor_factory
+        self.__renderer = renderer
+        if renderer is None:
+            self.__renderer = TemplateRenderer()
+
+    @property
+    def renderer(self):
+        return self.__renderer
+
+    def start(self, interactor_factory):
+        cherrypy.quickstart(WebServer(interactor_factory))
 
     @cherrypy.expose
     def index(self):
-        interactor = GetGamesInteractor()
-        interactor.games_gateway = GamesGateway()
-        return self.__render_template("index.html", games=interactor.execute(), title="Games Collection")
+        interactor = self.__interactor_factory.create("GetGamesInteractor")
+        return self.renderer.render("index.html", games=interactor.execute(), title="Games Collection")
 
     @cherrypy.expose
     def addgame(self):
-        return self.__render_template("addgame.html", title="Add Game")
+        return self.renderer.render("addgame.html", title="Add Game")
 
     @cherrypy.expose
     def savegame(self, **kwargs):
@@ -25,20 +32,10 @@ class WebServer(object):
 
     @cherrypy.expose()
     def addhardware(self):
-        return self.__render_template("addhardware.html", title="Add Hardware")
+        return self.renderer.render("addhardware.html", title="Add Hardware")
 
     @cherrypy.expose
     def platforms(self):
-        return self.__render_template("platforms.html", title="Manage Platforms")
+        return self.renderer.render("platforms.html", title="Manage Platforms")
 
-    def __render_template(self, template, **args):
-        template = self.__get_template(template)
-        return template.render(args)
 
-    def __get_template(self, template):
-        env = Environment(loader=PackageLoader("WebServer", "markup"))
-        return env.get_template(template)
-
-if __name__ == "__main__":
-    app = WebServer()
-    app.start()
