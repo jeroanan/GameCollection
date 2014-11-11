@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Add Game</title>
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<div class="container">
+    <h1>Add Game</h1>
+
+
+    <form class="form-horizontal" method="post" action="savegame">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input name="title" placeholder="Title" />
+
+            <label for="platform">Platform</label>
+            <select name="platform"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="numcopies">Number of Copies</label>
+            <input name="numcopies" id="numcopies" type="number" class="number" />
+
+            <label for="numboxed">Number of Boxed copies</label>
+            <input name="numboxed" id="numboxed" type="number" class="number">
+
+            <label for="nummanuals">Number of copies with manual</label>
+            <input name="nummanuals" id="nummanuals" type="number" class="number">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<style type="text/css" scoped="scoped">
+    input.number {
+        width: 60px;
+    }
+</style>
+</body>
+</html>

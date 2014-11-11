@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>My Games Collections</title>
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+<div class="container">
+    <h1>Games Collection</h1>
+
+    <table class="table table-striped">
+        <thead>
+           <tr>
+               <th data-field="title">Title</th>
+               <th>Platform</th>
+               <th># Copies</th>
+               <th># Boxed</th>
+               <th># Manuals</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+            <tr>
+                <td>{{game.title}}</td>
+                <td>{{game.platform}}</td>
+                <td>{{game.num_copies}}</td>
+                <td>{{game.num_boxed}}</td>
+                <td>{{game.num_manuals}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>
