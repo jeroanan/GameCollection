@@ -1,12 +1,12 @@
 class Interactor(object):
 
     def __init__(self):
-        self.__gateway = None
+        self.__persistence = None
 
     @property
-    def games_gateway(self):
-        return self.__gateway
+    def persistence(self):
+        return self.__persistence
 
-    @games_gateway.setter
-    def games_gateway(self, value):
-        self.__gateway = value
+    @persistence.setter
+    def persistence(self, value):
+        self.__persistence = value

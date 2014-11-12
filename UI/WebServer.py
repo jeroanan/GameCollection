@@ -21,7 +21,8 @@ class WebServer(object):
     @cherrypy.expose
     def index(self):
         interactor = self.__interactor_factory.create("GetGamesInteractor")
-        return self.renderer.render("index.html", games=interactor.execute(), title="Games Collection")
+        interactor_execute = interactor.execute()
+        return self.renderer.render("index.html", games=interactor_execute, title="Games Collection")
 
     @cherrypy.expose
     def addgame(self):
