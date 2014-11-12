@@ -1,6 +1,7 @@
 import cherrypy
 from Game import Game
 from Platform import Platform
+from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -11,19 +12,27 @@ class WebServer(object):
         self.__renderer = renderer
         if renderer is None:
             self.__renderer = TemplateRenderer()
+        self.__handler_factory = HandlerFactory(interactor_factory, self.__renderer)
 
     @property
     def renderer(self):
         return self.__renderer
+
+    @property
+    def handler_factory(self):
+        return self.__handler_factory
+
+    @handler_factory.setter
+    def handler_factory(self, value):
+        self.__handler_factory = value
 
     def start(self, interactor_factory):
         cherrypy.quickstart(WebServer(interactor_factory))
 
     @cherrypy.expose
     def index(self):
-        interactor = self.__interactor_factory.create("GetGamesInteractor")
-        games = interactor.execute()
-        return self.renderer.render("index.html", games=games, title="Games Collection")
+        handler = self.handler_factory.create("IndexHandler")
+        return handler.get_page()
 
     @cherrypy.expose
     def addgame(self):

@@ -2,10 +2,10 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.AddGameInteractor import AddGameInteractor
+from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Persistence.MongoPersistence import MongoPersistence
-from Tests.Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
 

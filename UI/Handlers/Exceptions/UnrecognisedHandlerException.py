@@ -1,0 +1,2 @@
+class UnrecognisedHandlerException(Exception):
+    pass

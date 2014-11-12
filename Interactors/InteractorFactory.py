@@ -1,7 +1,7 @@
 from Interactors.AddGameInteractor import AddGameInteractor
+from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
-from Tests.Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 
 
