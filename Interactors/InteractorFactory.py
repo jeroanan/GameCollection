@@ -21,5 +21,5 @@ class InteractorFactory(object):
         raise UnrecognisedInteractorTypeException
 
     def __initialise_interactor(self, interactor):
-        interactor.__persistence = self.__persistence
+        interactor.persistence = self.__persistence
         return interactor

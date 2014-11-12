@@ -1,3 +1,27 @@
 {%extends 'master.html'%}
         {%block content%}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+                {%for platform in platforms%}
+                <tr>
+                    <td>{{platform.name}}</td>
+                    <td>{{platform.description}}</td>
+                </tr>
+                {%endfor%}
+            </thead>
+        </table>
+        <h2>Add Platform</h2>
+        <form action="addplatform" method="post" class="form-horizontal">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+                <label for="description">Description</label>
+                <input type="text" name="description" />
+                <input class="btn-primary" type="submit" value="Add" />
+            </div>
+        </form>
         {%endblock%}

@@ -59,3 +59,14 @@ class TestWebServer(unittest.TestCase):
     def test_platforms_calls_renderer(self):
         self.__target.platforms()
         self.assertTrue(self.__renderer.render.called)
+
+    def test_platforms_calls_interactor_factory(self):
+        self.__target.platforms()
+        self.assertTrue(self.__factory.create.called)
+
+    def test_platforms_calls_interactor_execute(self):
+        self.__target.platforms()
+        self.assertTrue(self.__interactor.execute.called)
+
+    def test_addplatform(self):
+        self.__target.addplatform("name", "description")

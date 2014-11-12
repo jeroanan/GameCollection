@@ -46,6 +46,11 @@ class WebServer(object):
 
     @cherrypy.expose
     def platforms(self):
-        return self.renderer.render("platforms.html", title="Manage Platforms")
+        interactor = self.__interactor_factory.create("GetPlatformsInteractor")
+        platforms = interactor.execute()
+        return self.renderer.render("platforms.html", title="Manage Platforms", platforms=platforms)
 
+    @cherrypy.expose
+    def addplatform(self, name, description):
+        pass
 
