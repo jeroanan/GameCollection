@@ -2,6 +2,7 @@ from Interactors.AddGameInteractor import AddGameInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Tests.Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
+from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 
 
 class InteractorFactory(object):
@@ -17,6 +18,8 @@ class InteractorFactory(object):
             return self.__initialise_interactor(GetGamesInteractor())
         elif interactor_type == "GetPlatformsInteractor":
             return self.__initialise_interactor(GetPlatformsInteractor())
+        elif interactor_type == "AddPlatformInteractor":
+            return self.__initialise_interactor(AddPlatformInteractor())
 
         raise UnrecognisedInteractorTypeException
 

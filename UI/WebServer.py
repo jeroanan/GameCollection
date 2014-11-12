@@ -21,8 +21,8 @@ class WebServer(object):
     @cherrypy.expose
     def index(self):
         interactor = self.__interactor_factory.create("GetGamesInteractor")
-        interactor_execute = interactor.execute()
-        return self.renderer.render("index.html", games=interactor_execute, title="Games Collection")
+        games = interactor.execute()
+        return self.renderer.render("index.html", games=games, title="Games Collection")
 
     @cherrypy.expose
     def addgame(self):
@@ -52,5 +52,6 @@ class WebServer(object):
 
     @cherrypy.expose
     def addplatform(self, name, description):
-        pass
-
+        interactor = self.__interactor_factory.create("AddPlatformInteractor")
+        interactor.execute(name, description)
+        raise cherrypy.HTTPRedirect("/platforms")

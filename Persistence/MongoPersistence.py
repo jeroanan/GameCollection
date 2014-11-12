@@ -36,3 +36,6 @@ class MongoPersistence(object):
 
     def get_platforms(self):
         pass
+
+    def add_platform(self, name, description):
+        pass

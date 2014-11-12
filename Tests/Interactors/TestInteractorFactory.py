@@ -6,6 +6,7 @@ from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
+from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
 
 
@@ -25,6 +26,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_get_platforms_interactor_returns_get_platforms_interactor(self):
         self.assert_factory_returns_instance_of("GetPlatformsInteractor", GetPlatformsInteractor)
+
+    def test_create_add_platform_interactor_returns_add_platform_interactor(self):
+        self.assert_factory_returns_instance_of("AddPlatformInteractor", AddPlatformInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

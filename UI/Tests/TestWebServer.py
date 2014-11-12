@@ -68,5 +68,19 @@ class TestWebServer(unittest.TestCase):
         self.__target.platforms()
         self.assertTrue(self.__interactor.execute.called)
 
-    def test_addplatform(self):
-        self.__target.addplatform("name", "description")
+    def test_addplatform_calls_interactor_factory(self):
+        try:
+            self.__target.addplatform("name", "description")
+        except cherrypy.HTTPRedirect:
+            pass
+        self.assertTrue(self.__factory.create.called)
+
+    def test_addplatform_calls_interactor_execute(self):
+        try:
+            self.__target.addplatform("name", "description")
+        except cherrypy.HTTPRedirect:
+            pass
+        self.assertTrue(self.__interactor.execute.called)
+
+    def test_addplatform_does_redirect(self):
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.addplatform, "name", "description")
