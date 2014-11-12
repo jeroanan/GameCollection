@@ -1,5 +1,6 @@
 import cherrypy
 from Game import Game
+from Platform import Platform
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -53,5 +54,8 @@ class WebServer(object):
     @cherrypy.expose
     def addplatform(self, name, description):
         interactor = self.__interactor_factory.create("AddPlatformInteractor")
-        interactor.execute(name, description)
+        platform = Platform()
+        platform.name = name
+        platform.description = description
+        interactor.execute(platform)
         raise cherrypy.HTTPRedirect("/platforms")

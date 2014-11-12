@@ -1,8 +1,17 @@
 class Platform(object):
 
     def __init__(self):
+        self.__id = ""
         self.__name = ""
         self.__description = ""
+
+    @property
+    def id(self):
+        return self.__id
+
+    @id.setter
+    def id(self, value):
+        self.__id = value
 
     @property
     def name(self):

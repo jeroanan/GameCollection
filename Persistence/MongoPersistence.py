@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from Game import Game
+from Platform import Platform
 
 
 class MongoPersistence(object):
@@ -35,7 +36,21 @@ class MongoPersistence(object):
         return game
 
     def get_platforms(self):
-        pass
+        platforms = self.__db.platforms
+        cursor = platforms.find()
+        out_platforms = []
+        for p in cursor:
+            platform = self.__map_mongo_result_to_platform(p)
+            out_platforms.append(platform)
+        return out_platforms
 
-    def add_platform(self, name, description):
-        pass
+    def __map_mongo_result_to_platform(self, p):
+        platform = Platform()
+        platform.id = p["_id"]
+        platform.name = p["_Platform__name"]
+        platform.description = p["_Platform__description"]
+        return platform
+
+    def add_platform(self, platform):
+        platforms = self.__db.platforms
+        platforms.insert(platform.__dict__)

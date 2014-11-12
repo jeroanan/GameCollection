@@ -1,12 +1,9 @@
 import unittest
 from unittest.mock import Mock
+from Interactors.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.Interactor import Interactor
 from Persistence.MongoPersistence import MongoPersistence
-
-
-class AddPlatformInteractor(Interactor):
-    def execute(self, name, description):
-        self.persistence.add_platform(name, description)
+from Platform import Platform
 
 
 class TestAddPlatformInteractor(unittest.TestCase):
@@ -20,5 +17,5 @@ class TestAddPlatformInteractor(unittest.TestCase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence(self):
-        self.__target.execute("name", "description")
+        self.__target.execute(Platform())
         self.assertTrue(self.__persistence.add_platform.called)
