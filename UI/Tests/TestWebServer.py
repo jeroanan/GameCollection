@@ -1,8 +1,6 @@
 import unittest
 from unittest.mock import Mock
 
-import cherrypy
-
 from Interactors import InteractorFactory
 from Interactors.Interactor import Interactor
 from UI.Handlers.Handler import Handler
@@ -41,35 +39,14 @@ class TestWebServer(unittest.TestCase):
         self.__target.savegame(None, None, None, None)
         self.assertTrue(self.__handler.get_page.called)
 
-    def test_addhardware_calls_renderer(self):
+    def test_addhardware_calls_handler_get_page(self):
         self.__target.addhardware()
-        self.assertTrue(self.__renderer.render.called)
+        self.assertTrue(self.__handler.get_page.called)
 
-    def test_platforms_calls_renderer(self):
+    def test_platforms_calls_handler_get_page(self):
         self.__target.platforms()
-        self.assertTrue(self.__renderer.render.called)
+        self.assertTrue(self.__handler.get_page.called)
 
-    def test_platforms_calls_interactor_factory(self):
-        self.__target.platforms()
-        self.assertTrue(self.__interactor_factory.create.called)
-
-    def test_platforms_calls_interactor_execute(self):
-        self.__target.platforms()
-        self.assertTrue(self.__interactor.execute.called)
-
-    def test_addplatform_calls_interactor_factory(self):
-        try:
-            self.__target.addplatform("name", "description")
-        except cherrypy.HTTPRedirect:
-            pass
-        self.assertTrue(self.__interactor_factory.create.called)
-
-    def test_addplatform_calls_interactor_execute(self):
-        try:
-            self.__target.addplatform("name", "description")
-        except cherrypy.HTTPRedirect:
-            pass
-        self.assertTrue(self.__interactor.execute.called)
-
-    def test_addplatform_does_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.addplatform, "name", "description")
+    def test_addplatform_calls_handler_get_page(self):
+        self.__target.addplatform("name", "description")
+        self.assertTrue(self.__handler.get_page.called)

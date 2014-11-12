@@ -1,6 +1,4 @@
 import cherrypy
-from Game import Game
-from Platform import Platform
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -31,13 +29,11 @@ class WebServer(object):
 
     @cherrypy.expose
     def index(self):
-        handler = self.handler_factory.create("IndexHandler")
-        return handler.get_page()
+        return self.__get_page_for_handler("IndexHandler")
 
     @cherrypy.expose
     def addgame(self):
-        handler = self.handler_factory.create("AddGameHandler")
-        return handler.get_page()
+        return self.__get_page_for_handler("AddGameHandler")
 
     @cherrypy.expose
     def savegame(self, title, numcopies, numboxed, nummanuals, platform=None):
@@ -46,19 +42,20 @@ class WebServer(object):
 
     @cherrypy.expose()
     def addhardware(self):
-        return self.renderer.render("addhardware.html", title="Add Hardware")
+        return self.__get_page_for_handler("AddHardwareHandler")
 
     @cherrypy.expose
     def platforms(self):
-        interactor = self.__interactor_factory.create("GetPlatformsInteractor")
-        platforms = interactor.execute()
-        return self.renderer.render("platforms.html", title="Manage Platforms", platforms=platforms)
+        return self.__get_page_for_handler("PlatformsHandler")
+
+    def __get_page_for_handler(self, type_string):
+        handler = self.__handler_factory.create(type_string)
+        return handler.get_page()
 
     @cherrypy.expose
     def addplatform(self, name, description):
-        interactor = self.__interactor_factory.create("AddPlatformInteractor")
-        platform = Platform()
-        platform.name = name
-        platform.description = description
-        interactor.execute(platform)
-        raise cherrypy.HTTPRedirect("/platforms")
+        handler = self.__handler_factory.create("AddPlatformHandler")
+        return handler.get_page(name, description)
+
+
+
