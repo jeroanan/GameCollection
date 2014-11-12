@@ -36,19 +36,13 @@ class WebServer(object):
 
     @cherrypy.expose
     def addgame(self):
-        return self.renderer.render("addgame.html", title="Add Game")
+        handler = self.handler_factory.create("AddGameHandler")
+        return handler.get_page()
 
     @cherrypy.expose
     def savegame(self, title, numcopies, numboxed, nummanuals, platform=None):
-        interactor = self.__interactor_factory.create("AddGameInteractor")
-        game = Game()
-        game.title = title
-        game.num_copies = numcopies
-        game.num_boxed = numboxed
-        game.num_manuals = nummanuals
-        game.platform = platform
-        interactor.execute(game)
-        raise cherrypy.HTTPRedirect("/")
+        handler = self.__handler_factory.create("SaveGameHandler")
+        return handler.get_page(title, numcopies, numboxed, nummanuals, platform)
 
     @cherrypy.expose()
     def addhardware(self):

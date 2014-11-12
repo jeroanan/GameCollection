@@ -1,10 +1,9 @@
-class IndexHandler(object):
+from UI.Handlers.Handler import Handler
 
-    def __init__(self, interactor_factory, renderer):
-        self.__interactor_factory = interactor_factory
-        self.__renderer = renderer
+
+class IndexHandler(Handler):
 
     def get_page(self):
-        interactor = self.__interactor_factory.create("GetGamesInteractor")
+        interactor = self.interactor_factory.create("GetGamesInteractor")
         games = interactor.execute()
-        return self.__renderer.render("index.html", games=games, title="Games Collection")
+        return self.renderer.render("index.html", games=games, title="Games Collection")
