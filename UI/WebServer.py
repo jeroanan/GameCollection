@@ -1,3 +1,4 @@
+import os
 import cherrypy
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
@@ -25,7 +26,17 @@ class WebServer(object):
         self.__handler_factory = value
 
     def start(self, interactor_factory):
-        cherrypy.quickstart(WebServer(interactor_factory))
+        conf = {
+         '/': {
+             'tools.sessions.on': True,
+             'tools.staticdir.root': os.path.abspath(os.getcwd())
+         },
+         '/static': {
+             'tools.staticdir.on': True,
+             'tools.staticdir.dir': './UI/markup/'
+         }
+        }
+        cherrypy.quickstart(WebServer(interactor_factory), '/', conf)
 
     @cherrypy.expose
     def index(self):
