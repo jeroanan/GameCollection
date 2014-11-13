@@ -68,5 +68,8 @@ class WebServer(object):
         handler = self.__handler_factory.create("AddPlatformHandler")
         return handler.get_page(name, description)
 
+    @cherrypy.expose
+    def editgame(self, gameid):
+        handler = self.__handler_factory.create("EditGameHandler")
 
 
