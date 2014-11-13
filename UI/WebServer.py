@@ -71,5 +71,5 @@ class WebServer(object):
     @cherrypy.expose
     def editgame(self, gameid):
         handler = self.__handler_factory.create("EditGameHandler")
-
+        return handler.get_page(gameid)
 

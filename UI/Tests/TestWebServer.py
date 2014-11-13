@@ -51,9 +51,10 @@ class TestWebServer(unittest.TestCase):
         self.__target.addplatform("name", "description")
         self.assertTrue(self.__handler.get_page.called)
 
-    def test_editgame(self):
-        self.__target.editgame("id")
-
     def test_editgame_calls_handler_factory(self):
         self.__target.editgame("id")
         self.assertTrue(self.__handler_factory.create.called)
+
+    def test_editgame_calls_handler_get_page(self):
+        self.__target.editgame("id")
+        self.assertTrue(self.__handler.get_page.called)

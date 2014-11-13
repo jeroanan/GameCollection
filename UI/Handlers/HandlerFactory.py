@@ -1,6 +1,7 @@
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.EditHandler import EditHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
@@ -26,4 +27,6 @@ class HandlerFactory(object):
             return PlatformsHandler(self.__interactor_factory, self.__renderer)
         if handler_type == "AddPlatformHandler":
             return AddPlatformHandler(self.__interactor_factory, self.__renderer)
+        if handler_type == "EditGameHandler":
+            return EditHandler(self.__interactor_factory, self.__renderer)
         raise UnrecognisedHandlerException

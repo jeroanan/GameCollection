@@ -4,6 +4,7 @@ from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.EditHandler import EditHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
@@ -39,6 +40,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_add_platform_handler_returns_add_platform_handler(self):
         self.__assert_type_string_returns_handler_type("AddPlatformHandler", AddPlatformHandler)
+
+    def test_edit_handler_returns_edit_handler(self):
+        self.__assert_type_string_returns_handler_type("EditGameHandler", EditHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
