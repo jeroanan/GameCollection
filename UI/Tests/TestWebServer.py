@@ -61,13 +61,12 @@ class TestWebServer(unittest.TestCase):
         self.__handler.get_page.assert_called_with(id="id", title="title", platform="platform", numcopies="1",
                                                    numboxed="2", nummanuals="3")
 
-    def test_deletegame(self):
-        self.__target.deletegame(gameid="id")
-
-    def test_deletegme_calls_handler_factory(self):
-        self.__target.deletegame(gameid="id")
-        self.__handler_factory.create.assert_called_with("DeleteGameHandler")
-
     def test_deletegame_calls_handler_get_page(self):
         self.__target.deletegame(gameid="id")
         self.__handler.get_page.assert_called_with("id")
+
+    def test_editplatform(self):
+        self.__target.editplatform(platformid="id")
+
+    def test_savehardware(self):
+        self.__target.savehardware(name="name", platform="platform", numowned="numowned", numboxed="numboxed")

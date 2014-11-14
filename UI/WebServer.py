@@ -83,3 +83,11 @@ class WebServer(object):
     def deletegame(self, gameid):
         handler = self.__handler_factory.create("DeleteGameHandler")
         return handler.get_page(gameid)
+
+    @cherrypy.expose
+    def editplatform(self, platformid):
+        pass
+
+    @cherrypy.expose
+    def savehardware(self, name, platform, numowned, numboxed):
+        pass
