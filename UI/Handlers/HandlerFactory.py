@@ -7,6 +7,7 @@ from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHand
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
+from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 
 
@@ -35,4 +36,7 @@ class HandlerFactory(object):
             return UpdateGameHandler(self.__interactor_factory, self.__renderer)
         if handler_type == "DeleteGameHandler":
             return DeleteGameHandler(self.__interactor_factory, self.__renderer)
+        if handler_type == "SaveHardwareHandler":
+            return SaveHardwareHandler(self.__interactor_factory, self.__renderer)
+
         raise UnrecognisedHandlerException

@@ -68,5 +68,11 @@ class TestWebServer(unittest.TestCase):
     def test_editplatform(self):
         self.__target.editplatform(platformid="id")
 
-    def test_savehardware(self):
+    def test_savehardware_calls_handler_factory_for_save_hardware_handler(self):
         self.__target.savehardware(name="name", platform="platform", numowned="numowned", numboxed="numboxed")
+        self.__handler_factory.create.assert_called_with("SaveHardwareHandler")
+
+    def test_savehardware_calls_handler_get_page(self):
+        self.__target.savehardware(name="name", platform="platform", numowned="numowned", numboxed="numboxed")
+        self.__handler.get_page.assert_called_with(name="name", platform="platform", numowned="numowned",
+                                                 numboxed="numboxed")

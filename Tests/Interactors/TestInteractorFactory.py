@@ -7,6 +7,7 @@ from Interactors.Exceptions.UnrecognisedInteractorTypeException import Unrecogni
 from Interactors.GetGameInteractor import GetGameInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
+from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
@@ -45,6 +46,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_get_hardware_list_interactor_returns_get_hardware_list_interactor(self):
         self.assert_factory_returns_instance_of("GetHardwareListInteractor", GetHardwareListInteractor)
+
+    def test_create_save_hardware_interactor_returns_save_hardware_interactor(self):
+        self.assert_factory_returns_instance_of("SaveHardwareInteractor", SaveHardwareInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

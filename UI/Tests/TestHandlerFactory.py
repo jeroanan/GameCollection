@@ -11,6 +11,7 @@ from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
+from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -51,6 +52,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_delete_game_handler_returns_delete_game_handler(self):
         self.__assert_type_string_returns_handler_type("DeleteGameHandler", DeleteGameHandler)
+
+    def test_save_hardware_handler_returns_save_hardware_handler(self):
+        self.__assert_type_string_returns_handler_type("SaveHardwareHandler", SaveHardwareHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

@@ -90,4 +90,5 @@ class WebServer(object):
 
     @cherrypy.expose
     def savehardware(self, name, platform, numowned, numboxed):
-        pass
+        handler = self.__handler_factory.create("SaveHardwareHandler")
+        return handler.get_page(name=name, platform=platform, numowned=numowned, numboxed=numboxed)
