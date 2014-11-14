@@ -1,7 +1,7 @@
 {%extends 'master.html'%}
 {%block content%}
     <form class="form-horizontal" method="post" action="savegame">
-        <div class="form-group">
+                <div class="form-group">
             <label for="title">Title</label>
             <input name="title" placeholder="Title" />
 
@@ -11,7 +11,6 @@
                     <option value="{{platform.name}}">{{platform.name}}</option>
                 {% endfor %}
             </select>
-
         </div>
 
         <div class="form-group">
@@ -27,11 +26,13 @@
 
         <div class="form-group">
             <input type="submit" class="btn btn-primary" />
+            <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
         </div>
     </form>
-<style type="text/css" scoped="scoped">
-    input.number {
-        width: 60px;
-    }
-</style>
+    <style type="text/css" scoped="scoped">
+        input.number {
+            width: 60px;
+        }
+    </style>
+    <script type="text/javascript" src="/static/js/editgame.js" defer="defer"></script>
 {% endblock %}

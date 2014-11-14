@@ -1,3 +1,4 @@
+from bson import ObjectId
 from pymongo import MongoClient
 from Game import Game
 from Platform import Platform
@@ -24,6 +25,11 @@ class MongoPersistence(object):
             game = self.__map_mongo_result_to_game(g)
             out_games.append(game)
         return out_games
+
+    def get_game(self, game_id):
+        games = self.__db.games
+        cursor = games.find_one({"_id": ObjectId(game_id)})
+        return self.__map_mongo_result_to_game(cursor)
 
     def __map_mongo_result_to_game(self, result):
         game = Game()
@@ -54,3 +60,11 @@ class MongoPersistence(object):
     def add_platform(self, platform):
         platforms = self.__db.platforms
         platforms.insert(platform.__dict__)
+
+    def update_game(self, game):
+        games = self.__db.games
+        games.update({"_id": ObjectId(game.id)}, {"$set": game.__dict__}, upsert=False)
+
+    def delete_game(self, game):
+        games = self.__db.games
+        games.remove({"_id": ObjectId(game.id)})

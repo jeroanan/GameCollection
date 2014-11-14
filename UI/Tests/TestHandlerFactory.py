@@ -4,12 +4,14 @@ from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.EditHandler import EditHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
+from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -43,6 +45,12 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_edit_handler_returns_edit_handler(self):
         self.__assert_type_string_returns_handler_type("EditGameHandler", EditHandler)
+
+    def test_update_game_handler_returns_update_game_handler(self):
+        self.__assert_type_string_returns_handler_type("UpdateGameHandler", UpdateGameHandler)
+
+    def test_delete_game_handler_returns_delete_game_handler(self):
+        self.__assert_type_string_returns_handler_type("DeleteGameHandler", DeleteGameHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

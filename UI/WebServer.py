@@ -73,3 +73,13 @@ class WebServer(object):
         handler = self.__handler_factory.create("EditGameHandler")
         return handler.get_page(gameid)
 
+    @cherrypy.expose
+    def updategame(self, id, title, platform, numcopies, numboxed, nummanuals):
+        handler = self.__handler_factory.create("UpdateGameHandler")
+        return handler.get_page(id=id, title=title, platform=platform, numcopies=numcopies, numboxed=numboxed,
+                                nummanuals=nummanuals)
+
+    @cherrypy.expose
+    def deletegame(self, gameid):
+        handler = self.__handler_factory.create("DeleteGameHandler")
+        return handler.get_page(gameid)

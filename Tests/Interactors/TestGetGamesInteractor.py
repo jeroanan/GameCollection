@@ -5,7 +5,6 @@ from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.Interactor import Interactor
 
 
-
 class TestGetGamesInteractor(unittest.TestCase):
 
     def setUp(self):
