@@ -1,5 +1,7 @@
 from bson import ObjectId
 from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure
+import sys
 from Game import Game
 from Platform import Platform
 
@@ -7,11 +9,20 @@ from Platform import Platform
 class MongoPersistence(object):
 
     def __init__(self):
-        self.__client = MongoClient()
+        self.__client = None
+        self.__init_mongo_client()
         self.__db = self.__client.GamesCollection
 
+    def __init_mongo_client(self):
+        try:
+            self.__client = MongoClient()
+        except ConnectionFailure:
+            print("No instance of MongoDB detected. Did you forget to start it?")
+            sys.exit(-1)
+
     def __del__(self):
-        self.__client.close()
+        if self.__client is not None:
+            self.__client.close()
 
     def add_game(self, game):
         games = self.__db.games
