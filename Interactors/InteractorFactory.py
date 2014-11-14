@@ -1,11 +1,12 @@
+from Interactors.AddPlatformInteractor import AddPlatformInteractor
+from Interactors.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.AddGameInteractor import AddGameInteractor
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Interactors.GetGameInteractor import GetGameInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
-from Tests.Interactors.DeleteGameInteractor import DeleteGameInteractor
-from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
+from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 
 
 class InteractorFactory(object):
@@ -29,6 +30,8 @@ class InteractorFactory(object):
             return self.__initialise_interactor(UpdateGameInteractor())
         elif interactor_type == "DeleteGameInteractor":
             return self.__initialise_interactor(DeleteGameInteractor())
+        elif interactor_type == "GetHardwareListInteractor":
+            return self.__initialise_interactor(GetHardwareListInteractor())
 
         raise UnrecognisedInteractorTypeException
 

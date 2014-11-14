@@ -1,8 +1,10 @@
 import unittest
 from unittest.mock import Mock
+
 import cherrypy
+
+from Interactors.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
-from Tests.Interactors.DeleteGameInteractor import DeleteGameInteractor
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.Handler import Handler
 from UI.TemplateRenderer import TemplateRenderer

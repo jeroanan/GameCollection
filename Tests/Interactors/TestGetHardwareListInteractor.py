@@ -1,25 +1,23 @@
 import unittest
 from unittest.mock import Mock
-
-from Game import Game
-from Interactors.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Interactor import Interactor
 from Persistence.MongoPersistence import MongoPersistence
+from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 
 
-class TestDeleteGameInteractor(unittest.TestCase):
+class TestGetHardwareListInteractor(unittest.TestCase):
 
     def setUp(self):
+        self.__target = GetHardwareListInteractor()
         self.__persistence = Mock(MongoPersistence)
-        self.__target = DeleteGameInteractor()
         self.__target.persistence = self.__persistence
 
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute(self):
-        self.__target.execute(Game())
+        self.__target.execute()
 
-    def test_execute_calls_persistence_method(self):
-        self.__target.execute(Game())
-        self.assertTrue(self.__persistence.delete_game.called)
+    def test_execute_calls_persistence(self):
+        self.__target.execute()
+        self.__persistence.get_hardware_list.assert_called_with()

@@ -2,8 +2,8 @@ from bson import ObjectId
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 import sys
-from Game import Game
-from Platform import Platform
+from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
+from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 
 
 class MongoPersistence(object):
@@ -32,41 +32,27 @@ class MongoPersistence(object):
         games = self.__db.games
         cursor = games.find()
         out_games = []
+        mapper = ResultToGameMapper()
         for g in cursor:
-            game = self.__map_mongo_result_to_game(g)
+            game = mapper.map(g)
             out_games.append(game)
         return out_games
 
     def get_game(self, game_id):
         games = self.__db.games
         cursor = games.find_one({"_id": ObjectId(game_id)})
-        return self.__map_mongo_result_to_game(cursor)
-
-    def __map_mongo_result_to_game(self, result):
-        game = Game()
-        game.id = result["_id"]
-        game.title = result["_Game__title"]
-        game.platform = result["_Game__platform"]
-        game.num_copies = result["_Game__num_copies"]
-        game.num_boxed = result["_Game__num_boxed"]
-        game.num_manuals = result["_Game__num_manuals"]
-        return game
+        mapper = ResultToGameMapper()
+        return mapper.map(cursor)
 
     def get_platforms(self):
         platforms = self.__db.platforms
         cursor = platforms.find()
         out_platforms = []
+        mapper = ResultToPlatformMapper()
         for p in cursor:
-            platform = self.__map_mongo_result_to_platform(p)
+            platform = mapper.map(p)
             out_platforms.append(platform)
         return out_platforms
-
-    def __map_mongo_result_to_platform(self, p):
-        platform = Platform()
-        platform.id = p["_id"]
-        platform.name = p["_Platform__name"]
-        platform.description = p["_Platform__description"]
-        return platform
 
     def add_platform(self, platform):
         platforms = self.__db.platforms
@@ -79,3 +65,10 @@ class MongoPersistence(object):
     def delete_game(self, game):
         games = self.__db.games
         games.remove({"_id": ObjectId(game.id)})
+
+    def get_hardware_list(self):
+        pass
+
+    def save_hardware(self, hardware):
+        h = self.__db.hardware
+        h.insert(hardware.__dict__)

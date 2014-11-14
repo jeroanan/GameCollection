@@ -2,13 +2,14 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.AddGameInteractor import AddGameInteractor
+from Interactors.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Interactors.GetGameInteractor import GetGameInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Persistence.MongoPersistence import MongoPersistence
-from Tests.Interactors.DeleteGameInteractor import DeleteGameInteractor
+from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
 
@@ -41,6 +42,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_delete_game_interactor_returns_delete_game_interactor(self):
         self.assert_factory_returns_instance_of("DeleteGameInteractor", DeleteGameInteractor)
+
+    def test_create_get_hardware_list_interactor_returns_get_hardware_list_interactor(self):
+        self.assert_factory_returns_instance_of("GetHardwareListInteractor", GetHardwareListInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)
