@@ -1,11 +1,13 @@
 {%extends 'master.html'%}
         {%block content%}
         <h1>{{title}}</h1>
+        <h2>My Platforms</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -13,6 +15,7 @@
                     <tr>
                         <td>{{platform.name}}</td>
                         <td>{{platform.description}}</td>
+                        <td><button class="btn" onclick="editPlatform('{{platform.id}}')">Edit</button></td>
                     </tr>
                 {%endfor%}
             </tbody>
@@ -27,4 +30,5 @@
                 <input class="btn-primary" type="submit" value="Add" />
             </div>
         </form>
+        <script type="text/javascript" src="/static/js/platforms.js" defer="defer"></script>
         {%endblock%}
