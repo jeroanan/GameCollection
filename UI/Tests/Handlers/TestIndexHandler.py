@@ -1,8 +1,9 @@
 import unittest
 from unittest.mock import Mock
+
+from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
-from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from UI.Handlers.Handler import Handler
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.TemplateRenderer import TemplateRenderer

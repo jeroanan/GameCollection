@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
+from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.AddGameInteractor import AddGameInteractor
 from Interactors.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
@@ -10,7 +11,6 @@ from Interactors.InteractorFactory import InteractorFactory
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Persistence.MongoPersistence import MongoPersistence
-from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
 

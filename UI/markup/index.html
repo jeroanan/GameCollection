@@ -1,4 +1,4 @@
-{%extends 'master.html' %}
+{% extends 'master.html' %}
 {% block content %}
     <h1>{{title}}</h1>
     <h2>Games</h2>
@@ -27,5 +27,28 @@
         </tbody>
     </table>
     <h2>Hardware</h2>
-    <script type="application/javascript" src="/static/js/index.js" defer="defer"></script>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Platform</th>
+                <th># Owned</th>
+                <th># Boxed</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in hardware %}
+            <tr>
+                <td>{{h.name}}</td>
+                <td>{{h.platform}}</td>
+                <td>{{h.numowned}}</td>
+                <td>{{h.numboxed}}</td>
+                <td><input type="button" class="btn" value="Edit" /></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script type="text/javascript" src="/static/js/index.js" defer="defer"></script>
 {% endblock %}

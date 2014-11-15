@@ -1,3 +1,4 @@
+from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.AddGameInteractor import AddGameInteractor
@@ -7,7 +8,6 @@ from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
-from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 
 
 class InteractorFactory(object):

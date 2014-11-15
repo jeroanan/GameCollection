@@ -25,7 +25,7 @@ class TestSaveHardwareHandler(unittest.TestCase):
             self.__target.get_page(name="name", platform="platform", numowned="0", numboxed="0")
         except cherrypy.HTTPRedirect:
             pass
-        self.__interactor.execute.assert_called_with()
+        self.assertTrue(self.__interactor.execute.called)
 
     def test_get_page_does_redirect(self):
         self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, name="name", platform="platform", numowned="0",

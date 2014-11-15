@@ -1,8 +1,9 @@
 import unittest
 from unittest.mock import Mock
+
+from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.Interactor import Interactor
 from Persistence.MongoPersistence import MongoPersistence
-from Tests.Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 
 
 class TestGetHardwareListInteractor(unittest.TestCase):

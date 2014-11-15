@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 import sys
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
+from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 
 
@@ -67,7 +68,13 @@ class MongoPersistence(object):
         games.remove({"_id": ObjectId(game.id)})
 
     def get_hardware_list(self):
-        pass
+        h = self.__db.hardware
+        hardware = h.find()
+        mapper = ResultToHardwareMapper()
+        ret_val = []
+        for item in hardware:
+            ret_val.append(mapper.map(item))
+        return ret_val
 
     def save_hardware(self, hardware):
         h = self.__db.hardware
