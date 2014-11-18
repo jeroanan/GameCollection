@@ -5,6 +5,7 @@ from Interactors.AddGameInteractor import AddGameInteractor
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Interactors.GetGameInteractor import GetGameInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
+from Interactors.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
@@ -35,6 +36,8 @@ class InteractorFactory(object):
             return self.__initialise_interactor(GetHardwareListInteractor())
         elif interactor_type == "SaveHardwareInteractor":
             return self.__initialise_interactor(SaveHardwareInteractor())
+        elif interactor_type == "GetPlatformInteractor":
+            return self.__initialise_interactor(GetPlatformInteractor())
 
         raise UnrecognisedInteractorTypeException
 

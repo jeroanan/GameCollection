@@ -26,8 +26,7 @@ class MongoPersistence(object):
             self.__client.close()
 
     def add_game(self, game):
-        games = self.__db.games
-        games.insert(game.__dict__)
+        self.__db.games.insert(game.__dict__)
 
     def get_all_games(self):
         return map((ResultToGameMapper()).map, self.__db.games.find())
@@ -35,33 +34,25 @@ class MongoPersistence(object):
     def get_game(self, game_id):
         games = self.__db.games
         cursor = games.find_one({"_id": ObjectId(game_id)})
-        mapper = ResultToGameMapper()
-        return mapper.map(cursor)
+        return (ResultToGameMapper()).map(cursor)
 
     def get_platforms(self):
         return map(ResultToPlatformMapper().map, self.__db.platforms.find())
 
     def add_platform(self, platform):
-        platforms = self.__db.platforms
-        platforms.insert(platform.__dict__)
+        self.__db.platforms.insert(platform.__dict__)
 
     def update_game(self, game):
-        games = self.__db.games
-        games.update({"_id": ObjectId(game.id)}, {"$set": game.__dict__}, upsert=False)
+        self.__db.games.update({"_id": ObjectId(game.id)}, {"$set": game.__dict__}, upsert=False)
 
     def delete_game(self, game):
-        games = self.__db.games
-        games.remove({"_id": ObjectId(game.id)})
+        self.__db.games.remove({"_id": ObjectId(game.id)})
 
     def get_hardware_list(self):
-        h = self.__db.hardware
-        hardware = h.find()
-        mapper = ResultToHardwareMapper()
-        ret_val = []
-        for item in hardware:
-            ret_val.append(mapper.map(item))
-        return ret_val
+        return map((ResultToHardwareMapper()).map, self.__db.hardware.find())
 
     def save_hardware(self, hardware):
-        h = self.__db.hardware
-        h.insert(hardware.__dict__)
+        self.__db.hardware.insert(hardware.__dict__)
+
+    def get_platform(self, hardware_id):
+        pass
