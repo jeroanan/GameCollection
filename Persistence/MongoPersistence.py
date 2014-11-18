@@ -30,14 +30,7 @@ class MongoPersistence(object):
         games.insert(game.__dict__)
 
     def get_all_games(self):
-        games = self.__db.games
-        cursor = games.find()
-        out_games = []
-        mapper = ResultToGameMapper()
-        for g in cursor:
-            game = mapper.map(g)
-            out_games.append(game)
-        return out_games
+        return map((ResultToGameMapper()).map, self.__db.games.find())
 
     def get_game(self, game_id):
         games = self.__db.games
@@ -46,14 +39,7 @@ class MongoPersistence(object):
         return mapper.map(cursor)
 
     def get_platforms(self):
-        platforms = self.__db.platforms
-        cursor = platforms.find()
-        out_platforms = []
-        mapper = ResultToPlatformMapper()
-        for p in cursor:
-            platform = mapper.map(p)
-            out_platforms.append(platform)
-        return out_platforms
+        return map(ResultToPlatformMapper().map, self.__db.platforms.find())
 
     def add_platform(self, platform):
         platforms = self.__db.platforms
