@@ -51,6 +51,16 @@ class TestWebServer(unittest.TestCase):
         self.__target.addplatform("name", "description")
         self.assertTrue(self.__handler.get_page.called)
 
+    def test_editplatform_calls_handler_get_page(self):
+        self.__target.editplatform(platformid="id")
+        self.__handler.get_page.assert_called_with("id")
+
+    def test_deleteplatform(self):
+        self.__target.deleteplatform(platformid="id")
+
+    def test_updateplatforn(self):
+        self.__target.updateplatform(id="id", name="name", description="description")
+
     def test_editgame_calls_handler_get_page(self):
         self.__target.editgame("id")
         self.assertTrue(self.__handler.get_page.called)
@@ -63,13 +73,6 @@ class TestWebServer(unittest.TestCase):
 
     def test_deletegame_calls_handler_get_page(self):
         self.__target.deletegame(gameid="id")
-        self.__handler.get_page.assert_called_with("id")
-
-    def test_editplatform(self):
-        self.__target.editplatform(platformid="id")
-
-    def test_editplatform_calls_handler_get_page(self):
-        self.__target.editplatform(platformid="id")
         self.__handler.get_page.assert_called_with("id")
 
     def test_savehardware_calls_handler_get_page(self):
