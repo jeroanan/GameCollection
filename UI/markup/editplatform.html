@@ -1,0 +1,25 @@
+{% extends 'master.html' %}
+{% block content %}
+    <h1>{{title}}</h1>
+        <form class="form-vertical" method="post" action="updateplatform">
+             <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{platform.name}}" />
+
+                 <label for="description">Description</label>
+                 <input type="text" name="description" id="description" value="{{platform.description}}" />
+                 <input type="hidden" id="id" name="id" value="{{platform.id}}" />
+             </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" />
+                <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+                <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
+            </div>
+        </form>
+        <div class="hidden" id="deleteConfirm">
+        Really delete this game?
+            <a href="javascript:doDelete();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+        </div>
+        <script type="text/javascript" src="/static/js/editplatform.js" defer="defer"></script>
+{% endblock %}

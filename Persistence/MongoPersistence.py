@@ -42,6 +42,10 @@ class MongoPersistence(object):
     def add_platform(self, platform):
         self.__db.platforms.insert(platform.__dict__)
 
+    def get_platform(self, platform_id):
+        mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
+        return ResultToPlatformMapper().map(mongo_result)
+
     def update_game(self, game):
         self.__db.games.update({"_id": ObjectId(game.id)}, {"$set": game.__dict__}, upsert=False)
 
@@ -53,6 +57,3 @@ class MongoPersistence(object):
 
     def save_hardware(self, hardware):
         self.__db.hardware.insert(hardware.__dict__)
-
-    def get_platform(self, hardware_id):
-        pass

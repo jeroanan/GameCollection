@@ -14,6 +14,7 @@ from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.TemplateRenderer import TemplateRenderer
+from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
 
 class TestHandlerFactory(unittest.TestCase):
@@ -55,6 +56,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_save_hardware_handler_returns_save_hardware_handler(self):
         self.__assert_type_string_returns_handler_type("SaveHardwareHandler", SaveHardwareHandler)
+
+    def test_edit_platform_handler_returns_edit_platform_handler(self):
+        self.__assert_type_string_returns_handler_type("EditPlatformHandler", EditPlatformHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
