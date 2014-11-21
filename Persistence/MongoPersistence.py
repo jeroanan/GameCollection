@@ -46,6 +46,9 @@ class MongoPersistence(object):
         mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
         return ResultToPlatformMapper().map(mongo_result)
 
+    def update_platform(self, platform):
+        pass
+
     def update_game(self, game):
         self.__db.games.update({"_id": ObjectId(game.id)}, {"$set": game.__dict__}, upsert=False)
 

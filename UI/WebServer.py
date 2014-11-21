@@ -95,7 +95,8 @@ class WebServer(object):
 
     @cherrypy.expose
     def updateplatform(self, id, name, description):
-        pass
+        handler = self.__handler_factory.create("UpdatePlatformHandler")
+        handler.get_page(id, name, description)
 
     @cherrypy.expose
     def savehardware(self, name, platform, numowned, numboxed):

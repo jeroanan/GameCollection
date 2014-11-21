@@ -14,6 +14,7 @@ from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
+from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 
 
 class TestInteractorFactory(unittest.TestCase):
@@ -53,6 +54,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_get_platform_interactor_returns_get_platform_interactor(self):
         self.assert_factory_returns_instance_of("GetPlatformInteractor", GetPlatformInteractor)
+
+    def test_create_update_platform_interactor_returns_updaye_platform_interactor(self):
+        self.assert_factory_returns_instance_of("UpdatePlatformInteractor", UpdatePlatformInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)
