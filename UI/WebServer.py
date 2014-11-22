@@ -103,3 +103,7 @@ class WebServer(object):
     def savehardware(self, name, platform, numowned, numboxed):
         handler = self.__handler_factory.create("SaveHardwareHandler")
         return handler.get_page(name=name, platform=platform, numowned=numowned, numboxed=numboxed)
+
+    @cherrypy.expose
+    def edithardware(self, hardwareid):
+        pass
