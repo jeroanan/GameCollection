@@ -13,6 +13,7 @@ from Interactors.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
+from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
@@ -65,6 +66,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_get_hardware_details_interactor_returns_get_hardware_details_interactor(self):
         self.assert_factory_returns_instance_of("GetHardwareDetailsInteractor", GetHardwareDetailsInteractor)
+
+    def test_create_update_hardware_interactor_returns_update_hardware_interactor(self):
+        self.assert_factory_returns_instance_of("UpdateHardwareInteractor", UpdateHardwareInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

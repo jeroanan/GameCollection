@@ -66,3 +66,6 @@ class MongoPersistence(object):
 
     def save_hardware(self, hardware):
         self.__db.hardware.insert(hardware.__dict__)
+
+    def update_hardware(self, hardware):
+        pass

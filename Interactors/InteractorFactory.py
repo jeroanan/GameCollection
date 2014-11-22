@@ -11,6 +11,7 @@ from Interactors.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
+from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 
 
@@ -19,37 +20,30 @@ class InteractorFactory(object):
     def __init__(self, persistence):
         self.__persistence = persistence
 
-    def create(self, interactor_type):
-
-        if interactor_type == "AddGameInteractor":
-            return self.__initialise_interactor(AddGameInteractor())
-        elif interactor_type == "GetGamesInteractor":
-            return self.__initialise_interactor(GetGamesInteractor())
-        elif interactor_type == "GetPlatformsInteractor":
-            return self.__initialise_interactor(GetPlatformsInteractor())
-        elif interactor_type == "AddPlatformInteractor":
-            return self.__initialise_interactor(AddPlatformInteractor())
-        elif interactor_type == "GetGameInteractor":
-            return self.__initialise_interactor(GetGameInteractor())
-        elif interactor_type == "UpdateGameInteractor":
-            return self.__initialise_interactor(UpdateGameInteractor())
-        elif interactor_type == "DeleteGameInteractor":
-            return self.__initialise_interactor(DeleteGameInteractor())
-        elif interactor_type == "GetHardwareListInteractor":
-            return self.__initialise_interactor(GetHardwareListInteractor())
-        elif interactor_type == "SaveHardwareInteractor":
-            return self.__initialise_interactor(SaveHardwareInteractor())
-        elif interactor_type == "GetPlatformInteractor":
-            return self.__initialise_interactor(GetPlatformInteractor())
-        elif interactor_type == "UpdatePlatformInteractor":
-            return self.__initialise_interactor(UpdatePlatformInteractor())
-        elif interactor_type == "DeletePlatformInteractor":
-            return self.__initialise_interactor(DeletePlatformInteractor())
-        elif interactor_type == "GetHardwareDetailsInteractor":
-            return self.__initialise_interactor(GetHardwareDetailsInteractor())
-
-        raise UnrecognisedInteractorTypeException
+        self.__interactors = {
+            "AddGameInteractor": self.__initialise_interactor(AddGameInteractor()),
+            "GetGamesInteractor": self.__initialise_interactor(GetGamesInteractor()),
+            "GetPlatformsInteractor": self.__initialise_interactor(GetPlatformsInteractor()),
+            "AddPlatformInteractor": self.__initialise_interactor(AddPlatformInteractor()),
+            "GetGameInteractor": self.__initialise_interactor(GetGameInteractor()),
+            "UpdateGameInteractor":  self.__initialise_interactor(UpdateGameInteractor()),
+            "DeleteGameInteractor": self.__initialise_interactor(DeleteGameInteractor()),
+            "GetHardwareListInteractor": self.__initialise_interactor(GetHardwareListInteractor()),
+            "SaveHardwareInteractor": self.__initialise_interactor(SaveHardwareInteractor()),
+            "GetPlatformInteractor": self.__initialise_interactor(GetPlatformInteractor()),
+            "UpdatePlatformInteractor": self.__initialise_interactor(UpdatePlatformInteractor()),
+            "DeletePlatformInteractor": self.__initialise_interactor(DeletePlatformInteractor()),
+            "GetHardwareDetailsInteractor": self.__initialise_interactor(GetHardwareDetailsInteractor()),
+            "UpdateHardwareInteractor": self.__initialise_interactor(UpdateHardwareInteractor())
+        }
 
     def __initialise_interactor(self, interactor):
         interactor.persistence = self.__persistence
         return interactor
+
+    def create(self, interactor_type):
+
+        if interactor_type in self.__interactors:
+            return self.__interactors[interactor_type]
+
+        raise UnrecognisedInteractorTypeException
