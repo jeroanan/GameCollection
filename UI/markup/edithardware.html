@@ -5,13 +5,13 @@
         <h1>{{title}}</h1>
                  <form class="form-horizontal" method="post" action="updatehardware">
              <div class="form-group">
-                <label for="title">Title</label>
-                <input name="title" value="{{hardware.title}}" />
+                <label for="name">Name</label>
+                <input name="name" value="{{hardware.name}}" />
 
                 <label for="platform">Platform</label>
                 <select name="platform">
                     {% for platform in platforms %}
-                        {% if platform.name==hardwareplatform %}
+                        {% if platform.name==hardware.platform %}
                             <option value="{{platform.name}}" selected="selected">{{platform.name}}</option>
                         {% else %}
                             <option value="{{platform.name}}">{{platform.name}}</option>
@@ -21,19 +21,23 @@
              </div>
 
              <div class="form-group">
-                <label for="numcopies">Number of Copies</label>
-                <input name="numcopies" id="numcopies" type="number" class="number" value="{{hardware.num_owned}}"/>
+                <label for="numcopies">Number Owned</label>
+                <input name="numcopies" id="numcopies" type="number" class="number" value="{{hardware.numowned}}"/>
 
-                <label for="numboxed">Number of Boxed copies</label>
-                <input name="numboxed" id="numboxed" type="number" class="number" value="{{hardware.num_boxed}}">
+                <label for="numboxed">Number of Boxed Items</label>
+                <input name="numboxed" id="numboxed" type="number" class="number" value="{{hardware.numboxed}}">
 
-
+                <input type="hidden" name="id" id="id" value="{{hardware.id}}" />
             </div>
 
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" />
                 <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
                 <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
+            </div>
+            <div class="hidden" id="deleteConfirm">
+                Really delete this hardware?
+                <a href="javascript:deleteHardware();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
             </div>
         </form>
 

@@ -16,5 +16,5 @@ class TestGetHardwareDetailsInteractor(unittest.TestCase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_method(self):
-        self.__target.execute(platform_id="platformid")
+        self.__target.execute(hardware_id="platformid")
         self.__persistence.get_hardware_details.assert_called_with("platformid")

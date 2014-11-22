@@ -14,7 +14,7 @@ function hideDeleteConfirm() {
     document.getElementById("deleteConfirm").className="hidden";
 }
 
-function doDelete() {
+function deleteGame() {
     var gameId = document.getElementById("id").value;
     window.location = "/deletegame?gameid=" + gameId;
 }
@@ -22,6 +22,11 @@ function doDelete() {
 function deletePlatform() {
     var gameId = document.getElementById("id").value;
     window.location = "/deleteplatform?platformid=" + gameId;
+}
+
+function deleteHardware() {
+    var hardwareId = document.getElementById("id").value;
+    window.location = "/deletehardware?hardwareid=" + hardwareId;
 }
 
 function editGame(game_id) {

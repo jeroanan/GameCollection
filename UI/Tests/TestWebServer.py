@@ -89,10 +89,13 @@ class TestWebServer(unittest.TestCase):
         self.__handler.get_page.assert_called_with(name="name", platform="platform", numowned="numowned",
                                                  numboxed="numboxed")
 
-    def test_edithardware_calls_handler_factory(self):
-        self.__target.edithardware(hardwareid="id")
-        self.__handler_factory.create.assert_called_with("EditHardwareHandler")
-
     def test_edithardware_calls_handler_get_page(self):
         self.__target.edithardware(hardwareid="id")
         self.__handler.get_page.assert_called_with("id")
+
+    def test_updatehardware(self):
+        self.__target.updatehardware(id="id", name="name", platform="platform", numcopies="1", numboxed="0")
+
+    def test_deletehardware(self):
+        self.__target.deletehardware(hardwareid="id")
+
