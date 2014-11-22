@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" />
-                <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+                <input type="button" class="btn" value="Cancel" onclick="cancelEditPlatform()" />
                 <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
             </div>
         </form>
@@ -21,5 +21,4 @@
         Really delete this platform?
             <a href="javascript:doDelete();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
         </div>
-        <script type="text/javascript" src="/static/js/editplatform.js" defer="defer"></script>
 {% endblock %}

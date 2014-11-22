@@ -60,5 +60,9 @@ class MongoPersistence(object):
     def get_hardware_list(self):
         return map((ResultToHardwareMapper()).map, self.__db.hardware.find())
 
+    def get_hardware_details(self, platform_id):
+        pass
+
+
     def save_hardware(self, hardware):
         self.__db.hardware.insert(hardware.__dict__)

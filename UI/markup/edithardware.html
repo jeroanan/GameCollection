@@ -1,15 +1,17 @@
-{%extends 'master.html' %}
-        {% block content %}
+{% extends "master.html" %}
+
+{% block content %}
+
         <h1>{{title}}</h1>
-         <form class="form-horizontal" method="post" action="updategame">
+                 <form class="form-horizontal" method="post" action="updatehardware">
              <div class="form-group">
                 <label for="title">Title</label>
-                <input name="title" value="{{game.title}}" />
+                <input name="title" value="{{hardware.title}}" />
 
                 <label for="platform">Platform</label>
                 <select name="platform">
                     {% for platform in platforms %}
-                        {% if platform.name==game.platform %}
+                        {% if platform.name==hardwareplatform %}
                             <option value="{{platform.name}}" selected="selected">{{platform.name}}</option>
                         {% else %}
                             <option value="{{platform.name}}">{{platform.name}}</option>
@@ -20,14 +22,12 @@
 
              <div class="form-group">
                 <label for="numcopies">Number of Copies</label>
-                <input name="numcopies" id="numcopies" type="number" class="number" value="{{game.num_copies}}"/>
+                <input name="numcopies" id="numcopies" type="number" class="number" value="{{hardware.num_owned}}"/>
 
                 <label for="numboxed">Number of Boxed copies</label>
-                <input name="numboxed" id="numboxed" type="number" class="number" value="{{game.num_boxed}}">
+                <input name="numboxed" id="numboxed" type="number" class="number" value="{{hardware.num_boxed}}">
 
-                <label for="nummanuals">Number of copies with manual</label>
-                <input name="nummanuals" id="nummanuals" type="number" class="number" value="{{game.num_manuals}}">
-                <input type="hidden" id="id" name="id" value="{{game.id}}" />
+
             </div>
 
             <div class="form-group">
@@ -36,13 +36,5 @@
                 <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
             </div>
         </form>
-        <div class="hidden" id="deleteConfirm">
-        Really delete this game?
-            <a href="javascript:doDelete()">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm()">No</a>
-        </div>
-        <style type="text/css" scoped="scoped">
-            input.number {
-                width: 60px;
-            }
-        </style>
-        {% endblock %}
+
+{% endblock %}

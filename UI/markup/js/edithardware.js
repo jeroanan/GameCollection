@@ -1,3 +1,0 @@
-function cancelEdit() {
-    window.location = "/";
-}

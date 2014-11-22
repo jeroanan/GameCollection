@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
+from Interactors.GetHardwareInteractor import GetHardwareDetailsInteractor
 
 from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.AddGameInteractor import AddGameInteractor
@@ -61,6 +62,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_delete_platform_interactor_returns_delete_platform_interactor(self):
         self.assert_factory_returns_instance_of("DeletePlatformInteractor", DeletePlatformInteractor)
+
+    def test_create_get_hardware_details_interactor_returns_get_hardware_details_interactor(self):
+        self.assert_factory_returns_instance_of("GetHardwareDetailsInteractor", GetHardwareDetailsInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

@@ -7,6 +7,7 @@ from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditHandler import EditHandler
+from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
@@ -67,6 +68,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_delete_platform_handler_returns_delete_platform_handler(self):
         self.__assert_type_string_returns_handler_type("DeletePlatformHandler", DeletePlatformHandler)
+
+    def test_edit_hardware_handler_returns_edit_hardware_handler(self):
+        self.__assert_type_string_returns_handler_type("EditHardwareHandler", EditHardwareHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

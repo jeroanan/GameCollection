@@ -106,4 +106,5 @@ class WebServer(object):
 
     @cherrypy.expose
     def edithardware(self, hardwareid):
-        pass
+        handler = self.__handler_factory.create("EditHardwareHandler")
+        return handler.get_page(hardwareid)
