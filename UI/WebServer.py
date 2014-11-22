@@ -91,7 +91,8 @@ class WebServer(object):
 
     @cherrypy.expose
     def deleteplatform(self, platformid):
-        pass
+        handler = self.__handler_factory.create("DeletePlatformHandler")
+        handler.get_page(platformid)
 
     @cherrypy.expose
     def updateplatform(self, id, name, description):

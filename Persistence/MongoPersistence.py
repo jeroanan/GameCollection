@@ -32,22 +32,24 @@ class MongoPersistence(object):
         return map((ResultToGameMapper()).map, self.__db.games.find())
 
     def get_game(self, game_id):
-        games = self.__db.games
-        cursor = games.find_one({"_id": ObjectId(game_id)})
+        cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})
         return (ResultToGameMapper()).map(cursor)
 
     def get_platforms(self):
         return map(ResultToPlatformMapper().map, self.__db.platforms.find())
 
-    def add_platform(self, platform):
-        self.__db.platforms.insert(platform.__dict__)
-
     def get_platform(self, platform_id):
         mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
         return ResultToPlatformMapper().map(mongo_result)
 
+    def add_platform(self, platform):
+        self.__db.platforms.insert(platform.__dict__)
+
     def update_platform(self, platform):
-        pass
+        self.__db.platforms.update({"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
+
+    def delete_platform(self, platform):
+        self.__db.platforms.remove({"_id": ObjectId(platform.id)})
 
     def update_game(self, game):
         self.__db.games.update({"_id": ObjectId(game.id)}, {"$set": game.__dict__}, upsert=False)

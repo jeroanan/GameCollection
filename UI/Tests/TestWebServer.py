@@ -58,9 +58,13 @@ class TestWebServer(unittest.TestCase):
     def test_deleteplatform(self):
         self.__target.deleteplatform(platformid="id")
 
-    def test_updateplatform_calls_handler_factory(self):
-        self.__target.updateplatform(id="id", name="name", description="description")
-        self.__handler_factory.create.assert_called_with("UpdatePlatformHandler")
+    def test_deleteplatform_calls_handler_factory(self):
+        self.__target.deleteplatform(platformid="id")
+        self.__handler_factory.create.assert_called_with("DeletePlatformHandler")
+
+    def test_deleteplatform_calls_handler_get_page(self):
+        self.__target.deleteplatform(platformid="id")
+        self.__handler.get_page.assert_called_with("id")
 
     def test_updateplatform_calls_handler_get_page(self):
         self.__target.updateplatform(id="id", name="name", description="description")

@@ -5,6 +5,7 @@ from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
+from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditHandler import EditHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.HandlerFactory import HandlerFactory
@@ -13,6 +14,7 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
@@ -59,6 +61,12 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_edit_platform_handler_returns_edit_platform_handler(self):
         self.__assert_type_string_returns_handler_type("EditPlatformHandler", EditPlatformHandler)
+
+    def test_update_platform_handler_returns_update_platform_handler(self):
+        self.__assert_type_string_returns_handler_type("UpdatePlatformHandler", UpdatePlatformHandler)
+
+    def test_delete_platform_handler_returns_delete_platform_handler(self):
+        self.__assert_type_string_returns_handler_type("DeletePlatformHandler", DeletePlatformHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
