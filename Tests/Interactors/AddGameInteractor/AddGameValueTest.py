@@ -8,9 +8,9 @@ from Persistence.MongoPersistence import MongoPersistence
 class AddGameValueTest(unittest.TestCase):
 
     def setUp(self):
-        self.__persistence = Mock(MongoPersistence)
+        self.persistence = Mock(MongoPersistence)
         self.target = AddGameInteractor()
-        self.target.persistence = self.__persistence
+        self.target.persistence = self.persistence
 
     def get_game(self, game_id="", title="", platform="", num_copies=0, num_boxed=0, num_manuals=0):
         game = Game()
