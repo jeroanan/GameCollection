@@ -118,4 +118,5 @@ class WebServer(object):
 
     @cherrypy.expose
     def deletehardware(self, hardwareid):
-        pass
+        handler = self.__handler_factory.create("DeleteHardwareHandler")
+        handler.get_page(hardware_id=hardwareid)

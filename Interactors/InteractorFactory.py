@@ -1,3 +1,4 @@
+from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetHardwareInteractor import GetHardwareDetailsInteractor
 from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
@@ -34,7 +35,8 @@ class InteractorFactory(object):
             "UpdatePlatformInteractor": self.__initialise_interactor(UpdatePlatformInteractor()),
             "DeletePlatformInteractor": self.__initialise_interactor(DeletePlatformInteractor()),
             "GetHardwareDetailsInteractor": self.__initialise_interactor(GetHardwareDetailsInteractor()),
-            "UpdateHardwareInteractor": self.__initialise_interactor(UpdateHardwareInteractor())
+            "UpdateHardwareInteractor": self.__initialise_interactor(UpdateHardwareInteractor()),
+            "DeleteHardwareInteractor": self.__initialise_interactor(DeleteHardwareInteractor())
         }
 
     def __initialise_interactor(self, interactor):

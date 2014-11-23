@@ -107,3 +107,12 @@ class TestWebServer(unittest.TestCase):
     def test_deletehardware(self):
         self.__target.deletehardware(hardwareid="id")
 
+    def test_deletehardware_calls_handler_factory(self):
+        self.__target.deletehardware(hardwareid="id")
+        self.__handler_factory.create.assert_called_with("DeleteHardwareHandler")
+
+    def test_delete_hardware_calls_handler(self):
+        self.__target.deletehardware(hardwareid="id")
+        self.__handler.get_page.assert_called_with(hardware_id="id")
+
+

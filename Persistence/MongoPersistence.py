@@ -69,3 +69,6 @@ class MongoPersistence(object):
 
     def update_hardware(self, hardware):
         self.__db.hardware.update({"_id": ObjectId(hardware.id)}, {"$set": hardware.__dict__}, upsert=False)
+
+    def delete_hardware(self, hardware_id):
+        self.__db.hardware.remove({"_id": ObjectId(hardware_id)})

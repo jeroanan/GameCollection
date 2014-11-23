@@ -7,26 +7,23 @@ function cancelEditPlatform() {
 }
 
 function showDeleteConfirm() {
-    document.getElementById("deleteConfirm").className="text-danger";
+    $("#deleteConfirm").addClass("text-danger").removeClass("hidden");
 }
 
 function hideDeleteConfirm() {
-    document.getElementById("deleteConfirm").className="hidden";
+    $("#deleteConfirm").addClass("hidden").removeClass("text-danger");
 }
 
 function deleteGame() {
-    var gameId = document.getElementById("id").value;
-    window.location = "/deletegame?gameid=" + gameId;
+    window.location = "/deletegame?gameid=" + $("#id").val();
 }
 
 function deletePlatform() {
-    var gameId = document.getElementById("id").value;
-    window.location = "/deleteplatform?platformid=" + gameId;
+    window.location = "/deleteplatform?platformid=" + $("#id").val();
 }
 
 function deleteHardware() {
-    var hardwareId = document.getElementById("id").value;
-    window.location = "/deletehardware?hardwareid=" + hardwareId;
+    window.location = "/deletehardware?hardwareid=" + $("#id").val();
 }
 
 function editGame(game_id) {
