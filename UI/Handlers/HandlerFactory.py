@@ -22,39 +22,28 @@ class HandlerFactory(object):
     def __init__(self, interactor_factory, renderer):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
+        self.__handlers = {
+            "IndexHandler": IndexHandler(self.__interactor_factory, self.__renderer),
+            "SaveGameHandler": SaveGameHandler(self.__interactor_factory, self.__renderer),
+            "AddGameHandler": AddGameHandler(self.__interactor_factory, self.__renderer),
+            "AddHardwareHandler": AddHardwareHandler(self.__interactor_factory, self.__renderer),
+            "PlatformsHandler": PlatformsHandler(self.__interactor_factory, self.__renderer),
+            "AddPlatformHandler": AddPlatformHandler(self.__interactor_factory, self.__renderer),
+            "EditGameHandler": EditHandler(self.__interactor_factory, self.__renderer),
+            "UpdateGameHandler": UpdateGameHandler(self.__interactor_factory, self.__renderer),
+            "DeleteGameHandler": DeleteGameHandler(self.__interactor_factory, self.__renderer),
+            "SaveHardwareHandler": SaveHardwareHandler(self.__interactor_factory, self.__renderer),
+            "EditPlatformHandler": EditPlatformHandler(self.__interactor_factory, self.__renderer),
+            "UpdatePlatformHandler": UpdatePlatformHandler(self.__interactor_factory, self.__renderer),
+            "DeletePlatformHandler": DeletePlatformHandler(self.__interactor_factory, self.__renderer),
+            "EditHardwareHandler": EditHardwareHandler(self.__interactor_factory, self.__renderer),
+            "UpdateHardwareHandler": UpdateHardwareHandler(self.__interactor_factory, self.__renderer),
+            "DeleteHardwareHandler": DeleteHardwareHandler(self.__interactor_factory, self.__renderer)
+        }
 
     def create(self, handler_type):
-        if handler_type == "IndexHandler":
-            return IndexHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "SaveGameHandler":
-            return SaveGameHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "AddGameHandler":
-            return AddGameHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "AddHardwareHandler":
-            return AddHardwareHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "PlatformsHandler":
-            return PlatformsHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "AddPlatformHandler":
-            return AddPlatformHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "EditGameHandler":
-            return EditHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "UpdateGameHandler":
-            return UpdateGameHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "DeleteGameHandler":
-            return DeleteGameHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "SaveHardwareHandler":
-            return SaveHardwareHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "EditPlatformHandler":
-            return EditPlatformHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "UpdatePlatformHandler":
-            return UpdatePlatformHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "DeletePlatformHandler":
-            return DeletePlatformHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "EditHardwareHandler":
-            return EditHardwareHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "UpdateHardwareHandler":
-            return UpdateHardwareHandler(self.__interactor_factory, self.__renderer)
-        if handler_type == "DeleteHardwareHandler":
-            return DeleteHardwareHandler(self.__interactor_factory, self.__renderer)
+
+        if handler_type in self.__handlers:
+            return self.__handlers[handler_type]
 
         raise UnrecognisedHandlerException
