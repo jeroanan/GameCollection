@@ -4,7 +4,7 @@
     <form class="form-horizontal" method="post" action="savegame">
                 <div class="form-group">
             <label for="title">Title</label>
-            <input name="title" placeholder="Title" />
+            <input name="title" placeholder="Title" required="required" />
 
             <label for="platform">Platform</label>
             <select name="platform">
@@ -16,13 +16,13 @@
 
         <div class="form-group">
             <label for="numcopies">Number of Copies</label>
-            <input name="numcopies" id="numcopies" type="number" class="number" value="1" min="0" />
+            <input name="numcopies" id="numcopies" type="number" class="number" value="1" min="0" required="required" />
 
             <label for="numboxed">Number of Boxed copies</label>
-            <input name="numboxed" id="numboxed" type="number" class="number" value="0" min="0">
+            <input name="numboxed" id="numboxed" type="number" class="number" value="0" min="0" required="required">
 
             <label for="nummanuals">Number of copies with manual</label>
-            <input name="nummanuals" id="nummanuals" type="number" class="number" value="0" min="0">
+            <input name="nummanuals" id="nummanuals" type="number" class="number" value="0" min="0" required="required">
         </div>
 
         <div class="form-group">

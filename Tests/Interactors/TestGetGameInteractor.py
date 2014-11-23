@@ -7,13 +7,17 @@ from Persistence.MongoPersistence import MongoPersistence
 
 class TestGetGameInteractor(unittest.TestCase):
 
+    def setUp(self):
+        self.__target = GetGameInteractor()
+        self.__persistence = Mock(MongoPersistence)
+        self.__target.persistence = self.__persistence
+
     def test_is_instance_of_interactor(self):
-        target = GetGameInteractor()
-        self.assertIsInstance(target, Interactor)
+        self.assertIsInstance(self.__target, Interactor)
+
+    def test_execute_with_none_game_id_raises_type_error(self):
+        self.assertRaises(TypeError, self.__target.execute, None)
 
     def test_execute_calls_persistence(self):
-        target = GetGameInteractor()
-        persistence = Mock(MongoPersistence)
-        target.persistence = persistence
-        target.execute(game_id="gameid")
-        self.assertTrue(persistence.get_game.called)
+        self.__target.execute(game_id="gameid")
+        self.__persistence.get_game.assert_called_with("gameid")
