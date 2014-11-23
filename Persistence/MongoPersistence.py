@@ -68,4 +68,4 @@ class MongoPersistence(object):
         self.__db.hardware.insert(hardware.__dict__)
 
     def update_hardware(self, hardware):
-        pass
+        self.__db.hardware.update({"_id": ObjectId(hardware.id)}, {"$set": hardware.__dict__}, upsert=False)

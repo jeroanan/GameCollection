@@ -11,6 +11,7 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
@@ -50,5 +51,7 @@ class HandlerFactory(object):
             return DeletePlatformHandler(self.__interactor_factory, self.__renderer)
         if handler_type == "EditHardwareHandler":
             return EditHardwareHandler(self.__interactor_factory, self.__renderer)
+        if handler_type == "UpdateHardwareHandler":
+            return UpdateHardwareHandler(self.__interactor_factory, self.__renderer)
 
         raise UnrecognisedHandlerException
