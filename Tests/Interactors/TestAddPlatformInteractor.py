@@ -1,17 +1,17 @@
-import unittest
-from unittest.mock import Mock
 from Interactors.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.Interactor import Interactor
-from Persistence.MongoPersistence import MongoPersistence
 from Platform import Platform
+from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
-class TestAddPlatformInteractor(unittest.TestCase):
+class TestAddPlatformInteractor(InteractorTestBase):
 
     def setUp(self):
-        self.__persistence = Mock(MongoPersistence)
+        super().setUp()
         self.__target = AddPlatformInteractor()
-        self.__target.persistence = self.__persistence
+        self.__target.persistence = self.persistence
+        self.__target.validate_string_field = self.validate_string_field
+        self.__target.validate_integer_field = self.validate_integer_field
 
     def test_is_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
@@ -20,29 +20,14 @@ class TestAddPlatformInteractor(unittest.TestCase):
         self.assertRaises(TypeError, self.__target.execute, None)
 
     def test_execute_with_non_blank_id_raises_value_error(self):
-        platform = Platform()
-        platform.id = "id"
-        platform.name = "platform"
-        self.assertRaises(ValueError, self.__target.execute, platform)
+        self.assertRaises(ValueError, self.__target.execute, self.get_platform(platform_id="id"))
 
-    def test_execute_with_none_platform_name_raises_value_error(self):
-        platform = self.__get_platform(None)
-        self.assertRaises(ValueError, self.__target.execute, platform)
-
-    def test_execute_with_empty_platform_name_raises_value_error(self):
-        platform = self.__get_platform(name="")
-        self.assertRaises(ValueError, self.__target.execute, platform)
-
-    def test_execute_with_whitespace_platform_name_raises_value_error(self):
-        platform = self.__get_platform(name=" ")
-        self.assertRaises(ValueError, self.__target.execute, platform)
+    def test_execute_validates_platform_name_field(self):
+        platform = self.get_platform(name="")
+        self.__target.execute(platform)
+        self.assertTrue(self.validate_string_field_was_called_with("Platform name", platform.name))
 
     def test_execute_calls_persistence(self):
-        platform = self.__get_platform(name="platform")
-        self.__target.execute(platform)
-        self.assertTrue(self.__persistence.add_platform.called)
+        self.__target.execute(self.get_platform(name="platform"))
+        self.assertTrue(self.persistence.add_platform.called)
 
-    def __get_platform(self, name=""):
-        platform = Platform()
-        platform.name = name
-        return platform

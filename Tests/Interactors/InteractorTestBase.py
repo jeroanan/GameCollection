@@ -1,11 +1,11 @@
 import unittest
-from unittest.mock import Mock
+from mock import Mock
 from Game import Game
-from Interactors.AddGameInteractor import AddGameInteractor
 from Persistence.MongoPersistence import MongoPersistence
+from Platform import Platform
 
 
-class AddGameValueTest(unittest.TestCase):
+class InteractorTestBase(unittest.TestCase):
 
     def setUp(self):
         self.__validated_integer_field_names = []
@@ -13,10 +13,6 @@ class AddGameValueTest(unittest.TestCase):
         self.__validated_string_field_names = []
         self.__validated_string_field_values = []
         self.persistence = Mock(MongoPersistence)
-        self.target = AddGameInteractor()
-        self.target.persistence = self.persistence
-        self.target.validate_integer_field = self.validate_integer_field
-        self.target.validate_string_field = self.validate_string_field
 
     def validate_integer_field(self, field_name, field_value):
         self.__validated_integer_field_names.append(field_name)
@@ -43,3 +39,9 @@ class AddGameValueTest(unittest.TestCase):
         game.num_boxed = num_boxed
         game.num_manuals = num_manuals
         return game
+
+    def get_platform(self, platform_id="", name=""):
+        platform = Platform()
+        platform.id = platform_id
+        platform.name = name
+        return platform
