@@ -7,7 +7,7 @@
                 <input name="title" value="{{game.title}}" />
 
                 <label for="platform">Platform</label>
-                <select name="platform">
+                <select name="platform" required="required">
                     {% for platform in platforms %}
                         {% if platform.name==game.platform %}
                             <option value="{{platform.name}}" selected="selected">{{platform.name}}</option>

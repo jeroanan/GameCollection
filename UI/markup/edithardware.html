@@ -6,10 +6,10 @@
                  <form class="form-horizontal" method="post" action="updatehardware">
              <div class="form-group">
                 <label for="name">Name</label>
-                <input name="name" value="{{hardware.name}}" />
+                <input name="name" value="{{hardware.name}}" type="text" required="required" />
 
                 <label for="platform">Platform</label>
-                <select name="platform">
+                <select name="platform" required="required">
                     {% for platform in platforms %}
                         {% if platform.name==hardware.platform %}
                             <option value="{{platform.name}}" selected="selected">{{platform.name}}</option>
@@ -22,10 +22,12 @@
 
              <div class="form-group">
                 <label for="numcopies">Number Owned</label>
-                <input name="numcopies" id="numcopies" type="number" class="number" value="{{hardware.numowned}}"/>
+                <input name="numcopies" id="numcopies" type="number" class="number" value="{{hardware.numowned}}"
+                       required="required" min="0"/>
 
                 <label for="numboxed">Number of Boxed Items</label>
-                <input name="numboxed" id="numboxed" type="number" class="number" value="{{hardware.numboxed}}">
+                <input name="numboxed" id="numboxed" type="number" class="number" value="{{hardware.numboxed}}"
+                        required="required" min="0">
 
                 <input type="hidden" name="id" id="id" value="{{hardware.id}}" />
             </div>

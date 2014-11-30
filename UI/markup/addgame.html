@@ -7,7 +7,7 @@
             <input name="title" placeholder="Title" required="required" />
 
             <label for="platform">Platform</label>
-            <select name="platform">
+            <select name="platform" required="required">
                 {% for platform in platforms %}
                     <option value="{{platform.name}}">{{platform.name}}</option>
                 {% endfor %}
