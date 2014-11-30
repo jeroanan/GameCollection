@@ -10,11 +10,13 @@ class AddGameValueTest(unittest.TestCase):
     def setUp(self):
         self.__validated_integer_field_names = []
         self.__validated_integer_field_values = []
-
+        self.__validated_string_field_names = []
+        self.__validated_string_field_values = []
         self.persistence = Mock(MongoPersistence)
         self.target = AddGameInteractor()
         self.target.persistence = self.persistence
         self.target.validate_integer_field = self.validate_integer_field
+        self.target.validate_string_field = self.validate_string_field
 
     def validate_integer_field(self, field_name, field_value):
         self.__validated_integer_field_names.append(field_name)
@@ -23,6 +25,14 @@ class AddGameValueTest(unittest.TestCase):
     def validate_integer_field_was_called_with(self, field_name, field_value):
         return (field_name in self.__validated_integer_field_names and
                 field_value in self.__validated_integer_field_values)
+
+    def validate_string_field(self, field_name, field_value):
+        self.__validated_string_field_names.append(field_name)
+        self.__validated_string_field_values.append(field_value)
+
+    def validate_string_field_was_called_with(self, field_name, field_value):
+        return (field_name in self.__validated_string_field_names and
+                field_value in self.__validated_string_field_values)
 
     def get_game(self, game_id="", title="title", platform="platform", num_copies=0, num_boxed=0, num_manuals=0):
         game = Game()

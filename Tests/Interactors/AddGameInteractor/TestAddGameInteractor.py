@@ -29,3 +29,11 @@ class TestAddGameInteractor(AddGameValueTest):
     def test_execute_with_game_id_raises_value_error(self):
         game = self.get_game(game_id="id")
         self.assertRaises(ValueError, self.target.execute, game)
+
+    def test_execute_validates_platform_field(self):
+        self.target.execute(self.get_game(platform="platform"))
+        self.assertTrue(self.validate_string_field_was_called_with("Platform", "platform"))
+
+    def test_execute_validates_game_title_field(self):
+        self.target.execute(self.get_game(title="title"))
+        self.assertTrue(self.validate_string_field_was_called_with("Game title", "title"))
