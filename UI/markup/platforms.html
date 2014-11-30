@@ -1,7 +1,7 @@
 {%extends 'master.html'%}
         {%block content%}
-        <h1>{{title}}</h1>
-        <h2>My Platforms</h2>
+        <h1 class="page-header">{{title}}</h1>
+        <h2 class="page-header">My Platforms</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -20,7 +20,8 @@
                 {%endfor%}
             </tbody>
         </table>
-        <h2>Add Platform</h2>
+
+        <h2 class="page-header">Add Platform</h2>
         <form action="addplatform" method="post" class="form-horizontal">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -30,4 +31,6 @@
                 <input class="btn-primary" type="submit" value="Add" />
             </div>
         </form>
+
+        <h2 class="page-header">Suggested Platforms</h2>
         {%endblock%}
