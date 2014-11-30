@@ -10,5 +10,4 @@ class DeletePlatformInteractor(Interactor):
     def __validate(self, platform):
         if platform is None:
             raise TypeError("platform")
-        if platform.id is None or platform.id.strip() == "":
-            raise ValueError("Platform id must be supplied")
+        self.validate_string_field("Platform id", platform.id)

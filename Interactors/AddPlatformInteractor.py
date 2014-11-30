@@ -12,5 +12,4 @@ class AddPlatformInteractor(Interactor):
             raise TypeError("platform")
         if len(platform.id) > 0:
             raise ValueError("Id must be blank when adding a new platform")
-        if platform.name is None or platform.name.strip() == "":
-            raise ValueError("Platform name must have a value")
+        self.validate_string_field("Platform name", platform.name)

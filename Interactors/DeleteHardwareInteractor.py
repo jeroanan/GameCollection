@@ -10,5 +10,4 @@ class DeleteHardwareInteractor(Interactor):
     def __validate(self, hardware_id):
         if hardware_id is None:
             raise TypeError("hardware_id")
-        if hardware_id.strip() == "":
-            raise ValueError("Hardware id must be set")
+        self.validate_string_field("Hardware id", hardware_id)

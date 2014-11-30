@@ -10,5 +10,4 @@ class DeleteGameInteractor(Interactor):
     def __validate(self, game):
         if game is None:
             raise TypeError("game")
-        if game.id is None or game.id.strip() == "":
-            raise ValueError("Game id must be set")
+        self.validate_string_field("Game id", game.id)
