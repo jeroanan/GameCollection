@@ -44,12 +44,26 @@ class TestSaveHardwareInteractor(unittest.TestCase):
     def test_execute_with_whitespace_platform_name_raises_value_error(self):
         self.__assert_value_error(self.__get_hardware(platform=" "))
 
+    def test_execute_with_none_numowned_raises_value_error(self):
+        self.__assert_value_error(self.__get_hardware(num_owned=None))
+
+    def test_execute_with_string_numowned_raises_value_error(self):
+        self.__assert_value_error(self.__get_hardware(num_owned="wrong"))
+
+    def test_execute_with_none_numboxed_raises_value_error(self):
+        self.__assert_value_error(self.__get_hardware(num_boxed=None))
+
+    def test_execute_with_string_numboxed_raises_value_error(self):
+        self.__assert_value_error(self.__get_hardware(num_boxed="wrong"))
+
     def __assert_value_error(self, hardware):
         self.assertRaises(ValueError, self.__target.execute, hardware)
 
-    def __get_hardware(self, hardware_id="", name="name", platform="platform"):
+    def __get_hardware(self, hardware_id="", name="name", platform="platform", num_owned=0, num_boxed=0):
         hardware = Hardware()
         hardware.id = hardware_id
         hardware.name = name
         hardware.platform = platform
+        hardware.numowned = num_owned
+        hardware.numboxed = num_boxed
         return hardware

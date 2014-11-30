@@ -41,8 +41,6 @@ class AddGameInteractor(Interactor):
         self.__validate_integer_field("Number of manuals", game.num_manuals)
 
     def __validate_integer_field(self, field_name, field_value):
-        if str(field_value).strip() == "":
-            raise ValueError("%s must have a value" % field_name)
         if not str(field_value).isdigit():
             raise ValueError("%s must be a number" % field_name)
 

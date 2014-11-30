@@ -16,3 +16,7 @@ class SaveHardwareInteractor(Interactor):
             raise ValueError("Hardware name must be set")
         if hardware.platform is None or hardware.platform.strip() == "":
             raise ValueError("Platform must be set")
+        if not str(hardware.numowned).isdigit():
+            raise ValueError("Number owned must be set")
+        if not str(hardware.numboxed).isdigit():
+            raise ValueError("Number boxed must be set")
