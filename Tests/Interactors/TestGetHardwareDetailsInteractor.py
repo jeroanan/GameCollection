@@ -1,16 +1,14 @@
-import unittest
-from unittest.mock import Mock
 from Interactors.GetHardwareInteractor import GetHardwareDetailsInteractor
 from Interactors.Interactor import Interactor
-from Persistence.MongoPersistence import MongoPersistence
+from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
-class TestGetHardwareDetailsInteractor(unittest.TestCase):
+class TestGetHardwareDetailsInteractor(InteractorTestBase):
 
     def setUp(self):
-        self.__persistence = Mock(MongoPersistence)
+        super().setUp()
         self.__target = GetHardwareDetailsInteractor()
-        self.__target.persistence = self.__persistence
+        self.__target.persistence = self.persistence
 
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
@@ -20,4 +18,4 @@ class TestGetHardwareDetailsInteractor(unittest.TestCase):
 
     def test_execute_calls_persistence_method(self):
         self.__target.execute(hardware_id="platformid")
-        self.__persistence.get_hardware_details.assert_called_with("platformid")
+        self.persistence.get_hardware_details.assert_called_with("platformid")

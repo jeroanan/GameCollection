@@ -1,6 +1,7 @@
 import unittest
 from mock import Mock
 from Game import Game
+from Hardware import Hardware
 from Persistence.MongoPersistence import MongoPersistence
 from Platform import Platform
 
@@ -45,3 +46,12 @@ class InteractorTestBase(unittest.TestCase):
         platform.id = platform_id
         platform.name = name
         return platform
+
+    def get_hardware(self, hardware_id="", name="name", platform="platform", num_owned=0, num_boxed=0):
+        hardware = Hardware()
+        hardware.id = hardware_id
+        hardware.name = name
+        hardware.platform = platform
+        hardware.numowned = num_owned
+        hardware.numboxed = num_boxed
+        return hardware

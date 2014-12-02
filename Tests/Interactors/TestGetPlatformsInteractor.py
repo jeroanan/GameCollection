@@ -1,19 +1,19 @@
-import unittest
-from unittest.mock import Mock
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.Interactor import Interactor
-from Persistence.MongoPersistence import MongoPersistence
+from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
-class TestGetPlatformsInteractor(unittest.TestCase):
+class TestGetPlatformsInteractor(InteractorTestBase):
 
-    def test_execute_calls_persistence(self):
-        persistence = Mock(MongoPersistence)
-        target = GetPlatformsInteractor()
-        target.persistence = persistence
-        target.execute()
-        self.assertTrue(persistence.get_platforms.called)
+    def setUp(self):
+        super().setUp()
+        self.__target = GetPlatformsInteractor()
+        self.__target.persistence = self.persistence
 
     def test_is_interactor(self):
-        target = GetPlatformsInteractor()
-        self.assertIsInstance(target, Interactor)
+        self.__target = GetPlatformsInteractor()
+        self.assertIsInstance(self.__target, Interactor)
+
+    def test_execute_calls_persistence(self):
+        self.__target.execute()
+        self.assertTrue(self.persistence.get_platforms.called)

@@ -1,24 +1,22 @@
-import unittest
-from unittest.mock import Mock
 from Game import Game
 from Interactors.Interactor import Interactor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
-from Persistence.MongoPersistence import MongoPersistence
+from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
-class TestUpdateGameInteractor(unittest.TestCase):
+class TestUpdateGameInteractor(InteractorTestBase):
 
     def setUp(self):
+        super().setUp()
         self.__target = UpdateGameInteractor()
-        self.__persistence = Mock(MongoPersistence)
-        self.__target.persistence = self.__persistence
+        self.__target.persistence = self.persistence
 
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_method(self):
         self.__target.execute(self.__get_game())
-        self.assertTrue(self.__persistence.update_game.called)
+        self.assertTrue(self.persistence.update_game.called)
 
     def test_execute_with_null_game_raises_type_error(self):
         self.assertRaises(TypeError, self.__target.execute, None)

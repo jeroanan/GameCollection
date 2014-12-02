@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import Mock
 
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.Interactor import Interactor
