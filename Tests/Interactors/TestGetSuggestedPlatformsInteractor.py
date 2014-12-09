@@ -45,6 +45,11 @@ class TestGetSuggestedPlatformsInteractor(InteractorTestBase):
         result = target.execute()
         self.assertEqual(1, len(result))
 
+    def test_execute_sorts_platforms_by_name(self):
+        result = self.__target.execute()
+        self.assertEqual("1", result[0].name)
+        self.assertEqual("2", result[1].name)
+
     def __get_suggested_platforms(self):
         self.__get_called = True
         platforms = []
@@ -52,8 +57,8 @@ class TestGetSuggestedPlatformsInteractor(InteractorTestBase):
         p1.name = "1"
         p2 = Platform
         p2.name = "2"
-        platforms.append(p1)
         platforms.append(p2)
+        platforms.append(p1)
         return platforms
 
     def __get_stored_platforms(self):

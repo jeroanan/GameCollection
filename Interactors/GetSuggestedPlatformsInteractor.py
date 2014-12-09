@@ -24,4 +24,4 @@ class GetSuggestedPlatformsInteractor(Interactor):
                 continue
             result.append(suggested_platform)
 
-        return result
+        return sorted(result, key=lambda x: x.name)

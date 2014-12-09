@@ -1,23 +1,18 @@
+import json
 from Platform import Platform
 
 
 class SuggestedPlatforms(object):
-
     def __init__(self):
-        self.__data = [
-            {
-                "Name": "Nintendo Entertainment System",
-                "Description": "Nintendo NES"
-            },
-            {
-                "Name": "Sega Megadrive",
-                "Description": "Sega Megadrive/Genesis"
-            }
-        ]
+        with open("Data/SuggestedPlatforms.json") as f:
+            data = json.load(f)
+            self.__data = data["platforms"]
 
     def get(self):
+        platforms = []
         for item in self.__data:
             platform = Platform()
-            platform.name = item["Name"]
-            platform.description = item["Description"]
-            yield platform
+            platform.name = item["name"]
+            platform.description = item["description"]
+            platforms.append(platform)
+        return platforms

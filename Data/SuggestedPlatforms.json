@@ -1,0 +1,74 @@
+{
+  "platforms":
+          [
+            {
+              "name": "Nintendo Entertainment System",
+              "description": "Nintendo NES"
+            },
+            {
+              "name": "Sega Megadrive",
+              "description": "Sega Megadrive/Genesis"
+            },
+            {
+              "name": "Nintendo Gameboy",
+              "description": "Original Gameboy"
+            },
+            {
+              "name": "Nintendo Gameboy Color",
+              "description": "Gameboy Color"
+            },
+            {
+              "name": "Nintendo Gameboy Advance",
+              "description": "Gameboy Advance"
+            },
+            {
+              "name": "Sega Game Gear",
+              "description": "Game Gear"
+            },
+            {
+              "name": "Atari 2600",
+              "description": "Atari 2600"
+            },
+            {
+              "name": "Nintendo N64",
+              "description": "N64"
+            },
+            {
+              "name": "SNK Neo Geo Pocket Color",
+              "description": "Neo Geo Pocket Color"
+            },
+            {
+              "name": "SNK Neo Geo X",
+              "description": "Neo Geo X"
+            },
+            {
+              "name": "Sony PlayStation",
+              "description": "PS1"
+            },
+            {
+              "name": "Sony PlayStation 2",
+              "description": "PS2"
+            },
+            {
+              "name": "Sega Master System",
+              "description": "Master System"
+            },
+            {
+              "name": "Windows PC",
+              "description": "PC Running Microsoft Windows"
+            },
+            {
+              "name": "Linux PC",
+              "description": "PC Running Linux"
+            },
+            {
+              "name": "DOS PC",
+              "description": "PC Running MS-DOS"
+            },
+            {
+              "name": "Android",
+              "description": "Mobile devices running Android"
+            }
+
+          ]
+}
