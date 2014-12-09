@@ -21,6 +21,30 @@
             </tbody>
         </table>
 
+        <h2 class="page-header">Suggested Platforms</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for platform in suggested_platforms%}
+                <tr>
+                    <td>{{platform.name}}</td>
+                    <td>{{platform.description}}</td>
+                    <td>
+                        <button class="btn btn-success"
+                                onclick="addSuggestedPlatform('{{platform.name}}', '{{platform.description}}');">Add
+                        </button>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
         <h2 class="page-header">Add Platform</h2>
         <form action="addplatform" method="post" class="form-horizontal">
             <div class="form-group">
@@ -32,5 +56,5 @@
             </div>
         </form>
 
-        <h2 class="page-header">Suggested Platforms</h2>
+
         {%endblock%}

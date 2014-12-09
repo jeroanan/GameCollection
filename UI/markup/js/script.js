@@ -37,3 +37,7 @@ function editHardware(hardware_id) {
 function editPlatform(id) {
     window.location = "/editplatform?platformid=" + id
 }
+
+function addSuggestedPlatform(name, description) {
+    window.location = "/addplatform?name=" + name + "&description=" + description
+}

@@ -11,6 +11,7 @@ from Interactors.Exceptions.UnrecognisedInteractorTypeException import Unrecogni
 from Interactors.GetGameInteractor import GetGameInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.GetPlatformInteractor import GetPlatformInteractor
+from Interactors.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
@@ -73,6 +74,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_delete_hardware_interactor_returns_delete_hardware_interactor(self):
         self.assert_factory_returns_instance_of("DeleteHardwareInteractor", DeleteHardwareInteractor)
+
+    def test_create_get_suggested_platforms_interactor_returns_get_suggested_platforms_interactor(self):
+        self.assert_factory_returns_instance_of("GetSuggestedPlatformsInteractor", GetSuggestedPlatformsInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

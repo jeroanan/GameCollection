@@ -1,3 +1,4 @@
+from Data.SuggestedPlatforms import SuggestedPlatforms
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetHardwareInteractor import GetHardwareDetailsInteractor
@@ -10,6 +11,7 @@ from Interactors.GetGameInteractor import GetGameInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
+from Interactors.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
@@ -36,8 +38,11 @@ class InteractorFactory(object):
             "DeletePlatformInteractor": self.__initialise_interactor(DeletePlatformInteractor()),
             "GetHardwareDetailsInteractor": self.__initialise_interactor(GetHardwareDetailsInteractor()),
             "UpdateHardwareInteractor": self.__initialise_interactor(UpdateHardwareInteractor()),
-            "DeleteHardwareInteractor": self.__initialise_interactor(DeleteHardwareInteractor())
+            "DeleteHardwareInteractor": self.__initialise_interactor(DeleteHardwareInteractor()),
+            "GetSuggestedPlatformsInteractor":
+                self.__initialise_interactor(GetSuggestedPlatformsInteractor(SuggestedPlatforms()))
         }
+
 
     def __initialise_interactor(self, interactor):
         interactor.persistence = self.__persistence
