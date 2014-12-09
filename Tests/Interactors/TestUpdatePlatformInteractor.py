@@ -1,39 +1,29 @@
-import unittest
-from unittest.mock import Mock
 from Interactors.Interactor import Interactor
 from Interactors.UpdatePlatformInteractor import UpdatePlatformInteractor
-from Persistence.MongoPersistence import MongoPersistence
-from Platform import Platform
+from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
-class TestUpdatePlatformInteractor(unittest.TestCase):
+class TestUpdatePlatformInteractor(InteractorTestBase):
 
     def setUp(self):
+        super().setUp()
         self.__target = UpdatePlatformInteractor()
-        self.__persistence = Mock(MongoPersistence)
-        self.__target.persistence = self.__persistence
+        self.__target.persistence = self.persistence
+        self.__target.validate_integer_field = self.validate_integer_field
+        self.__target.validate_string_field = self.validate_string_field
+        self.__platform = self.get_platform()
 
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_update_platform(self):
-        platform = self.__get_platform()
+        platform = self.get_platform()
         self.__target.execute(platform)
-        self.__persistence.update_platform.assert_called_with(platform)
+        self.persistence.update_platform.assert_called_with(platform)
 
     def test_execute_with_none_platform_raises_type_error(self):
         self.assertRaises(TypeError, self.__target.execute, None)
 
-    def test_execute_with_none_name_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_platform(name=None))
-
-    def test_execute_with_empty_name_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_platform(name=""))
-
-    def test_execute_with_whitespace_name_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_platform(name=" "))
-
-    def __get_platform(self, name="name"):
-        p = Platform()
-        p.name = name
-        return p
+    def test_execute_validates_name_field(self):
+        self.__target.execute(self.__platform)
+        self.validate_string_field_was_called_with("Platform name", self.__platform.name)

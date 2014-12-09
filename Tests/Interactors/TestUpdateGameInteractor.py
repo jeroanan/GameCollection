@@ -1,4 +1,3 @@
-from Game import Game
 from Interactors.Interactor import Interactor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
@@ -10,58 +9,39 @@ class TestUpdateGameInteractor(InteractorTestBase):
         super().setUp()
         self.__target = UpdateGameInteractor()
         self.__target.persistence = self.persistence
+        self.__target.validate_string_field = self.validate_string_field
+        self.__target.validate_integer_field = self.validate_integer_field
+        self.__game = self.get_game(title="title", platform="platform", num_copies=1, num_boxed=2, num_manuals=3)
 
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_method(self):
-        self.__target.execute(self.__get_game())
+        self.__target.execute(self.__game)
         self.assertTrue(self.persistence.update_game.called)
 
     def test_execute_with_null_game_raises_type_error(self):
         self.assertRaises(TypeError, self.__target.execute, None)
 
-    def test_execute_with_none_game_title_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(title=None))
+    def test_execute_validates_title_field(self):
+        self.__assert_string_validation("Game title", self.__game.title)
 
-    def test_execute_with_empty_game_title_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(title=""))
+    def test_execute_validates_platform_field(self):
+        self.__assert_string_validation("Game platform", self.__game.platform)
 
-    def test_execute_with_whitespace_game_title_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(title=" "))
+    def __assert_string_validation(self, field_name, field_value):
+        self.__target.execute(self.__game)
+        self.validate_string_field_was_called_with(field_name, field_value)
 
-    def test_execute_with_none_platform_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(platform=None))
+    def test_execute_validates_num_copies_field(self):
+        self.__assert_integer_validation("Number of copies", self.__game.num_copies)
 
-    def test_execute_with_empty_platform_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(platform=""))
+    def test_execute_validates_num_boxed_field(self):
+        self.__assert_integer_validation("Number of boxed copies", self.__game.num_boxed)
 
-    def test_execute_with_whitespace_platform_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(platform=" "))
+    def test_execute_validates_num_manuals_field(self):
+        self.__assert_integer_validation("Number of manuals", self.__game.num_manuals)
 
-    def test_execute_with_none_num_copies_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(num_copies=None))
-
-    def test_execute_with_string_num_copies_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(num_copies="wrong"))
-
-    def test_execute_with_none_num_boxed_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(num_boxed=None))
-
-    def test_execute_with_string_num_boxed_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(num_boxed="wrong"))
-
-    def test_execute_with_none_num_manuals_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(num_manuals=None))
-
-    def test_execute_with_string_num_manuals_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.__get_game(num_manuals="wrong"))
-
-    def __get_game(self, title="title", platform="platform", num_copies=0, num_boxed=0, num_manuals=0):
-        game = Game()
-        game.title = title
-        game.platform = platform
-        game.num_copies = num_copies
-        game.num_boxed = num_boxed
-        game.num_manuals = num_manuals
-        return game
+    def __assert_integer_validation(self, field_name, field_value):
+        self.__target.execute(self.__game)
+        self.validate_integer_field_was_called_with(field_name, field_value)
