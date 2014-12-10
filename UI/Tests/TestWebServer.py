@@ -55,9 +55,6 @@ class TestWebServer(unittest.TestCase):
         self.__target.editplatform(platformid="id")
         self.__handler.get_page.assert_called_with("id")
 
-    def test_deleteplatform(self):
-        self.__target.deleteplatform(platformid="id")
-
     def test_deleteplatform_calls_handler_factory(self):
         self.__target.deleteplatform(platformid="id")
         self.__handler_factory.create.assert_called_with("DeletePlatformHandler")
@@ -93,9 +90,6 @@ class TestWebServer(unittest.TestCase):
         self.__target.edithardware(hardwareid="id")
         self.__handler.get_page.assert_called_with("id")
 
-    def test_updatehardware(self):
-        self.__target.updatehardware(id="id", name="name", platform="platform", numcopies="1", numboxed="0")
-
     def test_updatehardware_calls_handler_factory(self):
         self.__target.updatehardware(id="id", name="name", platform="platform", numcopies="1", numboxed="0")
         self.__handler_factory.create.assert_called_with("UpdateHardwareHandler")
@@ -103,9 +97,6 @@ class TestWebServer(unittest.TestCase):
     def test_updatehardware_calls_handler_get_page(self):
         self.__target.updatehardware(id="id", name="name", platform="platform", numcopies="1", numboxed="0")
         self.__handler.get_page.assert_called_with(id="id", name="name", platform="platform", numowned="1", numboxed="0")
-
-    def test_deletehardware(self):
-        self.__target.deletehardware(hardwareid="id")
 
     def test_deletehardware_calls_handler_factory(self):
         self.__target.deletehardware(hardwareid="id")
@@ -115,4 +106,5 @@ class TestWebServer(unittest.TestCase):
         self.__target.deletehardware(hardwareid="id")
         self.__handler.get_page.assert_called_with(hardware_id="id")
 
-
+    def test_genres(self):
+        self.__target.genres()

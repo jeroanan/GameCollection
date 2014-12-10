@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 import sys
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
+from Persistence.Mappers.ResultToGenreMapper import ResultToGenreMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 
@@ -72,3 +73,6 @@ class MongoPersistence(object):
 
     def delete_hardware(self, hardware_id):
         self.__db.hardware.remove({"_id": ObjectId(hardware_id)})
+
+    def get_genres(self):
+        return map(ResultToGenreMapper().map, self.__db.genres.find())

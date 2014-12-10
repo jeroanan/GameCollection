@@ -120,3 +120,7 @@ class WebServer(object):
     def deletehardware(self, hardwareid):
         handler = self.__handler_factory.create("DeleteHardwareHandler")
         handler.get_page(hardware_id=hardwareid)
+
+    @cherrypy.expose
+    def genres(self):
+        pass

@@ -1,6 +1,7 @@
 from Data.SuggestedPlatforms import SuggestedPlatforms
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
+from Interactors.GetGenresInteractor import GetGenresInteractor
 from Interactors.GetHardwareInteractor import GetHardwareDetailsInteractor
 from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.AddPlatformInteractor import AddPlatformInteractor
@@ -40,7 +41,8 @@ class InteractorFactory(object):
             "UpdateHardwareInteractor": self.__initialise_interactor(UpdateHardwareInteractor()),
             "DeleteHardwareInteractor": self.__initialise_interactor(DeleteHardwareInteractor()),
             "GetSuggestedPlatformsInteractor":
-                self.__initialise_interactor(GetSuggestedPlatformsInteractor(SuggestedPlatforms()))
+                self.__initialise_interactor(GetSuggestedPlatformsInteractor(SuggestedPlatforms())),
+            "GetGenresInteractor": self.__initialise_interactor(GetGenresInteractor())
         }
 
 
