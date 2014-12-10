@@ -1,32 +1,47 @@
 {%extends 'master.html'%}
         {%block content%}
         <h1>{{title}}</h1>
-        <form class="form-horizontal" method="post" action="savehardware">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input name="name" placeholder="Name" required="required"/>
+        <form class="form-horizontal" role="form" method="post" action="savehardware">
 
-                <label for="platform">Platform</label>
-                <select name="platform" required="required">
-                    {% for platform in platforms %}
-                        <option value="{{platform.name}}">{{platform.name}}</option>
-                    {% endfor %}
-                </select>
+            <div class="row">
+                <div class="form-group col-sm-10">
+                    <label for="name">Name</label>
+                    <input name="name" placeholder="Name" required="required" class="form-control" />
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="numowned">Number owned</label>
-                <input name="numowned" id="numowned" type="number" class="number" value="1" min="0"
-                       required="required" />
-
-                <label for="numboxed">Number of Boxed items</label>
-                <input name="numboxed" id="numboxed" type="number" class="number" value="0" min="0"
-                       required="required" />
+            <div class="row">
+                <div class="form-group col-sm-10">
+                    <label for="platform">Platform</label>
+                    <select name="platform" required="required" class="form-control">
+                        {% for platform in platforms %}
+                            <option value="{{platform.name}}">{{platform.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" />
-                <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label for="numowned">Number owned</label>
+                    <input name="numowned" id="numowned" type="number" class="form-control" value="1" min="0"
+                           required="required" />
+                </div>
+
+                <div class="col-sm-1"></div>
+
+                <div class="form-group col-sm-3">
+                    <label for="numboxed">Number of Boxed items</label>
+                    <input name="numboxed" id="numboxed" type="number" class="form-control" value="0" min="0"
+                           required="required" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <input type="submit" class="btn btn-primary" />
+                    <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+                </div>
             </div>
         </form>
         <style type="text/css" scoped="scoped">
