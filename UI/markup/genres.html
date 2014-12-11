@@ -1,4 +1,42 @@
 {% extends 'master.html' %}
     {% block content %}
-    <h1>Genres</h1>
+    <h1 class="page-header">{{title}}</h1>
+    <h2 class="page-header">My Genres</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for genre in genres %}
+            <tr>
+                <td>{{genre.name}}</td>
+                <td>{{genre.description}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="page-header">Add Genre</h2>
+    <form role="form" action="addgenre" method="post" class="form-horizontal">
+        <div class="row">
+            <div class="form-group col-xs-4">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" required="required" placeholder="Name" class="form-control" />
+                </div>
+                <div class="col-xs-1"></div>
+                <div class="form-group col-xs-4">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" placeholder="Description" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-3">
+                <input class="btn btn-primary" type="submit" value="Add" />
+            </div>
+        </div>
+    </form>
     {% endblock %}

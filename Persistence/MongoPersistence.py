@@ -76,3 +76,6 @@ class MongoPersistence(object):
 
     def get_genres(self):
         return map(ResultToGenreMapper().map, self.__db.genres.find())
+
+    def add_genre(self, genre):
+        self.__db.genres.insert(genre.__dict__)

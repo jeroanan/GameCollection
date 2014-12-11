@@ -106,5 +106,14 @@ class TestWebServer(unittest.TestCase):
         self.__target.deletehardware(hardwareid="id")
         self.__handler.get_page.assert_called_with(hardware_id="id")
 
-    def test_genres(self):
+    def test_genres_calls_handler(self):
         self.__target.genres()
+        self.__handler.get_page.assert_called_with()
+
+    def test_addgenre_calls_handler_factory(self):
+        self.__target.addgenre(name="name", description="description")
+        self.__handler_factory.create.assert_called_with("AddGenreHandler")
+
+    def test_add_genre_calls_handler_get_page(self):
+        self.__target.addgenre(name="name", description="description")
+        self.__handler.get_page.assert_called_with(name="name", description="description")

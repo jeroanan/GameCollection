@@ -1,6 +1,5 @@
 from Interactors.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.Interactor import Interactor
-from Platform import Platform
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 

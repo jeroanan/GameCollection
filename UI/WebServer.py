@@ -123,4 +123,10 @@ class WebServer(object):
 
     @cherrypy.expose
     def genres(self):
-        pass
+        handler = self.__handler_factory.create("GetGenresHandler")
+        return handler.get_page()
+
+    @cherrypy.expose
+    def addgenre(self, name, description):
+        handler = self.__handler_factory.create("AddGenreHandler")
+        handler.get_page(name=name, description=description)

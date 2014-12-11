@@ -1,4 +1,5 @@
 from Data.SuggestedPlatforms import SuggestedPlatforms
+from Interactors.AddGenreInteractor import AddGenreInteractor
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetGenresInteractor import GetGenresInteractor
@@ -42,7 +43,9 @@ class InteractorFactory(object):
             "DeleteHardwareInteractor": self.__initialise_interactor(DeleteHardwareInteractor()),
             "GetSuggestedPlatformsInteractor":
                 self.__initialise_interactor(GetSuggestedPlatformsInteractor(SuggestedPlatforms())),
-            "GetGenresInteractor": self.__initialise_interactor(GetGenresInteractor())
+            "GetGenresInteractor": self.__initialise_interactor(GetGenresInteractor()),
+            "AddGenreInteractor": self.__initialise_interactor(AddGenreInteractor())
+
         }
 
 

@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from Interactors.AddGenreInteractor import AddGenreInteractor
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetGenresInteractor import GetGenresInteractor
@@ -81,6 +82,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_get_genres_interactor_returns_get_genres_interactor(self):
         self.assert_factory_returns_instance_of("GetGenresInteractor", GetGenresInteractor)
+
+    def test_create_add_genre_interactor_returns_add_genre_interactor(self):
+        self.assert_factory_returns_instance_of("AddGenreInteractor", AddGenreInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)
