@@ -1,8 +1,8 @@
 import unittest
 from mock import Mock
+from AbstractPersistence import AbstractPersistence
 from Game import Game
 from Hardware import Hardware
-from Persistence.MongoPersistence import MongoPersistence
 from Platform import Platform
 
 
@@ -13,7 +13,7 @@ class InteractorTestBase(unittest.TestCase):
         self.__validated_integer_field_values = []
         self.__validated_string_field_names = []
         self.__validated_string_field_values = []
-        self.persistence = Mock(MongoPersistence)
+        self.persistence = Mock(AbstractPersistence)
 
     def validate_integer_field(self, field_name, field_value):
         self.__validated_integer_field_names.append(field_name)

@@ -1,9 +1,9 @@
 function cancelEdit() {
-    window.location = "/";
+    navigate("/");
 }
 
 function cancelEditPlatform() {
-    window.location = "/platforms";
+    navigate("/platforms");
 }
 
 function showDeleteConfirm() {
@@ -15,29 +15,37 @@ function hideDeleteConfirm() {
 }
 
 function deleteGame() {
-    window.location = "/deletegame?gameid=" + $("#id").val();
+    navigate("/deletegame?gameid=" + $("#id").val());
 }
 
 function deletePlatform() {
-    window.location = "/deleteplatform?platformid=" + $("#id").val();
+    navigate("/deleteplatform?platformid=" + $("#id").val());
 }
 
 function deleteHardware() {
-    window.location = "/deletehardware?hardwareid=" + $("#id").val();
+    navigate("/deletehardware?hardwareid=" + $("#id").val());
 }
 
-function editGame(game_id) {
-    window.location = "/editgame?gameid=" + game_id;
+function editGame(id) {
+    navigate("/editgame?gameid=" + id);
 }
 
-function editHardware(hardware_id) {
-    window.location = "/edithardware?hardwareid=" + hardware_id;
+function editHardware(id) {
+    navigate("/edithardware?hardwareid=" + id);
 }
 
 function editPlatform(id) {
-    window.location = "/editplatform?platformid=" + id
+    navigate("/editplatform?platformid=" + id);
 }
 
 function addSuggestedPlatform(name, description) {
-    window.location = "/addplatform?name=" + name + "&description=" + description
+    navigate("/addplatform?name=" + name + "&description=" + description);
+}
+
+function editGenre(id) {
+    navigate("/editgenre?genreid=" + id);
+}
+
+function navigate(url) {
+    window.location = url;
 }

@@ -117,3 +117,6 @@ class TestWebServer(unittest.TestCase):
     def test_add_genre_calls_handler_get_page(self):
         self.__target.addgenre(name="name", description="description")
         self.__handler.get_page.assert_called_with(name="name", description="description")
+
+    def test_edit_genre(self):
+        self.__target.editgenre(genreid="id")

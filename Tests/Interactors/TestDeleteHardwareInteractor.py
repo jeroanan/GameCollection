@@ -1,8 +1,5 @@
-import unittest
-from unittest.mock import Mock
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.Interactor import Interactor
-from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 

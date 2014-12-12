@@ -15,6 +15,7 @@
             <tr>
                 <td>{{genre.name}}</td>
                 <td>{{genre.description}}</td>
+                <td><button class="btn" onclick="editGenre('{{genre.id}}')">Edit</button></td>
             </tr>
             {% endfor %}
         </tbody>

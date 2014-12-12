@@ -1,8 +1,9 @@
 from unittest.mock import Mock
+
+from AbstractPersistence import AbstractPersistence
 from Data.SuggestedPlatforms import SuggestedPlatforms
 from Interactors.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.Interactor import Interactor
-from Persistence.MongoPersistence import MongoPersistence
 from Platform import Platform
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
@@ -38,7 +39,7 @@ class TestGetSuggestedPlatformsInteractor(InteractorTestBase):
         self.assertEqual(2, len(result))
 
     def test_execute_returns_suggested_platforms_not_already_stored(self):
-        persistence = Mock(MongoPersistence)
+        persistence = Mock(AbstractPersistence)
         persistence.get_platforms = self.__get_stored_platforms
         target = GetSuggestedPlatformsInteractor(self.__suggested_platforms)
         target.persistence = persistence

@@ -1,14 +1,17 @@
+import sys
+
 from bson import ObjectId
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
-import sys
+from AbstractPersistence import AbstractPersistence
+
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 from Persistence.Mappers.ResultToGenreMapper import ResultToGenreMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 
 
-class MongoPersistence(object):
+class MongoPersistence(AbstractPersistence):
 
     def __init__(self):
         self.__client = None

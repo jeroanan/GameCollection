@@ -1,7 +1,5 @@
-from unittest.mock import Mock
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.Interactor import Interactor
-from Persistence.MongoPersistence import MongoPersistence
 from Platform import Platform
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
@@ -11,8 +9,7 @@ class TestDeletePlatformInteractor(InteractorTestBase):
     def setUp(self):
         super().setUp()
         self.__target = DeletePlatformInteractor()
-        self.__persistence = Mock(MongoPersistence)
-        self.__target.persistence = self.__persistence
+        self.__target.persistence = self.persistence
         self.__target.validate_integer_field = self.validate_integer_field
         self.__target.validate_string_field = self.validate_string_field
 
@@ -23,7 +20,7 @@ class TestDeletePlatformInteractor(InteractorTestBase):
         platform = Platform()
         platform.id = "id"
         self.__target.execute(platform=platform)
-        self.__persistence.delete_platform.assert_called_with(platform)
+        self.persistence.delete_platform.assert_called_with(platform)
 
     def test_execute_with_none_platform_raises_type_error(self):
         self.assertRaises(TypeError, self.__target.execute, None)
