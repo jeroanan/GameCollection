@@ -46,6 +46,10 @@ function editGenre(id) {
     navigate("/editgenre?genreid=" + id);
 }
 
+function deleteGenre(id) {
+    navigate("/deletegenre?genreid=" + id)
+}
+
 function navigate(url) {
     window.location = url;
 }

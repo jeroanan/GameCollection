@@ -7,6 +7,7 @@ from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
+from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHandler import EditHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
@@ -87,6 +88,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_add_genre_handler_returns_add_genre_handler(self):
         self.__assert_type_string_returns_handler_type("AddGenreHandler", AddGenreHandler)
+
+    def test_edit_genre_handler_returns_edit_genre_handler(self):
+        self.__assert_type_string_returns_handler_type("EditGenreHandler", EditGenreHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

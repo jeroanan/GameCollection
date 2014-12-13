@@ -1,0 +1,36 @@
+{%extends 'master.html' %}
+{% block content %}
+<h1 class="page-header">{{title}}</h1>
+<form class="form-vertical" role="form" method="post" action="updategenre">
+
+    <div class="row">
+         <div class="form-group col-sm-10">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="{{genre.name}}" class="form-control"
+                   required="required" />
+         </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-10">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" class="form-control"
+                   value="{{genre.description}}" />
+            <input type="hidden" id="id" name="id" value="{{genre.id}}" />
+        </div>
+    </div>
+
+
+     <div class="row">
+         <div class="form-group col-sm-3">
+            <input type="submit" class="btn btn-primary" />
+            <input type="button" class="btn" value="Cancel" onclick="cancelEditGenre()" />
+            <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
+         </div>
+     </div>
+    <div class="hidden" id="deleteConfirm">
+        Really delete this genre?
+            <a href="javascript:deleteGenre();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+    </div>
+</form>
+{% endblock %}

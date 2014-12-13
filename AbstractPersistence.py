@@ -52,3 +52,6 @@ class AbstractPersistence(object):
 
     def add_genre(self, genre):
         pass
+
+    def get_genre_details(self, genre_id):
+        pass
