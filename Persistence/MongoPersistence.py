@@ -86,3 +86,9 @@ class MongoPersistence(AbstractPersistence):
     def get_genre_details(self, genre_id):
         g = self.__db.genres.find_one({"_id": ObjectId(genre_id)})
         return ResultToGenreMapper().map(g)
+
+    def update_genre(self, genre):
+        pass
+
+    def delete_genre(self, genrre_id):
+        pass

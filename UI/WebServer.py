@@ -135,3 +135,11 @@ class WebServer(object):
     def editgenre(self, genreid):
         handler = self.__handler_factory.create("EditGenreHandler")
         return handler.get_page(genre_id=genreid)
+
+    @cherrypy.expose
+    def updategenre(self, id, name, description):
+        pass
+
+    @cherrypy.expose
+    def deletegenre(self, genreid):
+        pass

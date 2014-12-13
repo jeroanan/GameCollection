@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import Mock
+
 from Interactors.AddGenreInteractor import AddGenreInteractor
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetGenreInteractor import GetGenreInteractor
 from Interactors.GetGenresInteractor import GetGenresInteractor
 from Interactors.GetHardwareInteractor import GetHardwareDetailsInteractor
-
 from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.AddGameInteractor import AddGameInteractor
 from Interactors.DeleteGameInteractor import DeleteGameInteractor
@@ -23,6 +23,7 @@ from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
 from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
+from Interactors.UpdateGenreInteractor import UpdateGenreInteractor
 
 
 class TestInteractorFactory(unittest.TestCase):
@@ -89,6 +90,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_get_genre_interactor_returns_get_genre_interactor(self):
         self.assert_factory_returns_instance_of("GetGenreInteractor", GetGenreInteractor)
+
+    def test_create_update_genre_interactor_returns_update_genre_interactor(self):
+        self.assert_factory_returns_instance_of("UpdateGenreInteractor", UpdateGenreInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)
