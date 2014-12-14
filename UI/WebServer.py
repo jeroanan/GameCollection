@@ -138,7 +138,8 @@ class WebServer(object):
 
     @cherrypy.expose
     def updategenre(self, id, name, description):
-        pass
+        handler = self.__handler_factory.create("UpdateGenreHandler")
+        handler.get_page(id=id, name=name, description=description)
 
     @cherrypy.expose
     def deletegenre(self, genreid):

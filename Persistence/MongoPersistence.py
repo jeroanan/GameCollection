@@ -90,5 +90,5 @@ class MongoPersistence(AbstractPersistence):
     def update_genre(self, genre):
         pass
 
-    def delete_genre(self, genrre_id):
+    def delete_genre(self, genre_id):
         pass

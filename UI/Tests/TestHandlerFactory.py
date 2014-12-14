@@ -23,6 +23,7 @@ from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestAddGenreHandler import AddGenreHandler
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
+from UI.Tests.Handlers.TestUpdateGenreHandler import UpdateGenreHandler
 
 
 class TestHandlerFactory(unittest.TestCase):
@@ -91,6 +92,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_edit_genre_handler_returns_edit_genre_handler(self):
         self.__assert_type_string_returns_handler_type("EditGenreHandler", EditGenreHandler)
+
+    def test_update_genre_handler_returns_update_genre_handler(self):
+        self.__assert_type_string_returns_handler_type("UpdateGenreHandler", UpdateGenreHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
