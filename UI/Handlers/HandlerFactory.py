@@ -2,6 +2,7 @@ from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
+from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
@@ -46,7 +47,8 @@ class HandlerFactory(object):
             "GetGenresHandler": GetGenresHandler(self.__interactor_factory, self.__renderer),
             "AddGenreHandler": AddGenreHandler(self.__interactor_factory, self.__renderer),
             "EditGenreHandler": EditGenreHandler(self.__interactor_factory, self.__renderer),
-            "UpdateGenreHandler": UpdateGenreHandler(self.__interactor_factory, self.__renderer)
+            "UpdateGenreHandler": UpdateGenreHandler(self.__interactor_factory, self.__renderer),
+            "DeleteGenreHandler": DeleteGenreHandler(self.__interactor_factory, self.__renderer)
         }
 
     def create(self, handler_type):

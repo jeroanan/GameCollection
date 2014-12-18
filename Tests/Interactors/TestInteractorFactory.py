@@ -21,6 +21,7 @@ from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
+from Tests.Interactors.TestDeleteGenreInteractor import DeleteGenreInteractor
 from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
 from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 from Interactors.UpdateGenreInteractor import UpdateGenreInteractor
@@ -93,6 +94,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_update_genre_interactor_returns_update_genre_interactor(self):
         self.assert_factory_returns_instance_of("UpdateGenreInteractor", UpdateGenreInteractor)
+
+    def test_create_delete_genre_interactor_returns_delete_genre_interactor(self):
+        self.assert_factory_returns_instance_of("DeleteGenreInteractor", DeleteGenreInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

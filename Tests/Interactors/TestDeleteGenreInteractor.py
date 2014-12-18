@@ -1,11 +1,6 @@
+from Interactors.DeleteGenreInteractor import DeleteGenreInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
-
-
-class DeleteGenreInteractor(Interactor):
-
-    def execute(self, genre_id):
-        self.persistence.delete_genre(genre_id)
 
 
 class TestDeleteGenreInteractor(InteractorTestBase):

@@ -5,6 +5,7 @@ from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
+from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
@@ -92,6 +93,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_edit_genre_handler_returns_edit_genre_handler(self):
         self.__assert_type_string_returns_handler_type("EditGenreHandler", EditGenreHandler)
+
+    def test_delete_genre_handler_returns_delete_genre_handler(self):
+        self.__assert_type_string_returns_handler_type("DeleteGenreHandler", DeleteGenreHandler)
 
     def test_update_genre_handler_returns_update_genre_handler(self):
         self.__assert_type_string_returns_handler_type("UpdateGenreHandler", UpdateGenreHandler)

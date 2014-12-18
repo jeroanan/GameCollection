@@ -19,6 +19,7 @@ from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.UpdateGenreInteractor import UpdateGenreInteractor
 from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Tests.Interactors.TestDeleteGenreInteractor import DeleteGenreInteractor
 from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 
 
@@ -48,7 +49,8 @@ class InteractorFactory(object):
             "GetGenresInteractor": self.__initialise_interactor(GetGenresInteractor()),
             "AddGenreInteractor": self.__initialise_interactor(AddGenreInteractor()),
             "GetGenreInteractor": self.__initialise_interactor(GetGenreInteractor()),
-            "UpdateGenreInteractor": self.__initialise_interactor(UpdateGenreInteractor())
+            "UpdateGenreInteractor": self.__initialise_interactor(UpdateGenreInteractor()),
+            "DeleteGenreInteractor": self.__initialise_interactor(DeleteGenreInteractor())
         }
 
     def __initialise_interactor(self, interactor):
@@ -56,7 +58,6 @@ class InteractorFactory(object):
         return interactor
 
     def create(self, interactor_type):
-
         if interactor_type in self.__interactors:
             return self.__interactors[interactor_type]
 
