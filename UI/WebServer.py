@@ -6,12 +6,13 @@ from UI.TemplateRenderer import TemplateRenderer
 
 class WebServer(object):
 
-    def __init__(self, interactor_factory=None, renderer=None):
+    def __init__(self, interactor_factory=None, renderer=None, config=None):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
         if renderer is None:
             self.__renderer = TemplateRenderer()
-        self.__handler_factory = HandlerFactory(interactor_factory, self.__renderer)
+        self.__handler_factory = HandlerFactory(interactor_factory, self.__renderer, config)
+        self.__config = config
 
     @property
     def renderer(self):
@@ -25,7 +26,7 @@ class WebServer(object):
     def handler_factory(self, value):
         self.__handler_factory = value
 
-    def start(self, interactor_factory):
+    def start(self, interactor_factory, config):
         conf = {
          '/': {
              'tools.sessions.on': True,
@@ -38,10 +39,10 @@ class WebServer(object):
              'tools.gzip.on': True
          }
         }
-        cherrypy.quickstart(WebServer(interactor_factory), '/', conf)
+        cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config), '/', conf)
 
     @cherrypy.expose
-    def index(self):
+    def index(self, gamesort=None):
         return self.__get_page_for_handler("IndexHandler")
 
     @cherrypy.expose

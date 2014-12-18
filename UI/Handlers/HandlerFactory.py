@@ -24,11 +24,12 @@ from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
 class HandlerFactory(object):
 
-    def __init__(self, interactor_factory, renderer):
+    def __init__(self, interactor_factory, renderer, config):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
+
         self.__handlers = {
-            "IndexHandler": IndexHandler(self.__interactor_factory, self.__renderer),
+            "IndexHandler": IndexHandler(self.__interactor_factory, self.__renderer, config),
             "SaveGameHandler": SaveGameHandler(self.__interactor_factory, self.__renderer),
             "AddGameHandler": AddGameHandler(self.__interactor_factory, self.__renderer),
             "AddHardwareHandler": AddHardwareHandler(self.__interactor_factory, self.__renderer),

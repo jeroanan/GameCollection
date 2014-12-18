@@ -5,9 +5,9 @@
     <table class="table table-striped">
         <thead>
            <tr>
-               <th data-field="title">Title</th>
-               <th>Platform</th>
-               <th># Copies</th>
+               <th><a title="Sort by game title" href="/?gamesort=title">Title</a></th>
+               <th><a title="Sort by platform">Platform</a></th>
+               <th><a title="Sort by nnumber of copies"># Copies</a></th>
                <th># Boxed</th>
                <th># Manuals</th>
                <th />
@@ -16,8 +16,8 @@
         <tbody>
             {% for game in games %}
             <tr>
-                <td>{{game.title}}</td>
-                <td>{{game.platform}}</td>
+                <td><a title="View game details">{{game.title}}</a></td>
+                <td><a title="See all games for {{game.platform}}">{{game.platform}}</a></td>
                 <td>{{game.num_copies}}</td>
                 <td>{{game.num_boxed}}</td>
                 <td>{{game.num_manuals}}</td>
@@ -26,6 +26,7 @@
             {% endfor %}
         </tbody>
     </table>
+    <a class="pull-right" href="/allgames">Show all games...</a>
     <h2>Hardware</h2>
 
     <table class="table table-striped">

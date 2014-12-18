@@ -2,6 +2,7 @@ import sys
 
 from bson import ObjectId
 from pymongo import MongoClient
+import pymongo
 from pymongo.errors import ConnectionFailure
 from AbstractPersistence import AbstractPersistence
 
@@ -32,8 +33,12 @@ class MongoPersistence(AbstractPersistence):
     def add_game(self, game):
         self.__db.games.insert(game.__dict__)
 
-    def get_all_games(self):
-        return map((ResultToGameMapper()).map, self.__db.games.find())
+    def get_all_games(self, number_of_games=999999, sort_field="_Game__title", sort_order="ASC"):
+        sorder = pymongo.ASCENDING
+        if sort_order == "DESC":
+            sorder = pymongo.DESCENDING
+
+        return map((ResultToGameMapper()).map, self.__db.games.find(limit=number_of_games).sort(sort_field, sorder))
 
     def get_game(self, game_id):
         cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})

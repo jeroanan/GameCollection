@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from Data.Config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
@@ -32,7 +33,8 @@ class TestHandlerFactory(unittest.TestCase):
     def setUp(self):
         interactor_factory = Mock(InteractorFactory)
         renderer = Mock(TemplateRenderer)
-        self.__target = HandlerFactory(interactor_factory, renderer)
+        config = Mock(Config)
+        self.__target = HandlerFactory(interactor_factory, renderer, config)
 
     def test_create_with_unrecognised_type_string_throws_unrecognised_handler_exception(self):
         self.assertRaises(UnrecognisedHandlerException, self.__target.create, "UnrecognisedHandlerType")

@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from Data.Config import Config
 
 from Interactors.AddGenreInteractor import AddGenreInteractor
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
@@ -31,6 +32,7 @@ class TestInteractorFactory(unittest.TestCase):
 
     def setUp(self):
         self.__target = InteractorFactory(Mock(MongoPersistence))
+
 
     def test_create_unrecognised_type_string_throws_exception(self):
         self.assertRaises(UnrecognisedInteractorTypeException, self.__target.create, "InteractorType")
