@@ -139,3 +139,11 @@ class TestWebServer(unittest.TestCase):
     def test_delete_genre_calls_handler_get_page(self):
         self.__target.deletegenre(genreid="id")
         self.__handler.get_page.assert_called_with(genre_id="id")
+
+    def test_allgames_calls_handler_factory(self):
+        self.__target.allgames()
+        self.__handler_factory.create.assert_called_with("AllGamesHandler")
+
+    def test_allgames_calls_handler_get_page(self):
+        self.__target.allgames()
+        self.__handler.get_page.assert_called_with()

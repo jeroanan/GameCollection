@@ -146,3 +146,8 @@ class WebServer(object):
     def deletegenre(self, genreid):
         handler = self.__handler_factory.create("DeleteGenreHandler")
         handler.get_page(genre_id=genreid)
+
+    @cherrypy.expose
+    def allgames(self):
+        handler = self.__handler_factory.create("AllGamesHandler")
+        return handler.get_page()

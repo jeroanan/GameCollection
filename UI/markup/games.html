@@ -1,0 +1,24 @@
+<table class="table table-striped">
+    <thead>
+       <tr>
+           <th><a title="Sort by game title" href="/?gamesort=title">Title</a></th>
+           <th><a title="Sort by platform">Platform</a></th>
+           <th><a title="Sort by nnumber of copies"># Copies</a></th>
+           <th># Boxed</th>
+           <th># Manuals</th>
+           <th />
+        </tr>
+    </thead>
+    <tbody>
+        {% for game in games %}
+        <tr>
+            <td><a title="View game details">{{game.title}}</a></td>
+            <td><a title="See all games for {{game.platform}}">{{game.platform}}</a></td>
+            <td>{{game.num_copies}}</td>
+            <td>{{game.num_boxed}}</td>
+            <td>{{game.num_manuals}}</td>
+            <td><button class="btn" onclick="editGame('{{game.id}}')">Edit</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
