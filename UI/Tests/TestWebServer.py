@@ -30,7 +30,7 @@ class TestWebServer(unittest.TestCase):
 
     def test_index_calls_handler_get_page(self):
         self.__target.index()
-        self.__handler.get_page.assert_called_with()
+        self.__handler.get_page.assert_called_with(game_sort=None)
 
     def test_add_game_calls_handler_get_page(self):
         self.__target.addgame()

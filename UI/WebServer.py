@@ -43,7 +43,8 @@ class WebServer(object):
 
     @cherrypy.expose
     def index(self, gamesort=None):
-        return self.__get_page_for_handler("IndexHandler")
+        handler = self.handler_factory.create("IndexHandler")
+        return handler.get_page(game_sort=gamesort)
 
     @cherrypy.expose
     def addgame(self):

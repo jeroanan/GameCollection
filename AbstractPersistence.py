@@ -5,7 +5,7 @@ class AbstractPersistence(object):
     def add_game(self, game):
         pass
 
-    def get_all_games(self, number_of_games=0):
+    def get_all_games(self, sort_field, number_of_games=0):
         pass
 
     def get_game(self, game_id):

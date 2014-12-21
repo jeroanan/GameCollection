@@ -4,12 +4,13 @@ from bson import ObjectId
 from pymongo import MongoClient
 import pymongo
 from pymongo.errors import ConnectionFailure
-from AbstractPersistence import AbstractPersistence
 
+from AbstractPersistence import AbstractPersistence
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 from Persistence.Mappers.ResultToGenreMapper import ResultToGenreMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
+from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 
 
 class MongoPersistence(AbstractPersistence):
@@ -33,12 +34,15 @@ class MongoPersistence(AbstractPersistence):
     def add_game(self, game):
         self.__db.games.insert(game.__dict__)
 
-    def get_all_games(self, number_of_games=999999, sort_field="_Game__title", sort_order="ASC"):
+    def get_all_games(self, sort_field, number_of_games=999999, sort_order="ASC"):
         sorder = pymongo.ASCENDING
         if sort_order == "DESC":
             sorder = pymongo.DESCENDING
 
-        return map((ResultToGameMapper()).map, self.__db.games.find(limit=number_of_games).sort(sort_field, sorder))
+        mapped_sort_field = SortFieldMapper().map(sort_field)
+        return map((ResultToGameMapper()).map, self.__db.games.find(limit=number_of_games).sort(mapped_sort_field,
+                                                                                                sorder))
+
 
     def get_game(self, game_id):
         cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})

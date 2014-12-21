@@ -24,9 +24,9 @@ class TestAllGamesHandler(unittest.TestCase):
         self.__target.get_page()
         self.__interactor_factory.create.assert_called_with("GetGamesInteractor")
 
-    def test_get_page_executes_interactor(self):
+    def test_page_executes_interactor_with_title_sort_order(self):
         self.__target.get_page()
-        self.__interactor.execute.assert_called_with()
+        self.__interactor.execute.assert_called_with(sort_field="title")
 
     def test_get_page_calls_renderer(self):
         self.__target.get_page()
