@@ -21,13 +21,16 @@ class TestAllGamesHandler(unittest.TestCase):
         self.assertIsInstance(self.__target, Handler)
 
     def test_get_page_calls_interactor_factory(self):
-        self.__target.get_page()
+        self.__get_page()
         self.__interactor_factory.create.assert_called_with("GetGamesInteractor")
 
-    def test_page_executes_interactor_with_title_sort_order(self):
-        self.__target.get_page()
-        self.__interactor.execute.assert_called_with(sort_field="title")
+    def test_page_executes_interactor(self):
+        self.__get_page()
+        self.__interactor.execute.assert_called_with(sort_field="title", sort_direction="asc")
 
     def test_get_page_calls_renderer(self):
-        self.__target.get_page()
+        self.__get_page()
         self.assertTrue(self.__renderer.render.called)
+
+    def __get_page(self, sort_field="title", sort_direction="asc"):
+        self.__target.get_page(sort_field=sort_field, sort_direction=sort_direction)

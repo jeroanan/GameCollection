@@ -14,5 +14,5 @@ class TestGetGamesInteractor(InteractorTestBase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_method(self):
-        self.__target.execute(number_of_games=10, sort_field=None)
+        self.__target.execute(number_of_games=10, sort_field=None, sort_direction="asc")
         self.persistence.get_all_games.assert_was_called_with()

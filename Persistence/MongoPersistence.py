@@ -36,13 +36,12 @@ class MongoPersistence(AbstractPersistence):
 
     def get_all_games(self, sort_field, number_of_games=999999, sort_order="ASC"):
         sorder = pymongo.ASCENDING
-        if sort_order == "DESC":
+        if sort_order is not None and sort_order.upper() == "DESC":
             sorder = pymongo.DESCENDING
 
         mapped_sort_field = SortFieldMapper().map(sort_field)
         return map((ResultToGameMapper()).map, self.__db.games.find(limit=number_of_games).sort(mapped_sort_field,
                                                                                                 sorder))
-
 
     def get_game(self, game_id):
         cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})

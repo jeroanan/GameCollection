@@ -1,9 +1,27 @@
 <table class="table table-striped">
     <thead>
        <tr>
-           <th><a title="Sort by game title" href="?gamesort=title">Title</a></th>
-           <th><a title="Sort by platform" href="?gamesort=platform">Platform</a></th>
-           <th><a title="Sort by number of copies" href="?gamesort=numcopies"># Copies</a></th>
+           <th>
+               {%if game_sort_field == "title" and game_sort_direction != "desc" %}
+                    <a title="Sort by game title" href="?gamesort=title&gamesortdir=desc">Title</a>
+               {% else %}
+                    <a title="Sort by game title" href="?gamesort=title">Title</a>
+               {% endif %}
+           </th>
+           <th>
+               {% if game_sort_field == "platform" and game_sort_direction != "desc" %}
+                    <a title="Sort by platform" href="?gamesort=platform&gamesortdir=desc">Platform</a>
+               {% else %}
+                    <a title="Sort by platform" href="?gamesort=platform">Platform</a>
+               {% endif %}
+           </th>
+           <th>
+               {% if game_sort_field == "numcopies" %}
+                    <a title="Sort by number of copies" href="?gamesort=numcopies&gamesortdir=desc"># Copies</a>
+               {% else %}
+                    <a title="Sort by number of copies" href="?gamesort=numcopies"># Copies</a>
+               {% endif %}
+           </th>
            <th># Boxed</th>
            <th># Manuals</th>
            <th />

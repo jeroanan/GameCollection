@@ -42,9 +42,9 @@ class WebServer(object):
         cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config), '/', conf)
 
     @cherrypy.expose
-    def index(self, gamesort=None):
+    def index(self, gamesort=None, gamesortdir=None):
         handler = self.handler_factory.create("IndexHandler")
-        return handler.get_page(game_sort=gamesort)
+        return handler.get_page(game_sort=gamesort, game_sort_direction=gamesortdir)
 
     @cherrypy.expose
     def addgame(self):
@@ -149,6 +149,6 @@ class WebServer(object):
         handler.get_page(genre_id=genreid)
 
     @cherrypy.expose
-    def allgames(self):
+    def allgames(self, gamesort=None, gamesortdir=None):
         handler = self.__handler_factory.create("AllGamesHandler")
-        return handler.get_page()
+        return handler.get_page(sort_field=gamesort, sort_direction=gamesortdir)
