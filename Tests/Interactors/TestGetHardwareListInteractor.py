@@ -14,5 +14,5 @@ class TestGetHardwareListInteractor(InteractorTestBase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence(self):
-        self.__target.execute()
-        self.persistence.get_hardware_list.assert_called_with()
+        self.__target.execute(sort_field="name", sort_direction="asc")
+        self.persistence.get_hardware_list.assert_called_with(sort_field="name", sort_direction="asc")

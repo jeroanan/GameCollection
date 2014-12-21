@@ -1,0 +1,38 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            {%if hardware_sort_field == "name" and hardware_sort_direction != "desc" %}
+                <th><a title="Sort by name" href="?hardwaresort=name&hardwaresortdir=desc">Name</a></th>
+            {%else%}
+                <th><a title="Sort by name" href="?hardwaresort=name">Name</a></th>
+            {%endif%}
+            <th>
+                {%if hardware_sort_field == "platform" and hardware_sort_direction != "desc" %}
+                    <a title="Sort by platform" href="?hardwaresort=platform&hardwaresortdir=desc">Platform</a>
+                {%else%}
+                    <a title="Sort by platform" href="?hardwaresort=platform">Platform</a>
+                {%endif%}
+            </th>
+            <th>
+                {%if hardware_sort_field == "numowned" and hardware_sort_direction != "desc" %}
+                    <a title="Sort by number owned" href="?hardwaresort=numowned&hardwaresortdir=desc"># Owned</a>
+                {%else%}
+                    <a title="Sort by number owned" href="?hardwaresort=numowned"># Owned</a>
+                {%endif%}
+            </th>
+            <th># Boxed</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for h in hardware %}
+        <tr>
+            <td>{{h.name}}</td>
+            <td><a title="See all hardware for {{h.platform}}">{{h.platform}}</a></td>
+            <td>{{h.numowned}}</td>
+            <td>{{h.numboxed}}</td>
+            <td><input type="button" class="btn" value="Edit" onclick="editHardware('{{h.id}}')" /></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -6,6 +6,8 @@ import pymongo
 from pymongo.errors import ConnectionFailure
 
 from AbstractPersistence import AbstractPersistence
+from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
+from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 from Persistence.Mappers.ResultToGenreMapper import ResultToGenreMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
@@ -35,10 +37,7 @@ class MongoPersistence(AbstractPersistence):
         self.__db.games.insert(game.__dict__)
 
     def get_all_games(self, sort_field, number_of_games=999999, sort_order="ASC"):
-        sorder = pymongo.ASCENDING
-        if sort_order is not None and sort_order.upper() == "DESC":
-            sorder = pymongo.DESCENDING
-
+        sorder = MongoSortDirectionMapper().map(sort_order)
         mapped_sort_field = SortFieldMapper().map(sort_field)
         return map((ResultToGameMapper()).map, self.__db.games.find(limit=number_of_games).sort(mapped_sort_field,
                                                                                                 sorder))
@@ -69,8 +68,10 @@ class MongoPersistence(AbstractPersistence):
     def delete_game(self, game):
         self.__db.games.remove({"_id": ObjectId(game.id)})
 
-    def get_hardware_list(self):
-        return map((ResultToHardwareMapper()).map, self.__db.hardware.find())
+    def get_hardware_list(self, sort_field, sort_direction):
+        sorder = MongoSortDirectionMapper().map(sort_direction)
+        mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
+        return map((ResultToHardwareMapper()).map, self.__db.hardware.find().sort(mapped_sort_field, sorder))
 
     def get_hardware_details(self, platform_id):
         h = self.__db.hardware.find_one({"_id": ObjectId(platform_id)})

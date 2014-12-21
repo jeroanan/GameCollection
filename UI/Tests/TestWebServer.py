@@ -29,10 +29,16 @@ class TestWebServer(unittest.TestCase):
         self.assertIsInstance(t.renderer, TemplateRenderer)
 
     def test_index_calls_handler_get_page(self):
-        sort_field = "title"
-        sort_direction = "asc"
-        self.__target.index(gamesort=sort_field, gamesortdir=sort_direction)
-        self.__handler.get_page.assert_called_with(game_sort=sort_field, game_sort_direction=sort_direction)
+        game_sort_field = "title"
+        game_sort_direction = "asc"
+        hardware_sort_field = "name"
+        hardware_sort_direction = "asc"
+        self.__target.index(gamesort=game_sort_field, gamesortdir=game_sort_direction, hardwaresort=hardware_sort_field,
+                            hardwaresortdir=hardware_sort_direction)
+
+        self.__handler.get_page.assert_called_with(game_sort=game_sort_field, game_sort_direction=game_sort_direction,
+                                                   hardware_sort=hardware_sort_field,
+                                                   hardware_sort_direction=hardware_sort_direction)
 
     def test_add_game_calls_handler_get_page(self):
         self.__target.addgame()

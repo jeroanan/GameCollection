@@ -32,7 +32,7 @@ class AbstractPersistence(object):
     def delete_game(self, game):
         pass
 
-    def get_hardware_list(self):
+    def get_hardware_list(self, sort_field, sort_direction):
         pass
 
     def get_hardware_details(self, platform_id):

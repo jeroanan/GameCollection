@@ -25,14 +25,14 @@ class TestIndexHandler(unittest.TestCase):
     def __get_interactors(self):
         return [self.__get_games_interactor, self.__get_hardware_list_interactor]
 
-    def test_get_page_with_none_game_sort_executes_interactor_with_correct_parameters(self):
+    def test_get_page_executes_get_games_interactor_with_correct_parameters(self):
         self.__get_page()
         self.__get_games_interactor.execute.assert_called_with(sort_field="title", number_of_games=0,
                                                                sort_direction="asc")
 
-    def test_get_page_executes_get_hardware_list_interactor(self):
+    def test_get_page_executes_get_hardware_list_interactor_with_correct_parameters(self):
         self.__get_page()
-        self.assertTrue(self.__get_hardware_list_interactor.execute.called)
+        self.__get_hardware_list_interactor.execute.assert_called_with(sort_field="name", sort_direction="asc")
 
     def test_get_page_gets_number_of_games_config_setting(self):
         self.__get_page()
@@ -42,13 +42,19 @@ class TestIndexHandler(unittest.TestCase):
         self.__get_page()
         self.assertTrue(self.__renderer.render.called)
 
-    def test_get_page_uses_default_sort_options(self):
+    def test_get_page_uses_default_sort_options_for_games(self):
         self.__get_page(game_sort=None, game_sort_direction=None)
         self.__get_games_interactor.execute.assert_called_with(sort_field="title", number_of_games=0,
                                                                sort_direction="asc")
 
-    def __get_page(self, game_sort="title", game_sort_direction="asc"):
-        self.__target.get_page(game_sort=game_sort, game_sort_direction=game_sort_direction)
+    def test_get_page_uses_default_sort_options_for_hardware(self):
+        self.__get_page(hardware_sort=None, hardware_sort_direction=None)
+        self.__get_hardware_list_interactor.execute.assert_called_with(sort_field="name", sort_direction="asc")
+
+    def __get_page(self, game_sort="title", game_sort_direction="asc", hardware_sort="name",
+                   hardware_sort_direction="asc"):
+        self.__target.get_page(game_sort=game_sort, game_sort_direction=game_sort_direction,
+                               hardware_sort=hardware_sort, hardware_sort_direction=hardware_sort_direction)
 
     def test_is_type_of_handler(self):
         self.assertIsInstance(self.__target, Handler)
