@@ -8,6 +8,9 @@ class AbstractPersistence(object):
     def get_all_games(self, sort_field, sort_order, number_of_games=0):
         pass
 
+    def count_games(self):
+        pass
+
     def get_game(self, game_id):
         pass
 

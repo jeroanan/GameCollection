@@ -42,6 +42,9 @@ class MongoPersistence(AbstractPersistence):
         return map((ResultToGameMapper()).map, self.__db.games.find(limit=number_of_games).sort(mapped_sort_field,
                                                                                                 sorder))
 
+    def count_games(self):
+        return self.__db.games.count()
+
     def get_game(self, game_id):
         cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})
         return (ResultToGameMapper()).map(cursor)

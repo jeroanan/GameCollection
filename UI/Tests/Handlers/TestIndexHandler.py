@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from Data.Config import Config
+from Interactors.CountGamesInteractor import CountGamesInteractor
 
 from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
@@ -14,6 +15,7 @@ class TestIndexHandler(unittest.TestCase):
 
     def setUp(self):
         self.__get_games_interactor = Mock(GetGamesInteractor)
+        self.__count_games_interactor = Mock(CountGamesInteractor)
         self.__get_hardware_list_interactor = Mock(GetHardwareListInteractor)
         self.__renderer = Mock(TemplateRenderer)
         self.__interactor_factory = Mock(InteractorFactory)
@@ -23,7 +25,7 @@ class TestIndexHandler(unittest.TestCase):
         self.__target = IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
 
     def __get_interactors(self):
-        return [self.__get_games_interactor, self.__get_hardware_list_interactor]
+        return [self.__get_games_interactor, self.__get_hardware_list_interactor, self.__count_games_interactor]
 
     def test_get_page_executes_get_games_interactor_with_correct_parameters(self):
         self.__get_page()
@@ -50,6 +52,14 @@ class TestIndexHandler(unittest.TestCase):
     def test_get_page_uses_default_sort_options_for_hardware(self):
         self.__get_page(hardware_sort=None, hardware_sort_direction=None)
         self.__get_hardware_list_interactor.execute.assert_called_with(sort_field="name", sort_direction="asc")
+
+    def test_get_page_gets_count_games_interactor_from_interactor_factory(self):
+        self.__get_page()
+        self.__interactor_factory.create.assert_called_with("CountGamesInteractor")
+
+    def test_get_page_executes_count_games_interactor(self):
+        self.__get_page()
+        self.__count_games_interactor.execute.assert_called_with()
 
     def __get_page(self, game_sort="title", game_sort_direction="asc", hardware_sort="name",
                    hardware_sort_direction="asc"):

@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from Data.Config import Config
 
 from Interactors.AddGenreInteractor import AddGenreInteractor
+from Interactors.CountGamesInteractor import CountGamesInteractor
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetGenreInteractor import GetGenreInteractor
@@ -99,6 +100,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_delete_genre_interactor_returns_delete_genre_interactor(self):
         self.assert_factory_returns_instance_of("DeleteGenreInteractor", DeleteGenreInteractor)
+
+    def test_create_count_games_interactor_returns_count_games_interactor(self):
+        self.assert_factory_returns_instance_of("CountGamesInteractor", CountGamesInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

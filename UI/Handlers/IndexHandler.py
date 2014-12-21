@@ -11,6 +11,7 @@ class IndexHandler(Handler):
         self.__hardware_sort = None
         self.__hardware_sort_dir = None
 
+
     def get_page(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
         self.__game_sort = game_sort
         self.__game_sort_dir = game_sort_direction
@@ -19,9 +20,10 @@ class IndexHandler(Handler):
         self.__init_sorting()
         games = self.__get_games()
         hardware = self.__get_hardware()
+        number_of_games = self.__count_games()
         return self.renderer.render("index.html", games=games, hardware=hardware, title="Games Collection",
                                     game_sort_field=self.__game_sort, game_sort_direction=self.__game_sort_dir,
-                                    hardware_sort_field=self.__hardware_sort,
+                                    hardware_sort_field=self.__hardware_sort, number_of_games=number_of_games,
                                     hardware_sort_direction=self.__hardware_sort_dir)
 
     def __init_sorting(self):
@@ -47,3 +49,8 @@ class IndexHandler(Handler):
         hardware = get_hardware_list_interactor.execute(sort_field=self.__hardware_sort,
                                                         sort_direction=self.__hardware_sort_dir)
         return hardware
+
+    def __count_games(self):
+        count_games_interactor = self.interactor_factory.create("CountGamesInteractor")
+        number_of_games = count_games_interactor.execute()
+        return number_of_games
