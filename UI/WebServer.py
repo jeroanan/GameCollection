@@ -150,6 +150,6 @@ class WebServer(object):
         handler.get_page(genre_id=genreid)
 
     @cherrypy.expose
-    def allgames(self, gamesort=None, gamesortdir=None):
+    def allgames(self, gamesort=None, gamesortdir=None, platform=None):
         handler = self.__handler_factory.create("AllGamesHandler")
-        return handler.get_page(sort_field=gamesort, sort_direction=gamesortdir)
+        return handler.get_page(sort_field=gamesort, sort_direction=gamesortdir, platform=platform)

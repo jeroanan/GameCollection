@@ -2,7 +2,6 @@ import sys
 
 from bson import ObjectId
 from pymongo import MongoClient
-import pymongo
 from pymongo.errors import ConnectionFailure
 
 from AbstractPersistence import AbstractPersistence
@@ -39,8 +38,14 @@ class MongoPersistence(AbstractPersistence):
     def get_all_games(self, sort_field, number_of_games=999999, sort_order="ASC"):
         sorder = MongoSortDirectionMapper().map(sort_order)
         mapped_sort_field = SortFieldMapper().map(sort_field)
-        return map((ResultToGameMapper()).map, self.__db.games.find(limit=number_of_games).sort(mapped_sort_field,
-                                                                                                sorder))
+        games = self.__db.games.find(limit=number_of_games)
+        return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
+
+    def get_all_games_for_platform(self, platform, sort_field, sort_order, number_of_games=0):
+        sorder = MongoSortDirectionMapper().map(sort_order)
+        mapped_sort_field = SortFieldMapper().map(sort_field)
+        games = self.__db.games.find({"_Game__platform": platform}, limit=number_of_games)
+        return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
 
     def count_games(self):
         return self.__db.games.count()

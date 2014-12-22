@@ -27,7 +27,7 @@ class TestAllGamesHandler(unittest.TestCase):
 
     def test_page_executes_get_games_interactor(self):
         self.__get_page()
-        self.__get_games_interactor.execute.assert_called_with(sort_field="title", sort_direction="asc")
+        self.__get_games_interactor.execute.assert_called_with(sort_field="title", sort_direction="asc", platform=None)
 
     def test_get_page_executes_count_games_interactor(self):
         self.__get_page()
@@ -37,5 +37,5 @@ class TestAllGamesHandler(unittest.TestCase):
         self.__get_page()
         self.assertTrue(self.__renderer.render.called)
 
-    def __get_page(self, sort_field="title", sort_direction="asc"):
-        self.__target.get_page(sort_field=sort_field, sort_direction=sort_direction)
+    def __get_page(self, sort_field="title", sort_direction="asc", platform=None):
+        self.__target.get_page(sort_field=sort_field, sort_direction=sort_direction, platform=platform)

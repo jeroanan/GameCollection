@@ -31,7 +31,12 @@
         {% for game in games %}
         <tr>
             <td><a title="View game details">{{game.title}}</a></td>
-            <td><a title="See all games for {{game.platform}}">{{game.platform}}</a></td>
+            <td>
+                <a title="See all games for {{game.platform}}" href="/allgames?platform={{game.platform}}">
+                    {{game.platform}}
+                </a>
+            </td>
+
             <td>{{game.num_copies}}</td>
             <td>{{game.num_boxed}}</td>
             <td>{{game.num_manuals}}</td>

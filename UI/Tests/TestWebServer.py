@@ -155,5 +155,6 @@ class TestWebServer(unittest.TestCase):
     def test_allgames_calls_handler_get_page(self):
         sort_field = "title"
         sort_dir = "asc"
-        self.__target.allgames(gamesort=sort_field, gamesortdir=sort_dir)
-        self.__handler.get_page.assert_called_with(sort_field=sort_field, sort_direction=sort_dir)
+        platform = None
+        self.__target.allgames(gamesort=sort_field, gamesortdir=sort_dir, platform=platform)
+        self.__handler.get_page.assert_called_with(sort_field=sort_field, sort_direction=sort_dir, platform=platform)
