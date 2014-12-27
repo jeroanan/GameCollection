@@ -1,6 +1,11 @@
 {%extends "master.html"%}
 {%block content%}
     <h1>{{title}}</h1>
+    <span>Showing {{games|length}} results for {{search_term}}</span>
     {%include "games.html"%}
-    <p><small>Note: currently search only performs a case-insensitive search on game titles.</small></p>
+    <p>
+        <small>
+            Note: currently search only performs a case-insensitive search on game titles and their platforms.
+        </small>
+    </p>
 {%endblock%}

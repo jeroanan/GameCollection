@@ -15,7 +15,6 @@ from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 
 
 class MongoPersistence(AbstractPersistence):
-
     def __init__(self):
         self.__client = None
         self.__init_mongo_client()
@@ -111,5 +110,7 @@ class MongoPersistence(AbstractPersistence):
         pass
 
     def search(self, search_term):
-        results = self.__db.games.find({"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}})
+        results = self.__db.games.find({"$or": [
+            {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},
+            {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
         return map(ResultToGameMapper().map, results)

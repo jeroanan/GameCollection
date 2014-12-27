@@ -11,6 +11,7 @@ class TestSearchHandler(unittest.TestCase):
 
     def setUp(self):
         self.__interactor = Mock(SearchInteractor())
+        self.__interactor.execute = Mock(return_value=[])
         self.__interactor_factory = Mock(InteractorFactory)
         self.__interactor_factory.create = Mock(return_value=self.__interactor)
         self.__renderer = Mock(TemplateRenderer)
