@@ -13,6 +13,7 @@ class TestAllGamesHandler(unittest.TestCase):
     def setUp(self):
         super().setUp()
         self.__get_games_interactor = Mock(GetGamesInteractor)
+        self.__get_games_interactor.execute = Mock(return_value=[])
         self.__count_games_interactor = Mock(CountGamesInteractor)
         self.__interactor_factory = Mock(InteractorFactory)
         self.__interactor_factory.create = Mock(side_effect=self.__get_interactors())

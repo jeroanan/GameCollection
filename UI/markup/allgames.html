@@ -2,7 +2,7 @@
 
     {%block content%}
     <h1>{{title}}</h1>
-    <span>Showing {{number_of_games}} games</span>
+    <span>Showing {{games|length}} games</span>
     {%include "games.html" %}
     {%endblock%}
 
