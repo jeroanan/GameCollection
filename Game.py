@@ -7,6 +7,7 @@ class Game(object):
         self.__num_copies = 0
         self.__num_boxed = 0
         self.__num_manuals = 0
+        self.__notes = ""
 
     @property
     def id(self):
@@ -56,5 +57,10 @@ class Game(object):
     def num_manuals(self, value):
         self.__num_manuals = value
 
+    @property
+    def notes(self):
+        return self.__notes
 
-
+    @notes.setter
+    def notes(self, value):
+        self.__notes = value
