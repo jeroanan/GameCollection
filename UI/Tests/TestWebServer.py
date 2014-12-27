@@ -100,21 +100,33 @@ class TestWebServer(unittest.TestCase):
         self.__handler.get_page.assert_called_with("id")
 
     def test_savehardware_calls_handler_get_page(self):
-        self.__target.savehardware(name="name", platform="platform", numowned="numowned", numboxed="numboxed")
-        self.__handler.get_page.assert_called_with(name="name", platform="platform", numowned="numowned",
-                                                 numboxed="numboxed")
+        name = "name"
+        platform = "platform"
+        num_owned = "numowned"
+        num_boxed = "numboxed"
+        notes = "notes"
+
+        self.__target.savehardware(name=name, platform=platform, numowned=num_owned, numboxed=num_boxed, notes=notes)
+        self.__handler.get_page.assert_called_with(name=name, platform=platform, numowned=num_owned, numboxed=num_boxed,
+                                                   notes=notes)
 
     def test_edithardware_calls_handler_get_page(self):
         self.__target.edithardware(hardwareid="id")
         self.__handler.get_page.assert_called_with("id")
 
-    def test_updatehardware_calls_handler_factory(self):
-        self.__target.updatehardware(id="id", name="name", platform="platform", numcopies="1", numboxed="0")
-        self.__handler_factory.create.assert_called_with("UpdateHardwareHandler")
-
     def test_updatehardware_calls_handler_get_page(self):
-        self.__target.updatehardware(id="id", name="name", platform="platform", numcopies="1", numboxed="0")
-        self.__handler.get_page.assert_called_with(id="id", name="name", platform="platform", numowned="1", numboxed="0")
+        id = "id"
+        name = "name"
+        platform = "platform"
+        numcopies = "1"
+        numboxed = "0"
+        notes = ""
+
+        self.__target.updatehardware(id=id, name=name, platform=platform, numcopies=numcopies, numboxed=numboxed,
+                                     notes=notes)
+
+        self.__handler.get_page.assert_called_with(id=id, name=name, platform=platform, numowned=numcopies,
+                                                   numboxed=numboxed, notes=notes)
 
     def test_deletehardware_calls_handler_factory(self):
         self.__target.deletehardware(hardwareid="id")

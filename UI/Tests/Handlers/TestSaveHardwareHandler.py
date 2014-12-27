@@ -22,11 +22,11 @@ class TestSaveHardwareHandler(unittest.TestCase):
 
     def test_get_page_executes_save_hardware_interactor(self):
         try:
-            self.__target.get_page(name="name", platform="platform", numowned="0", numboxed="0")
+            self.__target.get_page(name="name", platform="platform", numowned="0", numboxed="0", notes="")
         except cherrypy.HTTPRedirect:
             pass
         self.assertTrue(self.__interactor.execute.called)
 
     def test_get_page_does_redirect(self):
         self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, name="name", platform="platform", numowned="0",
-                          numboxed="0")
+                          numboxed="0", notes="")

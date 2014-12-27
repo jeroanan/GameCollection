@@ -6,6 +6,7 @@ class Hardware():
         self.__platform = ""
         self.__num_owned = ""
         self.__num_boxed = ""
+        self.__notes = ""
 
     @property
     def id(self):
@@ -46,3 +47,11 @@ class Hardware():
     @numboxed.setter
     def numboxed(self, value):
         self.__num_boxed = value
+
+    @property
+    def notes(self):
+        return self.__notes
+
+    @notes.setter
+    def notes(self, value):
+        self.__notes = value

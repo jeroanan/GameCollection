@@ -5,7 +5,7 @@ from UI.Handlers.Handler import Handler
 
 class UpdateHardwareHandler(Handler):
 
-    def get_page(self, id, name, platform, numowned, numboxed):
+    def get_page(self, id, name, platform, numowned, numboxed, notes):
         interactor = self.interactor_factory.create("UpdateHardwareInteractor")
         hardware = Hardware()
         hardware.id = id
@@ -13,6 +13,7 @@ class UpdateHardwareHandler(Handler):
         hardware.platform = platform
         hardware.numowned = numowned
         hardware.numboxed = numboxed
+        hardware.notes = notes
 
         interactor.execute(hardware)
         raise cherrypy.HTTPRedirect("/")

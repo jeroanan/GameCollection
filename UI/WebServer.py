@@ -106,9 +106,9 @@ class WebServer(object):
         handler.get_page(id, name, description)
 
     @cherrypy.expose
-    def savehardware(self, name, platform, numowned, numboxed):
+    def savehardware(self, name, platform, numowned, numboxed, notes):
         handler = self.__handler_factory.create("SaveHardwareHandler")
-        return handler.get_page(name=name, platform=platform, numowned=numowned, numboxed=numboxed)
+        return handler.get_page(name=name, platform=platform, numowned=numowned, numboxed=numboxed, notes=notes)
 
     @cherrypy.expose
     def edithardware(self, hardwareid):
@@ -116,9 +116,9 @@ class WebServer(object):
         return handler.get_page(hardwareid)
 
     @cherrypy.expose
-    def updatehardware(self, id, name, platform, numcopies, numboxed):
+    def updatehardware(self, id, name, platform, numcopies, numboxed, notes):
         handler = self.__handler_factory.create("UpdateHardwareHandler")
-        handler.get_page(id=id, name=name, platform=platform, numowned=numcopies, numboxed=numboxed)
+        handler.get_page(id=id, name=name, platform=platform, numowned=numcopies, numboxed=numboxed, notes=notes)
 
     @cherrypy.expose
     def deletehardware(self, hardwareid):
