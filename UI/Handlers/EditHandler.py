@@ -9,4 +9,4 @@ class EditHandler(Handler):
         platform_interactor = self.interactor_factory.create("GetPlatformsInteractor")
         platforms = platform_interactor.execute()
         pageTitle = "{title} ({platform})".format(title=game.title, platform=game.platform)
-        return self.renderer.render("edit.html", game=game, title=pageTitle, platforms=platforms)
+        return self.renderer.render("editgame.html", game=game, title=pageTitle, platforms=platforms)
