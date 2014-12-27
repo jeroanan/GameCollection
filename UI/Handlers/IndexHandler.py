@@ -11,7 +11,6 @@ class IndexHandler(Handler):
         self.__hardware_sort = None
         self.__hardware_sort_dir = None
 
-
     def get_page(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
         self.__game_sort = game_sort
         self.__game_sort_dir = game_sort_direction

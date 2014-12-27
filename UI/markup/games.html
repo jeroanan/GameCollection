@@ -3,23 +3,25 @@
        <tr>
            <th>
                {%if game_sort_field == "title" and game_sort_direction != "desc" %}
-                    <a title="Sort by game title" href="?gamesort=title&gamesortdir=desc">Title</a>
+                    <a title="Sort by game title" href="?gamesort=title&gamesortdir=desc&{{query}}">Title</a>
                {% else %}
-                    <a title="Sort by game title" href="?gamesort=title">Title</a>
+                    <a title="Sort by game title" href="?gamesort=title&{{query}}">Title</a>
                {% endif %}
            </th>
            <th>
                {% if game_sort_field == "platform" and game_sort_direction != "desc" %}
-                    <a title="Sort by platform" href="?gamesort=platform&gamesortdir=desc">Platform</a>
+                    <a title="Sort by platform" href="?gamesort=platform&gamesortdir=desc&{{query}}">Platform</a>
                {% else %}
-                    <a title="Sort by platform" href="?gamesort=platform">Platform</a>
+                    <a title="Sort by platform" href="?gamesort=platform&{{query}}">Platform</a>
                {% endif %}
            </th>
            <th>
-               {% if game_sort_field == "numcopies" %}
-                    <a title="Sort by number of copies" href="?gamesort=numcopies&gamesortdir=desc"># Copies</a>
+               {% if game_sort_field == "numcopies" and game_sort_direction != "desc" %}
+                    <a title="Sort by number of copies" href="?gamesort=numcopies&gamesortdir=desc&{{query}}">
+                        # Copies
+                    </a>
                {% else %}
-                    <a title="Sort by number of copies" href="?gamesort=numcopies"># Copies</a>
+                    <a title="Sort by number of copies" href="?gamesort=numcopies&{{query}}"># Copies</a>
                {% endif %}
            </th>
            <th># Boxed</th>
