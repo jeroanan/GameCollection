@@ -17,6 +17,7 @@ from Interactors.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
+from Interactors.SearchInteractor import SearchInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.UpdateGenreInteractor import UpdateGenreInteractor
 from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
@@ -52,7 +53,8 @@ class InteractorFactory(object):
             "GetGenreInteractor": self.__initialise_interactor(GetGenreInteractor()),
             "UpdateGenreInteractor": self.__initialise_interactor(UpdateGenreInteractor()),
             "DeleteGenreInteractor": self.__initialise_interactor(DeleteGenreInteractor()),
-            "CountGamesInteractor": self.__initialise_interactor(CountGamesInteractor())
+            "CountGamesInteractor": self.__initialise_interactor(CountGamesInteractor()),
+            "SearchInteractor": self.__initialise_interactor(SearchInteractor())
         }
 
     def __initialise_interactor(self, interactor):

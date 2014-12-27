@@ -158,3 +158,15 @@ class TestWebServer(unittest.TestCase):
         platform = None
         self.__target.allgames(gamesort=sort_field, gamesortdir=sort_dir, platform=platform)
         self.__handler.get_page.assert_called_with(sort_field=sort_field, sort_direction=sort_dir, platform=platform)
+
+    def test_search(self):
+        self.__target.search(searchterm="search")
+
+    def test_search_calls_handler_factory(self):
+        self.__target.search(searchterm="search")
+        self.__handler_factory.create.assert_called_with("SearchHandler")
+
+    def test_search_calls_handler_get_page(self):
+        search_term = "search"
+        self.__target.search(searchterm=search_term)
+        self.__handler.get_page.assert_called_with(search_term=search_term)

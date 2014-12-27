@@ -68,7 +68,14 @@
             {
               "name": "Android",
               "description": "Mobile devices running Android"
+            },
+            {
+              "name": "Nintendo Wii",
+              "description": "Wii"
+            },
+            {
+              "name": "Nintendo DS",
+              "description": "DS"
             }
-
           ]
 }

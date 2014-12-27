@@ -67,3 +67,6 @@ class AbstractPersistence(object):
 
     def delete_genre(self, genre_id):
         pass
+
+    def search(self, search_term):
+        pass

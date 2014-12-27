@@ -15,6 +15,7 @@ from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
+from UI.Handlers.SearchHandler import SearchHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
@@ -51,7 +52,8 @@ class HandlerFactory(object):
             "EditGenreHandler": EditGenreHandler(self.__interactor_factory, self.__renderer),
             "UpdateGenreHandler": UpdateGenreHandler(self.__interactor_factory, self.__renderer),
             "DeleteGenreHandler": DeleteGenreHandler(self.__interactor_factory, self.__renderer),
-            "AllGamesHandler": AllGamesHandler(self.__interactor_factory, self.__renderer)
+            "AllGamesHandler": AllGamesHandler(self.__interactor_factory, self.__renderer),
+            "SearchHandler": SearchHandler(self.__interactor_factory, self.__renderer)
         }
 
     def create(self, handler_type):

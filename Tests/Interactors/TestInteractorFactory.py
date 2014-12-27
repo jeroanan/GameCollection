@@ -1,6 +1,5 @@
 import unittest
 from unittest.mock import Mock
-from Data.Config import Config
 
 from Interactors.AddGenreInteractor import AddGenreInteractor
 from Interactors.CountGamesInteractor import CountGamesInteractor
@@ -19,6 +18,7 @@ from Interactors.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
+from Interactors.SearchInteractor import SearchInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Persistence.MongoPersistence import MongoPersistence
@@ -33,7 +33,6 @@ class TestInteractorFactory(unittest.TestCase):
 
     def setUp(self):
         self.__target = InteractorFactory(Mock(MongoPersistence))
-
 
     def test_create_unrecognised_type_string_throws_exception(self):
         self.assertRaises(UnrecognisedInteractorTypeException, self.__target.create, "InteractorType")
@@ -103,6 +102,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_count_games_interactor_returns_count_games_interactor(self):
         self.assert_factory_returns_instance_of("CountGamesInteractor", CountGamesInteractor)
+
+    def test_create_Search_interactor_returns_search_interactor(self):
+        self.assert_factory_returns_instance_of("SearchInteractor", SearchInteractor)
 
     def assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

@@ -55,7 +55,7 @@ class MongoPersistence(AbstractPersistence):
         return (ResultToGameMapper()).map(cursor)
 
     def get_platforms(self):
-        return map(ResultToPlatformMapper().map, self.__db.platforms.find())
+        return map(ResultToPlatformMapper().map, self.__db.platforms.find().sort("_Platform__name"))
 
     def get_platform(self, platform_id):
         mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
@@ -109,3 +109,7 @@ class MongoPersistence(AbstractPersistence):
 
     def delete_genre(self, genre_id):
         pass
+
+    def search(self, search_term):
+        results = self.__db.games.find({"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}})
+        return map(ResultToGameMapper().map, results)

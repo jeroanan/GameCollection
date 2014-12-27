@@ -153,3 +153,8 @@ class WebServer(object):
     def allgames(self, gamesort=None, gamesortdir=None, platform=None):
         handler = self.__handler_factory.create("AllGamesHandler")
         return handler.get_page(sort_field=gamesort, sort_direction=gamesortdir, platform=platform)
+
+    @cherrypy.expose
+    def search(self, searchterm):
+        handler = self.__handler_factory.create("SearchHandler")
+        return handler.get_page(search_term=searchterm)
