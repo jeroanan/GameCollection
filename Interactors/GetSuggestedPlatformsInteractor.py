@@ -9,7 +9,7 @@ class GetSuggestedPlatformsInteractor(Interactor):
 
     def execute(self):
         result = []
-        platforms = self.persistence.get_platforms()
+        platforms = list(self.persistence.get_platforms())
         suggested_platforms = self.__suggested_platforms.get()
 
         for suggested_platform in suggested_platforms:
@@ -20,8 +20,7 @@ class GetSuggestedPlatformsInteractor(Interactor):
                     found = True
                     break
 
-            if found:
-                continue
-            result.append(suggested_platform)
+            if not found:
+                result.append(suggested_platform)
 
         return sorted(result, key=lambda x: x.name)
