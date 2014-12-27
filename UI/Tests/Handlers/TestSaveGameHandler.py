@@ -19,13 +19,14 @@ class TestSaveGameHandler(unittest.TestCase):
 
     def test_get_page_executes_interactor(self):
         try:
-            self.__target.get_page(title=None, numcopies=None, numboxed=None, nummanuals=None, platform=None)
+            self.__target.get_page(title=None, numcopies=None, numboxed=None, nummanuals=None, platform=None, notes="")
         except cherrypy.HTTPRedirect:
             pass
         self.assertTrue(self.__interactor.execute.called)
 
     def test_get_page_raises_http_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, None, None, None, None, None)
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, title=None, numcopies=None, numboxed=None,
+                          nummanuals=None, platform=None, notes="")
 
     def test_is_instance_of_handler(self):
         self.assertIsInstance(self.__target, Handler)

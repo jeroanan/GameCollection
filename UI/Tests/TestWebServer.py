@@ -45,8 +45,17 @@ class TestWebServer(unittest.TestCase):
         self.__handler.get_page.assert_called_with()
 
     def test_savegame_calls_handler_get_page(self):
-        self.__target.savegame(None, None, None, None)
-        self.assertTrue(self.__handler.get_page.called)
+        title = None
+        numcopies = None
+        numboxed = None
+        nummanuals = None
+        platform = ""
+        notes = ""
+        self.__target.savegame(title=title, numcopies=numcopies, numboxed=numboxed, nummanuals=nummanuals,
+                               platform=platform, notes=notes)
+
+        self.__handler.get_page.assert_called_with(title=title, numcopies=numcopies, numboxed=numboxed,
+                                                   nummanuals=nummanuals, platform=platform, notes=notes)
 
     def test_addhardware_calls_handler_get_page(self):
         self.__target.addhardware()
@@ -82,9 +91,9 @@ class TestWebServer(unittest.TestCase):
 
     def test_updategame_calls_handler_get_page(self):
         self.__target.updategame(id="id", title="title", platform="platform", numcopies="1", numboxed="2",
-                                 nummanuals="3")
+                                 nummanuals="3", notes="notes")
         self.__handler.get_page.assert_called_with(id="id", title="title", platform="platform", numcopies="1",
-                                                   numboxed="2", nummanuals="3")
+                                                   numboxed="2", nummanuals="3", notes="notes")
 
     def test_deletegame_calls_handler_get_page(self):
         self.__target.deletegame(gameid="id")

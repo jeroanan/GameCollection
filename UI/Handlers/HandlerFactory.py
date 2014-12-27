@@ -7,7 +7,7 @@ from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
-from UI.Handlers.EditHandler import EditHandler
+from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.GetGenresHandler import GetGenresHandler
@@ -37,7 +37,7 @@ class HandlerFactory(object):
             "AddHardwareHandler": AddHardwareHandler(self.__interactor_factory, self.__renderer),
             "PlatformsHandler": PlatformsHandler(self.__interactor_factory, self.__renderer),
             "AddPlatformHandler": AddPlatformHandler(self.__interactor_factory, self.__renderer),
-            "EditGameHandler": EditHandler(self.__interactor_factory, self.__renderer),
+            "EditGameHandler": EditGameHandler(self.__interactor_factory, self.__renderer),
             "UpdateGameHandler": UpdateGameHandler(self.__interactor_factory, self.__renderer),
             "DeleteGameHandler": DeleteGameHandler(self.__interactor_factory, self.__renderer),
             "SaveHardwareHandler": SaveHardwareHandler(self.__interactor_factory, self.__renderer),

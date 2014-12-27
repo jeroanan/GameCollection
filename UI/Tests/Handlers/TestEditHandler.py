@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from Interactors.GetGameInteractor import GetGameInteractor
 from Interactors.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
-from UI.Handlers.EditHandler import EditHandler
+from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.Handler import Handler
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -16,7 +16,7 @@ class TestEditHandler(unittest.TestCase):
         self.__get_platforms_interactor = Mock(GetPlatformsInteractor)
         self.__interactor_factory = Mock(InteractorFactory)
         self.__interactor_factory.create = Mock(side_effect=self.__get_interactor())
-        self.__target = EditHandler(self.__interactor_factory, self.__renderer)
+        self.__target = EditGameHandler(self.__interactor_factory, self.__renderer)
 
     def __get_interactor(self):
         return [self.__get_game_interactor, self.__get_platforms_interactor]

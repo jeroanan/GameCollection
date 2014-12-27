@@ -1,7 +1,7 @@
 from UI.Handlers.Handler import Handler
 
 
-class EditHandler(Handler):
+class EditGameHandler(Handler):
 
     def get_page(self, game_id):
         get_game_interactor = self.interactor_factory.create("GetGameInteractor")

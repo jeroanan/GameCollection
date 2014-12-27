@@ -11,7 +11,8 @@ class TestUpdateGameInteractor(InteractorTestBase):
         self.__target.persistence = self.persistence
         self.__target.validate_string_field = self.validate_string_field
         self.__target.validate_integer_field = self.validate_integer_field
-        self.__game = self.get_game(title="title", platform="platform", num_copies=1, num_boxed=2, num_manuals=3)
+        self.__game = self.get_game(title="title", platform="platform", num_copies=1, num_boxed=2, num_manuals=3,
+                                    notes="")
 
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, Interactor)

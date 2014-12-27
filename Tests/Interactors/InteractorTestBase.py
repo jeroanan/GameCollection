@@ -31,7 +31,8 @@ class InteractorTestBase(unittest.TestCase):
         return (field_name in self.__validated_string_field_names and
                 field_value in self.__validated_string_field_values)
 
-    def get_game(self, game_id="", title="title", platform="platform", num_copies=0, num_boxed=0, num_manuals=0):
+    def get_game(self, game_id="", title="title", platform="platform", num_copies=0, num_boxed=0, num_manuals=0,
+                 notes=""):
         game = Game()
         game.id = game_id
         game.title = title

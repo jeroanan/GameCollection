@@ -21,11 +21,12 @@ class TestUpdateGameHandler(unittest.TestCase):
 
     def test_get_page_calls_interactor_execute(self):
         try:
-            self.__target.get_page(id=None, title=None, numcopies=None, numboxed=None, nummanuals=None, platform=None)
+            self.__target.get_page(id=None, title=None, numcopies=None, numboxed=None, nummanuals=None, platform=None,
+                                   notes="")
         except cherrypy.HTTPRedirect:
             pass
         self.assertTrue(self.__interactor.execute.called)
 
     def test_get_page_does_redirect(self):
         self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, id=None, title=None, numcopies=None,
-                          numboxed=None, nummanuals=None, platform=None)
+                          numboxed=None, nummanuals=None, platform=None, notes="")

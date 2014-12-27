@@ -52,9 +52,10 @@ class WebServer(object):
         return self.__get_page_for_handler("AddGameHandler")
 
     @cherrypy.expose
-    def savegame(self, title, numcopies, numboxed, nummanuals, platform=None):
+    def savegame(self, title, numcopies, numboxed, nummanuals, platform, notes):
         handler = self.__handler_factory.create("SaveGameHandler")
-        return handler.get_page(title, numcopies, numboxed, nummanuals, platform)
+        return handler.get_page(title=title, numcopies=numcopies, numboxed=numboxed, nummanuals=nummanuals,
+                                platform=platform, notes=notes)
 
     @cherrypy.expose()
     def addhardware(self):
@@ -79,10 +80,10 @@ class WebServer(object):
         return handler.get_page(gameid)
 
     @cherrypy.expose
-    def updategame(self, id, title, platform, numcopies, numboxed, nummanuals):
+    def updategame(self, id, title, platform, numcopies, numboxed, nummanuals, notes):
         handler = self.__handler_factory.create("UpdateGameHandler")
         return handler.get_page(id=id, title=title, platform=platform, numcopies=numcopies, numboxed=numboxed,
-                                nummanuals=nummanuals)
+                                nummanuals=nummanuals, notes=notes)
 
     @cherrypy.expose
     def deletegame(self, gameid):
