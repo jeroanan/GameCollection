@@ -1,10 +1,10 @@
-GameCollection
-==============
+# GameCollection
+
 
 A web application written predominately in Python to track my collection of mostly old-school video games.
 
-Dependencies
-============
+## Dependencies
+
 This software needs the following:
 
 * Python 3
@@ -12,3 +12,11 @@ This software needs the following:
 * pymongo
 * cherrypy
 * jinja2
+
+## To-Do List
+
+To be put into the issue tracker at some point:
+
+* Import/Export of data
+* Make sorting work properly on search results and by platform pages
+* Expand search to include hardware, platforms etc.
