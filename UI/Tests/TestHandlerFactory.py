@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+
 from Data.Config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
@@ -7,14 +8,11 @@ from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
-from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
-from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
-from UI.Handlers.GetGenresHandler import GetGenresHandler
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
@@ -25,9 +23,7 @@ from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
-from UI.Tests.Handlers.TestAddGenreHandler import AddGenreHandler
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
-from UI.Tests.Handlers.TestUpdateGenreHandler import UpdateGenreHandler
 
 
 class TestHandlerFactory(unittest.TestCase):
@@ -88,21 +84,6 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_delete_hardware_handler_returns_delete_hardware_handler(self):
         self.__assert_type_string_returns_handler_type("DeleteHardwareHandler", DeleteHardwareHandler)
-
-    def test_get_genres_handler_returns_get_genres_handler(self):
-        self.__assert_type_string_returns_handler_type("GetGenresHandler", GetGenresHandler)
-
-    def test_add_genre_handler_returns_add_genre_handler(self):
-        self.__assert_type_string_returns_handler_type("AddGenreHandler", AddGenreHandler)
-
-    def test_edit_genre_handler_returns_edit_genre_handler(self):
-        self.__assert_type_string_returns_handler_type("EditGenreHandler", EditGenreHandler)
-
-    def test_delete_genre_handler_returns_delete_genre_handler(self):
-        self.__assert_type_string_returns_handler_type("DeleteGenreHandler", DeleteGenreHandler)
-
-    def test_update_genre_handler_returns_update_genre_handler(self):
-        self.__assert_type_string_returns_handler_type("UpdateGenreHandler", UpdateGenreHandler)
 
     def test_allgames_handler_returns_allgames_handler(self):
         self.__assert_type_string_returns_handler_type("AllGamesHandler", AllGamesHandler)

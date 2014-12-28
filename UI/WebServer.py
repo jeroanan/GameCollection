@@ -126,31 +126,6 @@ class WebServer(object):
         handler.get_page(hardware_id=hardwareid)
 
     @cherrypy.expose
-    def genres(self):
-        handler = self.__handler_factory.create("GetGenresHandler")
-        return handler.get_page()
-
-    @cherrypy.expose
-    def addgenre(self, name, description):
-        handler = self.__handler_factory.create("AddGenreHandler")
-        handler.get_page(name=name, description=description)
-
-    @cherrypy.expose
-    def editgenre(self, genreid):
-        handler = self.__handler_factory.create("EditGenreHandler")
-        return handler.get_page(genre_id=genreid)
-
-    @cherrypy.expose
-    def updategenre(self, id, name, description):
-        handler = self.__handler_factory.create("UpdateGenreHandler")
-        handler.get_page(id=id, name=name, description=description)
-
-    @cherrypy.expose
-    def deletegenre(self, genreid):
-        handler = self.__handler_factory.create("DeleteGenreHandler")
-        handler.get_page(genre_id=genreid)
-
-    @cherrypy.expose
     def allgames(self, gamesort=None, gamesortdir=None, platform=None):
         handler = self.__handler_factory.create("AllGamesHandler")
         return handler.get_page(sort_field=gamesort, sort_direction=gamesortdir, platform=platform)

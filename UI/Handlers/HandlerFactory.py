@@ -3,24 +3,19 @@ from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
-from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
-from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
-from UI.Handlers.GetGenresHandler import GetGenresHandler
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
-from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
-from UI.Tests.Handlers.TestAddGenreHandler import AddGenreHandler
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
 
@@ -47,11 +42,6 @@ class HandlerFactory(object):
             "EditHardwareHandler": EditHardwareHandler(self.__interactor_factory, self.__renderer),
             "UpdateHardwareHandler": UpdateHardwareHandler(self.__interactor_factory, self.__renderer),
             "DeleteHardwareHandler": DeleteHardwareHandler(self.__interactor_factory, self.__renderer),
-            "GetGenresHandler": GetGenresHandler(self.__interactor_factory, self.__renderer),
-            "AddGenreHandler": AddGenreHandler(self.__interactor_factory, self.__renderer),
-            "EditGenreHandler": EditGenreHandler(self.__interactor_factory, self.__renderer),
-            "UpdateGenreHandler": UpdateGenreHandler(self.__interactor_factory, self.__renderer),
-            "DeleteGenreHandler": DeleteGenreHandler(self.__interactor_factory, self.__renderer),
             "AllGamesHandler": AllGamesHandler(self.__interactor_factory, self.__renderer),
             "SearchHandler": SearchHandler(self.__interactor_factory, self.__renderer)
         }

@@ -136,39 +136,6 @@ class TestWebServer(unittest.TestCase):
         self.__target.deletehardware(hardwareid="id")
         self.__handler.get_page.assert_called_with(hardware_id="id")
 
-    def test_genres_calls_handler(self):
-        self.__target.genres()
-        self.__handler.get_page.assert_called_with()
-
-    def test_addgenre_calls_handler_factory(self):
-        self.__target.addgenre(name="name", description="description")
-        self.__handler_factory.create.assert_called_with("AddGenreHandler")
-
-    def test_add_genre_calls_handler_get_page(self):
-        self.__target.addgenre(name="name", description="description")
-        self.__handler.get_page.assert_called_with(name="name", description="description")
-
-    def test_edit_genre_handler_calls_handler_factory(self):
-        self.__target.editgenre(genreid="id")
-        self.__handler_factory.create.assert_called_with("EditGenreHandler")
-
-    def test_edit_genre_handler_calls_handler_get_page(self):
-        self.__target.editgenre(genreid="id")
-        self.__handler.get_page.assert_called_with(genre_id="id")
-
-    def test_update_genre_calls_handler_factory(self):
-        self.__target.updategenre(id="id", name="name", description="description")
-        self.__handler_factory.create.assert_called_with("UpdateGenreHandler")
-        self.__handler.get_page.assert_called_with(id="id", name="name", description="description")
-
-    def test_delete_genre_calls_handler_factory(self):
-        self.__target.deletegenre(genreid="id")
-        self.__handler_factory.create.assert_called_with("DeleteGenreHandler")
-
-    def test_delete_genre_calls_handler_get_page(self):
-        self.__target.deletegenre(genreid="id")
-        self.__handler.get_page.assert_called_with(genre_id="id")
-
     def test_allgames_calls_handler_factory(self):
         self.__target.allgames()
         self.__handler_factory.create.assert_called_with("AllGamesHandler")
