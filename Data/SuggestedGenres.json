@@ -1,0 +1,114 @@
+{
+  "genres":
+  [
+    {
+      "name": "Turn-based Strategy",
+      "description": "Players take it in turns to make moves"
+    },
+    {
+      "name": "Survival Horror",
+      "description": "Creepy worlds with limited resources"
+    },
+    {
+      "name": "Sports Simulator",
+      "description": ""
+    },
+    {
+      "name": "Action",
+      "description": ""
+    },
+    {
+      "name": "Role Playing Game",
+      "description": "Players assume the role of characters in a fictional setting"
+    },
+    {
+      "name": "Arcade",
+      "description": "Console ports of arcade games"
+    },
+    {
+      "name": "Maze",
+      "description": "Players have to navigate their way around a maze"
+    },
+    {
+      "name": "Real-Time Strategy",
+      "description": "Players make their moves at the same time"
+    },
+    {
+      "name": "Shoot-em up",
+      "description": ""
+    },
+    {
+      "name": "Side-scrolling shooter",
+      "description": ""
+    },
+    {
+      "name": "Puzzle",
+      "description": ""
+    },
+    {
+      "name": "Racing",
+      "description": ""
+    },
+    {
+      "name": "Collectible Card Game",
+      "description": ""
+    },
+    {
+      "name": "Platform",
+      "description": ""
+    },
+    {
+      "name": "Fitness",
+      "description": "Games that help the player exercise"
+    },
+    {
+      "name": "Adventure",
+      "description": ""
+    },
+    {
+      "name": "Fighting",
+      "description": "Fighting simulator"
+    },
+    {
+      "name": "Fixed shooter",
+      "description": ""
+    },
+    {
+      "name": "First person shooter",
+      "description": ""
+    },
+    {
+      "name": "Simulation Game",
+      "description": ""
+    },
+    {
+      "name": "Farming Simulation",
+      "description": ""
+    },
+    {
+      "name": "Casino Simulation",
+      "description": ""
+    },
+    {
+      "name": "Party Game",
+      "description": ""
+    },
+    {
+      "name": "Compilation",
+      "description": "Compilations containing several games"
+    },
+    {
+      "name": "Run and Gun",
+      "description": ""
+    },
+    {
+      "name": "Board Game",
+      "description": ""
+    },
+    {
+      "name": "Rail Shooter",
+      "description": ""
+    }
+
+  ]
+}
