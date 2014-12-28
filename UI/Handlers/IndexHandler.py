@@ -12,15 +12,12 @@ class IndexHandler(Handler):
         self.__hardware_sort_dir = None
 
     def get_page(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
-        self.__hardware_sort = hardware_sort
-        self.__hardware_sort_dir = hardware_sort_direction
         self.__init_sorting(game_sort, game_sort_direction, hardware_sort, hardware_sort_direction)
-        games = self.__get_games()
-        hardware = self.__get_hardware()
-        number_of_games = self.__count_games()
-        return self.renderer.render("index.html", games=games, hardware=hardware, title="Games Collection",
-                                    game_sort_field=self.__game_sort, game_sort_direction=self.__game_sort_dir,
-                                    hardware_sort_field=self.__hardware_sort, number_of_games=number_of_games,
+
+        return self.renderer.render("index.html", games=(self.__get_games()), hardware=(self.__get_hardware()),
+                                    title="Games Collection", game_sort_field=self.__game_sort,
+                                    game_sort_direction=self.__game_sort_dir, hardware_sort_field=self.__hardware_sort,
+                                    number_of_games=(self.__count_games()),
                                     hardware_sort_direction=self.__hardware_sort_dir)
 
     def __init_sorting(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
