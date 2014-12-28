@@ -2,7 +2,7 @@ import json
 from Platform import Platform
 
 
-class SuggestedPlatforms(object):
+class LoadSuggestedPlatforms(object):
     def __init__(self):
         with open("Data/SuggestedPlatforms.json") as f:
             data = json.load(f)

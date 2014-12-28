@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
 from AbstractPersistence import AbstractPersistence
-from Data.SuggestedPlatforms import SuggestedPlatforms
+from Data.LoadSuggestedPlatforms import LoadSuggestedPlatforms
 from Interactors.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.Interactor import Interactor
 from Platform import Platform
@@ -12,7 +12,7 @@ class TestGetSuggestedPlatformsInteractor(InteractorTestBase):
 
     def setUp(self):
         super().setUp()
-        self.__suggested_platforms = Mock(SuggestedPlatforms)
+        self.__suggested_platforms = Mock(LoadSuggestedPlatforms)
         self.__suggested_platforms.get = self.__get_suggested_platforms
         self.__target = GetSuggestedPlatformsInteractor(suggested_platforms=self.__suggested_platforms)
         self.persistence.get_platforms = Mock(return_value=[])
@@ -27,7 +27,7 @@ class TestGetSuggestedPlatformsInteractor(InteractorTestBase):
         self.assertTrue(self.persistence.get_platforms.called)
 
     def test_executeS_returns_empty_list_if_there_are_none(self):
-        suggested_platforms = Mock(SuggestedPlatforms)
+        suggested_platforms = Mock(LoadSuggestedPlatforms)
         suggested_platforms.get = Mock(return_value=[])
         target = GetSuggestedPlatformsInteractor(suggested_platforms)
         target.persistence = self.persistence
