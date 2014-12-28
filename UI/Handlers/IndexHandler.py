@@ -12,11 +12,9 @@ class IndexHandler(Handler):
         self.__hardware_sort_dir = None
 
     def get_page(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
-        self.__game_sort = game_sort
-        self.__game_sort_dir = game_sort_direction
         self.__hardware_sort = hardware_sort
         self.__hardware_sort_dir = hardware_sort_direction
-        self.__init_sorting()
+        self.__init_sorting(game_sort, game_sort_direction, hardware_sort, hardware_sort_direction)
         games = self.__get_games()
         hardware = self.__get_hardware()
         number_of_games = self.__count_games()
@@ -25,16 +23,17 @@ class IndexHandler(Handler):
                                     hardware_sort_field=self.__hardware_sort, number_of_games=number_of_games,
                                     hardware_sort_direction=self.__hardware_sort_dir)
 
-    def __init_sorting(self):
-        self.__game_sort = self.__set_if_null(self.__game_sort, "title")
-        self.__game_sort_dir = self.__set_if_null(self.__game_sort_dir, "asc")
-        self.__hardware_sort = self.__set_if_null(self.__hardware_sort, "name")
-        self. __hardware_sort_dir = self.__set_if_null(self.__hardware_sort_dir, "asc")
+    def __init_sorting(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
+        self.__init_game_sorting(game_sort, game_sort_direction)
+        self.__init_hardware_sorting(hardware_sort, hardware_sort_direction)
 
-    def __set_if_null(self, variable, value):
-        if variable is None:
-            return value
-        return variable
+    def __init_game_sorting(self, game_sort, game_sort_direction):
+        self.__game_sort = self.set_if_null(game_sort, "title")
+        self.__game_sort_dir = self.set_if_null(game_sort_direction, "asc")
+
+    def __init_hardware_sorting(self, hardware_sort, hardware_sort_direction):
+        self.__hardware_sort = self.set_if_null(hardware_sort, "name")
+        self. __hardware_sort_dir = self.set_if_null(hardware_sort_direction, "asc")
 
     def __get_games(self):
         get_games_interactor = self.interactor_factory.create("GetGamesInteractor")

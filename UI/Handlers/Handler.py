@@ -15,3 +15,8 @@ class Handler(object):
     def renderer(self):
         return self.__renderer
 
+    def set_if_null(self, variable, value):
+        if variable is None:
+            return value
+        return variable
+

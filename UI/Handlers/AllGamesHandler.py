@@ -5,10 +5,8 @@ class AllGamesHandler(Handler):
 
     def get_page(self, sort_field, sort_direction, platform):
 
-        if sort_field is None:
-            sort_field = "title"
-        if sort_direction is None:
-            sort_direction = "asc"
+        sort_field = self.set_if_null(sort_field, "title")
+        sort_direction = self.set_if_null(sort_direction, "asc")
 
         games = self.__get_games(sort_direction, sort_field, platform)
         number_of_games = self.__count_games()
