@@ -72,12 +72,12 @@ class WebServer(object):
     @cherrypy.expose
     def addplatform(self, name, description):
         handler = self.__handler_factory.create("AddPlatformHandler")
-        return handler.get_page(name, description)
+        return handler.get_page(name=name, description=description)
 
     @cherrypy.expose
     def editgame(self, gameid):
         handler = self.__handler_factory.create("EditGameHandler")
-        return handler.get_page(gameid)
+        return handler.get_page(game_id=gameid)
 
     @cherrypy.expose
     def updategame(self, id, title, platform, numcopies, numboxed, nummanuals, notes):
@@ -103,7 +103,7 @@ class WebServer(object):
     @cherrypy.expose
     def updateplatform(self, id, name, description):
         handler = self.__handler_factory.create("UpdatePlatformHandler")
-        handler.get_page(id, name, description)
+        handler.get_page(id=id, name=name, description=description)
 
     @cherrypy.expose
     def savehardware(self, name, platform, numowned, numboxed, notes):

@@ -4,9 +4,6 @@ class Handler(object):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
 
-    def get_page(self):
-        pass
-
     @property
     def interactor_factory(self):
         return self.__interactor_factory
