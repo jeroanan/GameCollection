@@ -5,6 +5,7 @@ from Data.Config import Config
 from Interactors import InteractorFactory
 from UI.Handlers.Handler import Handler
 from UI.Handlers.HandlerFactory import HandlerFactory
+from UI.Handlers.SearchHandler import SearchHandler
 from UI.TemplateRenderer import TemplateRenderer
 from UI.WebServer import WebServer
 
@@ -128,17 +129,9 @@ class TestWebServer(unittest.TestCase):
         self.__handler.get_page.assert_called_with(id=id, name=name, platform=platform, numowned=numcopies,
                                                    numboxed=numboxed, notes=notes)
 
-    def test_deletehardware_calls_handler_factory(self):
-        self.__target.deletehardware(hardwareid="id")
-        self.__handler_factory.create.assert_called_with("DeleteHardwareHandler")
-
     def test_delete_hardware_calls_handler(self):
         self.__target.deletehardware(hardwareid="id")
         self.__handler.get_page.assert_called_with(hardware_id="id")
-
-    def test_allgames_calls_handler_factory(self):
-        self.__target.allgames()
-        self.__handler_factory.create.assert_called_with("AllGamesHandler")
 
     def test_allgames_calls_handler_get_page(self):
         sort_field = "title"
@@ -148,6 +141,15 @@ class TestWebServer(unittest.TestCase):
         self.__handler.get_page.assert_called_with(sort_field=sort_field, sort_direction=sort_dir, platform=platform)
 
     def test_search_calls_handler_get_page(self):
+        handler = Mock(SearchHandler)
+        self.__target.handler_factory = self.__get_handler_factory(handler)
         search_term = "search"
-        self.__target.search(searchterm=search_term, gamesort="")
-        self.__handler.get_page.assert_called_with(search_term=search_term)
+        game_sort = ""
+        sort_dir = "asc"
+        self.__target.search(searchterm=search_term, gamesort=game_sort, gamesortdir=sort_dir)
+        handler.get_page.assert_called_with(search_term=search_term, sort_field=game_sort, sort_dir=sort_dir)
+
+    def __get_handler_factory(self, handler):
+        handler_factory = Mock(HandlerFactory)
+        handler_factory.create = Mock(return_value=handler)
+        return handler_factory

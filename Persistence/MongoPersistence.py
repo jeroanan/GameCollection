@@ -109,8 +109,10 @@ class MongoPersistence(AbstractPersistence):
     def delete_genre(self, genre_id):
         pass
 
-    def search(self, search_term):
+    def search(self, search_term, sort_field, sort_dir):
+        mapped_sort_field = SortFieldMapper().map(sort_field)
+        sorder = MongoSortDirectionMapper().map(sort_dir)
         results = self.__db.games.find({"$or": [
             {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},
             {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
-        return map(ResultToGameMapper().map, results)
+        return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))

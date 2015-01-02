@@ -8,7 +8,6 @@ from UI.TemplateRenderer import TemplateRenderer
 
 
 class TestSearchHandler(unittest.TestCase):
-
     def setUp(self):
         self.__interactor = Mock(SearchInteractor())
         self.__interactor.execute = Mock(return_value=[])
@@ -21,11 +20,14 @@ class TestSearchHandler(unittest.TestCase):
         self.assertIsInstance(self.__target, Handler)
 
     def test_get_page_execute_interactor(self):
-        self.__target.get_page(search_term="search")
-        self.__interactor.execute.assert_called_with("search")
+        self.__get_page()
+        self.__interactor.execute.assert_called_with(search_term="search", sort_field="title", sort_dir="asc")
 
     def test_get_page_calls_render_method(self):
-        self.__target.get_page(search_term="search")
-        self.assertTrue(self.__renderer.render.called)
+        self.__get_page()
+        self.__renderer.render.assert_called_with(template="search.html", title="Search Results", games=[],
+                                                  search_term="search", query="searchterm=search",
+                                                  game_sort_field="title", game_sort_direction="asc")
 
-
+    def __get_page(self, search_term="search", sort_field="title", sort_dir="asc"):
+        self.__target.get_page(search_term=search_term, sort_field=sort_field, sort_dir=sort_dir)

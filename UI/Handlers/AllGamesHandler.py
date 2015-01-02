@@ -11,7 +11,8 @@ class AllGamesHandler(Handler):
         games = self.__get_games(sort_direction, sort_field, platform)
 
         return self.renderer.render("allgames.html", games=list(games), title="All Games", game_sort_field=sort_field,
-                                    game_sort_direction=sort_direction, platform=platform)
+                                    game_sort_direction=sort_direction, platform=platform,
+                                    query="platform=%s" % platform)
 
     def __get_games(self, sort_direction, sort_field, platform):
         interactor = self.interactor_factory.create("GetGamesInteractor")
