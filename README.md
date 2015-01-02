@@ -18,5 +18,4 @@ This software needs the following:
 To be put into the issue tracker at some point:
 
 * Import/Export of data
-* Make sorting work properly on search results and by platform pages
 * Expand search to include hardware, platforms etc.

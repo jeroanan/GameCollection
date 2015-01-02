@@ -5,7 +5,7 @@ class SearchHandler(Handler):
 
     def get_page(self, search_term, sort_field, sort_dir):
         sort_field = self.set_if_null(sort_field, "title")
-        sort_dir= self.set_if_null(sort_dir, "asc")
+        sort_dir = self.set_if_null(sort_dir, "asc")
 
         interactor = self.interactor_factory.create("SearchInteractor")
         results = interactor.execute(search_term=search_term, sort_field=sort_field, sort_dir=sort_dir)
