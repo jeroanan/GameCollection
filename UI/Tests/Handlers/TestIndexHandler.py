@@ -7,7 +7,8 @@ from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Handler import Handler
-from UI.Handlers.IndexHandler import IndexHandler
+from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
+from UI.Handlers.IndexHandler.IndexHandlerParams import IndexHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -63,8 +64,12 @@ class TestIndexHandler(unittest.TestCase):
 
     def __get_page(self, game_sort="title", game_sort_direction="asc", hardware_sort="name",
                    hardware_sort_direction="asc"):
-        self.__target.get_page(game_sort=game_sort, game_sort_direction=game_sort_direction,
-                               hardware_sort=hardware_sort, hardware_sort_direction=hardware_sort_direction)
+        params = IndexHandlerParams()
+        params.game_sort = game_sort
+        params.game_sort_direction = game_sort_direction
+        params.hardware_sort = hardware_sort
+        params.hardware_sort_direction = hardware_sort_direction
+        self.__target.get_page(params)
 
     def test_is_type_of_handler(self):
         self.assertIsInstance(self.__target, Handler)

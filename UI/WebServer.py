@@ -2,6 +2,8 @@ import os
 import cherrypy
 from UI.Handlers.AddPlatformHandler.AddPlatformHandlerParams import AddPlatformHandlerParams
 from UI.Handlers.HandlerFactory import HandlerFactory
+from UI.Handlers.IndexHandler.IndexHandlerParams import IndexHandlerParams
+from UI.Handlers.SaveGameHandler.SaveGameHandlerParams import SaveGameHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -45,8 +47,13 @@ class WebServer(object):
     @cherrypy.expose
     def index(self, gamesort=None, gamesortdir=None, hardwaresort=None, hardwaresortdir=None):
         handler = self.handler_factory.create("IndexHandler")
-        return handler.get_page(game_sort=gamesort, game_sort_direction=gamesortdir, hardware_sort=hardwaresort,
-                                hardware_sort_direction=hardwaresortdir)
+
+        params = IndexHandlerParams()
+        params.game_sort = gamesort
+        params.game_sort_direction = gamesortdir
+        params.hardware_sort = hardwaresort
+        params.hardware_sort_direction = hardwaresortdir
+        return handler.get_page(params)
 
     @cherrypy.expose
     def addgame(self):
@@ -55,8 +62,15 @@ class WebServer(object):
     @cherrypy.expose
     def savegame(self, title, numcopies, numboxed, nummanuals, platform, notes):
         handler = self.__handler_factory.create("SaveGameHandler")
-        return handler.get_page(title=title, numcopies=numcopies, numboxed=numboxed, nummanuals=nummanuals,
-                                platform=platform, notes=notes)
+
+        params = SaveGameHandlerParams()
+        params.title = title
+        params.num_copies = numcopies
+        params.num_boxed = numboxed
+        params.num_manuals = nummanuals
+        params.platform = platform
+        params.notes = notes
+        return handler.get_page(params=params)
 
     @cherrypy.expose()
     def addhardware(self):

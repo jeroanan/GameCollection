@@ -11,8 +11,8 @@ class IndexHandler(Handler):
         self.__hardware_sort = None
         self.__hardware_sort_dir = None
 
-    def get_page(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
-        self.__init_sorting(game_sort, game_sort_direction, hardware_sort, hardware_sort_direction)
+    def get_page(self, params):
+        self.__init_sorting(params)
 
         return self.renderer.render("index.html", games=(self.__get_games()), hardware=(self.__get_hardware()),
                                     title="Games Collection", game_sort_field=self.__game_sort,
@@ -20,17 +20,17 @@ class IndexHandler(Handler):
                                     number_of_games=(self.__count_games()),
                                     hardware_sort_direction=self.__hardware_sort_dir)
 
-    def __init_sorting(self, game_sort, game_sort_direction, hardware_sort, hardware_sort_direction):
-        self.__init_game_sorting(game_sort, game_sort_direction)
-        self.__init_hardware_sorting(hardware_sort, hardware_sort_direction)
+    def __init_sorting(self, params):
+        self.__init_game_sorting(params.game_sort, params.game_sort_direction)
+        self.__init_hardware_sorting(params.hardware_sort, params.hardware_sort_direction)
 
-    def __init_game_sorting(self, game_sort, game_sort_direction):
-        self.__game_sort = self.set_if_null(game_sort, "title")
-        self.__game_sort_dir = self.set_if_null(game_sort_direction, "asc")
+    def __init_game_sorting(self, sort_field, sort_direction):
+        self.__game_sort = self.set_if_null(sort_field, "title")
+        self.__game_sort_dir = self.set_if_null(sort_direction, "asc")
 
-    def __init_hardware_sorting(self, hardware_sort, hardware_sort_direction):
-        self.__hardware_sort = self.set_if_null(hardware_sort, "name")
-        self. __hardware_sort_dir = self.set_if_null(hardware_sort_direction, "asc")
+    def __init_hardware_sorting(self, sort_field, sort_direction):
+        self.__hardware_sort = self.set_if_null(sort_field, "name")
+        self. __hardware_sort_dir = self.set_if_null(sort_direction, "asc")
 
     def __get_games(self):
         get_games_interactor = self.interactor_factory.create("GetGamesInteractor")

@@ -8,9 +8,9 @@ from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
-from UI.Handlers.IndexHandler import IndexHandler
+from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
-from UI.Handlers.SaveGameHandler import SaveGameHandler
+from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
