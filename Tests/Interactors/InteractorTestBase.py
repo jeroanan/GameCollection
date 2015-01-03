@@ -53,6 +53,6 @@ class InteractorTestBase(unittest.TestCase):
         hardware.id = hardware_id
         hardware.name = name
         hardware.platform = platform
-        hardware.numowned = num_owned
-        hardware.numboxed = num_boxed
+        hardware.num_owned = num_owned
+        hardware.num_boxed = num_boxed
         return hardware

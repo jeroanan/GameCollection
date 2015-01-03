@@ -33,8 +33,8 @@ class TestUpdateHardwareInteractor(InteractorTestBase):
 
     def test_execute_validates_numowned_field(self):
         self.__target.execute(self.__hardware)
-        self.validate_integer_field_was_called_with("Number owned", self.__hardware.numowned)
+        self.validate_integer_field_was_called_with("Number owned", self.__hardware.num_owned)
 
     def test_execute_validates_numboxed_field(self):
         self.__target.execute(self.__hardware)
-        self.validate_integer_field_was_called_with("Number boxed", self.__hardware.numboxed)
+        self.validate_integer_field_was_called_with("Number boxed", self.__hardware.num_boxed)

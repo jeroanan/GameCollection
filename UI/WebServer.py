@@ -4,6 +4,9 @@ from UI.Handlers.AddPlatformHandler.AddPlatformHandlerParams import AddPlatformH
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler.IndexHandlerParams import IndexHandlerParams
 from UI.Handlers.SaveGameHandler.SaveGameHandlerParams import SaveGameHandlerParams
+from UI.Handlers.SaveHardwareHandler.SaveHardwareHandlerParams import SaveHardwareHandlerParams
+from UI.Handlers.UpdateGameHandler.UpdateGameHandlerParams import UpdateGameHandlerParams
+from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandlerParams import UpdatePlatformHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -99,9 +102,17 @@ class WebServer(object):
 
     @cherrypy.expose
     def updategame(self, id, title, platform, numcopies, numboxed, nummanuals, notes):
+        p = UpdateGameHandlerParams()
+        p.id = id
+        p.title = title
+        p.platform = platform
+        p.num_copies = numcopies
+        p.num_boxed = numboxed
+        p.num_manuals = nummanuals
+        p.notes = notes
+
         handler = self.__handler_factory.create("UpdateGameHandler")
-        return handler.get_page(id=id, title=title, platform=platform, numcopies=numcopies, numboxed=numboxed,
-                                nummanuals=nummanuals, notes=notes)
+        return handler.get_page(params=p)
 
     @cherrypy.expose
     def deletegame(self, gameid):
@@ -120,13 +131,24 @@ class WebServer(object):
 
     @cherrypy.expose
     def updateplatform(self, id, name, description):
+        params = UpdatePlatformHandlerParams()
+        params.id = id
+        params.name = name
+        params.description = description
         handler = self.__handler_factory.create("UpdatePlatformHandler")
-        handler.get_page(id=id, name=name, description=description)
+        handler.get_page(params=params)
 
     @cherrypy.expose
     def savehardware(self, name, platform, numowned, numboxed, notes):
+        params = SaveHardwareHandlerParams()
+        params.name = name
+        params.platform = platform
+        params.num_owned = numowned
+        params.num_boxed = numboxed
+        params.notes = notes
+
         handler = self.__handler_factory.create("SaveHardwareHandler")
-        return handler.get_page(name=name, platform=platform, numowned=numowned, numboxed=numboxed, notes=notes)
+        return handler.get_page(params=params)
 
     @cherrypy.expose
     def edithardware(self, hardwareid):

@@ -5,11 +5,11 @@ from UI.Handlers.Handler import Handler
 
 class UpdatePlatformHandler(Handler):
 
-    def get_page(self, id, name, description):
+    def get_page(self, params):
         interactor = self.interactor_factory.create("UpdatePlatformInteractor")
         platform = Platform()
-        platform.id = id
-        platform.name = name
-        platform.description = description
-        interactor.execute(platform)
+        platform.id = params.id
+        platform.name = params.name
+        platform.description = params.description
+        interactor.execute(platform=platform)
         raise cherrypy.HTTPRedirect("/platforms")

@@ -17,11 +17,11 @@ from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
-from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
+from UI.Handlers.SaveHardwareHandler.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
-from UI.Handlers.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
-from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 

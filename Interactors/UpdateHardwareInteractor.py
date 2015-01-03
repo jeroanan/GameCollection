@@ -12,5 +12,5 @@ class UpdateHardwareInteractor(Interactor):
             raise TypeError("hardware")
         self.validate_string_field("hardware name", hardware.name)
         self.validate_string_field("platform", hardware.platform)
-        self.validate_integer_field("Number owned", hardware.numowned)
-        self.validate_integer_field("Number boxed", hardware.numboxed)
+        self.validate_integer_field("Number owned", hardware.num_owned)
+        self.validate_integer_field("Number boxed", hardware.num_boxed)

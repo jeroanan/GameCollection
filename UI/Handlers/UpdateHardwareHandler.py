@@ -11,8 +11,8 @@ class UpdateHardwareHandler(Handler):
         hardware.id = id
         hardware.name = name
         hardware.platform = platform
-        hardware.numowned = numowned
-        hardware.numboxed = numboxed
+        hardware.num_owned = numowned
+        hardware.num_boxed = numboxed
         hardware.notes = notes
 
         interactor.execute(hardware)
