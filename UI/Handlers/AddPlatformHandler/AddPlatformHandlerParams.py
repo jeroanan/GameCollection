@@ -1,17 +1,8 @@
-class Platform(object):
+class AddPlatformHandlerParams(object):
 
     def __init__(self):
-        self.__id = ""
         self.__name = ""
         self.__description = ""
-
-    @property
-    def id(self):
-        return self.__id
-
-    @id.setter
-    def id(self, value):
-        self.__id = value
 
     @property
     def name(self):
@@ -30,4 +21,4 @@ class Platform(object):
         self.__description = value
 
     def __eq__(self, other):
-        return self.id == other.id and self.name == other.name and self.description == other.description
+        return self.name == other.name and self.description == other.description

@@ -1,5 +1,6 @@
 import os
 import cherrypy
+from UI.Handlers.AddPlatformHandler.AddPlatformHandlerParams import AddPlatformHandlerParams
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -72,7 +73,10 @@ class WebServer(object):
     @cherrypy.expose
     def addplatform(self, name, description):
         handler = self.__handler_factory.create("AddPlatformHandler")
-        return handler.get_page(name=name, description=description)
+        params = AddPlatformHandlerParams()
+        params.name = name
+        params.description = description
+        return handler.get_page(platform=params)
 
     @cherrypy.expose
     def editgame(self, gameid):

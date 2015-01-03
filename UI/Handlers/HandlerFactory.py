@@ -1,6 +1,6 @@
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
-from UI.Handlers.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
