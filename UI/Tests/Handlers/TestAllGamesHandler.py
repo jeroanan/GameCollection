@@ -2,7 +2,8 @@ import unittest
 from unittest.mock import Mock
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
-from UI.Handlers.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AllGamesHandler.AllGamesHandlerParams import AllGamesHandlerParams
 from UI.Handlers.Handler import Handler
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -26,11 +27,19 @@ class TestAllGamesHandler(unittest.TestCase):
 
     def test_page_executes_get_games_interactor(self):
         self.__get_page()
-        self.__get_games_interactor.execute.assert_called_with(sort_field="title", sort_direction="asc", platform=None)
+        self.__get_games_interactor.execute.assert_called_with(sort_field="title", sort_direction="asc",
+                                                               platform="platform")
 
     def test_get_page_calls_renderer(self):
         self.__get_page()
         self.assertTrue(self.__renderer.render.called)
 
-    def __get_page(self, sort_field="title", sort_direction="asc", platform=None):
-        self.__target.get_page(sort_field=sort_field, sort_direction=sort_direction, platform=platform)
+    def __get_page(self):
+        self.__target.get_page(params=self.__get_params())
+
+    def __get_params(self, sort_field="title", sort_direction="asc", platform="platform"):
+        p = AllGamesHandlerParams()
+        p.sort_field = sort_field
+        p.sort_direction = sort_direction
+        p.platform = platform
+        return p

@@ -6,7 +6,7 @@ from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
-from UI.Handlers.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
@@ -18,9 +18,9 @@ from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler.SaveHardwareHandler import SaveHardwareHandler
-from UI.Handlers.SearchHandler import SearchHandler
+from UI.Handlers.SearchHandler.SearchHandler import SearchHandler
 from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
-from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
+from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler

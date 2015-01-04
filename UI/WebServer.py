@@ -1,11 +1,14 @@
 import os
 import cherrypy
 from UI.Handlers.AddPlatformHandler.AddPlatformHandlerParams import AddPlatformHandlerParams
+from UI.Handlers.AllGamesHandler.AllGamesHandlerParams import AllGamesHandlerParams
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler.IndexHandlerParams import IndexHandlerParams
 from UI.Handlers.SaveGameHandler.SaveGameHandlerParams import SaveGameHandlerParams
 from UI.Handlers.SaveHardwareHandler.SaveHardwareHandlerParams import SaveHardwareHandlerParams
+from UI.Handlers.SearchHandler.SearchHandlerParams import SearchHandlerParams
 from UI.Handlers.UpdateGameHandler.UpdateGameHandlerParams import UpdateGameHandlerParams
+from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandlerParams import UpdateHardwareHandlerParams
 from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandlerParams import UpdatePlatformHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -157,8 +160,16 @@ class WebServer(object):
 
     @cherrypy.expose
     def updatehardware(self, id, name, platform, numcopies, numboxed, notes):
+        params = UpdateHardwareHandlerParams()
+        params.id = id
+        params.name = name
+        params.platform = platform
+        params.num_owned = numcopies
+        params.num_boxed = numboxed
+        params.notes = notes
+
         handler = self.__handler_factory.create("UpdateHardwareHandler")
-        handler.get_page(id=id, name=name, platform=platform, numowned=numcopies, numboxed=numboxed, notes=notes)
+        handler.get_page(params=params)
 
     @cherrypy.expose
     def deletehardware(self, hardwareid):
@@ -167,10 +178,18 @@ class WebServer(object):
 
     @cherrypy.expose
     def allgames(self, gamesort=None, gamesortdir=None, platform=None):
+        params = AllGamesHandlerParams()
+        params.sort_field = gamesort
+        params.sort_direction = gamesortdir
+        params.platform = platform
         handler = self.__handler_factory.create("AllGamesHandler")
-        return handler.get_page(sort_field=gamesort, sort_direction=gamesortdir, platform=platform)
+        return handler.get_page(params=params)
 
     @cherrypy.expose
     def search(self, searchterm, gamesort=None, gamesortdir=None):
+        p = SearchHandlerParams()
+        p.search_term = searchterm
+        p.sort_field = gamesort
+        p.sort_direction = gamesortdir
         handler = self.__handler_factory.create("SearchHandler")
-        return handler.get_page(search_term=searchterm, sort_field=gamesort, sort_dir=gamesortdir)
+        return handler.get_page(params=p)
