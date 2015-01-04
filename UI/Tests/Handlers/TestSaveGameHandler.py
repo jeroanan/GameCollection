@@ -1,12 +1,13 @@
 import unittest
 from unittest.mock import Mock
+
 import cherrypy
+
 from Game import Game
 from Interactors.AddGameInteractor import AddGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Handler import Handler
 from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
-from UI.Handlers.SaveGameHandler.SaveGameHandlerParams import SaveGameHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -31,22 +32,23 @@ class TestSaveGameHandler(unittest.TestCase):
 
     def __get_page(self):
         try:
-            self.__target.get_page(params=self.__get_params())
+            self.__target.get_page(params=self.__get_args())
         except cherrypy.HTTPRedirect:
             pass
 
     def test_get_page_raises_http_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, params=self.__get_params())
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, params=self.__get_args())
 
-    def __get_params(self):
-        params = SaveGameHandlerParams()
-        params.title = self.__title
-        params.num_copies = self.__num_copies
-        params.num_boxed = self.__num_boxed
-        params.num_manuals = self.__num_manuals
-        params.platform = self.__platform
-        params.notes = self.__notes
-        return params
+    def __get_args(self):
+        args = {
+            "title": self.__title,
+            "numcopies": self.__num_copies,
+            "numboxed": self.__num_boxed,
+            "nummanuals": self.__num_manuals,
+            "platform": self.__platform,
+            "notes": self.__notes
+        }
+        return args
 
     def __get_game(self):
         game = Game()
@@ -60,3 +62,9 @@ class TestSaveGameHandler(unittest.TestCase):
 
     def test_is_instance_of_handler(self):
         self.assertIsInstance(self.__target, Handler)
+
+    def test_get_page_with_empty_params(self):
+        try:
+            self.__target.get_page({"": ""})
+        except cherrypy.HTTPRedirect:
+            pass

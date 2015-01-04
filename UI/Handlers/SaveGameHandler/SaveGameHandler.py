@@ -12,10 +12,10 @@ class SaveGameHandler(Handler):
 
     def __get_game(self, params):
         game = Game()
-        game.title = params.title
-        game.num_copies = params.num_copies
-        game.num_boxed = params.num_boxed
-        game.num_manuals = params.num_manuals
-        game.platform = params.platform
-        game.notes = params.notes
+        game.title = params.get("title", "")
+        game.num_copies = params.get("numcopies", 0)
+        game.num_boxed = params.get("numboxed", 0)
+        game.num_manuals = params.get("nummanuals", 0)
+        game.platform = params.get("platform", 0)
+        game.notes = params.get("notes")
         return game

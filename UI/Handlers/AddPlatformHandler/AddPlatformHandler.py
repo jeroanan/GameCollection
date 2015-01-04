@@ -8,7 +8,7 @@ class AddPlatformHandler(Handler):
     def get_page(self, platform):
         interactor = self.interactor_factory.create("AddPlatformInteractor")
         p = Platform()
-        p.name = platform.name
-        p.description = platform.description
+        p.name = platform.get("name", "")
+        p.description = platform.get("description", "")
         interactor.execute(p)
         raise cherrypy.HTTPRedirect("/platforms")

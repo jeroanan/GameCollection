@@ -1,10 +1,9 @@
 import os
+
 import cherrypy
-from UI.Handlers.AddPlatformHandler.AddPlatformHandlerParams import AddPlatformHandlerParams
+
 from UI.Handlers.AllGamesHandler.AllGamesHandlerParams import AllGamesHandlerParams
 from UI.Handlers.HandlerFactory import HandlerFactory
-from UI.Handlers.IndexHandler.IndexHandlerParams import IndexHandlerParams
-from UI.Handlers.SaveGameHandler.SaveGameHandlerParams import SaveGameHandlerParams
 from UI.Handlers.SaveHardwareHandler.SaveHardwareHandlerParams import SaveHardwareHandlerParams
 from UI.Handlers.SearchHandler.SearchHandlerParams import SearchHandlerParams
 from UI.Handlers.UpdateGameHandler.UpdateGameHandlerParams import UpdateGameHandlerParams
@@ -51,32 +50,18 @@ class WebServer(object):
         cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config), '/', conf)
 
     @cherrypy.expose
-    def index(self, gamesort=None, gamesortdir=None, hardwaresort=None, hardwaresortdir=None):
+    def index(self, **kwargs):
         handler = self.handler_factory.create("IndexHandler")
-
-        params = IndexHandlerParams()
-        params.game_sort = gamesort
-        params.game_sort_direction = gamesortdir
-        params.hardware_sort = hardwaresort
-        params.hardware_sort_direction = hardwaresortdir
-        return handler.get_page(params)
+        return handler.get_page(kwargs)
 
     @cherrypy.expose
     def addgame(self):
         return self.__get_page_for_handler("AddGameHandler")
 
     @cherrypy.expose
-    def savegame(self, title, numcopies, numboxed, nummanuals, platform, notes):
+    def savegame(self, **kwargs):
         handler = self.__handler_factory.create("SaveGameHandler")
-
-        params = SaveGameHandlerParams()
-        params.title = title
-        params.num_copies = numcopies
-        params.num_boxed = numboxed
-        params.num_manuals = nummanuals
-        params.platform = platform
-        params.notes = notes
-        return handler.get_page(params=params)
+        return handler.get_page(params=kwargs)
 
     @cherrypy.expose()
     def addhardware(self):
@@ -91,12 +76,9 @@ class WebServer(object):
         return handler.get_page()
 
     @cherrypy.expose
-    def addplatform(self, name, description):
+    def addplatform(self, **kwargs):
         handler = self.__handler_factory.create("AddPlatformHandler")
-        params = AddPlatformHandlerParams()
-        params.name = name
-        params.description = description
-        return handler.get_page(platform=params)
+        return handler.get_page(platform=kwargs)
 
     @cherrypy.expose
     def editgame(self, gameid):

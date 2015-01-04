@@ -1,14 +1,13 @@
 import unittest
 from unittest.mock import Mock
+
 from Data.Config import Config
 from Interactors.CountGamesInteractor import CountGamesInteractor
-
 from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Handler import Handler
 from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
-from UI.Handlers.IndexHandler.IndexHandlerParams import IndexHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -62,14 +61,19 @@ class TestIndexHandler(unittest.TestCase):
         self.__get_page()
         self.__count_games_interactor.execute.assert_called_with()
 
+    def test_get_page_with_no_params(self):
+        self.__target.get_page({"": ""})
+
     def __get_page(self, game_sort="title", game_sort_direction="asc", hardware_sort="name",
                    hardware_sort_direction="asc"):
-        params = IndexHandlerParams()
-        params.game_sort = game_sort
-        params.game_sort_direction = game_sort_direction
-        params.hardware_sort = hardware_sort
-        params.hardware_sort_direction = hardware_sort_direction
-        self.__target.get_page(params)
+        args = {
+            "gamesort":  game_sort,
+            "gamesortdir": game_sort_direction,
+            "hardwaresort": hardware_sort,
+            "hardwaresortdir": hardware_sort_direction
+        }
+
+        self.__target.get_page(args)
 
     def test_is_type_of_handler(self):
         self.assertIsInstance(self.__target, Handler)

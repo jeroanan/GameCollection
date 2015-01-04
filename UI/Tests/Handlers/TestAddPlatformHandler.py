@@ -1,11 +1,12 @@
 import unittest
 from unittest.mock import Mock
+
 import cherrypy
+
 from Interactors.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
-from UI.Handlers.AddPlatformHandler.AddPlatformHandlerParams import AddPlatformHandlerParams
 from UI.Handlers.Handler import Handler
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -35,17 +36,24 @@ class TestAddPlatformHandler(unittest.TestCase):
         return platform
 
     def __get_page(self):
-        params = self.__get_params()
+        params = self.__get_args()
         try:
             self.__target.get_page(platform=params)
         except cherrypy.HTTPRedirect:
             pass
 
-    def __get_params(self):
-        params = AddPlatformHandlerParams()
-        params.name = self.__platform_name
-        params.description = self.__platform_description
-        return params
+    def __get_args(self):
+        args = {
+            "name": self.__platform_name,
+            "description": self.__platform_description
+        }
+        return args
 
     def test_get_page_raises_http_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, AddPlatformHandlerParams())
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
+
+    def test_get_page_with_empty_args(self):
+        try:
+            self.__target.get_page({"": ""})
+        except cherrypy.HTTPRedirect:
+            pass
