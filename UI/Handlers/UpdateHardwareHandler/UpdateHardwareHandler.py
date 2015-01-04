@@ -12,10 +12,10 @@ class UpdateHardwareHandler(Handler):
 
     def __get_hardware(self, params):
         hardware = Hardware()
-        hardware.id = params.id
-        hardware.name = params.name
-        hardware.platform = params.platform
-        hardware.num_owned = params.num_owned
-        hardware.num_boxed = params.num_boxed
-        hardware.notes = params.notes
+        hardware.id = params.get("id", "")
+        hardware.name = params.get("name", "")
+        hardware.platform = params.get("platform", "")
+        hardware.num_owned = params.get("numowned", 0)
+        hardware.num_boxed = params.get("numboxed", 0)
+        hardware.notes = params.get("notes")
         return hardware

@@ -40,6 +40,7 @@ class InteractorTestBase(unittest.TestCase):
         game.num_copies = num_copies
         game.num_boxed = num_boxed
         game.num_manuals = num_manuals
+        game.notes = notes
         return game
 
     def get_platform(self, platform_id="", name=""):

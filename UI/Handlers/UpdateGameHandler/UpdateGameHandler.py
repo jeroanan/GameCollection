@@ -7,13 +7,17 @@ class UpdateGameHandler(Handler):
 
     def get_page(self, params):
         interactor = self.interactor_factory.create("UpdateGameInteractor")
-        game = Game()
-        game.id = id
-        game.title = params.title
-        game.num_copies = params.num_copies
-        game.num_boxed = params.num_boxed
-        game.num_manuals = params.num_manuals
-        game.platform = params.platform
-        game.notes = params.notes
+        game = self.__get_game(params)
         interactor.execute(game=game)
         raise cherrypy.HTTPRedirect("/")
+
+    def __get_game(self, params):
+        game = Game()
+        game.id = params.get("id", "")
+        game.title = params.get("title", "")
+        game.num_copies = params.get("numcopies", 0)
+        game.num_boxed = params.get("numboxed", 0)
+        game.num_manuals = params.get("nummanuals", 0)
+        game.platform = params.get("platform", "")
+        game.notes = params.get("notes", "")
+        return game

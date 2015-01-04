@@ -13,9 +13,9 @@ class SaveHardwareHandler(Handler):
 
     def __get_hardware(self, params):
         hardware = Hardware()
-        hardware.name = params.name
-        hardware.platform = params.platform
-        hardware.num_owned = params.num_owned
-        hardware.num_boxed = params.num_boxed
-        hardware.notes = params.notes
+        hardware.name = params["name"]
+        hardware.platform = params["platform"]
+        hardware.num_owned = params["numowned"]
+        hardware.num_boxed = params["numboxed"]
+        hardware.notes = params["notes"]
         return hardware

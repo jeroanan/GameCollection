@@ -1,12 +1,13 @@
 import unittest
 from unittest.mock import Mock
+
 import cherrypy
+
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 from UI.Handlers.Handler import Handler
 from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandler import UpdatePlatformHandler
-from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandlerParams import UpdatePlatformHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -31,19 +32,23 @@ class TestUpdatePlatformHandler(unittest.TestCase):
 
     def __get_platform(self):
         p = Platform()
-        self.__populate(p)
+        p.id = "id"
+        p.name = "name"
+        p.description = "description"
         return p
 
     def test_get_page_causes_redirect(self):
         self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_params())
 
     def __get_params(self):
-        p = UpdatePlatformHandlerParams()
-        self.__populate(p)
-        return p
+        return {
+            "id": "id",
+            "name": "name",
+            "description": "description"
+        }
 
-    def __populate(self, platform):
-        platform.id = "id"
-        platform.name = "name"
-        platform.description = "description"
-        return platform
+    def test_get_page_with_empty_params(self):
+        try:
+            self.__target.get_page({"": ""})
+        except cherrypy.HTTPRedirect:
+            pass
