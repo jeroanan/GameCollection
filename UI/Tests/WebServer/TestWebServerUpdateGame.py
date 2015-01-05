@@ -13,8 +13,7 @@ class TestWebServerUpdateGame(WebServerTestBase):
 
     def test_updategame_calls_handler_get_page(self):
         self.target.updategame(**self.__get_params())
-
-        self.__handler.get_page.assert_called_with(params=self.__get_params())
+        self.__handler.get_page.assert_called_with(self.__get_params())
 
     def __get_params(self):
         p = {

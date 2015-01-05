@@ -2,7 +2,7 @@ from UI.Handlers.Handler import Handler
 
 
 class EditPlatformHandler(Handler):
-    def get_page(self, platform_id):
+    def get_page(self, args):
         interactor = self.interactor_factory.create("GetPlatformInteractor")
-        platform = interactor.execute(platform_id)
+        platform = interactor.execute(args.get("platformid", ""))
         return self.renderer.render("editplatform.html", platform=platform, title="Edit Platform")

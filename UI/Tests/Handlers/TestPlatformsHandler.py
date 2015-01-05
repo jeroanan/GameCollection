@@ -25,17 +25,20 @@ class TestPlatformsHandler(unittest.TestCase):
         self.assertIsInstance(self.__target, Handler)
 
     def test_get_page_calls_interactor_execute(self):
-        self.__target.get_page()
+        self.__get_page()
         self.assertTrue(self.__get_platforms_interactor.execute.called)
 
     def test_get_page_calls_renderer(self):
-        self.__target.get_page()
+        self.__get_page()
         self.assertTrue(self.__renderer.render.called)
 
     def test_get_page_creates_get_suggested_platforms_interactor(self):
-        self.__target.get_page()
+        self.__get_page()
         self.__interactor_factory.create.assert_called_with("GetSuggestedPlatformsInteractor")
 
     def test_get_page_executes_get_suggested_platforms_interactor(self):
-        self.__target.get_page()
+        self.__get_page()
         self.__get_suggested_platforms_interactor.execute.assert_called_with()
+
+    def __get_page(self):
+        self.__target.get_page({})

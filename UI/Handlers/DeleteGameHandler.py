@@ -5,9 +5,19 @@ from UI.Handlers.Handler import Handler
 
 class DeleteGameHandler(Handler):
 
-    def get_page(self, gameid):
+    def get_page(self, args):
+        game = self.__get_game(args)
+        self.__execute_interactor(game)
+        self.__do_redirect()
+
+    def __get_game(self, args):
         game = Game()
-        game.id = gameid
+        game.id = args.get("gameid", "")
+        return game
+
+    def __execute_interactor(self, game):
         interactor = self.interactor_factory.create("DeleteGameInteractor")
         interactor.execute(game)
+
+    def __do_redirect(self):
         raise cherrypy.HTTPRedirect("/")

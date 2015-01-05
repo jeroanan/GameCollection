@@ -12,5 +12,10 @@ class TestWebServerDeletePlatform(WebServerTestBase):
         self.__platform_id = "id"
 
     def test_deleteplatform_calls_handler_get_page(self):
-        self.target.deleteplatform(platformid=self.__platform_id)
-        self.__handler.get_page.assert_called_with(self.__platform_id)
+        self.target.deleteplatform(**self.__get_args())
+        self.__handler.get_page.assert_called_with(self.__get_args())
+
+    def __get_args(self):
+        return {
+            "platformid": "id"
+        }

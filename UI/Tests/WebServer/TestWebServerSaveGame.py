@@ -13,7 +13,7 @@ class TestWebServerSaveGame(WebServerTestBase):
 
     def test_savegame_calls_handler_get_page(self):
         self.target.savegame(**self.__get_args())
-        self.__handler.get_page.assert_called_with(params=self.__get_args())
+        self.__handler.get_page.assert_called_with(self.__get_args())
 
     def __get_args(self):
         return {

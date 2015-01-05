@@ -9,7 +9,7 @@ class TestWebServerAddHardware(WebServerTestBase):
         handler = Mock(AddHardwareHandler)
         self.target.handler_factory = self.get_handler_factory(handler)
         self.target.addhardware()
-        handler.get_page.assert_called_with()
+        handler.get_page.assert_called_with({})
 
     def test_addhardware_extra_args(self):
         self.target.addhardware(**{"spam": "eggs"})

@@ -9,8 +9,12 @@ class TestWevServerDeleteHardware(WebServerTestBase):
         super().setUp()
         self.__handler = Mock(DeleteHardwareHandler)
         self.target.handler_factory = self.get_handler_factory(self.__handler)
-        self.__hardware_id = "id"
 
     def test_delete_hardware_calls_handler(self):
-        self.target.deletehardware(hardwareid=self.__hardware_id)
-        self.__handler.get_page.assert_called_with(hardware_id=self.__hardware_id)
+        self.target.deletehardware(**self.__get_args())
+        self.__handler.get_page.assert_called_with(self.__get_args())
+
+    def __get_args(self):
+        return {
+            "hardwareid": "id"
+        }

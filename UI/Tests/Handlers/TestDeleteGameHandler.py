@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 
 import cherrypy
+from Game import Game
 
 from Interactors.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
@@ -24,10 +25,26 @@ class TestDeleteGameHandler(unittest.TestCase):
 
     def test_get_page_calls_interactor_execute(self):
         try:
-            self.__target.get_page(gameid="id")
+            self.__target.get_page(self.__get_args())
         except cherrypy.HTTPRedirect:
             pass
-        self.assertTrue(self.__interactor.execute.called)
+        self.__interactor.execute.assert_called_with(self.__get_game())
+
+    def __get_game(self):
+        g = Game()
+        g.id = "id"
+        return g
 
     def test_get_page_does_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, "id")
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
+
+    def __get_args(self):
+        return {
+            "gameid": "id"
+        }
+
+    def test_get_page_empty_args(self):
+        try:
+            self.__target.get_page({"": ""})
+        except cherrypy.HTTPRedirect:
+            pass

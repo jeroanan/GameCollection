@@ -14,19 +14,35 @@ class TestDeletePlatformHandler(unittest.TestCase):
     def setUp(self):
         renderer = Mock(TemplateRenderer)
         self.__interactor = Mock(DeletePlatformInteractor)
-        self.__interactor_factory = Mock(InteractorFactory)
-        self.__interactor_factory.create = Mock(return_value=self.__interactor)
-        self.__target = DeletePlatformHandler(self.__interactor_factory, renderer)
+        interactor_factory = Mock(InteractorFactory)
+        interactor_factory.create = Mock(return_value=self.__interactor)
+        self.__target = DeletePlatformHandler(interactor_factory, renderer)
 
     def test_is_instance_of_handler(self):
         self.assertIsInstance(self.__target, Handler)
 
     def test_get_page_executes_interactor(self):
         try:
-            self.__target.get_page(platformid="id")
+            self.__target.get_page(self.__get_params())
         except cherrypy.HTTPRedirect:
             pass
-        self.assertTrue(self.__interactor.execute.called)
+        self.__interactor.execute.assert_called_with(self.__get_platform())
+
+    def __get_platform(self):
+        p = Platform()
+        p.id = "id"
+        return p
 
     def test_get_page_redirects(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, Platform())
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_params())
+
+    def __get_params(self):
+        return {
+            "platformid": "id"
+        }
+
+    def test_get_page_with_empty_params(self):
+        try:
+            self.__target.get_page({"": ""})
+        except cherrypy.HTTPRedirect:
+            pass

@@ -13,7 +13,7 @@ class TestWebServerSaveHardware(WebServerTestBase):
 
     def test_savehardware_calls_handler_get_page(self):
         self.target.savehardware(**self.__get_params())
-        self.__handler.get_page.assert_called_with(params=self.__get_params())
+        self.__handler.get_page.assert_called_with(self.__get_params())
 
     def __get_params(self):
         return {

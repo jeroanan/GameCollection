@@ -3,10 +3,22 @@ from UI.Handlers.Handler import Handler
 
 class EditGameHandler(Handler):
 
-    def get_page(self, game_id):
+    def get_page(self, args):
+        game = self.__get_game(args.get("gameid", ""))
+        platforms = self.__get_platforms()
+        page_title = self.__get_page_title(game)
+        return self.renderer.render("editgame.html", game=game, title=page_title, platforms=platforms)
+
+    def __get_game(self, game_id):
         get_game_interactor = self.interactor_factory.create("GetGameInteractor")
-        game = get_game_interactor.execute(game_id)
+        game = get_game_interactor.execute(game_id=game_id)
+        return game
+
+    def __get_platforms(self):
         platform_interactor = self.interactor_factory.create("GetPlatformsInteractor")
         platforms = platform_interactor.execute()
+        return platforms
+
+    def __get_page_title(self, game):
         pageTitle = "{title} ({platform})".format(title=game.title, platform=game.platform)
-        return self.renderer.render("editgame.html", game=game, title=pageTitle, platforms=platforms)
+        return pageTitle

@@ -15,7 +15,7 @@ class TestWebServerAddPlatform(WebServerTestBase):
 
     def test_addplatform_calls_handler_get_page(self):
         self.target.addplatform(**self.__get_params())
-        self.__handler.get_page.assert_called_with(platform=(self.__get_params()))
+        self.__handler.get_page.assert_called_with(self.__get_params())
 
     def __get_params(self):
         return {

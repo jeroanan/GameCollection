@@ -9,8 +9,12 @@ class TestWebServerEditHardware(WebServerTestBase):
         super().setUp()
         self.__handler = Mock(EditHardwareHandler)
         self.target.handler_factory = self.get_handler_factory(self.__handler)
-        self.__hardware_id = "id"
 
     def test_edithardware_calls_handler_get_page(self):
-        self.target.edithardware(hardwareid=self.__hardware_id)
-        self.__handler.get_page.assert_called_with(self.__hardware_id)
+        self.target.edithardware(**self.__get_args())
+        self.__handler.get_page.assert_called_with(self.__get_args())
+
+    def __get_args(self):
+        return {
+            "hardwareid": "id"
+        }
