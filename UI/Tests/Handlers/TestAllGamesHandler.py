@@ -1,9 +1,9 @@
 import unittest
 from unittest.mock import Mock
+
 from Interactors.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
-from UI.Handlers.AllGamesHandler.AllGamesHandlerParams import AllGamesHandlerParams
 from UI.Handlers.Handler import Handler
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -14,10 +14,10 @@ class TestAllGamesHandler(unittest.TestCase):
         super().setUp()
         self.__get_games_interactor = Mock(GetGamesInteractor)
         self.__get_games_interactor.execute = Mock(return_value=[])
-        self.__interactor_factory = Mock(InteractorFactory)
-        self.__interactor_factory.create = Mock(side_effect=self.__get_interactors())
+        interactor_factory = Mock(InteractorFactory)
+        interactor_factory.create = Mock(side_effect=self.__get_interactors())
         self.__renderer = Mock(TemplateRenderer)
-        self.__target = AllGamesHandler(self.__interactor_factory, self.__renderer)
+        self.__target = AllGamesHandler(interactor_factory, self.__renderer)
 
     def __get_interactors(self):
         return [self.__get_games_interactor]
@@ -37,9 +37,12 @@ class TestAllGamesHandler(unittest.TestCase):
     def __get_page(self):
         self.__target.get_page(params=self.__get_params())
 
-    def __get_params(self, sort_field="title", sort_direction="asc", platform="platform"):
-        p = AllGamesHandlerParams()
-        p.sort_field = sort_field
-        p.sort_direction = sort_direction
-        p.platform = platform
-        return p
+    def test_get_page_with_empty_paras(self):
+        self.__target.get_page(params={"": ""})
+
+    def __get_params(self):
+        return {
+            "gamesort": "title",
+            "gamesortdir": "asc",
+            "platform": "platform"
+        }

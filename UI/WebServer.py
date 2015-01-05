@@ -2,9 +2,7 @@ import os
 
 import cherrypy
 
-from UI.Handlers.AllGamesHandler.AllGamesHandlerParams import AllGamesHandlerParams
 from UI.Handlers.HandlerFactory import HandlerFactory
-from UI.Handlers.SearchHandler.SearchHandlerParams import SearchHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -127,19 +125,11 @@ class WebServer(object):
         handler.get_page(hardware_id=hardwareid)
 
     @cherrypy.expose
-    def allgames(self, gamesort=None, gamesortdir=None, platform=None):
-        params = AllGamesHandlerParams()
-        params.sort_field = gamesort
-        params.sort_direction = gamesortdir
-        params.platform = platform
+    def allgames(self, **kwargs):
         handler = self.__handler_factory.create("AllGamesHandler")
-        return handler.get_page(params=params)
+        return handler.get_page(params=kwargs)
 
     @cherrypy.expose
-    def search(self, searchterm, gamesort=None, gamesortdir=None):
-        p = SearchHandlerParams()
-        p.search_term = searchterm
-        p.sort_field = gamesort
-        p.sort_direction = gamesortdir
+    def search(self, **kwargs):
         handler = self.__handler_factory.create("SearchHandler")
-        return handler.get_page(params=p)
+        return handler.get_page(params=kwargs)

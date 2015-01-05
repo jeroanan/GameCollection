@@ -1,10 +1,10 @@
 import unittest
 from unittest.mock import Mock
+
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.SearchInteractor import SearchInteractor
 from UI.Handlers.Handler import Handler
 from UI.Handlers.SearchHandler.SearchHandler import SearchHandler
-from UI.Handlers.SearchHandler.SearchHandlerParams import SearchHandlerParams
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -33,9 +33,12 @@ class TestSearchHandler(unittest.TestCase):
     def __get_page(self):
         self.__target.get_page(params=self.__get_params())
 
-    def __get_params(self, search_term="search", sort_field="title", sort_dir="asc"):
-        p = SearchHandlerParams()
-        p.search_term = search_term
-        p.sort_field = sort_field
-        p.sort_direction = sort_dir
-        return p
+    def __get_params(self):
+        return {
+            "searchterm": "search",
+            "gamesort": "title",
+            "gamesortdir": "asc"
+        }
+
+    def test_get_page_with_empty_params(self):
+        self.__target.get_page({"": ""})
