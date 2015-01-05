@@ -9,12 +9,10 @@ from UI.TemplateRenderer import TemplateRenderer
 class WebServer(object):
 
     def __init__(self, interactor_factory=None, renderer=None, config=None):
-        self.__interactor_factory = interactor_factory
         self.__renderer = renderer
         if renderer is None:
             self.__renderer = TemplateRenderer()
         self.__handler_factory = HandlerFactory(interactor_factory, self.__renderer, config)
-        self.__config = config
 
     @property
     def renderer(self):
@@ -49,7 +47,7 @@ class WebServer(object):
         return handler.get_page(kwargs)
 
     @cherrypy.expose
-    def addgame(self):
+    def addgame(self, **kwargs):
         return self.__get_page_for_handler("AddGameHandler")
 
     @cherrypy.expose
@@ -58,11 +56,11 @@ class WebServer(object):
         return handler.get_page(params=kwargs)
 
     @cherrypy.expose()
-    def addhardware(self):
+    def addhardware(self, **kwargs):
         return self.__get_page_for_handler("AddHardwareHandler")
 
     @cherrypy.expose
-    def platforms(self):
+    def platforms(self, **kwargs):
         return self.__get_page_for_handler("PlatformsHandler")
 
     def __get_page_for_handler(self, type_string):

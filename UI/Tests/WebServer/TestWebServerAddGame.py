@@ -13,3 +13,6 @@ class TestWebServerAddGame(WebServerTestBase):
     def test_add_game_calls_handler_get_page(self):
         self.target.addgame()
         self.__handler.get_page.assert_called_with()
+
+    def test_add_game_extra_args(self):
+        self.target.addgame(**{"spam": "eggs"})
