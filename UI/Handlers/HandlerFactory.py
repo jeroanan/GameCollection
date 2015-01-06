@@ -26,24 +26,24 @@ class HandlerFactory(object):
         self.__renderer = renderer
 
         self.__handlers = {
-            "IndexHandler": IndexHandler(self.__interactor_factory, self.__renderer, config),
-            "SaveGameHandler": SaveGameHandler(self.__interactor_factory, self.__renderer),
-            "AddGameHandler": AddGameHandler(self.__interactor_factory, self.__renderer),
-            "AddHardwareHandler": AddHardwareHandler(self.__interactor_factory, self.__renderer),
-            "PlatformsHandler": PlatformsHandler(self.__interactor_factory, self.__renderer),
-            "AddPlatformHandler": AddPlatformHandler(self.__interactor_factory, self.__renderer),
-            "EditGameHandler": EditGameHandler(self.__interactor_factory, self.__renderer),
-            "UpdateGameHandler": UpdateGameHandler(self.__interactor_factory, self.__renderer),
-            "DeleteGameHandler": DeleteGameHandler(self.__interactor_factory, self.__renderer),
-            "SaveHardwareHandler": SaveHardwareHandler(self.__interactor_factory, self.__renderer),
-            "EditPlatformHandler": EditPlatformHandler(self.__interactor_factory, self.__renderer),
-            "UpdatePlatformHandler": UpdatePlatformHandler(self.__interactor_factory, self.__renderer),
-            "DeletePlatformHandler": DeletePlatformHandler(self.__interactor_factory, self.__renderer),
-            "EditHardwareHandler": EditHardwareHandler(self.__interactor_factory, self.__renderer),
-            "UpdateHardwareHandler": UpdateHardwareHandler(self.__interactor_factory, self.__renderer),
-            "DeleteHardwareHandler": DeleteHardwareHandler(self.__interactor_factory, self.__renderer),
-            "AllGamesHandler": AllGamesHandler(self.__interactor_factory, self.__renderer),
-            "SearchHandler": SearchHandler(self.__interactor_factory, self.__renderer)
+            "index": IndexHandler(self.__interactor_factory, self.__renderer, config),
+            "savegame": SaveGameHandler(self.__interactor_factory, self.__renderer),
+            "addgame": AddGameHandler(self.__interactor_factory, self.__renderer),
+            "addhardware": AddHardwareHandler(self.__interactor_factory, self.__renderer),
+            "platforms": PlatformsHandler(self.__interactor_factory, self.__renderer),
+            "addplatform": AddPlatformHandler(self.__interactor_factory, self.__renderer),
+            "editgame": EditGameHandler(self.__interactor_factory, self.__renderer),
+            "updategame": UpdateGameHandler(self.__interactor_factory, self.__renderer),
+            "deletegame": DeleteGameHandler(self.__interactor_factory, self.__renderer),
+            "savehardware": SaveHardwareHandler(self.__interactor_factory, self.__renderer),
+            "editplatform": EditPlatformHandler(self.__interactor_factory, self.__renderer),
+            "updateplatform": UpdatePlatformHandler(self.__interactor_factory, self.__renderer),
+            "deleteplatform": DeletePlatformHandler(self.__interactor_factory, self.__renderer),
+            "edithardware": EditHardwareHandler(self.__interactor_factory, self.__renderer),
+            "updatehardware": UpdateHardwareHandler(self.__interactor_factory, self.__renderer),
+            "deletehardware": DeleteHardwareHandler(self.__interactor_factory, self.__renderer),
+            "allgames": AllGamesHandler(self.__interactor_factory, self.__renderer),
+            "search": SearchHandler(self.__interactor_factory, self.__renderer)
         }
 
     def create(self, handler_type):

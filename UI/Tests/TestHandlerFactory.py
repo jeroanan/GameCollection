@@ -38,58 +38,58 @@ class TestHandlerFactory(unittest.TestCase):
         self.assertRaises(UnrecognisedHandlerException, self.__target.create, "UnrecognisedHandlerType")
 
     def test_create_index_handler_returns_index_handler(self):
-        self.__assert_type_string_returns_handler_type("IndexHandler", IndexHandler)
+        self.__assert_type_string_returns_handler_type("index", IndexHandler)
 
     def test_create_save_game_handler_returns_save_game_handler(self):
-        self.__assert_type_string_returns_handler_type("SaveGameHandler", SaveGameHandler)
+        self.__assert_type_string_returns_handler_type("savegame", SaveGameHandler)
 
     def test_create_add_game_handler_returns_add_game_handler(self):
-        self.__assert_type_string_returns_handler_type("AddGameHandler", AddGameHandler)
+        self.__assert_type_string_returns_handler_type("addgame", AddGameHandler)
 
     def test_add_hardware_handler_returns_add_hardware_handler(self):
-        self.__assert_type_string_returns_handler_type("AddHardwareHandler", AddHardwareHandler)
+        self.__assert_type_string_returns_handler_type("addhardware", AddHardwareHandler)
 
     def test_platforms_handler_returns_platforms_handler(self):
-        self.__assert_type_string_returns_handler_type("PlatformsHandler", PlatformsHandler)
+        self.__assert_type_string_returns_handler_type("platforms", PlatformsHandler)
 
     def test_add_platform_handler_returns_add_platform_handler(self):
-        self.__assert_type_string_returns_handler_type("AddPlatformHandler", AddPlatformHandler)
+        self.__assert_type_string_returns_handler_type("addplatform", AddPlatformHandler)
 
     def test_edit_handler_returns_edit_handler(self):
-        self.__assert_type_string_returns_handler_type("EditGameHandler", EditGameHandler)
+        self.__assert_type_string_returns_handler_type("editgame", EditGameHandler)
 
     def test_update_game_handler_returns_update_game_handler(self):
-        self.__assert_type_string_returns_handler_type("UpdateGameHandler", UpdateGameHandler)
+        self.__assert_type_string_returns_handler_type("updategame", UpdateGameHandler)
 
     def test_delete_game_handler_returns_delete_game_handler(self):
-        self.__assert_type_string_returns_handler_type("DeleteGameHandler", DeleteGameHandler)
+        self.__assert_type_string_returns_handler_type("deletegame", DeleteGameHandler)
 
     def test_save_hardware_handler_returns_save_hardware_handler(self):
-        self.__assert_type_string_returns_handler_type("SaveHardwareHandler", SaveHardwareHandler)
+        self.__assert_type_string_returns_handler_type("savehardware", SaveHardwareHandler)
 
     def test_edit_platform_handler_returns_edit_platform_handler(self):
-        self.__assert_type_string_returns_handler_type("EditPlatformHandler", EditPlatformHandler)
+        self.__assert_type_string_returns_handler_type("editplatform", EditPlatformHandler)
 
     def test_update_platform_handler_returns_update_platform_handler(self):
-        self.__assert_type_string_returns_handler_type("UpdatePlatformHandler", UpdatePlatformHandler)
+        self.__assert_type_string_returns_handler_type("updateplatform", UpdatePlatformHandler)
 
     def test_delete_platform_handler_returns_delete_platform_handler(self):
-        self.__assert_type_string_returns_handler_type("DeletePlatformHandler", DeletePlatformHandler)
+        self.__assert_type_string_returns_handler_type("deleteplatform", DeletePlatformHandler)
 
     def test_edit_hardware_handler_returns_edit_hardware_handler(self):
-        self.__assert_type_string_returns_handler_type("EditHardwareHandler", EditHardwareHandler)
+        self.__assert_type_string_returns_handler_type("edithardware", EditHardwareHandler)
 
     def test_update_hardware_handler_returns_update_hardware_handler(self):
-        self.__assert_type_string_returns_handler_type("UpdateHardwareHandler", UpdateHardwareHandler)
+        self.__assert_type_string_returns_handler_type("updatehardware", UpdateHardwareHandler)
 
     def test_delete_hardware_handler_returns_delete_hardware_handler(self):
-        self.__assert_type_string_returns_handler_type("DeleteHardwareHandler", DeleteHardwareHandler)
+        self.__assert_type_string_returns_handler_type("deletehardware", DeleteHardwareHandler)
 
     def test_allgames_handler_returns_allgames_handler(self):
-        self.__assert_type_string_returns_handler_type("AllGamesHandler", AllGamesHandler)
+        self.__assert_type_string_returns_handler_type("allgames", AllGamesHandler)
 
     def test_search_returns_search_handler(self):
-        self.__assert_type_string_returns_handler_type("SearchHandler", SearchHandler)
+        self.__assert_type_string_returns_handler_type("search", SearchHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
