@@ -1,5 +1,4 @@
 import json
-
 from Genre import Genre
 
 

@@ -47,7 +47,6 @@ class HandlerFactory(object):
         }
 
     def create(self, handler_type):
-
         if handler_type in self.__handlers:
             return self.__handlers[handler_type]
 

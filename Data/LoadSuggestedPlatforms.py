@@ -1,16 +1,14 @@
-import json
+from Data.DataLoad import DataLoad
 from Platform import Platform
 
 
-class LoadSuggestedPlatforms(object):
+class LoadSuggestedPlatforms(DataLoad):
     def __init__(self):
-        with open("Data/SuggestedPlatforms.json") as f:
-            data = json.load(f)
-            self.__data = data["platforms"]
+        super().__init__("Data/SuggestedPlatforms.json", "platforms")
 
     def get(self):
         platforms = []
-        for item in self.__data:
+        for item in self.data:
             platform = Platform()
             platform.name = item["name"]
             platform.description = item["description"]

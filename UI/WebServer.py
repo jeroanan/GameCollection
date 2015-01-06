@@ -1,6 +1,7 @@
 import os
 
 import cherrypy
+from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
@@ -45,7 +46,10 @@ class WebServer(object):
         if args == ():
             return self.__get_page("index", kwargs)
         else:
-            return self.__get_page(args[0], kwargs)
+            try:
+                return self.__get_page(args[0], kwargs)
+            except UnrecognisedHandlerException:
+                raise cherrypy.NotFound
 
     def __get_page(self, handler_name, args):
         handler = self.handler_factory.create(handler_name)
