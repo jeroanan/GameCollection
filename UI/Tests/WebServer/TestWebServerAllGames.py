@@ -12,7 +12,7 @@ class TestWebServerAllGames(WebServerTestBase):
         self.target.handler_factory = self.get_handler_factory(self.__handler)
 
     def test_allgames_calls_handler_get_page(self):
-        self.target.allgames(**self.__get_params())
+        self.target.default(*("allgames",), **self.__get_params())
         self.__handler.get_page.assert_called_with(self.__get_params())
 
     def __get_params(self):

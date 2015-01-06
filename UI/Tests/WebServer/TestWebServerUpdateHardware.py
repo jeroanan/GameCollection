@@ -12,7 +12,7 @@ class TestWebServerUpdateHardware(WebServerTestBase):
         self.target.handler_factory = self.get_handler_factory(self.__handler)
 
     def test_updatehardware_calls_handler_get_page(self):
-        self.target.updatehardware(**self.__get_params())
+        self.target.default(*("updatehardware",), **self.__get_params())
         self.__handler.get_page.assert_called_with(self.__get_params())
 
     def __get_params(self):

@@ -15,7 +15,7 @@ class TestWebServerSearch(WebServerTestBase):
         self.__sort_dir = "asc"
 
     def test_search_calls_handler_get_page(self):
-        self.target.search(**self.__get_params())
+        self.target.default(*("search",), **self.__get_params())
         self.__handler.get_page.assert_called_with(self.__get_params())
 
     def __get_params(self):

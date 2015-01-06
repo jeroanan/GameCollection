@@ -12,7 +12,7 @@ class TestWebServerEditGame(WebServerTestBase):
         self.__game_id = "id"
 
     def test_editgame_calls_handler_get_page(self):
-        self.target.editgame(**self.__get_args())
+        self.target.default(*("editgame",), **self.__get_args())
         self.__handler.get_page.assert_called_with(self.__get_args())
 
     def __get_args(self):

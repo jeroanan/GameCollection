@@ -12,7 +12,7 @@ class TestWebServerUpdatePlatform(WebServerTestBase):
         self.target.handler_factory = self.get_handler_factory(self.__handler)
 
     def test_updateplatform_calls_handler_get_page(self):
-        self.target.updateplatform(**self.__get_handler_params())
+        self.target.default(*("updateplatform",), **self.__get_handler_params())
         self.__handler.get_page.assert_called_with(self.__get_handler_params())
 
     def __get_handler_params(self):
