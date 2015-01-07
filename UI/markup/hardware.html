@@ -29,8 +29,8 @@
         <tr>
             <td>{{h.name}}</td>
             <td><a title="See all hardware for {{h.platform}}">{{h.platform}}</a></td>
-            <td>{{h.numowned}}</td>
-            <td>{{h.numboxed}}</td>
+            <td>{{h.num_owned}}</td>
+            <td>{{h.num_boxed}}</td>
             <td><input type="button" class="btn" value="Edit" onclick="editHardware('{{h.id}}')" /></td>
         </tr>
         {% endfor %}

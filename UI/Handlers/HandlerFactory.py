@@ -2,6 +2,7 @@ from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AllHardwareHandler import AllHardwareHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
@@ -43,7 +44,8 @@ class HandlerFactory(object):
             "updatehardware": UpdateHardwareHandler(self.__interactor_factory, self.__renderer),
             "deletehardware": DeleteHardwareHandler(self.__interactor_factory, self.__renderer),
             "allgames": AllGamesHandler(self.__interactor_factory, self.__renderer),
-            "search": SearchHandler(self.__interactor_factory, self.__renderer)
+            "search": SearchHandler(self.__interactor_factory, self.__renderer),
+            "allhardware": AllHardwareHandler(self.__interactor_factory, self.__renderer)
         }
 
     def create(self, handler_type):
