@@ -17,12 +17,12 @@ class TestGetGamesInteractor(InteractorTestBase):
         number_of_games = 10
         sort_field = None
         sort_direction = "asc"
-        platform = None
+        platform = ""
         self.__target.execute(number_of_games=number_of_games, sort_field=sort_field, sort_direction=sort_direction,
                               platform=platform)
         self.__target.persistence.get_all_games.assert_was_called_with()
 
-    def test_execute_with_platform_calls_get_all_games_for_platvform_persistence_method(self):
+    def test_execute_with_platform_calls_get_all_games_for_platform_persistence_method(self):
         number_of_games = 10
         sort_field = None
         sort_direction = "asc"
