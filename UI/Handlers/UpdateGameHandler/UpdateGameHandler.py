@@ -20,4 +20,5 @@ class UpdateGameHandler(Handler):
         game.num_manuals = params.get("nummanuals", 0)
         game.platform = params.get("platform", "")
         game.notes = params.get("notes", "")
+        game.date_purchased = params.get("datepurchased", "")
         return game

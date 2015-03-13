@@ -8,6 +8,7 @@ class Game(object):
         self.__num_boxed = 0
         self.__num_manuals = 0
         self.__notes = ""
+        self.__date_purchased = ""
 
     @property
     def id(self):
@@ -64,6 +65,14 @@ class Game(object):
     @notes.setter
     def notes(self, value):
         self.__notes = value
+
+    @property
+    def date_purchased(self):
+        return self.__date_purchased
+
+    @date_purchased.setter
+    def date_purchased(self, value):
+        self.__date_purchased = value
 
     def __eq__(self, other):
         return (self.title == other.title and self.platform == other.platform and self.num_copies == other.num_copies

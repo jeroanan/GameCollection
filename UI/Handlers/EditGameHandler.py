@@ -11,14 +11,11 @@ class EditGameHandler(Handler):
 
     def __get_game(self, game_id):
         get_game_interactor = self.interactor_factory.create("GetGameInteractor")
-        game = get_game_interactor.execute(game_id=game_id)
-        return game
+        return get_game_interactor.execute(game_id=game_id)
 
     def __get_platforms(self):
         platform_interactor = self.interactor_factory.create("GetPlatformsInteractor")
-        platforms = platform_interactor.execute()
-        return platforms
+        return platform_interactor.execute()
 
     def __get_page_title(self, game):
-        pageTitle = "{title} ({platform})".format(title=game.title, platform=game.platform)
-        return pageTitle
+        return "{title} ({platform})".format(title=game.title, platform=game.platform)

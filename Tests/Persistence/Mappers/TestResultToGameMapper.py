@@ -19,3 +19,9 @@ class TestResultToGameMapper(unittest.TestCase):
         self.__mongo_result["_Game__notes"] = notes
         game = self.__target.map(self.__mongo_result)
         self.assertEqual(notes, game.notes)
+
+    def test_map_date_purchased(self):
+        date_purchased = "1/1/1990"
+        self.__mongo_result["_Game__date_purchased"] = date_purchased
+        game = self.__target.map(self.__mongo_result)
+        self.assertEqual(date_purchased, game.date_purchased)

@@ -47,6 +47,16 @@
              </div>
 
              <div class="row">
+                 <div class="form-group col-sm-3">
+                     <label for="datepurchased">Date Purchased</label>
+                     <input id="datepurchased" name="datepurchased" type="text" class="picker form-control"
+                            value="{{game.date_purchased}}"/>
+                     <input id="hdndatepurchased" name="hdndatepurchased" type="hidden" value="{{game.date_purchased}}"
+                             />
+                 </div>
+             </div>
+
+             <div class="row">
                 <div class="form-group col-sm-10">
                     <label for="notes">Notes</label>
                     <textarea name="notes" class="form-control" rows="5">{{game.notes}}</textarea>
@@ -60,6 +70,7 @@
                     <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
                 </div>
              </div>
+
         </form>
         <div class="hidden" id="deleteConfirm">
         Really delete this game?
@@ -70,4 +81,14 @@
                 width: 60px;
             }
         </style>
+        <script type="text/javascript">
+            $(function() {
+                $(".picker").datepicker();
+                $(".picker").datepicker("option", "dateFormat", "d MM, yy");
+                $(".picker").datepicker({dateFormat: "d MM, yy"});
+                $(".picker").change(function() {
+                    $("#hdndatepurchased").val = $("#datepurchased").val
+                })
+            })
+        </script>
         {% endblock %}

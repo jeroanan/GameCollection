@@ -3,12 +3,13 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>{{title}}</title>
+    <!-- at top for jquery. Need to make topassets for jq and bottomassets for everything else -->
+    {% include 'assets.html' %}
 </head>
 <body>
 {% include 'navbar.html' %}
 <div class="container" style="margin-bottom: 50px;">
     {%block content%}{%endblock%}
 </div>
-{% include 'assets.html' %}
 </body>
 </html>
