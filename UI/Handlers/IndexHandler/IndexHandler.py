@@ -1,3 +1,5 @@
+import cherrypy
+from Persistence.Exceptions.UnrecognisedFieldNameException import UnrecognisedFieldNameException
 from UI.Handlers.Handler import Handler
 
 
@@ -14,7 +16,13 @@ class IndexHandler(Handler):
     def get_page(self, args):
         self.__init_sorting(args)
 
-        return self.renderer.render("index.html", games=(self.__get_games()), hardware=(self.__get_hardware()),
+        try:
+            games = self.__get_games()
+            hardware = self.__get_hardware()
+        except UnrecognisedFieldNameException:
+            raise cherrypy.HTTPRedirect("/")
+
+        return self.renderer.render("index.html", games=games, hardware=hardware,
                                     title="Games Collection", game_sort_field=self.__game_sort,
                                     game_sort_direction=self.__game_sort_dir, hardware_sort_field=self.__hardware_sort,
                                     number_of_games=(self.__count_games()),
@@ -41,8 +49,11 @@ class IndexHandler(Handler):
     def __get_games(self):
         get_games_interactor = self.interactor_factory.create("GetGamesInteractor")
         number_of_games = self.__config.get("front-page-games")
-        games = get_games_interactor.execute(number_of_games=number_of_games, sort_field=self.__game_sort,
-                                             sort_direction=self.__game_sort_dir)
+        try:
+            games = get_games_interactor.execute(number_of_games=number_of_games, sort_field=self.__game_sort,
+                                                sort_direction=self.__game_sort_dir)
+        except UnrecognisedFieldNameException:
+            raise cherrypy.HTTPRedirect("/")
         return games
 
     def __get_hardware(self):
