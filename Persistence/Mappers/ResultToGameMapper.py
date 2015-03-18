@@ -13,6 +13,7 @@ class ResultToGameMapper(object):
         game.num_manuals = mongo_result["_Game__num_manuals"]
         game = self.__map_games_notes(game, mongo_result)
         game = self.__map_game_date_purhcased(game, mongo_result)
+        game.approximate_date_purchased = mongo_result.get("_Game__approximate_date_purchased", False)
         return game
 
     def __map_games_notes(self, game, mongo_result):

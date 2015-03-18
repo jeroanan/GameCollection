@@ -9,6 +9,7 @@ class Game(object):
         self.__num_manuals = 0
         self.__notes = ""
         self.__date_purchased = ""
+        self.__approximate_date_purchased = False
 
     @property
     def id(self):
@@ -73,6 +74,14 @@ class Game(object):
     @date_purchased.setter
     def date_purchased(self, value):
         self.__date_purchased = value
+
+    @property
+    def approximate_date_purchased(self):
+        return self.__approximate_date_purchased
+
+    @approximate_date_purchased.setter
+    def approximate_date_purchased(self, value):
+        self.__approximate_date_purchased = value
 
     def __eq__(self, other):
         return (self.title == other.title and self.platform == other.platform and self.num_copies == other.num_copies

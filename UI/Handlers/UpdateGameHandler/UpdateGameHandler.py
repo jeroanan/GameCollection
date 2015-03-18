@@ -21,4 +21,8 @@ class UpdateGameHandler(Handler):
         game.platform = params.get("platform", "")
         game.notes = params.get("notes", "")
         game.date_purchased = params.get("datepurchased", "")
+        game.approximate_date_purchased = self.__is_approximate_purchase_date(params)
         return game
+
+    def __is_approximate_purchase_date(self, params):
+        return params.get("approximatepurchaseddate") == "on"
