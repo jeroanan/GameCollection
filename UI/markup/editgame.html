@@ -1,6 +1,7 @@
 {%extends 'master.html' %}
         {% block content %}
         <h1>{{title}}</h1>
+        {% if game_found %}
          <form class="form-horizontal" method="post" role="form" action="updategame">
 
              <div class="row">
@@ -92,4 +93,5 @@
                 $(".picker").datepicker("setDate", "{{game.date_purchased}}");
             })
         </script>
+        {%endif%}
         {% endblock %}

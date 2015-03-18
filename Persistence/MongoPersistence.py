@@ -1,10 +1,12 @@
 import sys
 
 from bson import ObjectId
+from bson.errors import InvalidId
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
 from AbstractPersistence import AbstractPersistence
+from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
@@ -50,8 +52,11 @@ class MongoPersistence(AbstractPersistence):
         return self.__db.games.count()
 
     def get_game(self, game_id):
-        cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})
-        return (ResultToGameMapper()).map(cursor)
+        try:
+            cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})
+            return (ResultToGameMapper()).map(cursor)
+        except InvalidId:
+            raise GameNotFoundException
 
     def get_platforms(self):
         return map(ResultToPlatformMapper().map, self.__db.platforms.find().sort("_Platform__name"))

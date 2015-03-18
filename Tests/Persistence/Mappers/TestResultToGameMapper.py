@@ -1,5 +1,6 @@
 import unittest
 from Game import Game
+from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 
 
@@ -25,3 +26,6 @@ class TestResultToGameMapper(unittest.TestCase):
         self.__mongo_result["_Game__date_purchased"] = date_purchased
         game = self.__target.map(self.__mongo_result)
         self.assertEqual(date_purchased, game.date_purchased)
+
+    def test_map_none_raises_gamenotfoundexception(self):
+        self.assertRaises(GameNotFoundException, self.__target.map, None)

@@ -1,9 +1,12 @@
 from Game import Game
+from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 
 
 class ResultToGameMapper(object):
 
     def map(self, mongo_result):
+        if mongo_result is None:
+            raise GameNotFoundException
         game = Game()
         game.id = mongo_result["_id"]
         game.title = mongo_result["_Game__title"]
