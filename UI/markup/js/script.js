@@ -1,5 +1,5 @@
 function cancelEdit() {
-    navigate("/");
+    window.history.back();
 }
 
 function cancelEditPlatform() {
@@ -52,4 +52,44 @@ function deleteGenre(id) {
 
 function navigate(url) {
     window.location = url;
+}
+
+function updateGame() {
+    $("#success").fadeOut();
+    $("#failure").fadeOut();
+
+    var j = {
+        id: $("#id").val(),
+        title: $("#title").val(),
+        platform: $("#platform").val(),
+        numcopies: $("#numcopies").val(),
+        numboxed: $("#numboxed").val(),
+        nummanuals: $("#nummanuals").val(),
+        datepurchased: $("#datepurchased").val(),
+        approximatepurchaseddate: $("#approximatepurchaseddate").val(),
+        notes: $("#notes").val()
+    };
+
+    $.ajax({
+        url: "/updategame",
+        data: j,
+        success: saveSuccess,
+        error: saveError
+    });
+}
+
+function saveSuccess()
+{
+    $("#success").fadeIn();
+    $("#successText").text("Save Successful");
+    setTimeout(function() {
+        $("#success").fadeOut();
+        window.history.back();
+    }, 3000)
+}
+
+function saveError()
+{
+    $("#failureText").text("Saved Failed!");
+    $("#failure").fadeIn();
 }

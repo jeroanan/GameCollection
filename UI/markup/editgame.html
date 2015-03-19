@@ -1,20 +1,30 @@
 {%extends 'master.html' %}
         {% block content %}
+
+        <div id="success" class="row alert alert-success" style="display: none;" role="alert">
+            <span id="successText"></span>
+            <a style="cursor: pointer;" onclick="$('#success').fadeOut();">[Close]</a>
+        </div>
+
+        <div id="failure" class="row alert alert-danger" style="display: none;" role="alert">
+            <span id="failureText"></span>
+            <a style="cursor: pointer;" onclick="$('#failure').fadeOut();">[Close]</a>
+        </div>
         <h1>{{title}}</h1>
         {% if game_found %}
-         <form class="form-horizontal" method="post" role="form" action="updategame">
 
+         <form class="form-horizontal" method="post" role="form" action="updategame">
              <div class="row">
                  <div class="form-group col-sm-10">
                     <label for="title">Title</label>
-                    <input name="title" value="{{game.title}}" class="form-control" autofocus="autofocus" />
+                    <input id="title" name="title" value="{{game.title}}" class="form-control" autofocus="autofocus" />
                  </div>
              </div>
 
              <div class="row">
                  <div class="form-group col-sm-10">
                     <label for="platform">Platform</label>
-                    <select name="platform" required="required" class="form-control">
+                    <select name="platform" id="platform" required="required" class="form-control">
                         {% for platform in platforms %}
                             {% if platform.name==game.platform %}
                                 <option value="{{platform.name}}" selected="selected">{{platform.name}}</option>
@@ -53,9 +63,10 @@
                      <input id="datepurchased" name="datepurchased" type="text" class="picker form-control"/>
                      <div class="checkbox"><label>
                          {% if game.approximate_date_purchased %}
-                         <input name="approximatepurchaseddate" type="checkbox" checked="checked" />
+                         <input name="approximatepurchaseddate" id="approximatepurchaseddate"
+                                type="checkbox" checked="checked" />
                          {% else %}
-                         <input name="approximatepurchaseddate" type="checkbox"  />
+                         <input name="approximatepurchaseddate" id="approximatepurchaseddate" type="checkbox"  />
                          {% endif %}
                          Approximate date</label></div>
                  </div>
@@ -65,13 +76,13 @@
              <div class="row">
                 <div class="form-group col-sm-10">
                     <label for="notes">Notes</label>
-                    <textarea name="notes" class="form-control" rows="5">{{game.notes}}</textarea>
+                    <textarea id="notes" name="notes" class="form-control" rows="5">{{game.notes}}</textarea>
                 </div>
              </div>
 
              <div class="row">
-                <div class="form-group col-sm-3">
-                    <input type="submit" class="btn btn-primary" />
+                <div class="form-group col-sm-6">
+                    <input type="button" class="btn btn-primary" value="Save" onclick="updateGame();" />
                     <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
                     <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
                 </div>
