@@ -3,6 +3,7 @@
 {% block content %}
 
         <h1>{{title}}</h1>
+         {% if hardware_found %}
          <form class="form-horizontal" method="post" role="form" action="updatehardware">
 
              <div class="row">
@@ -64,5 +65,6 @@
                 <a href="javascript:deleteHardware();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
             </div>
         </form>
+        {% endif %}
 
 {% endblock %}

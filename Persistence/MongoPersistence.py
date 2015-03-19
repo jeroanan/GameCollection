@@ -7,6 +7,7 @@ from pymongo.errors import ConnectionFailure
 
 from AbstractPersistence import AbstractPersistence
 from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
+from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundException
 from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
@@ -86,7 +87,10 @@ class MongoPersistence(AbstractPersistence):
         return map((ResultToHardwareMapper()).map, self.__db.hardware.find().sort(mapped_sort_field, sorder))
 
     def get_hardware_details(self, platform_id):
-        h = self.__db.hardware.find_one({"_id": ObjectId(platform_id)})
+        try:
+            h = self.__db.hardware.find_one({"_id": ObjectId(platform_id)})
+        except InvalidId:
+            raise HardwareNotFoundException()
         return ResultToHardwareMapper().map(h)
 
     def save_hardware(self, hardware):

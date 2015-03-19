@@ -1,0 +1,2 @@
+class HardwareNotFoundException(Exception):
+    pass
