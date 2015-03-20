@@ -97,7 +97,6 @@ function saveGame()
     });
 }
 
-
 function saveSuccess()
 {
     $("#success").fadeIn();
