@@ -3,7 +3,7 @@
     <h1>{{title}}</h1>
 
     {% include 'status.html' %}
-    <form class="form-horizontal" role="form" method="post" action="savegame">
+    <form class="form-horizontal" role="form" method="post" action="savegame" id="gameform">
 
         <div class="row">
             <div class="form-group col-sm-10">
@@ -66,7 +66,6 @@
                 <textarea id="notes" name="notes" class="form-control" rows="5"></textarea>
             </div>
         </div>
-
 
         <div class="row">
             <div class="form-group col-sm-3">

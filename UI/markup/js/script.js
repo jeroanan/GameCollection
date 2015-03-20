@@ -68,6 +68,8 @@ function updateGame() {
         notes: $("#notes").val()
     };
 
+    if (!validateSave(j)) return;
+
     $.ajax({
         url: "/updategame",
         data: j,
@@ -89,6 +91,9 @@ function saveGame()
         notes: $("#notes").val()
     };
 
+
+    if (!validateSave(j)) return;
+
     $.ajax({
         url: "/savegame",
         data: j,
@@ -97,18 +102,75 @@ function saveGame()
     });
 }
 
+function validateSave(j)
+{
+    hideValidationFailure();
+
+    function appendText(t, a)
+    {
+        if (t!="") t+="<br />";
+        return t + a;
+    }
+
+    var failureText = "";
+    if (j.title=="") failureText += "Please enter a title";
+    if (j.numcopies=="") failureText = appendText(failureText, "Please enter a number of copies");
+    if (j.numboxed=="") failureText = appendText(failureText, "Please enter a number of boxes");
+    if (j.nummanuals=="") failureText = appendText(failureText, "Please enter a number of manuals");
+
+    var validatedSuccessfully = failureText == "";
+
+    if (!validatedSuccessfully) showValidationFailure(failureText);
+    return validatedSuccessfully;
+}
+
 function saveSuccess()
 {
-    $("#success").fadeIn();
-    $("#successText").text("Save Successful");
+    showValidationSuccess("Save Successful");
     setTimeout(function() {
-        $("#success").fadeOut();
+        hideValidationSuccess();
         window.history.back();
     }, 3000)
 }
 
 function saveError()
 {
-    $("#failureText").text("Saved Failed!");
-    $("#failure").fadeIn();
+    showValidationFailure("Save Failed!");
+}
+
+function showValidationFailure(failureText)
+{
+    showValidationMessage($("#failure"), $("#failureText"), failureText);
+}
+
+function showValidationSuccess(successText)
+{
+    showValidationMessage($("#success"), $("#successText"), successText);
+}
+
+function showValidationMessage(box, boxTextCtrl, boxTextContent)
+{
+    box.fadeIn();
+    boxTextCtrl.html(boxTextContent);
+}
+
+
+function hideValidationFailure()
+{
+    hideValidationBox($("#failure"), $("#failureText"));
+}
+
+function hideValidationSuccess()
+{
+    hideValidationBox($("#success"), $("#successText"));
+}
+
+function hideValidationBox(box, boxText)
+{
+        box.fadeOut(
+        {
+            complete: function() {
+                boxText.html("");
+            }
+        })
 }
