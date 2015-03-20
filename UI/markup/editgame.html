@@ -81,19 +81,15 @@
              </div>
         </form>
         <div style="display: none;" class="text-danger" id="deleteConfirm">
-        Really delete this game?
+            <span>Really delete this game?</span>
             <a href="javascript:deleteGame()">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm()">No</a>
         </div>
-        <style type="text/css" scoped="scoped">
-            input.number {
-                width: 60px;
-            }
-        </style>
         <script type="text/javascript">
             $(function() {
-                $(".picker").datepicker();
-                $(".picker").datepicker("option", "dateFormat", "dd/mm/yy");
-                $(".picker").datepicker("setDate", "{{game.date_purchased}}");
+                var pickers = $(".picker");
+                pickers.datepicker();
+                pickers.datepicker("option", "dateFormat", "dd/mm/yy");
+                pickers.datepicker("setDate", "{{game.date_purchased}}");
             })
         </script>
         {%endif%}

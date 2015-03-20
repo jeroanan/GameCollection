@@ -15,7 +15,22 @@ function hideDeleteConfirm() {
 }
 
 function deleteGame() {
-    navigate("/deletegame?gameid=" + $("#id").val());
+    var j = {
+        gameid: $("#id").val()
+    };
+
+    $.ajax({
+        url: "/deletegame",
+        data: j,
+        success: function() {
+            showValidationSuccess("Deletion successful");
+            setTimeout(function() {
+                hideValidationSuccess();
+                window.history.back();
+            }, 3000)
+        },
+        error: function() {showValidationFailure("Deletion failed")}
+    });
 }
 
 function deletePlatform() {
@@ -40,10 +55,6 @@ function editPlatform(id) {
 
 function addSuggestedPlatform(name, description) {
     navigate("/addplatform?name=" + name + "&description=" + description);
-}
-
-function editGenre(id) {
-    navigate("/editgenre?genreid=" + id);
 }
 
 function deleteGenre(id) {
