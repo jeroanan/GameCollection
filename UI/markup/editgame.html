@@ -1,15 +1,7 @@
 {%extends 'master.html' %}
         {% block content %}
 
-        <div id="success" class="row alert alert-success" style="display: none;" role="alert">
-            <span id="successText"></span>
-            <a style="cursor: pointer;" onclick="$('#success').fadeOut();">[Close]</a>
-        </div>
-
-        <div id="failure" class="row alert alert-danger" style="display: none;" role="alert">
-            <span id="failureText"></span>
-            <a style="cursor: pointer;" onclick="$('#failure').fadeOut();">[Close]</a>
-        </div>
+        {% include 'status.html' %}
         <h1>{{title}}</h1>
         {% if game_found %}
 
@@ -88,7 +80,7 @@
                 </div>
              </div>
         </form>
-        <div class="hidden" id="deleteConfirm">
+        <div style="display: none;" class="text-danger" id="deleteConfirm">
         Really delete this game?
             <a href="javascript:deleteGame()">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm()">No</a>
         </div>

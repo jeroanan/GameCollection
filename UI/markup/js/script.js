@@ -7,11 +7,11 @@ function cancelEditPlatform() {
 }
 
 function showDeleteConfirm() {
-    $("#deleteConfirm").addClass("text-danger").removeClass("hidden");
+    $("#deleteConfirm").fadeIn();
 }
 
 function hideDeleteConfirm() {
-    $("#deleteConfirm").addClass("hidden").removeClass("text-danger");
+    $("#deleteConfirm").fadeOut();
 }
 
 function deleteGame() {
@@ -55,8 +55,6 @@ function navigate(url) {
 }
 
 function updateGame() {
-    $("#success").fadeOut();
-    $("#failure").fadeOut();
 
     var j = {
         id: $("#id").val(),
@@ -66,7 +64,7 @@ function updateGame() {
         numboxed: $("#numboxed").val(),
         nummanuals: $("#nummanuals").val(),
         datepurchased: $("#datepurchased").val(),
-        approximatepurchaseddate: $("#approximatepurchaseddate").val(),
+        approximatepurchaseddate: $("#approximatepurchaseddate").is(":checked"),
         notes: $("#notes").val()
     };
 
@@ -77,6 +75,28 @@ function updateGame() {
         error: saveError
     });
 }
+
+function saveGame()
+{
+    var j = {
+        title: $("#title").val(),
+        platform: $("#platform").val(),
+        numcopies: $("#numcopies").val(),
+        numboxed: $("#numboxed").val(),
+        nummanuals: $("#nummanuals").val(),
+        datepurchased: $("#datepurchased").val(),
+        approximatepurchaseddate: $("#approximatepurchaseddate").is(":checked"),
+        notes: $("#notes").val()
+    };
+
+    $.ajax({
+        url: "/savegame",
+        data: j,
+        success: saveSuccess,
+        error: saveError
+    });
+}
+
 
 function saveSuccess()
 {

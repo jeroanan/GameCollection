@@ -2,12 +2,13 @@
 {%block content%}
     <h1>{{title}}</h1>
 
+    {% include 'status.html' %}
     <form class="form-horizontal" role="form" method="post" action="savegame">
 
         <div class="row">
             <div class="form-group col-sm-10">
                 <label for="title">Title</label>
-                <input class="form-control" name="title" placeholder="Title" autofocus="autofocus"
+                <input class="form-control" name="title" id="title" placeholder="Title" autofocus="autofocus"
                        required="required" />
             </div>
         </div>
@@ -16,7 +17,7 @@
             <div class="form-group col-sm-10">
                 <label for="platform">Platform</label>
 
-                    <select class="form-control" name="platform" required="required">
+                    <select class="form-control" id="platform" name="platform" required="required">
                         {% for platform in platforms %}
                             <option value="{{platform.name}}">{{platform.name}}</option>
                         {% endfor %}
@@ -50,23 +51,27 @@
              <div class="form-group col-sm-3">
                  <label for="datepurchased">Date Purchased</label>
                  <input id="datepurchased" name="datepurchased" type="text" class="picker form-control" />
-                 <div class="checkbox"><label><input name="approximatepurchaseddate" type="checkbox"  />
-                     Approximate date</label></div>
+                 <div class="checkbox">
+                     <label>
+                         <input name="approximatepurchaseddate" id="approximatepurchaseddate"
+                                        type="checkbox"  />
+                     Approximate date</label>
+                 </div>
              </div>
          </div>
 
         <div class="row">
             <div class="form-group col-sm-10">
                 <label for="notes">Notes</label>
-                <textarea name="notes" class="form-control" rows="5"></textarea>
+                <textarea id="notes" name="notes" class="form-control" rows="5"></textarea>
             </div>
         </div>
 
 
         <div class="row">
             <div class="form-group col-sm-3">
-                <input type="submit" class="btn btn-primary" />
-                <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+                <input type="submit" class="btn btn-primary" value="Save" onclick="saveGame();" />
+                <input type="button" class="btn" value="Cancel" onclick="cancelEdit();" />
             </div>
         </div>
     </form>
