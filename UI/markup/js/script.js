@@ -93,7 +93,7 @@ function updateGame() {
         notes: $("#notes").val()
     };
 
-    if (!validateSave(j)) return;
+    if (!validateSaveGame(j)) return;
 
     $.ajax({
         url: "/updategame",
@@ -116,7 +116,7 @@ function saveGame()
         notes: $("#notes").val()
     };
 
-    if (!validateSave(j)) return;
+    if (!validateSaveGame(j)) return;
 
     $.ajax({
         url: "/savegame",
@@ -126,7 +126,7 @@ function saveGame()
     });
 }
 
-function validateSave(j)
+function validateSaveGame(j)
 {
     hideValidationFailure();
 

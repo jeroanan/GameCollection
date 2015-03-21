@@ -48,7 +48,7 @@ class TestUpdateHardwareHandler(unittest.TestCase):
             "id": "id",
             "name": "name",
             "platform": "platform",
-            "numowned": 1,
+            "numcopies": 1,
             "numboxed": 0,
             "notes": ""
         }

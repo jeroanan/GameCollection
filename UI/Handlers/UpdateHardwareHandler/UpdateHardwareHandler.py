@@ -15,7 +15,7 @@ class UpdateHardwareHandler(Handler):
         hardware.id = params.get("id", "")
         hardware.name = params.get("name", "")
         hardware.platform = params.get("platform", "")
-        hardware.num_owned = params.get("numowned", 0)
+        hardware.num_owned = params.get("numcopies", 0)
         hardware.num_boxed = params.get("numboxed", 0)
         hardware.notes = params.get("notes")
         return hardware
