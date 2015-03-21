@@ -26,7 +26,7 @@ class TestDeletePlatformHandler(unittest.TestCase):
             self.__target.get_page(self.__get_params())
         except cherrypy.HTTPRedirect:
             pass
-        self.__interactor.execute.assert_called_with(self.__get_platform())
+        self.__interactor.execute.assert_called_with("id")
 
     def __get_platform(self):
         p = Platform()

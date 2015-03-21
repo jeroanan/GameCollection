@@ -25,6 +25,3 @@ class TestDeletePlatformInteractor(InteractorTestBase):
     def test_execute_with_none_platform_raises_type_error(self):
         self.assertRaises(TypeError, self.__target.execute, None)
 
-    def test_execute_validates_id_field(self):
-        self.__target.execute(self.get_platform(platform_id="platform_id"))
-        self.assertTrue(self.validate_string_field_was_called_with("Platform id", "platform_id"))

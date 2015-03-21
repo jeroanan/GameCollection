@@ -72,8 +72,8 @@ class MongoPersistence(AbstractPersistence):
     def update_platform(self, platform):
         self.__db.platforms.update({"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
 
-    def delete_platform(self, platform):
-        self.__db.platforms.remove({"_id": ObjectId(platform.id)})
+    def delete_platform(self, platform_id):
+        self.__db.platforms.remove({"_id": ObjectId(platform_id)})
 
     def update_game(self, game):
         self.__db.games.update({"_id": ObjectId(game.id)}, {"$set": game.__dict__}, upsert=False)

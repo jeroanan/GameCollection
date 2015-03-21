@@ -34,7 +34,22 @@ function deleteGame() {
 }
 
 function deletePlatform() {
-    navigate("/deleteplatform?platformid=" + $("#id").val());
+    var j = {
+            id: $("#id").val()
+    };
+
+    $.ajax({
+        url: "/deleteplatform",
+        data: j,
+        success: (function() {
+            showValidationSuccess("Deletion successful");
+            setTimeout(function() {
+                hideValidationSuccess();
+                window.history.back();
+            }, 3000)
+        }),
+        error: (function() {showValidationFailure("Deletion failed")})
+    });
 }
 
 function deleteHardware() {
@@ -102,7 +117,6 @@ function saveGame()
         notes: $("#notes").val()
     };
 
-
     if (!validateSave(j)) return;
 
     $.ajax({
@@ -164,7 +178,6 @@ function showValidationMessage(box, boxTextCtrl, boxTextContent)
     box.fadeIn();
     boxTextCtrl.html(boxTextContent);
 }
-
 
 function hideValidationFailure()
 {

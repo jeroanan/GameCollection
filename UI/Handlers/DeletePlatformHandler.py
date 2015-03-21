@@ -7,10 +7,6 @@ class DeletePlatformHandler(Handler):
 
     def get_page(self, params):
         interactor = self.interactor_factory.create("DeletePlatformInteractor")
-        interactor.execute(self.__get_platform(params))
+        interactor.execute(params.get("platformid", params.get("id", "")))
         raise cherrypy.HTTPRedirect("/platforms")
 
-    def __get_platform(self, params):
-        platform = Platform()
-        platform.id = params.get("platformid", "")
-        return platform

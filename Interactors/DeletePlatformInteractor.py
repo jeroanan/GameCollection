@@ -7,7 +7,6 @@ class DeletePlatformInteractor(Interactor):
         self.__validate(platform)
         self.persistence.delete_platform(platform)
 
-    def __validate(self, platform):
-        if platform is None:
+    def __validate(self, platform_id):
+        if platform_id is None:
             raise TypeError("platform")
-        self.validate_string_field("Platform id", platform.id)

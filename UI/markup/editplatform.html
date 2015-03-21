@@ -1,8 +1,9 @@
 {% extends 'master.html' %}
 {% block content %}
+    {% include 'status.html' %}
+
     <h1>{{title}}</h1>
         <form class="form-vertical" method="post" action="updateplatform" role="form">
-
              <div class="row">
                  <div class="form-group col-sm-10">
                     <label for="name">Name</label>
@@ -29,7 +30,7 @@
                  </div>
              </div>
         </form>
-        <div class="hidden" id="deleteConfirm">
+        <div id="deleteConfirm" style="display: none;" class="text-danger">
         Really delete this platform?
             <a href="javascript:deletePlatform();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
         </div>
