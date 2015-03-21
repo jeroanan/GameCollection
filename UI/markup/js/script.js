@@ -22,14 +22,8 @@ function deleteGame() {
     $.ajax({
         url: "/deletegame",
         data: j,
-        success: function() {
-            showValidationSuccess("Deletion successful");
-            setTimeout(function() {
-                hideValidationSuccess();
-                window.history.back();
-            }, 3000)
-        },
-        error: function() {showValidationFailure("Deletion failed")}
+        success: deletionSuccessful(),
+        error: deletionFailed()
     });
 }
 
@@ -41,17 +35,22 @@ function deletePlatform() {
     $.ajax({
         url: "/deleteplatform",
         data: j,
-        success: (function() {
-            showValidationSuccess("Deletion successful");
-            setTimeout(function() {
-                hideValidationSuccess();
-                window.history.back();
-            }, 3000)
-        }),
-        error: (function() {showValidationFailure("Deletion failed")})
+        success: deletionSuccessful,
+        error: deletionFailed
     });
 }
 
+function deletionSuccessful() {
+    showValidationSuccess("Deletion successful");
+    setTimeout(function() {
+        hideValidationSuccess();
+        window.history.back();
+    }, 3000)
+}
+
+function deletionFailed() {
+    showValidationFailure("Deletion failed");
+}
 function deleteHardware() {
     navigate("/deletehardware?hardwareid=" + $("#id").val());
 }
@@ -149,6 +148,20 @@ function validateSave(j)
     return validatedSuccessfully;
 }
 
+function updatePlatform() {
+    var j = {
+        id: $("#id").val(),
+        name: $("#name").val(),
+        description: $("#description").val()
+    };
+    $.ajax({
+        url: "/updateplatform",
+        data: j,
+        success: saveSuccess,
+        error: saveError
+    })
+}
+
 function saveSuccess()
 {
     showValidationSuccess("Save Successful");
@@ -191,10 +204,10 @@ function hideValidationSuccess()
 
 function hideValidationBox(box, boxText)
 {
-        box.fadeOut(
-        {
-            complete: function() {
-                boxText.html("");
-            }
-        })
+    box.fadeOut(
+    {
+        complete: function() {
+            boxText.html("");
+        }
+    })
 }
