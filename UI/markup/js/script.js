@@ -167,7 +167,19 @@ function updatePlatform() {
         name: $("#name").val(),
         description: $("#description").val()
     };
+    if (!validateSavePlatform(j)) return;
     ajaxSave("/updateplatform", j);
+}
+
+function validateSavePlatform(j) {
+    hideValidationFailure();
+    var failureText = "";
+    if (j.name == "") failureText = "Please enter a name";
+    if (j.description == "") failureText = appendText(failureText, "Please enter a deacription")
+
+    var validationSuccessful = failureText == "";
+    if (!validationSuccessful) showValidationFailure(failureText);
+    return validationSuccessful;
 }
 
 function ajaxSave(url, data) {
