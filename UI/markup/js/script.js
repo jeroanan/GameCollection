@@ -19,12 +19,7 @@ function deleteGame() {
         gameid: $("#id").val()
     };
 
-    $.ajax({
-        url: "/deletegame",
-        data: j,
-        success: deletionSuccessful(),
-        error: deletionFailed()
-    });
+    ajaxDelete("/deletegame", j);
 }
 
 function deletePlatform() {
@@ -32,12 +27,16 @@ function deletePlatform() {
             id: $("#id").val()
     };
 
+    ajaxDelete("/deletePlatform", j);
+}
+
+function ajaxDelete(url, data) {
     $.ajax({
-        url: "/deleteplatform",
-        data: j,
+        url: url,
+        data: data,
         success: deletionSuccessful,
         error: deletionFailed
-    });
+    })
 }
 
 function deletionSuccessful() {
@@ -80,31 +79,21 @@ function navigate(url) {
 }
 
 function updateGame() {
-
-    var j = {
-        id: $("#id").val(),
-        title: $("#title").val(),
-        platform: $("#platform").val(),
-        numcopies: $("#numcopies").val(),
-        numboxed: $("#numboxed").val(),
-        nummanuals: $("#nummanuals").val(),
-        datepurchased: $("#datepurchased").val(),
-        approximatepurchaseddate: $("#approximatepurchaseddate").is(":checked"),
-        notes: $("#notes").val()
-    };
+    var j = getGameNoId();
+    j.id = $("#id").val();
 
     if (!validateSaveGame(j)) return;
-
-    $.ajax({
-        url: "/updategame",
-        data: j,
-        success: saveSuccess,
-        error: saveError
-    });
+    ajaxSave("/updategame", j);
 }
 
 function saveGame() {
-    var j = {
+    var j = getGameNoId();
+    if (!validateSaveGame(j)) return;
+    ajaxSave("/savegame", j);
+}
+
+function getGameNoId() {
+    return {
         title: $("#title").val(),
         platform: $("#platform").val(),
         numcopies: $("#numcopies").val(),
@@ -114,15 +103,6 @@ function saveGame() {
         approximatepurchaseddate: $("#approximatepurchaseddate").is(":checked"),
         notes: $("#notes").val()
     };
-
-    if (!validateSaveGame(j)) return;
-
-    $.ajax({
-        url: "/savegame",
-        data: j,
-        success: saveSuccess,
-        error: saveError
-    });
 }
 
 function validateSaveGame(j) {
@@ -140,23 +120,32 @@ function validateSaveGame(j) {
     return validatedSuccessfully;
 }
 
-function saveHardware() {
+function addHardware() {
+    var j = getHardwareNoId();
+    if (!validateSaveHardware(j)) return;
+    ajaxSave("/savehardware", j);
+}
 
-    var j = {
+function appendText(t, a) {
+    if (t!="") t+="<br />";
+    return t + a;
+}
+
+function updateHardware() {
+    var j = getHardwareNoId();
+    j.id = $("#id").val();
+    if (!validateSaveHardware(j)) return;
+    ajaxSave("/updatehardware", j);
+}
+
+function getHardwareNoId() {
+    return {
         name: $("#name").val(),
         platform: $("#platform").val(),
-        numowned: $("#numowned").val(),
+        numcopies: $("#numcopies").val(),
         numboxed: $("#numboxed").val(),
         notes: $("#notes").val()
     };
-
-    if (!validateSaveHardware(j)) return;
-    $.ajax({
-        url: "/savehardware",
-        data: j,
-        success: saveSuccess,
-        error: saveError
-    })
 }
 
 function validateSaveHardware(j) {
@@ -172,28 +161,25 @@ function validateSaveHardware(j) {
     return validationSuccessful;
 }
 
-function appendText(t, a)
-{
-    if (t!="") t+="<br />";
-    return t + a;
-}
-
 function updatePlatform() {
     var j = {
         id: $("#id").val(),
         name: $("#name").val(),
         description: $("#description").val()
     };
-    $.ajax({
-        url: "/updateplatform",
-        data: j,
-        success: saveSuccess,
-        error: saveError
-    })
+    ajaxSave("/updateplatform", j);
 }
 
-function saveSuccess()
-{
+function ajaxSave(url, data) {
+    $.ajax({
+        url: url,
+        data: data,
+        success: saveSuccess,
+        error: saveError
+    });
+}
+
+function saveSuccess() {
     showValidationSuccess("Save Successful");
     setTimeout(function() {
         hideValidationSuccess();
@@ -201,39 +187,32 @@ function saveSuccess()
     }, 3000)
 }
 
-function saveError()
-{
+function saveError() {
     showValidationFailure("Save Failed!");
 }
 
-function showValidationFailure(failureText)
-{
+function showValidationFailure(failureText) {
     showValidationMessage($("#failure"), $("#failureText"), failureText);
 }
 
-function showValidationSuccess(successText)
-{
+function showValidationSuccess(successText) {
     showValidationMessage($("#success"), $("#successText"), successText);
 }
 
-function showValidationMessage(box, boxTextCtrl, boxTextContent)
-{
+function showValidationMessage(box, boxTextCtrl, boxTextContent) {
     box.fadeIn();
     boxTextCtrl.html(boxTextContent);
 }
 
-function hideValidationFailure()
-{
+function hideValidationFailure() {
     hideValidationBox($("#failure"), $("#failureText"));
 }
 
-function hideValidationSuccess()
-{
+function hideValidationSuccess() {
     hideValidationBox($("#success"), $("#successText"));
 }
 
-function hideValidationBox(box, boxText)
-{
+function hideValidationBox(box, boxText) {
     box.fadeOut(
     {
         complete: function() {
