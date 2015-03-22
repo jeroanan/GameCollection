@@ -20,6 +20,7 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler.SearchHandler import SearchHandler
+from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandler import UpdatePlatformHandler
@@ -94,6 +95,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_allhardware_returns_allhardware_handler(self):
         self.__assert_type_string_returns_handler_type("allhardware", AllHardwareHandler)
+
+    def test_sortgames_returns_sortgames_handler(self):
+        self.__assert_type_string_returns_handler_type("sortgames", SortGamesHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

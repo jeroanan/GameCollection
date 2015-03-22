@@ -232,3 +232,29 @@ function hideValidationBox(box, boxText) {
         }
     })
 }
+
+function sortGames(field) {
+    var hdnSort = $('#gamesortfield');
+    var hdnDir = $('#gamesortdir');
+    var hdnRows = $('#gamerows');
+
+    var oldSortDir = hdnDir.val();
+    var newSortDir = "asc";
+
+    var numRows = hdnRows.val() == null ? 999999 : hdnRows.val();
+
+    function toggleSortDirection(oldSortDir) {
+        return oldSortDir == "asc" ? "desc": "asc";
+    }
+
+    if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
+
+    hdnSort.val(field);
+    hdnDir.val(newSortDir);
+
+    $("#games").load("/sortgames", {
+        field: field,
+        sortdir: newSortDir,
+        numrows: numRows
+    });
+}

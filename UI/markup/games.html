@@ -2,27 +2,15 @@
     <thead>
        <tr>
            <th>
-               {%if game_sort_field == "title" and game_sort_direction != "desc" %}
-                    <a title="Sort by game title" href="?gamesort=title&gamesortdir=desc&{{query}}">Title</a>
-               {% else %}
-                    <a title="Sort by game title" href="?gamesort=title&{{query}}">Title</a>
-               {% endif %}
+               <a title="Sort by game title" onclick="sortGames('title');" style="cursor: pointer;">Title</a>
            </th>
            <th>
-               {% if game_sort_field == "platform" and game_sort_direction != "desc" %}
-                    <a title="Sort by platform" href="?gamesort=platform&gamesortdir=desc&{{query}}">Platform</a>
-               {% else %}
-                    <a title="Sort by platform" href="?gamesort=platform&{{query}}">Platform</a>
-               {% endif %}
+               <a title="Sort by platform" onclick="sortGames('platform');" style="cursor: pointer;">Platform</a>
            </th>
            <th>
-               {% if game_sort_field == "numcopies" and game_sort_direction != "desc" %}
-                    <a title="Sort by number of copies" href="?gamesort=numcopies&gamesortdir=desc&{{query}}">
-                        # Copies
-                    </a>
-               {% else %}
-                    <a title="Sort by number of copies" href="?gamesort=numcopies&{{query}}"># Copies</a>
-               {% endif %}
+               <a title="Sort by number of copies" onclick="sortGames('numcopies');" style="cursor: pointer;">
+                   # Copies
+               </a>
            </th>
            <th># Boxed</th>
            <th># Manuals</th>
@@ -37,7 +25,6 @@
                     {{game.platform}}
                 </a>
             </td>
-
             <td>{{game.num_copies}}</td>
             <td>{{game.num_boxed}}</td>
             <td>{{game.num_manuals}}</td>
@@ -45,3 +32,5 @@
         {% endfor %}
     </tbody>
 </table>
+<input type="hidden" id="gamesortfield" value="{{game_sort_field}}" />
+<input type="hidden" id="gamesortdir" value="{{game_sort_dir}}" />

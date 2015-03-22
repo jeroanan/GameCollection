@@ -24,7 +24,7 @@ class IndexHandler(Handler):
 
         return self.renderer.render("index.html", games=games, hardware=hardware,
                                     title="Games Collection", game_sort_field=self.__game_sort,
-                                    game_sort_direction=self.__game_sort_dir, hardware_sort_field=self.__hardware_sort,
+                                    game_sort_dir=self.__game_sort_dir, hardware_sort_field=self.__hardware_sort,
                                     number_of_games=(self.__count_games()),
                                     hardware_sort_direction=self.__hardware_sort_dir)
 
