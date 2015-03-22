@@ -1,12 +1,13 @@
 {%extends 'master.html'%}
         {%block content%}
+        {%include 'status.html'%}
         <h1>{{title}}</h1>
         <form class="form-horizontal" role="form" method="post" action="savehardware">
 
             <div class="row">
                 <div class="form-group col-sm-10">
                     <label for="name">Name</label>
-                    <input name="name" autofocus="autofocus" placeholder="Name" required="required"
+                    <input id="name" name="name" autofocus="autofocus" placeholder="Name" required="required"
                            class="form-control" />
                 </div>
             </div>
@@ -14,7 +15,7 @@
             <div class="row">
                 <div class="form-group col-sm-10">
                     <label for="platform">Platform</label>
-                    <select name="platform" required="required" class="form-control">
+                    <select id="platform" name="platform" required="required" class="form-control">
                         {% for platform in platforms %}
                             <option value="{{platform.name}}">{{platform.name}}</option>
                         {% endfor %}
@@ -41,20 +42,16 @@
             <div class="row">
                  <div class="form-group col-sm-10">
                      <label for="notes">Notes</label>
-                     <textarea class="form-control" name="notes" rows="5"></textarea>
+                     <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
                  </div>
              </div>
 
             <div class="row">
                 <div class="form-group col-sm-3">
                     <input type="submit" class="btn btn-primary" />
+                    <input type="button" class="btn btn-primary" value="Save2" onclick="saveHardware();" />
                     <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
                 </div>
             </div>
         </form>
-        <style type="text/css" scoped="scoped">
-        input.number {
-            width: 60px;
-        }
-        </style>
         {%endblock%}

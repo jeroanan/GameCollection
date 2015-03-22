@@ -103,8 +103,7 @@ function updateGame() {
     });
 }
 
-function saveGame()
-{
+function saveGame() {
     var j = {
         title: $("#title").val(),
         platform: $("#platform").val(),
@@ -126,18 +125,11 @@ function saveGame()
     });
 }
 
-function validateSaveGame(j)
-{
+function validateSaveGame(j) {
     hideValidationFailure();
 
-    function appendText(t, a)
-    {
-        if (t!="") t+="<br />";
-        return t + a;
-    }
-
     var failureText = "";
-    if (j.title=="") failureText += "Please enter a title";
+    if (j.title=="") failureText = "Please enter a title";
     if (j.numcopies=="") failureText = appendText(failureText, "Please enter a number of copies");
     if (j.numboxed=="") failureText = appendText(failureText, "Please enter a number of boxes");
     if (j.nummanuals=="") failureText = appendText(failureText, "Please enter a number of manuals");
@@ -146,6 +138,44 @@ function validateSaveGame(j)
 
     if (!validatedSuccessfully) showValidationFailure(failureText);
     return validatedSuccessfully;
+}
+
+function saveHardware() {
+
+    var j = {
+        name: $("#name").val(),
+        platform: $("#platform").val(),
+        numowned: $("#numowned").val(),
+        numboxed: $("#numboxed").val(),
+        notes: $("#notes").val()
+    };
+
+    if (!validateSaveHardware(j)) return;
+    $.ajax({
+        url: "/savehardware",
+        data: j,
+        success: saveSuccess,
+        error: saveError
+    })
+}
+
+function validateSaveHardware(j) {
+    hideValidationFailure();
+
+    var failureText = "";
+    if (j.name == "") failureText = "Please enter a name";
+    if (j.numowned == "") failureText = appendText(failureText, "Please enter number owned");
+    if (j.numboxed == "") failureText = appendText(failureText, "Please enter number boxed");
+
+    var validationSuccessful = failureText == "";
+    if (!validationSuccessful) showValidationFailure(failureText);
+    return validationSuccessful;
+}
+
+function appendText(t, a)
+{
+    if (t!="") t+="<br />";
+    return t + a;
 }
 
 function updatePlatform() {
