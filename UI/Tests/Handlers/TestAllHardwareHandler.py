@@ -28,4 +28,6 @@ class TestAllHardwareHandler(unittest.TestCase):
 
     def test_get_page_calls_renderer(self):
         self.__target.get_page({"": ""})
-        self.__renderer.render.assert_called_with("allhardware.html", hardware=self.__hardware, title="All Hardware")
+        self.__renderer.render.assert_called_with("allhardware.html",
+                                                  hardware=self.__hardware, title="All Hardware",
+                                                  hw_sort_field="name", hw_sort_dir="asc")

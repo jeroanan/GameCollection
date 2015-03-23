@@ -13,9 +13,6 @@ class TestCountGamesInteractor(InteractorTestBase):
     def test_is_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
 
-    def test_execute(self):
-        self.__target.execute()
-
     def test_execute_calls_persistence_method(self):
         self.__target.execute()
         self.persistence.count_games.assert_called_with()
