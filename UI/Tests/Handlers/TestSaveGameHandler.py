@@ -31,13 +31,7 @@ class TestSaveGameHandler(unittest.TestCase):
         self.__interactor.execute.assert_called_with(game=self.__get_game())
 
     def __get_page(self):
-        try:
-            self.__target.get_page(params=self.__get_args())
-        except cherrypy.HTTPRedirect:
-            pass
-
-    def test_get_page_raises_http_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, params=self.__get_args())
+        self.__target.get_page(params=self.__get_args())
 
     def __get_args(self):
         args = {
@@ -64,7 +58,4 @@ class TestSaveGameHandler(unittest.TestCase):
         self.assertIsInstance(self.__target, Handler)
 
     def test_get_page_with_empty_params(self):
-        try:
-            self.__target.get_page({"": ""})
-        except cherrypy.HTTPRedirect:
-            pass
+        self.__target.get_page({"": ""})

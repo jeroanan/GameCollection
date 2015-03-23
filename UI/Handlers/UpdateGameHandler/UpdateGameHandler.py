@@ -9,7 +9,6 @@ class UpdateGameHandler(Handler):
         interactor = self.interactor_factory.create("UpdateGameInteractor")
         game = self.__get_game(params)
         interactor.execute(game=game)
-        raise cherrypy.HTTPRedirect("/")
 
     def __get_game(self, params):
         game = Game()

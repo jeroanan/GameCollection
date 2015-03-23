@@ -8,7 +8,6 @@ class SaveGameHandler(Handler):
     def get_page(self, params):
         interactor = self.interactor_factory.create("AddGameInteractor")
         interactor.execute(game=(self.__get_game(params)))
-        raise cherrypy.HTTPRedirect("/")
 
     def __get_game(self, params):
         game = Game()

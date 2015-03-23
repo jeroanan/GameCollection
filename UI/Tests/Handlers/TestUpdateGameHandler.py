@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-import cherrypy
+
 from Game import Game
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
@@ -21,10 +21,7 @@ class TestUpdateGameHandler(unittest.TestCase):
         self.assertIsInstance(self.__target, Handler)
 
     def test_get_page_calls_interactor_execute(self):
-        try:
-            self.__target.get_page(params=self.__get_params())
-        except cherrypy.HTTPRedirect:
-            pass
+        self.__target.get_page(params=self.__get_params())
         self.__interactor.execute.assert_called_with(game=self.__get_game())
 
     def __get_game(self):
@@ -38,9 +35,6 @@ class TestUpdateGameHandler(unittest.TestCase):
         g.notes = "notes"
         return g
 
-    def test_get_page_does_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, params=self.__get_params())
-
     def __get_params(self):
         return {
             "id": "id",
@@ -53,7 +47,4 @@ class TestUpdateGameHandler(unittest.TestCase):
         }
 
     def test_get_page_empty_params(self):
-        try:
-            self.__target.get_page({"": ""})
-        except cherrypy.HTTPRedirect:
-            pass
+        self.__target.get_page({"": ""})
