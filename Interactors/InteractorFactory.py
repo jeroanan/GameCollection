@@ -1,6 +1,7 @@
 from Data.LoadSuggestedPlatforms import LoadSuggestedPlatforms
 from Interactors.AddGenreInteractor import AddGenreInteractor
 from Interactors.CountGamesInteractor import CountGamesInteractor
+from Interactors.CountHardwareInteractor import CountHardwareInteractor
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetGenreInteractor import GetGenreInteractor
@@ -54,7 +55,8 @@ class InteractorFactory(object):
             "UpdateGenreInteractor": self.__initialise_interactor(UpdateGenreInteractor()),
             "DeleteGenreInteractor": self.__initialise_interactor(DeleteGenreInteractor()),
             "CountGamesInteractor": self.__initialise_interactor(CountGamesInteractor()),
-            "SearchInteractor": self.__initialise_interactor(SearchInteractor())
+            "SearchInteractor": self.__initialise_interactor(SearchInteractor()),
+            "CountHardwareInteractor": self.__initialise_interactor(CountHardwareInteractor())
         }
 
     def __initialise_interactor(self, interactor):

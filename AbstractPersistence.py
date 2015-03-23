@@ -14,6 +14,9 @@ class AbstractPersistence(object):
     def count_games(self):
         pass
 
+    def count_hardware(self):
+        pass
+
     def get_game(self, game_id):
         pass
 

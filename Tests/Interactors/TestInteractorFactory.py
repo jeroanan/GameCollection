@@ -3,6 +3,7 @@ from unittest.mock import Mock
 
 from Interactors.AddGenreInteractor import AddGenreInteractor
 from Interactors.CountGamesInteractor import CountGamesInteractor
+from Interactors.CountHardwareInteractor import CountHardwareInteractor
 from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.GetGenreInteractor import GetGenreInteractor
@@ -38,74 +39,77 @@ class TestInteractorFactory(unittest.TestCase):
         self.assertRaises(UnrecognisedInteractorTypeException, self.__target.create, "InteractorType")
 
     def test_create_add_game_interactor_returns_add_game_interactor(self):
-        self.assert_factory_returns_instance_of("AddGameInteractor", AddGameInteractor)
+        self.__assert_factory_returns_instance_of("AddGameInteractor", AddGameInteractor)
 
     def test_create_get_games_interactor_returns_get_games_interactor(self):
-        self.assert_factory_returns_instance_of("GetGamesInteractor", GetGamesInteractor)
+        self.__assert_factory_returns_instance_of("GetGamesInteractor", GetGamesInteractor)
 
     def test_create_get_platforms_interactor_returns_get_platforms_interactor(self):
-        self.assert_factory_returns_instance_of("GetPlatformsInteractor", GetPlatformsInteractor)
+        self.__assert_factory_returns_instance_of("GetPlatformsInteractor", GetPlatformsInteractor)
 
     def test_create_add_platform_interactor_returns_add_platform_interactor(self):
-        self.assert_factory_returns_instance_of("AddPlatformInteractor", AddPlatformInteractor)
+        self.__assert_factory_returns_instance_of("AddPlatformInteractor", AddPlatformInteractor)
 
     def test_create_get_game_interactor_returns_get_game_interactor(self):
-        self.assert_factory_returns_instance_of("GetGameInteractor", GetGameInteractor)
+        self.__assert_factory_returns_instance_of("GetGameInteractor", GetGameInteractor)
 
     def test_create_update_game_interactor_returns_update_game_interactor(self):
-        self.assert_factory_returns_instance_of("UpdateGameInteractor", UpdateGameInteractor)
+        self.__assert_factory_returns_instance_of("UpdateGameInteractor", UpdateGameInteractor)
 
     def test_create_delete_game_interactor_returns_delete_game_interactor(self):
-        self.assert_factory_returns_instance_of("DeleteGameInteractor", DeleteGameInteractor)
+        self.__assert_factory_returns_instance_of("DeleteGameInteractor", DeleteGameInteractor)
 
     def test_create_get_hardware_list_interactor_returns_get_hardware_list_interactor(self):
-        self.assert_factory_returns_instance_of("GetHardwareListInteractor", GetHardwareListInteractor)
+        self.__assert_factory_returns_instance_of("GetHardwareListInteractor", GetHardwareListInteractor)
 
     def test_create_save_hardware_interactor_returns_save_hardware_interactor(self):
-        self.assert_factory_returns_instance_of("SaveHardwareInteractor", SaveHardwareInteractor)
+        self.__assert_factory_returns_instance_of("SaveHardwareInteractor", SaveHardwareInteractor)
 
     def test_create_get_platform_interactor_returns_get_platform_interactor(self):
-        self.assert_factory_returns_instance_of("GetPlatformInteractor", GetPlatformInteractor)
+        self.__assert_factory_returns_instance_of("GetPlatformInteractor", GetPlatformInteractor)
 
     def test_create_update_platform_interactor_returns_update_platform_interactor(self):
-        self.assert_factory_returns_instance_of("UpdatePlatformInteractor", UpdatePlatformInteractor)
+        self.__assert_factory_returns_instance_of("UpdatePlatformInteractor", UpdatePlatformInteractor)
 
     def test_create_delete_platform_interactor_returns_delete_platform_interactor(self):
-        self.assert_factory_returns_instance_of("DeletePlatformInteractor", DeletePlatformInteractor)
+        self.__assert_factory_returns_instance_of("DeletePlatformInteractor", DeletePlatformInteractor)
 
     def test_create_get_hardware_details_interactor_returns_get_hardware_details_interactor(self):
-        self.assert_factory_returns_instance_of("GetHardwareDetailsInteractor", GetHardwareDetailsInteractor)
+        self.__assert_factory_returns_instance_of("GetHardwareDetailsInteractor", GetHardwareDetailsInteractor)
 
     def test_create_update_hardware_interactor_returns_update_hardware_interactor(self):
-        self.assert_factory_returns_instance_of("UpdateHardwareInteractor", UpdateHardwareInteractor)
+        self.__assert_factory_returns_instance_of("UpdateHardwareInteractor", UpdateHardwareInteractor)
 
     def test_create_delete_hardware_interactor_returns_delete_hardware_interactor(self):
-        self.assert_factory_returns_instance_of("DeleteHardwareInteractor", DeleteHardwareInteractor)
+        self.__assert_factory_returns_instance_of("DeleteHardwareInteractor", DeleteHardwareInteractor)
 
     def test_create_get_suggested_platforms_interactor_returns_get_suggested_platforms_interactor(self):
-        self.assert_factory_returns_instance_of("GetSuggestedPlatformsInteractor", GetSuggestedPlatformsInteractor)
+        self.__assert_factory_returns_instance_of("GetSuggestedPlatformsInteractor", GetSuggestedPlatformsInteractor)
 
     def test_create_get_genres_interactor_returns_get_genres_interactor(self):
-        self.assert_factory_returns_instance_of("GetGenresInteractor", GetGenresInteractor)
+        self.__assert_factory_returns_instance_of("GetGenresInteractor", GetGenresInteractor)
 
     def test_create_add_genre_interactor_returns_add_genre_interactor(self):
-        self.assert_factory_returns_instance_of("AddGenreInteractor", AddGenreInteractor)
+        self.__assert_factory_returns_instance_of("AddGenreInteractor", AddGenreInteractor)
 
     def test_create_get_genre_interactor_returns_get_genre_interactor(self):
-        self.assert_factory_returns_instance_of("GetGenreInteractor", GetGenreInteractor)
+        self.__assert_factory_returns_instance_of("GetGenreInteractor", GetGenreInteractor)
 
     def test_create_update_genre_interactor_returns_update_genre_interactor(self):
-        self.assert_factory_returns_instance_of("UpdateGenreInteractor", UpdateGenreInteractor)
+        self.__assert_factory_returns_instance_of("UpdateGenreInteractor", UpdateGenreInteractor)
 
     def test_create_delete_genre_interactor_returns_delete_genre_interactor(self):
-        self.assert_factory_returns_instance_of("DeleteGenreInteractor", DeleteGenreInteractor)
+        self.__assert_factory_returns_instance_of("DeleteGenreInteractor", DeleteGenreInteractor)
 
     def test_create_count_games_interactor_returns_count_games_interactor(self):
-        self.assert_factory_returns_instance_of("CountGamesInteractor", CountGamesInteractor)
+        self.__assert_factory_returns_instance_of("CountGamesInteractor", CountGamesInteractor)
 
-    def test_create_Search_interactor_returns_search_interactor(self):
-        self.assert_factory_returns_instance_of("SearchInteractor", SearchInteractor)
+    def test_create_search_interactor_returns_search_interactor(self):
+        self.__assert_factory_returns_instance_of("SearchInteractor", SearchInteractor)
 
-    def assert_factory_returns_instance_of(self, type_string, interactor_type):
+    def test_create_count_hardware_interactor_returns_count_hardware_interactor(self):
+        self.__assert_factory_returns_instance_of("CountHardwareInteractor", CountHardwareInteractor)
+
+    def __assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)
         self.assertIsInstance(result, interactor_type)
