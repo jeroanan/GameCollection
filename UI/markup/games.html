@@ -1,16 +1,10 @@
 <table class="table table-striped">
     <thead>
        <tr>
+           <th><a title="Sort by game title" onclick="sortGames('title');" class="linkbutton">Title</a></th>
+           <th><a title="Sort by platform" onclick="sortGames('platform');" class="linkbutton">Platform</a></th>
            <th>
-               <a title="Sort by game title" onclick="sortGames('title');" style="cursor: pointer;">Title</a>
-           </th>
-           <th>
-               <a title="Sort by platform" onclick="sortGames('platform');" style="cursor: pointer;">Platform</a>
-           </th>
-           <th>
-               <a title="Sort by number of copies" onclick="sortGames('numcopies');" style="cursor: pointer;">
-                   # Copies
-               </a>
+               <a title="Sort by number of copies" onclick="sortGames('numcopies');" class="linkbutton"># Copies</a>
            </th>
            <th># Boxed</th>
            <th># Manuals</th>
@@ -19,7 +13,9 @@
     <tbody>
         {% for game in games %}
         <tr>
-            <td><a title="View game details" onclick="editGame('{{game.id}}')" style="cursor: pointer;">{{game.title}}</a></td>
+            <td>
+                <a title="View game details" onclick="editGame('{{game.id}}')" class="linkbutton">{{game.title}}</a>
+            </td>
             <td>
                 <a title="See all games for {{game.platform}}" href="/allgames?platform={{game.platform}}">
                     {{game.platform}}
