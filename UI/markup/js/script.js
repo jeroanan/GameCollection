@@ -243,10 +243,6 @@ function sortGames(field) {
 
     var numRows = hdnRows.val() == null ? 999999 : hdnRows.val();
 
-    function toggleSortDirection(oldSortDir) {
-        return oldSortDir == "asc" ? "desc": "asc";
-    }
-
     if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
 
     hdnSort.val(field);
@@ -257,4 +253,29 @@ function sortGames(field) {
         sortdir: newSortDir,
         numrows: numRows
     });
+}
+
+function sortHardware(field) {
+    var hdnSort = $('#hwsortfield');
+    var hdnDir = $('#hwsortdir');
+    var hdnRows = $('#gamerows');
+
+    var oldSortDir = hdnDir.val();
+    var newSortDir = "asc";
+    var numRows = hdnRows.val() == null ? 999999 : hdnRows.val();
+
+    if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
+
+    hdnSort.val(field);
+    hdnDir.val(newSortDir);
+
+    $("#hardware").load("/sorthardware", {
+        field: field,
+        sortdir: newSortDir,
+        numrows: numRows
+    });
+}
+
+function toggleSortDirection(oldSortDir) {
+        return oldSortDir == "asc" ? "desc": "asc";
 }

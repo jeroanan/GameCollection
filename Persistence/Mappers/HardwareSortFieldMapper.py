@@ -6,7 +6,7 @@ class HardwareSortFieldMapper(object):
         self.__fields = {
             "name": "_Hardware__name",
             "platform": "_Hardware__platform",
-            "numowned": "_Hardware__numowned"
+            "numowned": "_Hardware__num_owned"
         }
 
     def map(self, field_name):
