@@ -52,6 +52,9 @@ class MongoPersistence(AbstractPersistence):
     def count_games(self):
         return self.__db.games.count()
 
+    def count_hardware(self):
+        return self.__db.hardware.count()
+
     def get_game(self, game_id):
         try:
             cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})
