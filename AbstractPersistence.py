@@ -73,3 +73,6 @@ class AbstractPersistence(object):
 
     def search(self, search_term, sort_field, sort_dir):
         pass
+
+    def get_user(self, user):
+        pass

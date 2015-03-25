@@ -10,6 +10,7 @@ from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
+from UI.Handlers.LoginHandler import LoginHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler.SaveHardwareHandler import SaveHardwareHandler
@@ -49,7 +50,8 @@ class HandlerFactory(object):
             "search": SearchHandler(self.__interactor_factory, self.__renderer),
             "allhardware": AllHardwareHandler(self.__interactor_factory, self.__renderer),
             "sortgames": SortGamesHandler(self.__interactor_factory, self.__renderer),
-            "sorthardware": SortHardwareHandler(self.__interactor_factory, self.__renderer)
+            "sorthardware": SortHardwareHandler(self.__interactor_factory, self.__renderer),
+            "login": LoginHandler(self.__interactor_factory, self.__renderer)
         }
 
     def create(self, handler_type):

@@ -16,6 +16,7 @@ from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
+from UI.Handlers.LoginHandler import LoginHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler.SaveHardwareHandler import SaveHardwareHandler
@@ -102,6 +103,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_sorthardware_returns_sorthardware_handler(self):
         self.__assert_type_string_returns_handler_type("sorthardware", SortHardwareHandler)
+
+    def test_login_returns_login_handler(self):
+        self.__assert_type_string_returns_handler_type("login", LoginHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
