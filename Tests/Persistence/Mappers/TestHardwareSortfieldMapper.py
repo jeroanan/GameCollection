@@ -18,4 +18,4 @@ class TestHardwareSortFieldMapper(unittest.TestCase):
         self.assertEqual("_Hardware__platform", self.__target.map("platform"))
 
     def test_map_numowned_is_correct(self):
-        self.assertEqual("_Hardware__numowned", self.__target.map("numowned"))
+        self.assertEqual("_Hardware__num_owned", self.__target.map("numowned"))
