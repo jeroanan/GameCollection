@@ -1,63 +1,58 @@
 from mock import Mock
+
 from AbstractPersistence import AbstractPersistence
 from Cryptography.HashProvider import HashProvider
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
+from Interactors.User.LoginInteractor import LoginInteractor
 from User import User
-
-
-class LoginInteractor(Interactor):
-
-    def __init__(self):
-        super().__init__()
-        self.hash_provider = HashProvider()
-
-    def execute(self, user):
-        self.__validate(user)
-        hashed_pw = self.hash_provider.hash_text(user.password)
-        db_user = self.persistence.get_user(user)
-
-    def __validate(self, user):
-        if user is None:
-            raise TypeError
-        self.validate_string_field("user_ud", user.user_id)
-        self.validate_string_field("password", user.password)
-
-    def set_hash_provider(self, param):
-        if not isinstance(param, HashProvider):
-            raise ValueError
-        self.hash_provider = param
 
 
 class TestLoginInteractor(InteractorTestBase):
 
     def setUp(self):
         self.__hash_provider = Mock(HashProvider)
-        self.__hash_provider.hash_text = Mock(side_effect=self.get_hash)
+        self.__hash_provider.hash_text = Mock(side_effect=self.__get_hash)
+        self.__hash_provider.verify_password = Mock(side_effect=self.__verify_password)
         self.__target = LoginInteractor()
         self.__persistence = Mock(AbstractPersistence)
-        self.__persistence.get_user = Mock(side_effect=self.get_user)
+        self.__persistence.get_user = Mock(side_effect=self.__get_user_from_persistence)
         self.__target.persistence = self.__persistence
         self.__target.set_hash_provider(self.__hash_provider)
 
-    def get_hash(self, hash_text):
-        return "myhash"
+    def __get_hash(self, hash_text):
+        return "myhashedhash"
 
-    def get_user(self, user):
-        return User()
+    def __verify_password(self, entered_password, hashed_password):
+        return entered_password == hashed_password
+
+    def __get_user_from_persistence(self, user):
+        u = User()
+
+        if user.user_id == "correctpass":
+            u.user_id = "correctpass"
+            u.password = "myhashedhash"
+
+        if user.user_id == "incorrectpass":
+            u.user_id = "incorrectpass"
+            u.password = "wronghash"
+
+        return u
 
     def test_is_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
 
-    def test_execute_calls_hash_provider(self):
-        u = self.__get_user()
-        self.__target.execute(u)
-        self.__hash_provider.hash_text.assert_called_with(u.password)
+    def test_execute_correct_user_password_logs_in(self):
+        u = self.__get_user("correctpass", "myhash")
+        self.assertTrue(self.__target.execute(u))
 
-    def test_execute_calls_persistence(self):
-        u = self.__get_user()
-        self.__target.execute(u)
-        self.__persistence.get_user.assert_called_with(u)
+    def test_execute_incorrect_user_password_does_not_log_in(self):
+        u = self.__get_user("incorrectpass", "somethingsilly")
+        self.assertFalse(self.__target.execute(u))
+
+    def test_execute_user_does_not_exist_returns_false(self):
+        u = self.__get_user("unknown", "somepass")
+        self.assertFalse(self.__target.execute(u))
 
     def test_execute_null_user_gives_type_error(self):
         self.assertRaises(TypeError, self.__target.execute, None)
@@ -66,14 +61,13 @@ class TestLoginInteractor(InteractorTestBase):
         self.assertRaises(ValueError, self.__target.execute, User())
 
     def test_execute_empty_password_gives_value_error(self):
-        u = User()
-        u.user_id = "userid"
+        u = self.__get_user("userid", "")
         self.assertRaises(ValueError, self.__target.execute, u)
 
-    def __get_user(self):
+    def __get_user(self, user_id, password):
         u = User()
-        u.user_id = "userid"
-        u.password = "mypass"
+        u.user_id = user_id
+        u.password = password
         return u
 
     def test_set_hash_provider_not_hash_provider_gives_value_error(self):

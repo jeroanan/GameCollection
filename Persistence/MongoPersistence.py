@@ -128,3 +128,6 @@ class MongoPersistence(AbstractPersistence):
             {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},
             {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
         return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))
+
+    def get_user(self, user):
+        pass

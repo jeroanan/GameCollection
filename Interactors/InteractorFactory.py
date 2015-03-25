@@ -22,6 +22,7 @@ from Interactors.SearchInteractor import SearchInteractor
 from Interactors.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.UpdateGenreInteractor import UpdateGenreInteractor
 from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Interactors.User.LoginInteractor import LoginInteractor
 from Tests.Interactors.TestDeleteGenreInteractor import DeleteGenreInteractor
 from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 
@@ -56,7 +57,8 @@ class InteractorFactory(object):
             "DeleteGenreInteractor": self.__initialise_interactor(DeleteGenreInteractor()),
             "CountGamesInteractor": self.__initialise_interactor(CountGamesInteractor()),
             "SearchInteractor": self.__initialise_interactor(SearchInteractor()),
-            "CountHardwareInteractor": self.__initialise_interactor(CountHardwareInteractor())
+            "CountHardwareInteractor": self.__initialise_interactor(CountHardwareInteractor()),
+            "LoginInteractor": self.__initialise_interactor(LoginInteractor())
         }
 
     def __initialise_interactor(self, interactor):
