@@ -1,4 +1,4 @@
-from Interactors.GetGenreInteractor import GetGenreInteractor
+from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 

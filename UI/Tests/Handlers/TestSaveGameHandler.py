@@ -1,10 +1,8 @@
 import unittest
 from unittest.mock import Mock
 
-import cherrypy
-
 from Game import Game
-from Interactors.AddGameInteractor import AddGameInteractor
+from Interactors.Game.AddGameInteractor import AddGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Handler import Handler
 from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
@@ -34,7 +32,7 @@ class TestSaveGameHandler(unittest.TestCase):
         self.__target.get_page(params=self.__get_args())
 
     def __get_args(self):
-        args = {
+        return {
             "title": self.__title,
             "numcopies": self.__num_copies,
             "numboxed": self.__num_boxed,
@@ -42,7 +40,6 @@ class TestSaveGameHandler(unittest.TestCase):
             "platform": self.__platform,
             "notes": self.__notes
         }
-        return args
 
     def __get_game(self):
         game = Game()

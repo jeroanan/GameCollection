@@ -1,6 +1,7 @@
 from unittest.mock import Mock
+
 from AbstractPersistence import AbstractPersistence
-from Interactors.CountHardwareInteractor import CountHardwareInteractor
+from Interactors.Hardware.CountHardwareInteractor import CountHardwareInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 

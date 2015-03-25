@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
-from Interactors.GetPlatformInteractor import GetPlatformInteractor
+
+from Interactors.Platform.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.Handler import Handler

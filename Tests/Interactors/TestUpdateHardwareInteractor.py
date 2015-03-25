@@ -1,5 +1,5 @@
 from Interactors.Interactor import Interactor
-from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 

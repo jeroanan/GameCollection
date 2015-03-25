@@ -1,5 +1,5 @@
 from Genre import Genre
-from Interactors.AddGenreInteractor import AddGenreInteractor
+from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 

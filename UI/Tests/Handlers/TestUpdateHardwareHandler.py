@@ -5,7 +5,7 @@ import cherrypy
 
 from Hardware import Hardware
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
 from UI.Handlers.Handler import Handler
 from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.TemplateRenderer import TemplateRenderer

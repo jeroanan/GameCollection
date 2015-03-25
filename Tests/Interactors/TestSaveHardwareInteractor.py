@@ -1,5 +1,5 @@
 from Interactors.Interactor import Interactor
-from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
+from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 

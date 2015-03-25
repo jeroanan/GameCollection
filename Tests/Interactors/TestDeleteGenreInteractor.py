@@ -1,4 +1,4 @@
-from Interactors.DeleteGenreInteractor import DeleteGenreInteractor
+from Interactors.Genre.DeleteGenreInteractor import DeleteGenreInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
@@ -12,9 +12,6 @@ class TestDeleteGenreInteractor(InteractorTestBase):
 
     def test_is_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
-
-    def test_execute(self):
-        self.__target.execute(genre_id="id")
 
     def test_execute_calls_persistence(self):
         self.__target.execute(genre_id="id")

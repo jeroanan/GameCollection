@@ -1,4 +1,4 @@
-from Interactors.CountGamesInteractor import CountGamesInteractor
+from Interactors.Game.CountGamesInteractor import CountGamesInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 

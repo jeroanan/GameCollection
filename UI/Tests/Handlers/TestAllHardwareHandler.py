@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import Mock
+
 from Hardware import Hardware
-from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
+from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
 from UI.Handlers.Handler import Handler

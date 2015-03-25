@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 import cherrypy
 
-from Interactors.AddPlatformInteractor import AddPlatformInteractor
+from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
@@ -43,11 +43,10 @@ class TestAddPlatformHandler(unittest.TestCase):
             pass
 
     def __get_args(self):
-        args = {
+        return {
             "name": self.__platform_name,
             "description": self.__platform_description
         }
-        return args
 
     def test_get_page_raises_http_redirect(self):
         self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())

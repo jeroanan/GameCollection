@@ -1,4 +1,4 @@
-from Interactors.GetGameInteractor import GetGameInteractor
+from Interactors.Game.GetGameInteractor import GetGameInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 

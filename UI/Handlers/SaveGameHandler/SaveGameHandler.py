@@ -1,4 +1,3 @@
-import cherrypy
 from Game import Game
 from UI.Handlers.Handler import Handler
 

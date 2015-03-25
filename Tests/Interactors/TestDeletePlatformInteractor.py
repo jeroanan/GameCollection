@@ -1,4 +1,4 @@
-from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
+from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.Interactor import Interactor
 from Platform import Platform
 from Tests.Interactors.InteractorTestBase import InteractorTestBase

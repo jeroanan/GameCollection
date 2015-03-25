@@ -5,7 +5,7 @@ class GetSuggestedPlatformsInteractor(Interactor):
 
     def __init__(self, suggested_platforms):
         super().__init__()
-        self.__suggested_platforms=suggested_platforms
+        self.__suggested_platforms = suggested_platforms
 
     def execute(self):
         result = []

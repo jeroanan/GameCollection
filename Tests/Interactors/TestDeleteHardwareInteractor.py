@@ -1,4 +1,4 @@
-from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
+from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 

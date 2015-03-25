@@ -1,7 +1,9 @@
 import unittest
 from unittest.mock import Mock
+
 import cherrypy
-from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
+
+from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.Handler import Handler

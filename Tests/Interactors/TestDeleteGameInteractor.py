@@ -1,4 +1,4 @@
-from Interactors.DeleteGameInteractor import DeleteGameInteractor
+from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 

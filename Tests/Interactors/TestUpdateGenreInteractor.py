@@ -1,7 +1,7 @@
 from Genre import Genre
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
-from Interactors.UpdateGenreInteractor import UpdateGenreInteractor
+from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
 
 
 class TestUpdateGenreInteractor(InteractorTestBase):
@@ -13,9 +13,6 @@ class TestUpdateGenreInteractor(InteractorTestBase):
 
     def test_is_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
-
-    def test_execute(self):
-        self.__target.execute(genre=Genre())
 
     def test_execute_calls_persistence_method(self):
         genre = Genre()

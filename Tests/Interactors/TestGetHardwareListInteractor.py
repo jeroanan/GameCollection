@@ -1,4 +1,4 @@
-from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
+from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
