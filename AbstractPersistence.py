@@ -76,3 +76,6 @@ class AbstractPersistence(object):
 
     def get_user(self, user):
         pass
+
+    def add_user(self, user):
+        pass
