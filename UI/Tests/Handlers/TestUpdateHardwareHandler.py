@@ -7,7 +7,7 @@ from Hardware import Hardware
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
 from UI.Handlers.Handler import Handler
-from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandler import UpdateHardwareHandler
+from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 

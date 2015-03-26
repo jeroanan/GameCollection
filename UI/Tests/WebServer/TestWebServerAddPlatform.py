@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Tests.WebServer.WebServerTestBase import WebServerTestBase
 
 

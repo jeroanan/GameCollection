@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.SearchInteractor import SearchInteractor
 from UI.Handlers.Handler import Handler
-from UI.Handlers.SearchHandler.SearchHandler import SearchHandler
+from UI.Handlers.SearchHandler import SearchHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 

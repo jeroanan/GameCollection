@@ -5,8 +5,8 @@ from Data.Config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
-from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
-from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
@@ -15,17 +15,17 @@ from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.HandlerFactory import HandlerFactory
-from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
+from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.LoginHandler import LoginHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
-from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
-from UI.Handlers.SaveHardwareHandler.SaveHardwareHandler import SaveHardwareHandler
-from UI.Handlers.SearchHandler.SearchHandler import SearchHandler
+from UI.Handlers.SaveGameHandler import SaveGameHandler
+from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
+from UI.Handlers.SearchHandler import SearchHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.SortHardwareHandler import SortHardwareHandler
-from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
-from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandler import UpdateHardwareHandler
-from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
+from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 

@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 from Interactors.Game import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
-from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.Handler import Handler
 from UI.TemplateRenderer import TemplateRenderer
 

@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Tests.WebServer.WebServerTestBase import WebServerTestBase
 
 

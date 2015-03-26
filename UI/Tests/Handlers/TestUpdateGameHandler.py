@@ -5,7 +5,7 @@ from Game import Game
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
 from UI.Handlers.Handler import Handler
-from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 

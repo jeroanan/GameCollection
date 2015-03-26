@@ -5,7 +5,7 @@ from Game import Game
 from Interactors.Game.AddGameInteractor import AddGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Handler import Handler
-from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
+from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 

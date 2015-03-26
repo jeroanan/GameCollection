@@ -7,7 +7,7 @@ from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from Tests.Interactors.Platform.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 from UI.Handlers.Handler import Handler
-from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 

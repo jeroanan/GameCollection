@@ -7,7 +7,7 @@ from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListIntera
 from Interactors.Game.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Handler import Handler
-from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
+from UI.Handlers.IndexHandler import IndexHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 

@@ -6,7 +6,7 @@ import cherrypy
 from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
-from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.Handler import Handler
 from UI.TemplateRenderer import TemplateRenderer
 
