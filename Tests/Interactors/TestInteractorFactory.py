@@ -25,9 +25,9 @@ from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteract
 from Persistence.MongoPersistence import MongoPersistence
 from Interactors.User.LoginInteractor import LoginInteractor
 from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
-from Tests.Interactors.TestDeleteGenreInteractor import DeleteGenreInteractor
-from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
-from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
+from Tests.Interactors.Genre.TestDeleteGenreInteractor import DeleteGenreInteractor
+from Tests.Interactors.Platform.TestGetPlatformsInteractor import GetPlatformsInteractor
+from Tests.Interactors.Platform.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
 
 

@@ -23,8 +23,8 @@ from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
 from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Interactors.User.LoginInteractor import LoginInteractor
-from Tests.Interactors.TestDeleteGenreInteractor import DeleteGenreInteractor
-from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
+from Tests.Interactors.Genre.TestDeleteGenreInteractor import DeleteGenreInteractor
+from Tests.Interactors.Platform.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 
 
 class InteractorFactory(object):
