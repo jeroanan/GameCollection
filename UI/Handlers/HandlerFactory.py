@@ -15,6 +15,7 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
+from UI.Handlers.SignupHandler import SignupHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
@@ -51,10 +52,12 @@ class HandlerFactory(object):
             "allhardware": AllHardwareHandler(self.__interactor_factory, self.__renderer),
             "sortgames": SortGamesHandler(self.__interactor_factory, self.__renderer),
             "sorthardware": SortHardwareHandler(self.__interactor_factory, self.__renderer),
-            "login": LoginHandler(self.__interactor_factory, self.__renderer)
+            "login": LoginHandler(self.__interactor_factory, self.__renderer),
+            "signup": SignupHandler(self.__interactor_factory, self.__renderer)
         }
 
     def create(self, handler_type):
+
         if handler_type in self.__handlers:
             return self.__handlers[handler_type]
 

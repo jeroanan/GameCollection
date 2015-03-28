@@ -279,3 +279,33 @@ function sortHardware(field) {
 function toggleSortDirection(oldSortDir) {
         return oldSortDir == "asc" ? "desc": "asc";
 }
+
+function login() {
+    loginPageAjax("/signin");
+}
+
+function newUser() {
+    loginPageAjax("/signup");
+}
+
+function loginPageAjax(url) {
+    if (!validateLoginForm()) return;
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+            userid: $("#userid").val(),
+            password: $("#password").val()
+        }
+    });
+}
+
+function validateLoginForm() {
+    var failureText = "";
+    if ($("#userid").val() == "") failureText = "Please enter a user id";
+    if ($("#password").val() == "") failureText = appendText(failureText, "Please enter a password");
+    if (failureText !== "") showValidationFailure(failureText);
+    return failureText == "";
+}
+
+

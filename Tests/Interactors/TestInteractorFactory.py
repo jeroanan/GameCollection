@@ -22,6 +22,7 @@ from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.SearchInteractor import SearchInteractor
 from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Interactors.User.AddUserInteractor import AddUserInteractor
 from Persistence.MongoPersistence import MongoPersistence
 from Interactors.User.LoginInteractor import LoginInteractor
 from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
@@ -113,6 +114,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_login_interactor_returns_login_interactor(self):
         self.__assert_factory_returns_instance_of("LoginInteractor", LoginInteractor)
+
+    def test_create_adduser_interactor_returns_adduser_interactor(self):
+        self.__assert_factory_returns_instance_of("AddUserInteractor", AddUserInteractor)
 
     def __assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

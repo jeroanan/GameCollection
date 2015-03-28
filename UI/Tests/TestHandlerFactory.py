@@ -21,6 +21,7 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
+from UI.Handlers.SignupHandler import SignupHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
@@ -106,6 +107,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_login_returns_login_handler(self):
         self.__assert_type_string_returns_handler_type("login", LoginHandler)
+
+    def test_signup_returns_signup_handler(self):
+        self.__assert_type_string_returns_handler_type("signup", SignupHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
