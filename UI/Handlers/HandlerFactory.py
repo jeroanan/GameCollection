@@ -29,36 +29,40 @@ class HandlerFactory(object):
     def __init__(self, interactor_factory, renderer, config):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
+        self.__config = config
 
         self.__handlers = {
-            "index": IndexHandler(self.__interactor_factory, self.__renderer, config),
-            "savegame": SaveGameHandler(self.__interactor_factory, self.__renderer),
-            "addgame": AddGameHandler(self.__interactor_factory, self.__renderer),
-            "addhardware": AddHardwareHandler(self.__interactor_factory, self.__renderer),
-            "platforms": PlatformsHandler(self.__interactor_factory, self.__renderer),
-            "addplatform": AddPlatformHandler(self.__interactor_factory, self.__renderer),
-            "editgame": EditGameHandler(self.__interactor_factory, self.__renderer),
-            "updategame": UpdateGameHandler(self.__interactor_factory, self.__renderer),
-            "deletegame": DeleteGameHandler(self.__interactor_factory, self.__renderer),
-            "savehardware": SaveHardwareHandler(self.__interactor_factory, self.__renderer),
-            "editplatform": EditPlatformHandler(self.__interactor_factory, self.__renderer),
-            "updateplatform": UpdatePlatformHandler(self.__interactor_factory, self.__renderer),
-            "deleteplatform": DeletePlatformHandler(self.__interactor_factory, self.__renderer),
-            "edithardware": EditHardwareHandler(self.__interactor_factory, self.__renderer),
-            "updatehardware": UpdateHardwareHandler(self.__interactor_factory, self.__renderer),
-            "deletehardware": DeleteHardwareHandler(self.__interactor_factory, self.__renderer),
-            "allgames": AllGamesHandler(self.__interactor_factory, self.__renderer),
-            "search": SearchHandler(self.__interactor_factory, self.__renderer),
-            "allhardware": AllHardwareHandler(self.__interactor_factory, self.__renderer),
-            "sortgames": SortGamesHandler(self.__interactor_factory, self.__renderer),
-            "sorthardware": SortHardwareHandler(self.__interactor_factory, self.__renderer),
-            "login": LoginHandler(self.__interactor_factory, self.__renderer),
-            "signup": SignupHandler(self.__interactor_factory, self.__renderer)
+            "index": IndexHandler,
+            "savegame": SaveGameHandler,
+            "addgame": AddGameHandler,
+            "addhardware": AddHardwareHandler,
+            "platforms": PlatformsHandler,
+            "addplatform": AddPlatformHandler,
+            "editgame": EditGameHandler,
+            "updategame": UpdateGameHandler,
+            "deletegame": DeleteGameHandler,
+            "savehardware": SaveHardwareHandler,
+            "editplatform": EditPlatformHandler,
+            "updateplatform": UpdatePlatformHandler,
+            "deleteplatform": DeletePlatformHandler,
+            "edithardware": EditHardwareHandler,
+            "updatehardware": UpdateHardwareHandler,
+            "deletehardware": DeleteHardwareHandler,
+            "allgames": AllGamesHandler,
+            "search": SearchHandler,
+            "allhardware": AllHardwareHandler,
+            "sortgames": SortGamesHandler,
+            "sorthardware": SortHardwareHandler,
+            "login": LoginHandler,
+            "signup": SignupHandler
         }
 
     def create(self, handler_type):
 
+        if handler_type == "index":
+            return IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
+
         if handler_type in self.__handlers:
-            return self.__handlers[handler_type]
+            return self.__handlers[handler_type](self.__interactor_factory, self.__renderer)
 
         raise UnrecognisedHandlerException
