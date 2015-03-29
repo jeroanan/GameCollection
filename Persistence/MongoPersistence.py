@@ -131,3 +131,6 @@ class MongoPersistence(AbstractPersistence):
 
     def get_user(self, user):
         pass
+
+    def add_user(self, user):  
+        self.__db.users.insert(user.__dict__)

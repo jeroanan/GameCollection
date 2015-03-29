@@ -4,11 +4,15 @@ from Interactors.Interactor import Interactor
 
 class AddUserInteractor(Interactor):
 
+    def __init__(self):
+        self.__hash_provider = None
+
     def execute(self, user):
         self.__validate(user)
         self.__stop_if_user_exists(user)
+        user.password = self.__hash_provider.hash_text(user.password)
         self.persistence.add_user(user)
-
+        
     def __validate(self, user):
         if user is None:
             raise TypeError
@@ -21,3 +25,9 @@ class AddUserInteractor(Interactor):
 
     def __user_exists(self, user):
         return user is not None
+
+    def set_hash_provider(self, hash_provider):
+        self.__hash_provider = hash_provider
+    
+    def get_hash_provider(self):
+        return self.__hash_provider

@@ -17,6 +17,10 @@ class TestSignupHandler(unittest.TestCase):
     def test_is_handler(self):
         self.assertIsInstance(self.__target, Handler)
 
+    def test_get_create_page_sets_hash_provider(self):
+        self.__target.get_page(self.__get_params())
+        self.assertTrue(self.__interactor.set_hash_provider.called)
+
     def test_get_create_page_executes_interactor(self):
         params = self.__get_params()
         user = self.__get_user(params["userid"], params["password"])

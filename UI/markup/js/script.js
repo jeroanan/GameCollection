@@ -203,19 +203,6 @@ function saveError() {
     showValidationFailure("Save Failed!");
 }
 
-function showValidationFailure(failureText) {
-    showValidationMessage($("#failure"), $("#failureText"), failureText);
-}
-
-function showValidationSuccess(successText) {
-    showValidationMessage($("#success"), $("#successText"), successText);
-}
-
-function showValidationMessage(box, boxTextCtrl, boxTextContent) {
-    box.fadeIn();
-    boxTextCtrl.html(boxTextContent);
-}
-
 function hideValidationFailure() {
     hideValidationBox($("#failure"), $("#failureText"));
 }
@@ -277,18 +264,34 @@ function sortHardware(field) {
 }
 
 function toggleSortDirection(oldSortDir) {
-        return oldSortDir == "asc" ? "desc": "asc";
+    return oldSortDir == "asc" ? "desc": "asc";
 }
 
 function login() {
-    loginPageAjax("/signin");
+    loginPageAjax("/signin", loginSuccess, loginError);
+}
+
+function loginSuccess() {
+	 showValidationSuccess("Logged in successfully");	 
+}
+
+function loginError() {
+	 showValidationFailure("Error encountered while logging in");
 }
 
 function newUser() {
-    loginPageAjax("/signup");
+    loginPageAjax("/signup", newUserSuccess, newUserError);
 }
 
-function loginPageAjax(url) {
+function newUserSuccess() {
+	 showValidationSuccess("Signed up successfully!");
+}
+
+function newUserError() {
+	 showValidationSuccess("Error encountered while signing up");
+}
+
+function loginPageAjax(url, successFunc, errorFunc) {
     if (!validateLoginForm()) return;
     $.ajax({
         url: url,
@@ -296,7 +299,9 @@ function loginPageAjax(url) {
         data: {
             userid: $("#userid").val(),
             password: $("#password").val()
-        }
+        },
+		  success: successFunc,
+		  error: errorFunc
     });
 }
 
@@ -308,4 +313,15 @@ function validateLoginForm() {
     return failureText == "";
 }
 
+function showValidationSuccess(successText) {
+    showValidationMessage($("#success"), $("#successText"), successText);
+}
 
+function showValidationFailure(failureText) {
+    showValidationMessage($("#failure"), $("#failureText"), failureText);
+}
+
+function showValidationMessage(box, boxTextCtrl, boxTextContent) {
+    box.fadeIn();
+    boxTextCtrl.html(boxTextContent);
+}
