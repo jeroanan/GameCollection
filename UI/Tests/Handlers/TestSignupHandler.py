@@ -4,7 +4,7 @@ from Interactors.InteractorFactory import InteractorFactory
 from Interactors.User.AddUserInteractor import AddUserInteractor
 from UI.Handlers.Handler import Handler
 from UI.Handlers.SignupHandler import SignupHandler
-
+from User import User
 
 class TestSignupHandler(unittest.TestCase):
 
@@ -19,11 +19,19 @@ class TestSignupHandler(unittest.TestCase):
 
     def test_get_create_page_executes_interactor(self):
         params = self.__get_params()
+        user = self.__get_user(params["userid"], params["password"])
         self.__target.get_page(params)
-        self.__interactor.execute.assert_called_with(params["userid"], params["password"])
+        self.__interactor.execute.assert_called_with(user)
 
     def __get_params(self):
         return {
             "userid": "user",
             "password": "password"
         }
+
+    def __get_user(self, userid, password):
+        u = User()
+        u.user_id = userid
+        u.password = password
+        return u
+        

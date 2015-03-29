@@ -18,7 +18,7 @@ class TestAddUserInteractor(unittest.TestCase):
     def __get_db_user(self, user):
         if user.user_id == "existing_user":
             return [User()]
-        return []
+        return None
 
     def test_is_interactor(self):
         self.assertIsInstance(self.__target, Interactor)

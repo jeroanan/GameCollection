@@ -20,4 +20,4 @@ class AddUserInteractor(Interactor):
             raise UserExistsException
 
     def __user_exists(self, user):
-        return len(list(user)) > 0
+        return user is not None
