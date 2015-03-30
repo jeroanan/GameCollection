@@ -8,7 +8,7 @@ class SigninHandler(Handler):
     def get_page(self, params):
         interactor = self.interactor_factory.create("LoginInteractor")
         interactor.set_hash_provider(BCryptHashProvider())
-        return interactor.execute(self.__get_user(params))
+        return str(interactor.execute(self.__get_user(params)))
 
     def __get_user(self, params):
         u = User()

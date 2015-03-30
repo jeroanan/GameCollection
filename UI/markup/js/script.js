@@ -264,10 +264,15 @@ function toggleSortDirection(oldSortDir) {
 }
 
 function login() {
-    loginPageAjax("/signin", loginSuccess, loginError);
+    return loginPageAjax("/signin");
 }
 
-function loginSuccess() {
+function handleData(data, status, xhr) {
+	 console.log(data);
+}
+
+function loginSuccess(event, xhr, opts, data) {
+	 console.log(data);
 	 showValidationSuccess("Logged in successfully");	 
 }
 
@@ -287,17 +292,15 @@ function newUserError() {
 	 showValidationFailure("Error encountered while signing up");
 }
 
-function loginPageAjax(url, successFunc, errorFunc) {
+function loginPageAjax(url) {
     if (!validateLoginForm()) return;
-    $.ajax({
+    return $.ajax({
         url: url,
         type: "POST",
         data: {
             userid: $("#userid").val(),
             password: $("#password").val()
-        },
-		  success: successFunc,
-		  error: errorFunc
+        }
     });
 }
 
@@ -311,7 +314,6 @@ function validateLoginForm() {
 
 function showValidationSuccess(successText) {
 	 hideValidationFailure();
-	 console.log("oi!");
     showValidationMessage($("#success"), $("#successText"), successText);
 }
 

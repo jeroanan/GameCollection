@@ -31,11 +31,11 @@ class TestLoginInteractor(InteractorTestBase):
 
         if user.user_id == "correctpass":
             u.user_id = "correctpass"
-            u.password = "myhashedhash"
+            u.password = "mypassword"
 
         if user.user_id == "incorrectpass":
             u.user_id = "incorrectpass"
-            u.password = "wronghash"
+            u.password = "wrongpassword"
 
         return u
 
@@ -43,7 +43,7 @@ class TestLoginInteractor(InteractorTestBase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_correct_user_password_logs_in(self):
-        u = self.__get_user("correctpass", "myhash")
+        u = self.__get_user("correctpass", "mypassword")
         self.assertTrue(self.__target.execute(u))
 
     def test_execute_incorrect_user_password_does_not_log_in(self):
