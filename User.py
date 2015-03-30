@@ -1,6 +1,7 @@
 class User(object):
 
     def __init__(self):
+        self.__id = ""
         self.__user_id = ""
         self.__password = ""
 
@@ -20,5 +21,14 @@ class User(object):
     def password(self, val):
         self.__password = val
 
+    @property
+    def id(self):
+        return self.__id
+        
+    @id.setter
+    def id(self, val):
+        self.__id = val        
+
     def __eq__(self, other):
         return self.user_id==other.user_id
+

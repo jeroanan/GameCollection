@@ -20,8 +20,10 @@ class TestAddUserInteractor(unittest.TestCase):
 
     def __get_db_user(self, user):
         if user.user_id == "existing_user":
-            return [User()]
-        return None
+            u = User()
+            u.user_id = user.user_id
+            return u
+        return User()
 
     def test_is_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
@@ -55,7 +57,6 @@ class TestAddUserInteractor(unittest.TestCase):
     def test_get_hash_provider(self):
         hp = self.__target.get_hash_provider()
         self.assertEquals(self.__hash_provider, hp)
-    
 
     def __get_user(self, user_id="", password=""):
         u = User()

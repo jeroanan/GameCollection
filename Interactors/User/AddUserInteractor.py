@@ -24,7 +24,7 @@ class AddUserInteractor(Interactor):
             raise UserExistsException
 
     def __user_exists(self, user):
-        return user is not None
+        return user.user_id != ""
 
     def set_hash_provider(self, hash_provider):
         self.__hash_provider = hash_provider

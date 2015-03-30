@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd UI/markup/js
+uglifyjs -o script.min.js script.min.js

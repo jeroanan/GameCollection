@@ -288,7 +288,7 @@ function newUserSuccess() {
 }
 
 function newUserError() {
-	 showValidationSuccess("Error encountered while signing up");
+	 showValidationFailure("Error encountered while signing up");
 }
 
 function loginPageAjax(url, successFunc, errorFunc) {

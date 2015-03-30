@@ -14,6 +14,7 @@ from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 from Persistence.Mappers.ResultToGenreMapper import ResultToGenreMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
+from Persistence.Mappers.ResultToUserMapper import ResultToUserMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 
 
@@ -130,7 +131,8 @@ class MongoPersistence(AbstractPersistence):
         return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))
 
     def get_user(self, user):
-        self.__db.users.find_one({"_User__user_id": user.user_id})        
+        result_set = self.__db.users.find_one({"_User__user_id": user.user_id})
+        return ResultToUserMapper().map(result_set)
 
     def add_user(self, user):  
         self.__db.users.insert(user.__dict__)
