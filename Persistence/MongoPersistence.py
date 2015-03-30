@@ -130,7 +130,7 @@ class MongoPersistence(AbstractPersistence):
         return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))
 
     def get_user(self, user):
-        pass
+        self.__db.users.find_one({"_User__user_id": user.user_id})        
 
     def add_user(self, user):  
         self.__db.users.insert(user.__dict__)
