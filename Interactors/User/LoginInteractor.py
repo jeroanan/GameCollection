@@ -6,13 +6,13 @@ class LoginInteractor(Interactor):
 
     def __init__(self):
         super().__init__()
-        self.hash_provider = HashProvider()
+        self.__hash_provider = HashProvider()
 
     def execute(self, user):
         self.__validate(user)
-        hashed_pw = self.hash_provider.hash_text(user.password)
+        hashed_pw = self.__hash_provider.hash_text(user.password)
         db_user = self.persistence.get_user(user)
-        correct_pw = self.hash_provider.verify_password(hashed_pw, db_user.password)
+        correct_pw = self.__hash_provider.verify_password(hashed_pw, db_user.password)
         return correct_pw
 
     def __validate(self, user):
@@ -24,4 +24,4 @@ class LoginInteractor(Interactor):
     def set_hash_provider(self, param):
         if not isinstance(param, HashProvider):
             raise ValueError
-        self.hash_provider = param
+        self.__hash_provider = param

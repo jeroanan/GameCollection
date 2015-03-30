@@ -16,6 +16,7 @@ from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
 from UI.Handlers.SignupHandler import SignupHandler
+from UI.Handlers.SigninHandler import SigninHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
@@ -54,7 +55,8 @@ class HandlerFactory(object):
             "sortgames": SortGamesHandler,
             "sorthardware": SortHardwareHandler,
             "login": LoginHandler,
-            "signup": SignupHandler
+            "signup": SignupHandler,
+            "signin": SigninHandler
         }
 
     def create(self, handler_type):

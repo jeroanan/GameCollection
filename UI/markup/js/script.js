@@ -203,10 +203,6 @@ function saveError() {
     showValidationFailure("Save Failed!");
 }
 
-function hideValidationFailure() {
-    hideValidationBox($("#failure"), $("#failureText"));
-}
-
 function hideValidationSuccess() {
     hideValidationBox($("#success"), $("#successText"));
 }
@@ -314,7 +310,13 @@ function validateLoginForm() {
 }
 
 function showValidationSuccess(successText) {
+	 hideValidationFailure();
+	 console.log("oi!");
     showValidationMessage($("#success"), $("#successText"), successText);
+}
+
+function hideValidationFailure() {
+    hideValidationBox($("#failure"), $("#failureText"));
 }
 
 function showValidationFailure(failureText) {

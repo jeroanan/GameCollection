@@ -10,4 +10,4 @@ class BCryptHashProvider(HashProvider):
         return encrypted
 
     def verify_password(self, entered_password, hashed_password):
-        return bcrypt.hashpw(entered_password.encode("utf-8"), hashed_password.encode("utf-8"))
+        return bcrypt.hashpw(entered_password, hashed_password)
