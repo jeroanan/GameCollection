@@ -1,15 +1,22 @@
+import cherrypy
+
 from Cryptography.BCryptHashProvider import BCryptHashProvider
 from UI.Handlers.Handler import Handler
-from UI.Handlers.SessionHandler import SessionHandler
 from User import User
 
 
-class SigninHandler(SessionHandler):
+class SigninHandler(Handler):
     
     def get_page(self, params):
         interactor = self.interactor_factory.create("LoginInteractor")
         interactor.set_hash_provider(BCryptHashProvider())
-        return str(interactor.execute(self.__get_user(params)))
+        user = self.__get_user(params)
+        success = interactor.execute(user)
+        print(success)
+        if success:
+            print("Ahoy!")
+            cherrypy.session["user_id"] = user.user_id
+        return str(success)
 
     def __get_user(self, params):
         u = User()

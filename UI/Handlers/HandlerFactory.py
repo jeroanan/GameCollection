@@ -15,7 +15,6 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
-from UI.Handlers.SessionHandler import SessionHandler
 from UI.Handlers.SignupHandler import SignupHandler
 from UI.Handlers.SigninHandler import SigninHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
@@ -61,16 +60,13 @@ class HandlerFactory(object):
             "signin": SigninHandler
         }
 
-    def create(self, handler_type, session=None):
-
+    def create(self, handler_type):
         
         if handler_type == "index":
             return  IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
 
         if handler_type in self.__handlers:
             handler = self.__handlers[handler_type](self.__interactor_factory, self.__renderer)
-            if handler is SessionHandler:
-                handler.session = session
             return handler
 
         raise UnrecognisedHandlerException
