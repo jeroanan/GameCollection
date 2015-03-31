@@ -27,19 +27,7 @@ class WebServer(object):
         self.__handler_factory = value
 
     def start(self, interactor_factory, config):
-        conf = {
-            '/': {
-                'tools.sessions.on': True,
-                'tools.staticdir.root': os.path.abspath(os.getcwd()),
-                'tools.gzip.on': True
-            },
-            '/static': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': './UI/markup/',
-                'tools.gzip.on': True
-            }
-        }
-        cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config), '/', conf)
+        cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config), '/', 'UI/app.conf')
 
     @cherrypy.expose()
     def default(self, *args, **kwargs):

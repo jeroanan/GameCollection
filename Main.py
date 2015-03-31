@@ -1,7 +1,11 @@
+import os
+
 from Data.Config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from Persistence.MongoPersistence import MongoPersistence
 from UI.WebServer import WebServer
+
+WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 
 if __name__ == "__main__":
