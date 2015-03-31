@@ -12,6 +12,8 @@ class LoginInteractor(Interactor):
         self.__validate(user)
         hashed_pw = self.__hash_provider.hash_text(user.password)
         db_user = self.persistence.get_user(user)
+        if db_user.user_id == "":
+            return False
         correct_pw = self.__hash_provider.verify_password(user.password, db_user.password)
         return correct_pw
 

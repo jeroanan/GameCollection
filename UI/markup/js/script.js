@@ -203,9 +203,7 @@ function saveError() {
     showValidationFailure("Save Failed!");
 }
 
-function hideValidationSuccess() {
-    hideValidationBox($("#success"), $("#successText"));
-}
+
 
 function hideValidationBox(box, boxText) {
     box.fadeOut(
@@ -264,11 +262,18 @@ function toggleSortDirection(oldSortDir) {
 }
 
 function login() {
+	 hideValidationMessages();
     return loginPageAjax("/signin");
 }
 
-function handleData(data, status, xhr) {
-	 console.log(data);
+function loginDone(data, status, xhr) {
+	 if (data == false) return;
+
+	 if (data=="True") {
+		  showValidationSuccess("Login successful.");
+	 } else {
+		  showValidationFailure("Login failed.");
+	 }	 
 }
 
 function loginSuccess(event, xhr, opts, data) {
@@ -293,7 +298,11 @@ function newUserError() {
 }
 
 function loginPageAjax(url) {
-    if (!validateLoginForm()) return;
+    if (!validateLoginForm()) {
+		  var def = new $.Deferred();
+		  def.resolve(false);
+		  return def;
+	 }
     return $.ajax({
         url: url,
         type: "POST",
@@ -315,6 +324,15 @@ function validateLoginForm() {
 function showValidationSuccess(successText) {
 	 hideValidationFailure();
     showValidationMessage($("#success"), $("#successText"), successText);
+}
+
+function hideValidationMessages() {
+	 hideValidationSuccess();
+	 hideValidationFailure();
+}
+
+function hideValidationSuccess() {
+    hideValidationBox($("#success"), $("#successText"));
 }
 
 function hideValidationFailure() {

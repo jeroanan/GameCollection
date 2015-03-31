@@ -54,6 +54,11 @@ class TestLoginInteractor(InteractorTestBase):
         u = self.__get_user("unknown", "somepass")
         self.assertFalse(self.__target.execute(u))
 
+    def test_execute_user_does_not_exist_does_not_verify_password(self):
+        u = self.__get_user("unknown", "somepass")
+        self.__target.execute(u)
+        self.assertFalse(self.__hash_provider.verify_password.called)
+
     def test_execute_null_user_gives_type_error(self):
         self.assertRaises(TypeError, self.__target.execute, None)
 
