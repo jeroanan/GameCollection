@@ -203,17 +203,6 @@ function saveError() {
     showValidationFailure("Save Failed!");
 }
 
-
-
-function hideValidationBox(box, boxText) {
-    box.fadeOut(
-    {
-        complete: function() {
-            boxText.html("");
-        }
-    })
-}
-
 function sortGames(field) {
     var hdnSort = $('#gamesortfield');
     var hdnDir = $('#gamesortdir');
@@ -262,11 +251,11 @@ function toggleSortDirection(oldSortDir) {
 }
 
 function login() {
-	 hideValidationMessages();
+    hideValidationMessages();
     return loginPageAjax("/signin");
 }
 
-function loginDone(data, status, xhr) {
+function loginDone(data) {
 	 if (data == false) return;
 
 	 if (data=="True") {
@@ -276,25 +265,19 @@ function loginDone(data, status, xhr) {
 	 }	 
 }
 
-function loginSuccess(event, xhr, opts, data) {
-	 console.log(data);
-	 showValidationSuccess("Logged in successfully");	 
-}
-
-function loginError() {
-	 showValidationFailure("Error encountered while logging in");
-}
-
 function newUser() {
-    loginPageAjax("/signup", newUserSuccess, newUserError);
+    hideValidationMessages();
+    return loginPageAjax("/signup");
 }
 
-function newUserSuccess() {
-	 showValidationSuccess("Signed up successfully!");
-}
+function newUserDone(data) {
+    if (data == false) return;
 
-function newUserError() {
-	 showValidationFailure("Error encountered while signing up");
+    if (data=="True") {
+        showValidationSuccess("Signed up successfully")
+    } else {
+        showValidationFailure("Error encountered while signing up")
+    }
 }
 
 function loginPageAjax(url) {
@@ -337,6 +320,15 @@ function hideValidationSuccess() {
 
 function hideValidationFailure() {
     hideValidationBox($("#failure"), $("#failureText"));
+}
+
+function hideValidationBox(box, boxText) {
+    box.fadeOut(
+    {
+        complete: function() {
+            boxText.html("");
+        }
+    })
 }
 
 function showValidationFailure(failureText) {
