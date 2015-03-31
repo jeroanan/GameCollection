@@ -5,6 +5,7 @@ from Cryptography.HashProvider import HashProvider
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.User.LoginInteractor import LoginInteractor
 from UI.Handlers.Handler import Handler
+from UI.Handlers.SessionHandler import SessionHandler
 from UI.Handlers.SigninHandler import SigninHandler
 from User import User
 
@@ -18,8 +19,8 @@ class TestSigninHandler(unittest.TestCase):
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = SigninHandler(interactor_factory, None)
         
-    def test_is_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_session_handler(self):
+        self.assertIsInstance(self.__target, SessionHandler)
 
     def test_get_page_sets_interactor_hash_provider(self):
         self.__target.get_page(self.__get_params())

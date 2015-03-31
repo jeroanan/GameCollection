@@ -6,7 +6,7 @@ from UI.Handlers.SessionHandler import SessionHandler
 class TestSessionHandler(unittest.TestCase):
     
     def test_is_handler(self):
-        target = SessionHandler(None, None, None)
+        target = SessionHandler(None, None)
         self.assertIsInstance(target, Handler)
     
 

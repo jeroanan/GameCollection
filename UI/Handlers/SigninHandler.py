@@ -1,9 +1,10 @@
 from Cryptography.BCryptHashProvider import BCryptHashProvider
 from UI.Handlers.Handler import Handler
+from UI.Handlers.SessionHandler import SessionHandler
 from User import User
 
 
-class SigninHandler(Handler):
+class SigninHandler(SessionHandler):
     
     def get_page(self, params):
         interactor = self.interactor_factory.create("LoginInteractor")
