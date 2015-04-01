@@ -3,6 +3,7 @@ class Handler(object):
     def __init__(self, interactor_factory, renderer):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
+        self.__session = None
 
     @property
     def interactor_factory(self):
@@ -11,6 +12,14 @@ class Handler(object):
     @property
     def renderer(self):
         return self.__renderer
+
+    @property
+    def session(self):
+        return self.__session
+
+    @session.setter
+    def session(self, val):
+        self.__session =  val
 
     def set_if_null(self, variable, value):
         if variable is None:

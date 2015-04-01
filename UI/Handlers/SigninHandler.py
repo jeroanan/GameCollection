@@ -12,10 +12,8 @@ class SigninHandler(Handler):
         interactor.set_hash_provider(BCryptHashProvider())
         user = self.__get_user(params)
         success = interactor.execute(user)
-        print(success)
         if success:
-            print("Ahoy!")
-            cherrypy.session["user_id"] = user.user_id
+            self.session.set_value("user_id", user.user_id)
         return str(success)
 
     def __get_user(self, params):

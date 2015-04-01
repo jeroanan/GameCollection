@@ -5,6 +5,7 @@ from Cryptography.HashProvider import HashProvider
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.User.LoginInteractor import LoginInteractor
 from UI.Handlers.Handler import Handler
+from UI.Handlers.Session.Session import Session
 from UI.Handlers.SigninHandler import SigninHandler
 from User import User
 
@@ -18,6 +19,7 @@ class TestSigninHandler(unittest.TestCase):
         interactor_factory = Mock(InteractorFactory)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = SigninHandler(interactor_factory, None)
+        self.__target.session = Mock(Session)
         
     def __interactor_execute(self, user):
         if user.user_id == "validuser":
@@ -34,7 +36,13 @@ class TestSigninHandler(unittest.TestCase):
     def test_get_page_executes_interactor(self):
         self.__target.get_page(self.__get_params())
         self.__interactor.execute.assert_called_with(self.__get_user())
-        
+
+    def test_get_valid_user(self):
+        # TODO: ensure that this is calling session.set_value
+        self.__target.get_page(self.__get_params("validuser"))
+
+    # TODO: test that if the session isn't set, SessionNotFoundException is raised
+
     def __get_params(self, user_id="userid"):
         return {
             "userid": user_id,
