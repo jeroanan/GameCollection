@@ -25,19 +25,14 @@ function hideValidationFailure() {
 }
 
 function hideValidationBox(box, boxText) {
-    box.fadeOut(
-    {
-        complete: function() {
-            boxText.html("");
-        }
-    })
+    box.fadeOut();
 }
 
 function showValidationFailure(failureText) {
     showValidationMessage($("#failure"), $("#failureText"), failureText);
 }
 
-function showValidationMessage(box, boxTextCtrl, boxTextContent) {
-    box.fadeIn();
+function showValidationMessage(box, boxTextCtrl, boxTextContent) {    
     boxTextCtrl.html(boxTextContent);
+	 box.fadeIn();
 }
