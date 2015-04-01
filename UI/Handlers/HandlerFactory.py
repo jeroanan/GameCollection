@@ -22,6 +22,7 @@ from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.Session.Session import Session
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
 
@@ -67,6 +68,7 @@ class HandlerFactory(object):
 
         if handler_type in self.__handlers:
             handler = self.__handlers[handler_type](self.__interactor_factory, self.__renderer)
+            handler.session = Session()
             return handler
 
         raise UnrecognisedHandlerException

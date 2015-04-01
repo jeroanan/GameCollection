@@ -1,3 +1,5 @@
+from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
+
 class Handler(object):
 
     def __init__(self, interactor_factory, renderer):
@@ -26,3 +28,6 @@ class Handler(object):
             return value
         return variable
 
+    def check_session(self):
+        if self.session is None:
+            raise SessionNotSetException

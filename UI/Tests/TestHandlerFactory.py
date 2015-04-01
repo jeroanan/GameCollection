@@ -28,6 +28,7 @@ from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 

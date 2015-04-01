@@ -4,6 +4,7 @@ from unittest.mock import Mock
 from Cryptography.HashProvider import HashProvider
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.User.LoginInteractor import LoginInteractor
+from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.Handler import Handler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.SigninHandler import SigninHandler
@@ -16,15 +17,20 @@ class TestSigninHandler(unittest.TestCase):
         self.__interactor = Mock(LoginInteractor)
         self.__interactor.execute = Mock(side_effect=self.__interactor_execute)
         self.__hash_provider = Mock(HashProvider)
-        interactor_factory = Mock(InteractorFactory)
-        interactor_factory.create = Mock(return_value=self.__interactor)
-        self.__target = SigninHandler(interactor_factory, None)
-        self.__target.session = Mock(Session)
-        
+        self.__interactor_factory = Mock(InteractorFactory)
+        self.__interactor_factory.create = Mock(side_effect=self.__interactor_factory_create)
+        self.__session = Mock(Session)
+        self.__target = SigninHandler(self.__interactor_factory, None)
+        self.__target.session = self.__session
+
     def __interactor_execute(self, user):
         if user.user_id == "validuser":
             return True
         return False
+
+    def __interactor_factory_create(self, interactor_type):
+        if interactor_type == "LoginInteractor":
+            return self.__interactor
 
     def test_is_session_handler(self):
         self.assertIsInstance(self.__target, Handler)
@@ -37,11 +43,14 @@ class TestSigninHandler(unittest.TestCase):
         self.__target.get_page(self.__get_params())
         self.__interactor.execute.assert_called_with(self.__get_user())
 
-    def test_get_valid_user(self):
-        # TODO: ensure that this is calling session.set_value
-        self.__target.get_page(self.__get_params("validuser"))
+    def test_login_successful_sets_session(self):
+        user_id = "validuser"
+        self.__target.get_page(self.__get_params(user_id))
+        self.__session.set_value.assert_called_with("user_id", user_id)
 
-    # TODO: test that if the session isn't set, SessionNotFoundException is raised
+    def test_no_session_set_raises_session_not_found_exception(self):
+        target = SigninHandler(Mock(InteractorFactory), None)
+        self.assertRaises(SessionNotSetException, target.get_page, self.__get_params())
 
     def __get_params(self, user_id="userid"):
         return {

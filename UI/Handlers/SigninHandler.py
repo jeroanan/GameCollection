@@ -1,6 +1,7 @@
 import cherrypy
 
 from Cryptography.BCryptHashProvider import BCryptHashProvider
+
 from UI.Handlers.Handler import Handler
 from User import User
 
@@ -8,16 +9,24 @@ from User import User
 class SigninHandler(Handler):
     
     def get_page(self, params):
-        interactor = self.interactor_factory.create("LoginInteractor")
-        interactor.set_hash_provider(BCryptHashProvider())
-        user = self.__get_user(params)
-        success = interactor.execute(user)
+        self.check_session()
+        login_interactor = self.__get_login_interactor()
+        user = self.__params_to_user(params)
+        success = login_interactor.execute(user)
         if success:
-            self.session.set_value("user_id", user.user_id)
-        return str(success)
+            self.__do_login(user.user_id)
+        return str(success)        
+    
+    def __get_login_interactor(self):
+        interactor = self.interactor_factory.create("LoginInteractor")
+        interactor.set_hash_provider(BCryptHashProvider())        
+        return interactor
 
-    def __get_user(self, params):
+    def __params_to_user(self, params):
         u = User()
         u.user_id = params.get("userid", "")
         u.password = params.get("password", "")
         return u
+
+    def __do_login(self, user_id):
+        self.session.set_value("user_id", user_id)
