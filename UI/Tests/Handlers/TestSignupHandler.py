@@ -70,6 +70,16 @@ class TestSignupHandler(unittest.TestCase):
         target = SignupHandler(self.__interactor_factory, None)
         self.assertRaises(SessionNotSetException, target.get_page, self.__get_params())        
 
+    def test_get_page_no_user_id_returns_failed_signup(self):
+        result = self.__target.get_page({})
+        self.assertEqual("False", result)        
+
+    def test_get_page_no_password_returns_failed_signup(self):
+        params = self.__get_params()
+        del params["password"]
+        result = self.__target.get_page(params)
+        self.assertEqual("False", result)
+
     def __get_params(self, userid="user", password="password"):
         return {
             "userid": userid,

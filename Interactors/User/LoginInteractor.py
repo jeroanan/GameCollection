@@ -20,7 +20,7 @@ class LoginInteractor(Interactor):
     def __validate(self, user):
         if user is None:
             raise TypeError
-        self.validate_string_field("user_ud", user.user_id)
+        self.validate_string_field("user_id", user.user_id)
         self.validate_string_field("password", user.password)
 
     def set_hash_provider(self, param):

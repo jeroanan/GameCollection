@@ -10,6 +10,8 @@ class SigninHandler(Handler):
     
     def get_page(self, params):
         self.check_session()
+        if not self.__validate_params(params):
+            return "False"
         login_interactor = self.__get_login_interactor()
         user = self.__params_to_user(params)
         success = login_interactor.execute(user)
@@ -17,6 +19,9 @@ class SigninHandler(Handler):
             self.__do_login(user.user_id)
         return str(success)        
     
+    def __validate_params(self, params):
+        return "userid" in params and "password" in params
+
     def __get_login_interactor(self):
         interactor = self.interactor_factory.create("LoginInteractor")
         interactor.set_hash_provider(BCryptHashProvider())        

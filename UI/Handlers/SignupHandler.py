@@ -6,15 +6,20 @@ from UI.Handlers.Handler import Handler
 class SignupHandler(Handler):
     def get_page(self, params):        
         self.check_session()
+        if not self.__validate_params(params):
+            return "False"
         u = self.__get_user_from_params(params)        
         try:
             self.__add_user(u)
         except UserExistsException:
-            return str(True)
+            return "True"
 
         self.__do_login(u)
-        return str(True)
+        return "True"
         
+    def __validate_params(self, params):
+        return "userid" in params and "password" in params
+
     def __get_user_from_params(self, params):
         return self.__get_user(params.get("userid", ""), params.get("password", ""))        
 
