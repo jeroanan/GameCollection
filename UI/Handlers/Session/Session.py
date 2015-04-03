@@ -7,4 +7,6 @@ class Session(object):
         cherrypy.session[key] = value
 
     def get_value(self, key):
-        return cherrypy.session[key]
+        if key in cherrypy.session:
+            return cherrypy.session[key]
+        return ""
