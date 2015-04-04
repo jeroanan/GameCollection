@@ -1,0 +1,27 @@
+{
+	 "handlers": [
+		      {"savegame": "SaveGameHandler",
+            "addgame": "AddGameHandler",
+            "addhardware": "AddHardwareHandler",
+            "platforms": "PlatformsHandler",
+            "addplatform": "AddPlatformHandler",
+            "editgame": "EditGameHandler",
+            "updategame": "UpdateGameHandler",
+            "deletegame": "DeleteGameHandler",
+            "savehardware": "SaveHardwareHandler",
+            "editplatform": "EditPlatformHandler",
+            "updateplatform": "UpdatePlatformHandler",
+            "deleteplatform": "DeletePlatformHandler",
+            "edithardware": "EditHardwareHandler",
+            "updatehardware": "UpdateHardwareHandler",
+            "deletehardware": "DeleteHardwareHandler",
+            "allgames": "AllGamesHandler",
+            "search": "SearchHandler",
+            "allhardware": "AllHardwareHandler",
+            "sortgames": "SortGamesHandler",
+            "sorthardware": "SortHardwareHandler",
+            "login": "LoginHandler",
+            "signup": "SignupHandler",
+            "signin": "SigninHandler"}
+		  ]
+}

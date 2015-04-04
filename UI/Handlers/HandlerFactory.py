@@ -1,32 +1,9 @@
+import json
+
 from UI.Cookies.Cookies import Cookies
-from UI.Handlers.AddGameHandler import AddGameHandler
-from UI.Handlers.AddHardwareHandler import AddHardwareHandler
-from UI.Handlers.AddPlatformHandler import AddPlatformHandler
-from UI.Handlers.AllGamesHandler import AllGamesHandler
-from UI.Handlers.AllHardwareHandler import AllHardwareHandler
-from UI.Handlers.DeleteGameHandler import DeleteGameHandler
-from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
-from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
-from UI.Handlers.EditGameHandler import EditGameHandler
-from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.IndexHandler import IndexHandler
-from UI.Handlers.LoginHandler import LoginHandler
-from UI.Handlers.PlatformsHandler import PlatformsHandler
-from UI.Handlers.SaveGameHandler import SaveGameHandler
-from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
-from UI.Handlers.SearchHandler import SearchHandler
-from UI.Handlers.SignupHandler import SignupHandler
-from UI.Handlers.SigninHandler import SigninHandler
-from UI.Handlers.SortGamesHandler import SortGamesHandler
-from UI.Handlers.SortHardwareHandler import SortHardwareHandler
-from UI.Handlers.UpdateGameHandler import UpdateGameHandler
-from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
-from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.Handlers.Session.Session import Session
-from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
-
-
 
 class HandlerFactory(object):
 
@@ -35,42 +12,22 @@ class HandlerFactory(object):
         self.__renderer = renderer
         self.__config = config
 
-        self.__handlers = {
-            "index": IndexHandler,
-            "savegame": SaveGameHandler,
-            "addgame": AddGameHandler,
-            "addhardware": AddHardwareHandler,
-            "platforms": PlatformsHandler,
-            "addplatform": AddPlatformHandler,
-            "editgame": EditGameHandler,
-            "updategame": UpdateGameHandler,
-            "deletegame": DeleteGameHandler,
-            "savehardware": SaveHardwareHandler,
-            "editplatform": EditPlatformHandler,
-            "updateplatform": UpdatePlatformHandler,
-            "deleteplatform": DeletePlatformHandler,
-            "edithardware": EditHardwareHandler,
-            "updatehardware": UpdateHardwareHandler,
-            "deletehardware": DeleteHardwareHandler,
-            "allgames": AllGamesHandler,
-            "search": SearchHandler,
-            "allhardware": AllHardwareHandler,
-            "sortgames": SortGamesHandler,
-            "sorthardware": SortHardwareHandler,
-            "login": LoginHandler,
-            "signup": SignupHandler,
-            "signin": SigninHandler
-        }
-
     def create(self, handler_type):
-        
         if handler_type == "index":
             return  IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
 
-        if handler_type in self.__handlers:
-            handler = self.__handlers[handler_type](self.__interactor_factory, self.__renderer)
+        with open("UI/Handlers/handlers.json") as f:
+            handlers = json.load(f)["handlers"][0]        
+
+        if handler_type in handlers:
+            handler = self.__string_to_handler(handlers[handler_type])
             handler.session = Session()
             handler.cookies = Cookies()
             return handler
 
         raise UnrecognisedHandlerException
+
+    def __string_to_handler(self, handler_type):
+        module = __import__("UI.Handlers." + handler_type, fromlist=handler_type)
+        class_ = getattr(module, handler_type)
+        return class_(self.__interactor_factory, self.__renderer)
