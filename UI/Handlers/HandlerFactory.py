@@ -11,16 +11,18 @@ class HandlerFactory(object):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
         self.__config = config
+        self.__handlers = self.__load_handlers()
+
+    def __load_handlers(self):
+        with open("UI/Handlers/handlers.json") as f:
+            return json.load(f)["handlers"][0]        
 
     def create(self, handler_type):
         if handler_type == "index":
-            return  IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
+            return  IndexHandler(self.__interactor_factory, self.__renderer, self.__config)        
 
-        with open("UI/Handlers/handlers.json") as f:
-            handlers = json.load(f)["handlers"][0]        
-
-        if handler_type in handlers:
-            handler = self.__string_to_handler(handlers[handler_type])
+        if handler_type in self.__handlers:
+            handler = self.__string_to_handler(self.__handlers[handler_type])
             handler.session = Session()
             handler.cookies = Cookies()
             return handler
