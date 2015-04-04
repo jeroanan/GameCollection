@@ -1,3 +1,4 @@
+from UI.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 
 class Handler(object):
@@ -6,6 +7,7 @@ class Handler(object):
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
         self.__session = None
+        self.__cookies = None
 
     @property
     def interactor_factory(self):
@@ -23,6 +25,14 @@ class Handler(object):
     def session(self, val):
         self.__session =  val
 
+    @property
+    def cookies(self):
+        return self.__cookies
+
+    @cookies.setter
+    def cookies(self, val):
+        self.__cookies = val
+
     def set_if_null(self, variable, value):
         if variable is None:
             return value
@@ -31,3 +41,7 @@ class Handler(object):
     def check_session(self):
         if self.session is None:
             raise SessionNotSetException
+
+    def check_cookies(self):
+        if self.cookies is None:
+            raise CookiesNotSetException

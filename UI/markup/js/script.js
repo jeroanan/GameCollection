@@ -296,3 +296,14 @@ function loginPageAjax(url) {
     });
 }
 
+
+$(function() {
+	 var sessionStatus = $.cookie("session_status");
+	 if (sessionStatus == "1") setLoginText();	 
+})
+
+function setLoginText() {
+	 var userid = $.cookie("user_id");
+	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");
+	 
+}

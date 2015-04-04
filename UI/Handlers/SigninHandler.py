@@ -10,6 +10,7 @@ class SigninHandler(Handler):
     
     def get_page(self, params):
         self.check_session()
+        self.check_cookies()
         if not self.__validate_params(params):
             return "False"
         login_interactor = self.__get_login_interactor()
@@ -35,3 +36,5 @@ class SigninHandler(Handler):
 
     def __do_login(self, user_id):
         self.session.set_value("user_id", user_id)
+        self.cookies.set_cookie("session_status", "1")
+        self.cookies.set_cookie("user_id", user_id)

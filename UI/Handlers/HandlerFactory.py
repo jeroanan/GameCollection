@@ -1,3 +1,4 @@
+from UI.Cookies.Cookies import Cookies
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
@@ -69,6 +70,7 @@ class HandlerFactory(object):
         if handler_type in self.__handlers:
             handler = self.__handlers[handler_type](self.__interactor_factory, self.__renderer)
             handler.session = Session()
+            handler.cookies = Cookies()
             return handler
 
         raise UnrecognisedHandlerException
