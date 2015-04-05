@@ -28,11 +28,11 @@ class TestIndexHandler(unittest.TestCase):
         self.__get_hardware_list_interactor = Mock(GetHardwareListInteractor)
         self.__get_hardware_list_interactor.execute = Mock(return_value=self.__hardware)
         self.__renderer = Mock(TemplateRenderer)
-        self.__interactor_factory = Mock(InteractorFactory)
-        self.__interactor_factory.create = Mock(side_effect=self.__get_interactors())
+        interactor_factory = Mock(InteractorFactory)
+        interactor_factory.create = Mock(side_effect=self.__get_interactors())
         self.__config = Mock(Config)
         self.__config.get = Mock(return_value=0)
-        self.__target = IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
+        self.__target = IndexHandler(interactor_factory, self.__renderer, self.__config)
         self.__target.session = Mock(Session)
 
     def __get_interactors(self):

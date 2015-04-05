@@ -1,3 +1,4 @@
+import cherrypy
 from UI.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 
@@ -48,3 +49,7 @@ class Handler(object):
 
     def logged_in(self):
         return self.session.get_value("user_id") != ""
+
+    def redirect_if_not_logged_in(self):
+        if not self.logged_in():
+            raise cherrypy.HTTPRedirect("/login")

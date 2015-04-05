@@ -4,6 +4,8 @@ from UI.Handlers.Handler import Handler
 class PlatformsHandler(Handler):
 
     def get_page(self, args):
+        self.check_session()
+        self.redirect_if_not_logged_in()
         return self.renderer.render("platforms.html", title="Manage Platforms", platforms=(self.__get_platforms()),
                                     suggested_platforms=(self.__get_suggested_platforms()))
 

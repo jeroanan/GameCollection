@@ -1,4 +1,3 @@
-import cherrypy
 from Persistence.Exceptions.UnrecognisedFieldNameException import UnrecognisedFieldNameException
 from UI.Handlers.Handler import Handler
 
@@ -15,8 +14,7 @@ class IndexHandler(Handler):
 
     def get_page(self, args):
         self.check_session()
-        if not self.logged_in():
-            raise cherrypy.HTTPRedirect("/login")
+        self.redirect_if_not_logged_in()
 
         self.__init_sorting(args)
 
