@@ -9,6 +9,7 @@ function loginDone(data) {
 	 if (data=="True") {
 		  showValidationSuccess("Login successful.");
 		  setTimeout(function() {navigate("/")}, 2000);
+		  setLoginText();
 	 } else {
 		  showValidationFailure("Login failed.");
 	 }	 
@@ -24,6 +25,7 @@ function newUserDone(data) {
 
     if (data=="True") {
         showValidationSuccess("Signed up successfully")
+		  setLoginText();
     } else {
         showValidationFailure("Error encountered while signing up")
     }
@@ -34,6 +36,7 @@ function loginPageAjax(url) {
 		  var def = new $.Deferred();
 		  def.resolve(false);
 		  return def;
+
 	 }
     return $.ajax({
         url: url,
