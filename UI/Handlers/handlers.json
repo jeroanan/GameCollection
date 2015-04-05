@@ -22,6 +22,7 @@
             "sorthardware": "SortHardwareHandler",
             "login": "LoginHandler",
             "signup": "SignupHandler",
-            "signin": "SigninHandler"}
+            "signin": "SigninHandler",
+				"logout": "LogoutHandler"}
 		  ]
 }

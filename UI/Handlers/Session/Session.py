@@ -10,3 +10,6 @@ class Session(object):
         if key in cherrypy.session:
             return cherrypy.session[key]
         return ""
+
+    def expire(self):
+        cherrypy.lib.sessions.expire()

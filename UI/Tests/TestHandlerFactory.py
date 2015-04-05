@@ -17,6 +17,7 @@ from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHand
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.LoginHandler import LoginHandler
+from UI.Handlers.LogoutHandler import LogoutHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
@@ -115,6 +116,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_signin_returns_signin_handler(self):
         self.__assert_type_string_returns_handler_type("signin", SigninHandler)
+
+    def test_logout_returns_logout_handler(self):
+        self.__assert_type_string_returns_handler_type("logout", LogoutHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)
