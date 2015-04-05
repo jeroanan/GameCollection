@@ -260,9 +260,11 @@ function loginDone(data) {
 
 	 if (data=="True") {
 		  showValidationSuccess("Login successful.");
+		  setTimeout(function() {navigate("/")}, 2000);
 	 } else {
 		  showValidationFailure("Login failed.");
-	 }	 
+	 }
+	 
 }
 
 function newUser() {
