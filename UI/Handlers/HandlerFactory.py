@@ -19,7 +19,9 @@ class HandlerFactory(object):
 
     def create(self, handler_type):
         if handler_type == "index":
-            return  IndexHandler(self.__interactor_factory, self.__renderer, self.__config)        
+            handler = IndexHandler(self.__interactor_factory, self.__renderer, self.__config)        
+            handler.session = Session()
+            return handler
 
         if handler_type in self.__handlers:
             handler = self.__string_to_handler(self.__handlers[handler_type])

@@ -14,6 +14,10 @@ class IndexHandler(Handler):
         self.__hardware_sort_dir = None
 
     def get_page(self, args):
+        self.check_session()
+        if not self.logged_in():
+            raise cherrypy.HTTPRedirect("/login")
+
         self.__init_sorting(args)
 
         try:

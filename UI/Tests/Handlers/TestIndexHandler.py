@@ -1,3 +1,4 @@
+import cherrypy
 import unittest
 from unittest.mock import Mock
 
@@ -9,7 +10,9 @@ from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListIntera
 from Interactors.Game.GetGamesInteractor import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Handler import Handler
+from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.IndexHandler import IndexHandler
+from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -30,6 +33,7 @@ class TestIndexHandler(unittest.TestCase):
         self.__config = Mock(Config)
         self.__config.get = Mock(return_value=0)
         self.__target = IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
+        self.__target.session = Mock(Session)
 
     def __get_interactors(self):
         return [self.__get_games_interactor, self.__get_hardware_list_interactor, self.__count_games_interactor]
@@ -55,6 +59,17 @@ class TestIndexHandler(unittest.TestCase):
     def test_get_page_uses_default_sort_options_for_hardware(self):
         self.__get_page(self.__get_args(hardware_sort=None, hardware_sort_direction=None))
         self.__get_hardware_list_interactor.execute.assert_called_with(sort_field="name", sort_direction="asc")
+
+    def test_get_page_session_is_none_raises_session_not_set_exception(self):
+        self.__target.session = None
+        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_args())
+
+    def test_get_page_not_logged_in_redirects_to_login_page(self):
+        self.__target.session = None
+        session = Mock(Session)
+        session.get_value = Mock(return_value="")
+        self.__target.session = session
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, {})
 
     def __get_page(self, args):
         self.__target.get_page(args)
