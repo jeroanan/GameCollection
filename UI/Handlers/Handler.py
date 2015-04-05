@@ -45,3 +45,6 @@ class Handler(object):
     def check_cookies(self):
         if self.cookies is None:
             raise CookiesNotSetException
+
+    def logged_in(self):
+        return self.session.get_value("user_id") != ""
