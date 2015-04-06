@@ -1,3 +1,4 @@
+import cherrypy
 import unittest
 from unittest.mock import Mock
 
@@ -5,7 +6,9 @@ from Game import Game
 from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
+from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.Handler import Handler
+from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -17,23 +20,44 @@ class TestDeleteGameHandler(unittest.TestCase):
         self.__interactor = Mock(DeleteGameInteractor)
         self.__interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = DeleteGameHandler(self.__interactor_factory, renderer)
+        self.__target.session = Mock(Session)
 
     def test_is_instance_of_handler(self):
         self.assertIsInstance(self.__target, Handler)
 
-    def test_get_page_calls_interactor_execute(self):
+    def test_calls_interactor_execute(self):
+        def get_game():
+            g = Game()
+            g.id = "id"
+            return g
+
         self.__target.get_page(self.__get_args())
-        self.__interactor.execute.assert_called_with(self.__get_game())
+        self.__interactor.execute.assert_called_with(get_game())
 
-    def __get_game(self):
-        g = Game()
-        g.id = "id"
-        return g
+    def test_no_id_returns_empty_string(self):
+        p = self.__get_args()
+        del p["gameid"]
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)
 
-    def __get_args(self):
+    def test_empty_id_returns_empty_string(self):
+        p = self.__get_args(id="")
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)        
+
+    def test_session_not_set_raises_session_not_set_exception(self):
+        self.__target.session = None
+        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_args())
+
+    def test_not_logged_in_redirects_to_home_page(self):
+        self.__target.session = None
+        session = Mock(Session)
+        session.get_value = Mock(return_value="")
+        self.__target.session = session
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
+        
+    def __get_args(self, id="id"):
         return {
-            "gameid": "id"
+            "gameid": id
         }
 
-    def test_get_page_empty_args(self):
-        self.__target.get_page({"": ""})

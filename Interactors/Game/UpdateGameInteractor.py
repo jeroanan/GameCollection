@@ -1,3 +1,4 @@
+from Interactors.Exceptions.PersistenceException import PersistenceException
 from Interactors.Interactor import Interactor
 
 
@@ -5,7 +6,10 @@ class UpdateGameInteractor(Interactor):
 
     def execute(self, game):
         self.__validate(game)
-        self.persistence.update_game(game)
+        try:
+            self.persistence.update_game(game)
+        except:
+            raise PersistenceException
 
     def __validate(self, game):
         if game is None:

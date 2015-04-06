@@ -1,5 +1,3 @@
-
-
 class AbstractPersistence(object):
 
     def add_game(self, game):

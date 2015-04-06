@@ -6,6 +6,8 @@ from UI.Handlers.Handler import Handler
 class EditGameHandler(Handler):
 
     def get_page(self, args):
+        self.check_session()
+        self.redirect_if_not_logged_in()
         game_found = True
         game = Game()
         try:
