@@ -5,6 +5,8 @@ from UI.Handlers.Handler import Handler
 class EditHardwareHandler(Handler):
 
     def get_page(self, args):
+        self.check_session()
+        self.redirect_if_not_logged_in()
         get_hardware_details_interactor = self.interactor_factory.create("GetHardwareDetailsInteractor")
         get_platforms_interactor = self.interactor_factory.create("GetPlatformsInteractor")
 

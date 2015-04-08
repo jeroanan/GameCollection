@@ -40,16 +40,28 @@ class TestAddPlatformHandler(unittest.TestCase):
         try:
             self.__target.get_page(platform=params)
         except cherrypy.HTTPRedirect:
-            pass
+            pass    
+
+    def test_get_page_raises_http_redirect(self):
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
+    
+    def test_platform_null_name_returns_empty_string(self):
+        p = self.__get_args()
+        del p["name"]
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)
+
+    def test_platform_empty_name_returns_empty_string(self):
+        p = self.__get_args()
+        p["name"] = ""
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)
 
     def __get_args(self):
         return {
             "name": self.__platform_name,
             "description": self.__platform_description
         }
-
-    def test_get_page_raises_http_redirect(self):
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
 
     def test_get_page_with_empty_args(self):
         try:
