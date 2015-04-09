@@ -4,7 +4,8 @@ from UI.Handlers.Handler import Handler
 class AllGamesHandler(Handler):
 
     def get_page(self, params):
-
+        self.check_session()
+        self.redirect_if_not_logged_in()
         sort_field = self.set_if_null(params.get("gamesort", "title"), "title")
         sort_direction = self.set_if_null(params.get("gamesortdir", "asc"), "asc")
         platform = params.get("platform", "")
