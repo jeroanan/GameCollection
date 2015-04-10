@@ -1,11 +1,14 @@
+import cherrypy
 import unittest
 from unittest.mock import Mock
 
 from Game import Game
 from Interactors.Game.AddGameInteractor import AddGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
+from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.Handler import Handler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
+from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -17,6 +20,7 @@ class TestSaveGameHandler(unittest.TestCase):
         self.__interactor = Mock(AddGameInteractor)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = SaveGameHandler(interactor_factory, renderer)
+        self.__target.session = Mock(Session)
         self.__title = "title"
         self.__num_copies = 1
         self.__num_boxed = 2
@@ -31,16 +35,6 @@ class TestSaveGameHandler(unittest.TestCase):
     def __get_page(self):
         self.__target.get_page(params=self.__get_args())
 
-    def __get_args(self):
-        return {
-            "title": self.__title,
-            "numcopies": self.__num_copies,
-            "numboxed": self.__num_boxed,
-            "nummanuals": self.__num_manuals,
-            "platform": self.__platform,
-            "notes": self.__notes
-        }
-
     def __get_game(self):
         game = Game()
         game.title = self.__title
@@ -54,5 +48,43 @@ class TestSaveGameHandler(unittest.TestCase):
     def test_is_instance_of_handler(self):
         self.assertIsInstance(self.__target, Handler)
 
-    def test_get_page_with_empty_params(self):
-        self.__target.get_page({"": ""})
+    def test_null_title_returns_empty_string(self):
+        p = self.__get_args()
+        del p["title"]
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)
+
+    def test_empty_title_returns_empty_string(self):
+        p = self.__get_args()
+        p["title"] = ""
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)
+        
+    def test_null_platform_returns_empty_string(self):
+        self.__assert_missing_param_returns_empty_string("platform")
+
+    def __assert_missing_param_returns_empty_string(self, param_name):
+        p = self.__get_args()
+        del p[param_name]
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)        
+
+    def test_session_not_set_raises_session_not_set_exception(self):
+        self.__target.session = None
+        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_args())
+
+    def test_not_logged_in_redirects_to_home_page(self):
+        session = Mock(Session)
+        session.get_value = Mock(return_value="")
+        self.__target.session = session
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
+
+    def __get_args(self):
+        return {
+            "title": self.__title,
+            "numcopies": self.__num_copies,
+            "numboxed": self.__num_boxed,
+            "nummanuals": self.__num_manuals,
+            "platform": self.__platform,
+            "notes": self.__notes
+        }
