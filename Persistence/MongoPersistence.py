@@ -45,7 +45,7 @@ class MongoPersistence(AbstractPersistence):
     def get_all_games(self, params):
         sorder = MongoSortDirectionMapper().map(params.sort_direction)
         mapped_sort_field = SortFieldMapper().map(params.sort_field)
-        games = self.__db.games.find(limit=params.number_of_games)
+        games = self.__db.games.find({"user_id": str(params.user_id)}, limit=params.number_of_games)
         return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
 
     """Gets a list of games for a platform.
@@ -55,7 +55,8 @@ class MongoPersistence(AbstractPersistence):
     def get_all_games_for_platform(self, params):
         sorder = MongoSortDirectionMapper().map(params.sort_direction)
         mapped_sort_field = SortFieldMapper().map(params.sort_field)
-        games = self.__db.games.find({"_Game__platform": platform}, limit=params.number_of_games)
+        games = self.__db.games.find({"_Game__platform": params.platform, "user_id": str(params.user_id)}, 
+                                     limit=params.number_of_games)
         return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
 
     def count_games(self):

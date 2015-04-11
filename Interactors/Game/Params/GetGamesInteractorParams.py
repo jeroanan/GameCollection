@@ -5,6 +5,7 @@ class GetGamesInteractorParams(object):
         self.__sort_direction = "ASC"
         self.__number_of_games = 999999
         self.__platform = None
+        self.__user_id = ""
 
     @property
     def sort_field(self):
@@ -37,6 +38,14 @@ class GetGamesInteractorParams(object):
     @platform.setter
     def platform(self, val):
         self.__platform = val
+
+    @property
+    def user_id(self):
+        return self.__user_id
+
+    @user_id.setter
+    def user_id(self, val):
+        self.__user_id = val
     
     def __eq__(self, other):
         return (self.sort_field == other.sort_field and 

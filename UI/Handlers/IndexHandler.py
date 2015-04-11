@@ -56,6 +56,8 @@ class IndexHandler(Handler):
         p.number_of_games = self.__config.get("front-page-games")
         p.sort_field = self.__game_sort
         p.sort_direction = self.__game_sort_dir
+        p.user_id = self.session.get_value("user_id")
+        p.platform = None
         try:
             games = get_games_interactor.execute(p)
         except UnrecognisedFieldNameException:

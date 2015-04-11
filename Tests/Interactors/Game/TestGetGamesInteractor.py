@@ -14,13 +14,18 @@ class TestGetGamesInteractor(InteractorTestBase):
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, Interactor)
 
-    def test_execute_calls_persistence_method(self):
+    def test_calls_persistence_method(self):
         self.__execute()
         self.persistence.get_all_games.assert_was_called_with(self.__get_params())
 
-    def test_execute_with_platform_calls_get_all_games_for_platform_persistence_method(self):
+    def test_with_platform_calls_get_all_games_for_platform_persistence_method(self):
         self.__execute()
         self.__target.persistence.get_all_games_for_platform.assert_was_called_with(self.__get_params())
+        
+    def test_user_id_not_set_gives_value_error(self):
+        p = self.__get_params()
+        p.user_id = None
+        self.assertRaises(ValueError, self.__target.execute, p)
 
     def __execute(self):
         self.__target.execute(self.__get_params())
@@ -31,5 +36,6 @@ class TestGetGamesInteractor(InteractorTestBase):
         p.sort_field = None
         p.sort_direction = "asc"
         p.platform = "platform"
+        p.user_id = "1234"
         return p
         

@@ -9,6 +9,7 @@ class GetGamesInteractor(Interactor):
     :returns: A list of Game
     """
     def execute(self, params):
+        self.validate_string_field("User Id", params.user_id)
         if params.platform == "" or params.platform is None:
             return self.persistence.get_all_games(params)
 
