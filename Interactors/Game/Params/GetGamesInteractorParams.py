@@ -2,7 +2,7 @@ class GetGamesInteractorParams(object):
     
     def __init__(self):
         self.__sort_field = ""
-        self.__sort_direction = ""
+        self.__sort_direction = "ASC"
         self.__number_of_games = 999999
         self.__platform = None
 

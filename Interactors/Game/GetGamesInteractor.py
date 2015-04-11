@@ -3,13 +3,14 @@ from Interactors.Interactor import Interactor
 
 class GetGamesInteractor(Interactor):
 
+    """Gets a list of games from persistence. If a platform is specified
+    then get games for that platform, else get games for all platforms.
+    :param params: An object of type GetGamesInteractorParams
+    :returns: A list of Game
+    """
     def execute(self, params):
         if params.platform == "" or params.platform is None:
-            return self.persistence.get_all_games(number_of_games=params.number_of_games, sort_field=params.sort_field,
-                                                  sort_order=params.sort_direction)
+            return self.persistence.get_all_games(params)
 
-        return self.persistence.get_all_games_for_platform(platform=params.platform, 
-                                                           number_of_games=params.number_of_games, 
-                                                           sort_field=params.sort_field, 
-                                                           sort_order=params.sort_direction)
+        return self.persistence.get_all_games_for_platform(params)
 

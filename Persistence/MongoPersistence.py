@@ -38,16 +38,24 @@ class MongoPersistence(AbstractPersistence):
     def add_game(self, game):
         self.__db.games.insert(game.__dict__)
 
-    def get_all_games(self, sort_field, number_of_games=999999, sort_order="ASC"):
-        sorder = MongoSortDirectionMapper().map(sort_order)
-        mapped_sort_field = SortFieldMapper().map(sort_field)
-        games = self.__db.games.find(limit=number_of_games)
+    """Gets a list of games.
+    :param params: An object of type GetGamesInteractorParams
+    :returns: A list of Game
+    """
+    def get_all_games(self, params):
+        sorder = MongoSortDirectionMapper().map(params.sort_direction)
+        mapped_sort_field = SortFieldMapper().map(params.sort_field)
+        games = self.__db.games.find(limit=params.number_of_games)
         return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
 
-    def get_all_games_for_platform(self, platform, sort_field, sort_order, number_of_games=0):
-        sorder = MongoSortDirectionMapper().map(sort_order)
-        mapped_sort_field = SortFieldMapper().map(sort_field)
-        games = self.__db.games.find({"_Game__platform": platform}, limit=number_of_games)
+    """Gets a list of games for a platform.
+    :param params: An object of type GetGamesInteractorParams
+    :returns: A list of Game
+    """
+    def get_all_games_for_platform(self, params):
+        sorder = MongoSortDirectionMapper().map(params.sort_direction)
+        mapped_sort_field = SortFieldMapper().map(params.sort_field)
+        games = self.__db.games.find({"_Game__platform": platform}, limit=params.number_of_games)
         return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
 
     def count_games(self):

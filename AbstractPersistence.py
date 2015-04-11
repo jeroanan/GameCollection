@@ -3,10 +3,18 @@ class AbstractPersistence(object):
     def add_game(self, game):
         pass
 
-    def get_all_games(self, sort_field, sort_order, number_of_games=0):
+    """Gets a list of games.
+    :param params: An object of type GetGamesInteractorParams
+    :returns: A list of Game
+    """
+    def get_all_games(self, params):
         pass
 
-    def get_all_games_for_platform(self, platform, sort_field, sort_order, number_of_games=0):
+    """Gets a list of games for a platform.
+    :param params: An object of type GetGamesInteractorParams
+    :returns: A list of Game
+    """
+    def get_all_games_for_platform(self, params):
         pass
 
     def count_games(self):
