@@ -252,7 +252,11 @@ function toggleSortDirection(oldSortDir) {
 
 $(function() {
 	 var sessionStatus = $.cookie("session_status");
-	 if (sessionStatus == "1") setLoginText();	 
+	 if (sessionStatus == "1") {
+		  setLoginText();
+	 } else {
+		  $(".authenticated-header").hide();
+	 }
 })
 
 function setLoginText() {
