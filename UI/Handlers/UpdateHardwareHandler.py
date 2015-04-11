@@ -1,22 +1,16 @@
 import cherrypy
 from Hardware import Hardware
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class UpdateHardwareHandler(Handler):
+class UpdateHardwareHandler(AuthenticatedHandler):
 
     def get_page(self, params):
-        self.check_session()
-        self.redirect_if_not_logged_in()
-        if not self.__validate_args(params):
+        super().get_page(params)
+        if not self.validate_params(params, ["name", "platform"]):
             return ""
         interactor = self.interactor_factory.create("UpdateHardwareInteractor")
         interactor.execute(self.__get_hardware(params))
-
-    def __validate_args(self, args):
-        arg_names = ["name", "platform"]
-        valid_args = sum(map(lambda x: args.get(x, "") != "", arg_names))
-        return len(arg_names)==valid_args
 
     def __get_hardware(self, params):
         hardware = Hardware()

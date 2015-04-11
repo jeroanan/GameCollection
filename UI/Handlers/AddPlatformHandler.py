@@ -1,22 +1,19 @@
 import cherrypy
 from Platform import Platform
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class AddPlatformHandler(Handler):
+class AddPlatformHandler(AuthenticatedHandler):
 
-    def get_page(self, platform):        
-        self.check_session()
-        self.redirect_if_not_logged_in()
-        if not self.__validate_args(platform):
+    def get_page(self, args):        
+        super().get_page(args)
+        if not self.validate_params(args, ["name"]):
             return ""
-        interactor = self.interactor_factory.create("AddPlatformInteractor")
-        p = Platform()
-        p.name = platform.get("name", "")
-        p.description = platform.get("description", "")
-        interactor.execute(p)
-        
+        interactor = self.interactor_factory.create("AddPlatformInteractor")        
+        interactor.execute(self.__get_platform(args))
 
-    def __validate_args(self, args):
-        return "name" in args and args["name"] != ""
-            
+    def __get_platform(self, args):
+        p = Platform()
+        p.name = args.get("name", "")
+        p.description = args.get("description", "")
+        return p

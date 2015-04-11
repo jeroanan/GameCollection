@@ -1,11 +1,10 @@
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class SortGamesHandler(Handler):
+class SortGamesHandler(AuthenticatedHandler):
 
     def get_page(self, args):
-        self.check_session()
-        self.redirect_if_not_logged_in()
+        super().get_page(args)
         interactor = self.interactor_factory.create("GetGamesInteractor")
         sort_field = args.get("field", "title")
         sort_direction = args.get("sortdir", "")

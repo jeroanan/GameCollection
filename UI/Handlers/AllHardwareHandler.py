@@ -1,10 +1,10 @@
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class AllHardwareHandler(Handler):
+class AllHardwareHandler(AuthenticatedHandler):
+
     def get_page(self, args):
-        self.check_session()
-        self.redirect_if_not_logged_in()
+        super().get_page(args)
         interactor = self.interactor_factory.create("GetHardwareListInteractor")
         hardware = interactor.execute(sort_field="name", sort_direction="asc")
         return self.renderer.render("allhardware.html", hardware=hardware, title="All Hardware",

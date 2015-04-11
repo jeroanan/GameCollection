@@ -7,7 +7,7 @@ from Hardware import Hardware
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.TemplateRenderer import TemplateRenderer
@@ -23,8 +23,8 @@ class TestSaveHardwareHandler(unittest.TestCase):
         self.__target = SaveHardwareHandler(self.__interactor_factory, renderer)
         self.__target.session = Mock(Session)
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_executes_save_hardware_interactor(self):
         self.__target.get_page(params=self.__get_params())        

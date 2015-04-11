@@ -1,21 +1,15 @@
 from Game import Game
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class SaveGameHandler(Handler):
+class SaveGameHandler(AuthenticatedHandler):
 
     def get_page(self, params):
-        self.check_session()
-        self.redirect_if_not_logged_in()
-        if not self.__validate_params(params):
+        super().get_page(params)
+        if not self.validate_params(params, ["title", "platform"]):
             return ""
         interactor = self.interactor_factory.create("AddGameInteractor")
         interactor.execute(game=(self.__get_game(params)))
-
-    def __validate_params(self, params):
-        fields = ["title", "platform"]
-        invalid_fields = sum(map(lambda x: x not in params or params[x] == "", fields))
-        return invalid_fields == 0
 
     def __get_game(self, params):
         game = Game()

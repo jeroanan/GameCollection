@@ -6,7 +6,7 @@ from Game import Game
 from Interactors.Game import GetGamesInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.TemplateRenderer import TemplateRenderer
@@ -24,8 +24,8 @@ class TestSortGamesHandler(unittest.TestCase):
         self.__target = SortGamesHandler(interactor_factory, self.__renderer)
         self.__target.session = Mock(Session)
 
-    def test_is_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_calls_renderer(self):
         args = self.__get_args()

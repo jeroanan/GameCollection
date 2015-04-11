@@ -53,3 +53,7 @@ class Handler(object):
     def redirect_if_not_logged_in(self):
         if not self.logged_in():
             raise cherrypy.HTTPRedirect("/login")
+
+    def validate_params(self, params, fields):
+        invalid_fields = sum(map(lambda x: x not in params or params[x] == "", fields))
+        return invalid_fields == 0

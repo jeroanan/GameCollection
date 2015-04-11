@@ -8,7 +8,7 @@ from Interactors.Exceptions.PersistenceException import PersistenceException
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.TemplateRenderer import TemplateRenderer
@@ -23,8 +23,8 @@ class TestUpdateGameHandler(unittest.TestCase):
         self.__target = UpdateGameHandler(interactor_factory, renderer)
         self.__target.session = Mock(Session)
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_calls_interactor_execute(self):
         self.__target.get_page(params=self.__get_params())

@@ -1,11 +1,10 @@
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class AllGamesHandler(Handler):
+class AllGamesHandler(AuthenticatedHandler):
 
     def get_page(self, params):
-        self.check_session()
-        self.redirect_if_not_logged_in()
+        super().get_page(params)
         sort_field = self.set_if_null(params.get("gamesort", "title"), "title")
         sort_direction = self.set_if_null(params.get("gamesortdir", "asc"), "asc")
         platform = params.get("platform", "")

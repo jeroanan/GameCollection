@@ -7,7 +7,7 @@ from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from Tests.Interactors.Platform.TestUpdatePlatformInteractor import UpdatePlatformInteractor #TODO: Move
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException 
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.TemplateRenderer import TemplateRenderer
@@ -23,8 +23,8 @@ class TestUpdatePlatformHandler(unittest.TestCase):
         self.__target = UpdatePlatformHandler(interactor_factory, renderer)
         self.__target.session = Mock(Session)
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_executes_interactor(self):
         self.__get_page()

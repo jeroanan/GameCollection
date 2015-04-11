@@ -7,7 +7,7 @@ from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 
@@ -22,8 +22,8 @@ class TestDeleteGameHandler(unittest.TestCase):
         self.__target = DeleteGameHandler(self.__interactor_factory, renderer)
         self.__target.session = Mock(Session)
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_calls_interactor_execute(self):
         def get_game():

@@ -1,12 +1,11 @@
 from Platform import Platform
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class UpdatePlatformHandler(Handler):
+class UpdatePlatformHandler(AuthenticatedHandler):
 
     def get_page(self, params):
-        self.check_session()
-        self.redirect_if_not_logged_in()
+        super().get_page(params)
         if not self.__validate_params(params):
             return ""
         
@@ -20,9 +19,7 @@ class UpdatePlatformHandler(Handler):
     def __validate_params(self, params):
         if params is None:
             return False
-        param_names = ["id", "name"]
-        invalid_params = sum(map(lambda x: x not in params or params[x] == "", param_names))
-        return invalid_params == 0
+        return self.validate_params(params, ["id", "name"])
 
     def __get_platform(self, params):
         platform = Platform()

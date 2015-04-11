@@ -1,23 +1,17 @@
 import cherrypy
 from Hardware import Hardware
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class SaveHardwareHandler(Handler):
+class SaveHardwareHandler(AuthenticatedHandler):
 
     def get_page(self, params):
-        self.check_session()
-        self.redirect_if_not_logged_in()
-        if not self.__validate_params(params):
+        super().get_page(params)
+        if not self.validate_params(params, ["name", "platform", "numowned"]):
             return ""
         interactor = self.interactor_factory.create("SaveHardwareInteractor")
         hardware = self.__get_hardware(params)
         interactor.execute(hardware=hardware)
-
-    def __validate_params(self, params):
-        fields = ["name", "platform", "numowned"]
-        invalid_fields = sum(map(lambda x: x not in params or params[x] == "", fields))
-        return invalid_fields == 0
 
     def __get_hardware(self, params):
         hardware = Hardware()

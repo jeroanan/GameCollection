@@ -1,12 +1,11 @@
 from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class EditHardwareHandler(Handler):
+class EditHardwareHandler(AuthenticatedHandler):
 
     def get_page(self, args):
-        self.check_session()
-        self.redirect_if_not_logged_in()
+        super().get_page(args)
         get_hardware_details_interactor = self.interactor_factory.create("GetHardwareDetailsInteractor")
         get_platforms_interactor = self.interactor_factory.create("GetPlatformsInteractor")
 

@@ -7,7 +7,7 @@ from Interactors.Platform.GetSuggestedPlatformsInteractor import GetSuggestedPla
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
@@ -32,8 +32,8 @@ class TestPlatformsHandler(unittest.TestCase):
     def __interactor_factory_create(self):
         return [self.__get_platforms_interactor, self.__get_suggested_platforms_interactor]
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_calls_renderer(self):
         self.__get_page()

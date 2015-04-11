@@ -1,13 +1,12 @@
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class DeleteHardwareHandler(Handler):
+class DeleteHardwareHandler(AuthenticatedHandler):
 
     def get_page(self, args):
-        self.check_session()
-        self.redirect_if_not_logged_in()
-
-        if not self.__validate_args(args):
+        super().get_page(args)
+        
+        if not self.validate_params(args, ["hardwareid"]):
             return ""
 
         interactor = self.interactor_factory.create("DeleteHardwareInteractor")
@@ -15,6 +14,3 @@ class DeleteHardwareHandler(Handler):
             interactor.execute(args.get("hardwareid", ""))
         except:
             return ""
-
-    def __validate_args(self, args):
-        return "hardwareid" in args and args["hardwareid"] != ""

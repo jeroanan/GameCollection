@@ -7,7 +7,7 @@ from Hardware import Hardware
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AddGameHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.TemplateRenderer import TemplateRenderer
@@ -23,8 +23,8 @@ class TestUpdateHardwareHandler(unittest.TestCase):
         self.__target = UpdateHardwareHandler(interactor_factory, renderer)
         self.__target.session = Mock(Session)
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_executes_interactor(self):
         self.__target.get_page(params=self.__get_params())

@@ -1,10 +1,9 @@
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class SortHardwareHandler(Handler):
+class SortHardwareHandler(AuthenticatedHandler):
     def get_page(self, args):
-        self.check_session()
-        self.redirect_if_not_logged_in()
+        super().get_page(args)
         interactor = self.interactor_factory.create("GetHardwareListInteractor")
         hardware = interactor.execute(args.get("field", "name"), args.get("sortdir", ""))
         return self.renderer.render("hardware.html", hardware=hardware, hw_sort_field=args.get("field", ""),

@@ -5,7 +5,7 @@ from unittest.mock import Mock
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.SearchInteractor import SearchInteractor
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.SearchHandler import SearchHandler
 from UI.Handlers.Session.Session import Session 
 from UI.TemplateRenderer import TemplateRenderer
@@ -21,8 +21,8 @@ class TestSearchHandler(unittest.TestCase):
         self.__target = SearchHandler(interactor_factory, self.__renderer)
         self.__target.session = Mock(Session)
 
-    def test_is_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_calls_render_method(self):
         self.__get_page()

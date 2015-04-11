@@ -1,11 +1,11 @@
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class EditPlatformHandler(Handler):
+class EditPlatformHandler(AuthenticatedHandler):
+
     def get_page(self, args):
-        self.check_session()
-        self.redirect_if_not_logged_in()
-        if not self.__validate_args(args):
+        super().get_page(args)
+        if not self.validate_params(args, ["platformid"]):
             return ""
         interactor = self.interactor_factory.create("GetPlatformInteractor")
         try:
@@ -13,7 +13,4 @@ class EditPlatformHandler(Handler):
         except:
             return ""
         return self.renderer.render("editplatform.html", platform=platform, title="Edit Platform")
-
-    def __validate_args(self, args):
-        return "platformid" in args and args["platformid"] != ""
 

@@ -1,13 +1,12 @@
 from Game import Game
 from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class EditGameHandler(Handler):
+class EditGameHandler(AuthenticatedHandler):
 
     def get_page(self, args):
-        self.check_session()
-        self.redirect_if_not_logged_in()
+        super().get_page(args)
         game_found = True
         game = Game()
         try:
