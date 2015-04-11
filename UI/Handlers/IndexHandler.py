@@ -1,3 +1,4 @@
+from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
 from Persistence.Exceptions.UnrecognisedFieldNameException import UnrecognisedFieldNameException
 from UI.Handlers.Handler import Handler
 
@@ -48,12 +49,15 @@ class IndexHandler(Handler):
         self. __hardware_sort_dir = self.set_if_null(args.get("hardwaresortdir", default_sort_direction),
                                                      default_sort_direction)
 
-    def __get_games(self):
+    def __get_games(self):        
         get_games_interactor = self.interactor_factory.create("GetGamesInteractor")
-        number_of_games = self.__config.get("front-page-games")
+
+        p = GetGamesInteractorParams()
+        p.number_of_games = self.__config.get("front-page-games")
+        p.sort_field = self.__game_sort
+        p.sort_direction = self.__game_sort_dir
         try:
-            games = get_games_interactor.execute(number_of_games=number_of_games, sort_field=self.__game_sort,
-                                                sort_direction=self.__game_sort_dir)
+            games = get_games_interactor.execute(p)
         except UnrecognisedFieldNameException:
             raise cherrypy.HTTPRedirect("/")
         return games

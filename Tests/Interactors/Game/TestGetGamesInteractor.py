@@ -1,4 +1,5 @@
 from Interactors.Game.GetGamesInteractor import GetGamesInteractor
+from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
@@ -14,19 +15,18 @@ class TestGetGamesInteractor(InteractorTestBase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_method(self):
-        number_of_games = 10
-        sort_field = None
-        sort_direction = "asc"
-        platform = ""
-        self.__target.execute(number_of_games=number_of_games, sort_field=sort_field, sort_direction=sort_direction,
-                              platform=platform)
+        self.__execute()
         self.__target.persistence.get_all_games.assert_was_called_with()
 
     def test_execute_with_platform_calls_get_all_games_for_platform_persistence_method(self):
-        number_of_games = 10
-        sort_field = None
-        sort_direction = "asc"
-        platform = "platform"
-        self.__target.execute(number_of_games=number_of_games, sort_field=sort_field, sort_direction=sort_direction,
-                              platform=platform)
+        self.__execute()
         self.__target.persistence.get_all_games_for_platform.assert_was_called_with()
+
+    def __execute(self):
+        p = GetGamesInteractorParams()        
+        p.number_of_games = 10
+        p.sort_field = None
+        p.sort_direction = "asc"
+        p.platform = "platform"
+        self.__target.execute(p)
+        

@@ -17,7 +17,9 @@ class SigninHandler(Handler):
         user = self.__params_to_user(params)
         success = login_interactor.execute(user)
         if success:
-            self.__do_login(user.user_id)
+            get_user_interactor = self.interactor_factory.create("GetUserInteractor")
+            actual_user = get_user_interactor.execute(user)
+            self.__do_login(actual_user)
         return str(success)        
 
     def __get_login_interactor(self):
@@ -31,7 +33,7 @@ class SigninHandler(Handler):
         u.password = params.get("password", "")
         return u
 
-    def __do_login(self, user_id):
-        self.session.set_value("user_id", user_id)
+    def __do_login(self, user):
+        self.session.set_value("user_id", user.id)
         self.cookies.set_cookie("session_status", "1")
-        self.cookies.set_cookie("user_id", user_id)
+        self.cookies.set_cookie("user_id", user.user_id)
