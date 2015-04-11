@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.SearchInteractor import SearchInteractor
+from Interactors.Search.SearchInteractor import SearchInteractor
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.SearchHandler import SearchHandler

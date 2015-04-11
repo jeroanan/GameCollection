@@ -1,5 +1,5 @@
 from Interactors.Interactor import Interactor
-from Interactors.SearchInteractor import SearchInteractor
+from Interactors.Search.SearchInteractor import SearchInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 

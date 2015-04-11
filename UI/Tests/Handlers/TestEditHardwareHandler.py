@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 
 from Hardware import Hardware
-from Interactors.Hardware.GetHardwareInteractor import GetHardwareDetailsInteractor
+from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor
 from Interactors.Platform.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform

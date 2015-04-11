@@ -8,7 +8,7 @@ from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteract
 from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
 from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
-from Interactors.Hardware.GetHardwareInteractor import GetHardwareDetailsInteractor
+from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor
 from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
 from Interactors.Game.AddGameInteractor import AddGameInteractor
 from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
@@ -19,7 +19,7 @@ from Interactors.Platform.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.Platform.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
-from Interactors.SearchInteractor import SearchInteractor
+from Interactors.Search.SearchInteractor import SearchInteractor
 from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Interactors.User.AddUserInteractor import AddUserInteractor
