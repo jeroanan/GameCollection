@@ -1,11 +1,11 @@
 import cherrypy
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class LogoutHandler(Handler):
+class LogoutHandler(AuthenticatedHandler):
     
     def get_page(self, args):
-        self.check_session()
+        super().get_page(args)
         self.check_cookies()
         self.cookies.clear_cookie("session_status")
         self.cookies.clear_cookie("user_id")

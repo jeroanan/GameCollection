@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 
 from UI.Cookies.Cookies import Cookies
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.LogoutHandler import LogoutHandler
 from UI.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
@@ -19,7 +19,7 @@ class TestLogoutHandler(unittest.TestCase):
         self.__target.cookies = self.__cookies
 
     def test_is_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_with_session_not_set_raises_session_not_set_exception(self):
         self.__target.session = None

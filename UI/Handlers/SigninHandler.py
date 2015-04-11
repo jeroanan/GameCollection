@@ -11,7 +11,7 @@ class SigninHandler(Handler):
     def get_page(self, params):
         self.check_session()
         self.check_cookies()
-        if not self.__validate_params(params):
+        if not self.validate_params(params, ["userid", "password"]):
             return "False"
         login_interactor = self.__get_login_interactor()
         user = self.__params_to_user(params)
@@ -19,9 +19,6 @@ class SigninHandler(Handler):
         if success:
             self.__do_login(user.user_id)
         return str(success)        
-    
-    def __validate_params(self, params):
-        return "userid" in params and "password" in params
 
     def __get_login_interactor(self):
         interactor = self.interactor_factory.create("LoginInteractor")
