@@ -9,7 +9,7 @@ class SaveGameHandler(AuthenticatedHandler):
         if not self.validate_params(params, ["title", "platform"]):
             return ""
         interactor = self.interactor_factory.create("AddGameInteractor")
-        interactor.execute(game=(self.__get_game(params)))
+        interactor.execute(game=self.__get_game(params), user_id=self.session.get_value("user_id"))
 
     def __get_game(self, params):
         game = Game()

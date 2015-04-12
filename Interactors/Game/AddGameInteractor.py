@@ -3,9 +3,9 @@ from Interactors.Interactor import Interactor
 
 class AddGameInteractor(Interactor):
 
-    def execute(self, game):
+    def execute(self, game, user_id):
         self.__validate(game)
-        self.persistence.add_game(game)
+        self.persistence.add_game(game, user_id)
 
     def __validate(self, game):
         if game is None:

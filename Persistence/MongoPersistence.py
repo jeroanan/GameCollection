@@ -35,8 +35,15 @@ class MongoPersistence(AbstractPersistence):
         if self.__client is not None:
             self.__client.close()
 
-    def add_game(self, game):
-        self.__db.games.insert(game.__dict__)
+    """Add a single game.
+    :param params: An object of type Game
+    :param user_id: The id of the current user (actual id rather than username)
+    :returns: None
+    """
+    def add_game(self, game, user_id):
+        gd = game.__dict__
+        gd["user_id"] = str(user_id)
+        self.__db.games.insert(gd)
 
     """Gets a list of games.
     :param params: An object of type GetGamesInteractorParams

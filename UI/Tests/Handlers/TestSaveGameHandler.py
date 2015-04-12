@@ -20,7 +20,9 @@ class TestSaveGameHandler(unittest.TestCase):
         self.__interactor = Mock(AddGameInteractor)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = SaveGameHandler(interactor_factory, renderer)
-        self.__target.session = Mock(Session)
+        session = Mock(Session)
+        session.get_value = Mock(return_value="1234")
+        self.__target.session = session
         self.__title = "title"
         self.__num_copies = 1
         self.__num_boxed = 2
@@ -30,10 +32,7 @@ class TestSaveGameHandler(unittest.TestCase):
 
     def test_get_page_executes_interactor(self):
         self.__get_page()
-        self.__interactor.execute.assert_called_with(game=self.__get_game())
-
-    def __get_page(self):
-        self.__target.get_page(params=self.__get_args())
+        self.__interactor.execute.assert_called_with(game=self.__get_game(), user_id="1234")
 
     def __get_game(self):
         game = Game()
@@ -71,13 +70,16 @@ class TestSaveGameHandler(unittest.TestCase):
 
     def test_session_not_set_raises_session_not_set_exception(self):
         self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_args())
+        self.assertRaises(SessionNotSetException, self.__get_page)
 
     def test_not_logged_in_redirects_to_home_page(self):
         session = Mock(Session)
         session.get_value = Mock(return_value="")
         self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
+        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page)
+
+    def __get_page(self):
+        self.__target.get_page(params=self.__get_args())
 
     def __get_args(self):
         return {

@@ -1,6 +1,11 @@
 class AbstractPersistence(object):
 
-    def add_game(self, game):
+    """Add a single game.
+    :param params: An object of type Game
+    :param user_id: The id of the current user (actual id rather than username)
+    :returns: None
+    """
+    def add_game(self, game, user_id):
         pass
 
     """Gets a list of games.
