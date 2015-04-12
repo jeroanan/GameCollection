@@ -71,10 +71,18 @@ class MongoPersistence(AbstractPersistence):
 
     def count_hardware(self):
         return self.__db.hardware.count()
-
-    def get_game(self, game_id):
+        
+    """Gets a specific game if it matches the given user.
+    :param game_id: A string containing the uuid of the game
+    :param user_id: A string containing the uuid of the given user
+    :returns: An object of type Game
+    """
+    def get_game(self, game_id, user_id):
         try:
-            cursor = self.__db.games.find_one({"_id": ObjectId(game_id)})
+            cursor = self.__db.games.find_one({
+                "_id": ObjectId(game_id),
+                "user_id": str(user_id)
+            })
             return (ResultToGameMapper()).map(cursor)
         except InvalidId:
             raise GameNotFoundException

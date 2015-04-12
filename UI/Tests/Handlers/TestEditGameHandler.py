@@ -44,6 +44,7 @@ class TestEditGameHandler(unittest.TestCase):
         interactor_factory = init_interactor_factory()
         self.__target = EditGameHandler(interactor_factory, self.__renderer)
         self.__target.session = Mock(Session)
+        self.__target.session.get_value = Mock(return_value="1234")
 
     def __get_game(self):
         g = Game()

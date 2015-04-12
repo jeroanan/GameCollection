@@ -28,6 +28,11 @@ class AbstractPersistence(object):
     def count_hardware(self):
         pass
 
+    """Gets a specific game if it matches the given user
+    :param game_id: A string containing the uuid of the game
+    :param user_id: A string containing the uuid of the given user
+    :returns: An object of type Game
+    """
     def get_game(self, game_id):
         pass
 
