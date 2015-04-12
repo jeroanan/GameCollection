@@ -20,7 +20,9 @@ class TestDeleteGameHandler(unittest.TestCase):
         self.__interactor = Mock(DeleteGameInteractor)
         self.__interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = DeleteGameHandler(self.__interactor_factory, renderer)
-        self.__target.session = Mock(Session)
+        session = Mock(Session)
+        session.get_value = Mock(return_value="1234")
+        self.__target.session = session
 
     def test_is_instance_of_authenticated_handler(self):
         self.assertIsInstance(self.__target, AuthenticatedHandler)
@@ -31,31 +33,34 @@ class TestDeleteGameHandler(unittest.TestCase):
             g.id = "id"
             return g
 
-        self.__target.get_page(self.__get_args())
-        self.__interactor.execute.assert_called_with(get_game())
+        self.__get_page(self.__get_args())
+        self.__interactor.execute.assert_called_with(get_game(), "1234")
 
     def test_no_id_returns_empty_string(self):
         p = self.__get_args()
         del p["gameid"]
-        result = self.__target.get_page(p)
+        result = self.__get_page(p)
         self.assertEqual("", result)
 
     def test_empty_id_returns_empty_string(self):
         p = self.__get_args(id="")
-        result = self.__target.get_page(p)
+        result = self.__get_page(p)
         self.assertEqual("", result)        
 
     def test_session_not_set_raises_session_not_set_exception(self):
         self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_args())
+        self.assertRaises(SessionNotSetException, self.__get_page, self.__get_args())
 
     def test_not_logged_in_redirects_to_home_page(self):
         self.__target.session = None
         session = Mock(Session)
         session.get_value = Mock(return_value="")
         self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
+        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page, self.__get_args())
         
+    def __get_page(self, args):
+        return self.__target.get_page(args)
+
     def __get_args(self, id="id"):
         return {
             "gameid": id

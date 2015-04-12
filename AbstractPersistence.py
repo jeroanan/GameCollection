@@ -59,7 +59,12 @@ class AbstractPersistence(object):
     def update_game(self, game):
         pass
 
-    def delete_game(self, game):
+    """Delete the given game if it belongs to the given user
+    :param game_id: An object of type Game -- the game to be deleted
+    :param user_id: A string containing the uuid of the given user
+    :returns: None
+    """
+    def delete_game(self, game, user_id):
         pass
 
     def get_hardware_list(self, sort_field, sort_direction):

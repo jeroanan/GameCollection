@@ -116,8 +116,16 @@ class MongoPersistence(AbstractPersistence):
             "user_id": str(user_id)
         }, {"$set": gd}, upsert=False)
 
-    def delete_game(self, game):
-        self.__db.games.remove({"_id": ObjectId(game.id)})
+    """Delete the given game if it belongs to the given user
+    :param game: An object of type Game -- the game to be deleted
+    :param user_id: A string containing the uuid of the given user
+    :returns: None
+    """
+    def delete_game(self, game, user_id):
+        self.__db.games.remove({
+            "_id": ObjectId(game.id),
+            "user_id": str(user_id)
+        })
 
     def get_hardware_list(self, sort_field, sort_direction):
         sorder = MongoSortDirectionMapper().map(sort_direction)
