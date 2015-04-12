@@ -5,6 +5,11 @@ from UI.Handlers.Handler import Handler
 
 class IndexHandler(Handler):
 
+    """Constructor
+    param interactor_factory: An instance of InteractorFactory
+    param renderer: An instance of TemplateRenderer
+    param config: An instance of Data.Config
+    """
     def __init__(self, interactor_factory, renderer, config):
         super().__init__(interactor_factory, renderer)
         self.__config = config
@@ -13,6 +18,17 @@ class IndexHandler(Handler):
         self.__hardware_sort = None
         self.__hardware_sort_dir = None
 
+    """The index page.
+    Currently the index page displays a summary of the user's games and hardware. It also displays a count
+    with each of these.
+    param args: A dictionary that is comprised of the following keys:
+                + gamesort -- a string containing the name of the column to sort the list of games by.
+                + gamesortdir -- a string containing the direction the games should be sorted in.
+                + hardwaresort -- a string containing the name of the column to sort the list of hardware by.
+                + hardwaresortdir -- a string containing the direction that the hardware should be sorted in.
+    returns: The rendered index page. If one of the sort fields is not recognised then redirect to self 
+             without querystring.
+    """
     def get_page(self, args):
         self.check_session()
         self.redirect_if_not_logged_in()
@@ -66,9 +82,10 @@ class IndexHandler(Handler):
 
     def __get_hardware(self):
         get_hardware_list_interactor = self.interactor_factory.create("GetHardwareListInteractor")
-        hardware = get_hardware_list_interactor.execute(sort_field=self.__hardware_sort,
-                                                        sort_direction=self.__hardware_sort_dir)
-        return hardware
+        return get_hardware_list_interactor.execute(sort_field=self.__hardware_sort, 
+                                                    sort_direction=self.__hardware_sort_dir, 
+                                                    user_id=self.session.get_value("user_id"))
+
 
     def __count_games(self):
         count_games_interactor = self.interactor_factory.create("CountGamesInteractor")

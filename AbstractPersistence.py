@@ -67,7 +67,13 @@ class AbstractPersistence(object):
     def delete_game(self, game, user_id):
         pass
 
-    def get_hardware_list(self, sort_field, sort_direction):
+    """Get a list of all hardware in the user's collection
+    param sort_field: The field to sort the hardware on
+    param sort_direction: The order to sort the hardware in
+    param user_id: The uuid of the user
+    returns: A list of instances of Hardware 
+    """
+    def get_hardware_list(self, sort_field, sort_direction, user_id):
         pass
 
     def get_hardware_details(self, platform_id):

@@ -127,10 +127,17 @@ class MongoPersistence(AbstractPersistence):
             "user_id": str(user_id)
         })
 
-    def get_hardware_list(self, sort_field, sort_direction):
+    """Get a list of all hardware in the user's collection
+    param sort_field: The field to sort the hardware on
+    param sort_direction: The order to sort the hardware in
+    param user_id: The uuid of the user
+    returns: A list of instances of Hardware 
+    """    
+    def get_hardware_list(self, sort_field, sort_direction, user_id):
         sorder = MongoSortDirectionMapper().map(sort_direction)
         mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
-        return map((ResultToHardwareMapper()).map, self.__db.hardware.find().sort(mapped_sort_field, sorder))
+        return map((ResultToHardwareMapper()).map, self.__db.hardware.find({"user_id": str(user_id)})
+                   .sort(mapped_sort_field, sorder))
 
     def get_hardware_details(self, platform_id):
         try:
