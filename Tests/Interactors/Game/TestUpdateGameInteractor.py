@@ -21,11 +21,11 @@ class TestUpdateGameInteractor(InteractorTestBase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_calls_persistence_method(self):
-        self.__target.execute(self.__game)
-        self.assertTrue(self.persistence.update_game.called)
+        self.__execute(self.__game, "userid")
+        self.persistence.update_game.assert_called_with(self.__game, "userid")
 
     def test_with_null_game_raises_type_error(self):
-        self.assertRaises(TypeError, self.__target.execute, None)
+        self.assertRaises(TypeError, self.__execute, None)
 
     def test_validates_title_field(self):
         self.__assert_string_validation("Game title", self.__game.title)
@@ -34,7 +34,7 @@ class TestUpdateGameInteractor(InteractorTestBase):
         self.__assert_string_validation("Game platform", self.__game.platform)
 
     def __assert_string_validation(self, field_name, field_value):
-        self.__target.execute(self.__game)
+        self.__execute(self.__game)
         self.validate_string_field_was_called_with(field_name, field_value)
 
     def test_validates_num_copies_field(self):
@@ -47,7 +47,7 @@ class TestUpdateGameInteractor(InteractorTestBase):
         self.__assert_integer_validation("Number of manuals", self.__game.num_manuals)
 
     def __assert_integer_validation(self, field_name, field_value):
-        self.__target.execute(self.__game)
+        self.__execute(self.__game)
         self.validate_integer_field_was_called_with(field_name, field_value)
 
     def test_raises_persistence_exception_when_database_throws(self):
@@ -58,6 +58,7 @@ class TestUpdateGameInteractor(InteractorTestBase):
         p = Mock(AbstractPersistence)
         p.update_game = Mock(side_effect=update_game)
         self.__target.persistence = p
-        self.assertRaises(PersistenceException, self.__target.execute, self.__game)
+        self.assertRaises(PersistenceException, self.__execute, self.__game)
 
-    
+    def __execute(self, game, user_id="user_id"):
+        self.__target.execute(game, user_id)

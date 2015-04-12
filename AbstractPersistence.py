@@ -33,7 +33,7 @@ class AbstractPersistence(object):
     :param user_id: A string containing the uuid of the given user
     :returns: An object of type Game
     """
-    def get_game(self, game_id):
+    def get_game(self, game_id, user_id):
         pass
 
     def get_platforms(self):
@@ -51,6 +51,11 @@ class AbstractPersistence(object):
     def delete_platform(self, platform):
         pass
 
+    """Update the given game if it belongs to the given user
+    :param game_id: An object of type Game -- the game to be updated
+    :param user_id: A string containing the uuid of the given user
+    :returns: None
+    """
     def update_game(self, game):
         pass
 

@@ -4,10 +4,15 @@ from Interactors.Interactor import Interactor
 
 class UpdateGameInteractor(Interactor):
 
-    def execute(self, game):
+    """Tells persistence to update a game
+    :param game: An object of type Game
+    :param user_id: The uuid of the current user
+    :returns: None
+    """
+    def execute(self, game, user_id):
         self.__validate(game)
         try:
-            self.persistence.update_game(game)
+            self.persistence.update_game(game, user_id)
         except:
             raise PersistenceException
 

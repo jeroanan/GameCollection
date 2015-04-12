@@ -20,15 +20,17 @@ class TestUpdateGameHandler(unittest.TestCase):
         interactor_factory = Mock(InteractorFactory)
         self.__interactor = Mock(UpdateGameInteractor)
         interactor_factory.create = Mock(return_value=self.__interactor)
+        session = Mock(Session)
+        session.get_value = Mock(return_value="1234")
         self.__target = UpdateGameHandler(interactor_factory, renderer)
-        self.__target.session = Mock(Session)
+        self.__target.session = session
 
     def test_is_instance_of_authenticated_handler(self):
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_calls_interactor_execute(self):
         self.__target.get_page(params=self.__get_params())
-        self.__interactor.execute.assert_called_with(game=self.__get_game())
+        self.__interactor.execute.assert_called_with(game=self.__get_game(), user_id="1234")
         
     def __get_game(self):
         g = Game()
@@ -62,7 +64,7 @@ class TestUpdateGameHandler(unittest.TestCase):
     def test_persistence_exception_gives_empty_string(self):        
 
         def init_target():
-            def update_game(game):
+            def update_game(game, user_id):
                 raise PersistenceException
 
             p = Mock(AbstractPersistence)
