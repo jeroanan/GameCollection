@@ -38,7 +38,7 @@ class TestDeleteHardwareHandler(unittest.TestCase):
         self.assertEqual("", result)
 
     def test_interactor_raises_exception_returns_empty_string(self):
-        def boom(hardware_id):
+        def boom(hardware_id, user_id):
             raise Exception("ouch!")
         
         interactor = Mock(DeleteHardwareInteractor)

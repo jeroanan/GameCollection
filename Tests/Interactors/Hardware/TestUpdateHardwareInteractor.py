@@ -17,24 +17,27 @@ class TestUpdateHardwareInteractor(InteractorTestBase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_method(self):
-        self.__target.execute(hardware=self.__hardware)
-        self.persistence.update_hardware.assert_called_with(self.__hardware)
+        self.__execute(hardware=self.__hardware, user_id="user_id")
+        self.persistence.update_hardware.assert_called_with(self.__hardware, "user_id")
 
     def test_execute_with_none_hardware_raises_type_error(self):
-        self.assertRaises(TypeError, self.__target.execute, None)
+        self.assertRaises(TypeError, self.__execute, None)
 
     def test_execute_validates_name_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.validate_string_field_was_called_with("hardware name", self.__hardware.name)
 
     def test_execute_validates_platform_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.validate_string_field_was_called_with("platform", self.__hardware.platform)
 
     def test_execute_validates_numowned_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.validate_integer_field_was_called_with("Number owned", self.__hardware.num_owned)
 
     def test_execute_validates_numboxed_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.validate_integer_field_was_called_with("Number boxed", self.__hardware.num_boxed)
+
+    def __execute(self, hardware, user_id="userid"):
+        self.__target.execute(hardware, user_id)

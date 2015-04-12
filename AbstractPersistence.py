@@ -96,10 +96,19 @@ class AbstractPersistence(object):
     def save_hardware(self, hardware, user_id):
         pass
 
-    def update_hardware(self, hardware):
+    """Update the given item of hardware
+    param hardware: An instance of Hardware. The item of hardware to be updated.
+    param user_id: The uuid of the current user.
+    returns: None
+    """
+    def update_hardware(self, hardware, user_idx):
         pass
 
-    def delete_hardware(self, hardware_id):
+    """Delete the given item of hardware.
+    param hardware_id: The uuid of the item of hardware to be deleted
+    param user_id: The uuid of the current user
+    """
+    def delete_hardware(self, hardware_id, user_id):
         pass
 
     def get_genres(self):

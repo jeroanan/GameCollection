@@ -168,11 +168,28 @@ class MongoPersistence(AbstractPersistence):
         hd["user_id"] = str(user_id)
         self.__db.hardware.insert(hd)
 
-    def update_hardware(self, hardware):
-        self.__db.hardware.update({"_id": ObjectId(hardware.id)}, {"$set": hardware.__dict__}, upsert=False)
+    """Update the given item of hardware.
+    param hardware: An instance of Hardware. The item of hardware to be updated.
+    param user_id: The uuid of the current user.
+    returns: None
+    """
+    def update_hardware(self, hardware, user_id):
+        hd = hardware.__dict__
+        hd["user_id"] = str(user_id)        
+        self.__db.hardware.update({
+            "_id": ObjectId(hardware.id),
+            "user_id": str(user_id)
+        }, {"$set": hd}, upsert=False)
 
-    def delete_hardware(self, hardware_id):
-        self.__db.hardware.remove({"_id": ObjectId(hardware_id)})
+    """Delete the given item of hardware.
+    param hardware_id: The uuid of the item of hardware to be deleted
+    param user_id: The uuid of the current user
+    """
+    def delete_hardware(self, hardware_id, user_id):
+        self.__db.hardware.remove({
+            "_id": ObjectId(hardware_id),
+            "user_id": str(user_id)
+        })
 
     def get_genres(self):
         return map(ResultToGenreMapper().map, self.__db.genres.find())

@@ -3,9 +3,14 @@ from Interactors.Interactor import Interactor
 
 class UpdateHardwareInteractor(Interactor):
 
-    def execute(self, hardware):
+    """Tell persistence to update the given item of hardware
+    param hardware: An instance of Hardware. The item of hardware to be updated.
+    param user_id: The uuid of the current user.
+    returns: None
+    """
+    def execute(self, hardware, user_id):
         self.__validate(hardware)
-        self.persistence.update_hardware(hardware)
+        self.persistence.update_hardware(hardware, user_id)
 
     def __validate(self, hardware):
         if hardware is None:

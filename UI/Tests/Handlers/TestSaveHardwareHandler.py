@@ -54,10 +54,10 @@ class TestSaveHardwareHandler(unittest.TestCase):
         self.__assert_empty_param_returns_empty_string("platform")
 
     def test_null_number_owned_returns_empty_string(self):
-        self.__assert_missing_param_returns_empty_string("numowned")
+        self.__assert_missing_param_returns_empty_string("numcopies")
 
     def test_empty_number_owned_returns_empty_string(self):
-        self.__assert_empty_param_returns_empty_string("numowned")
+        self.__assert_empty_param_returns_empty_string("numcopies")
 
     def __assert_missing_param_returns_empty_string(self, param_name):
         p = self.__get_params()
@@ -85,7 +85,7 @@ class TestSaveHardwareHandler(unittest.TestCase):
         return {
             "name": "name",
             "platform": "platform",
-            "numowned": 1,
+            "numcopies": 1,
             "numboxed": 2,
             "notes": "notes"
         }

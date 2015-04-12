@@ -19,8 +19,6 @@ class SaveHardwareHandler(AuthenticatedHandler):
     """
     def get_page(self, params):
         super().get_page(params)
-        for k in params:
-            print(k)
         if not self.validate_params(params, ["name", "platform", "numcopies"]):
             return ""
         interactor = self.interactor_factory.create("SaveHardwareInteractor")

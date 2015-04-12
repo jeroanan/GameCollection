@@ -21,38 +21,40 @@ class TestUpdateHardwareHandler(unittest.TestCase):
         interactor_factory.create = Mock(return_value=self.__interactor)
         renderer = Mock(TemplateRenderer)
         self.__target = UpdateHardwareHandler(interactor_factory, renderer)
-        self.__target.session = Mock(Session)
+        session = Mock(Session)
+        session.get_value = Mock(return_value="1234")
+        self.__target.session = session
 
     def test_is_instance_of_authenticated_handler(self):
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
-    def test_get_page_executes_interactor(self):
+    def test_executes_interactor(self):
         self.__target.get_page(params=self.__get_params())
-        self.__interactor.execute.assert_called_with(self.__get_hardware())
+        self.__interactor.execute.assert_called_with(self.__get_hardware(), "1234")
     
-    def test_get_page_with_null_hardware_name_returns_empty_string(self):
+    def test_null_hardware_name_returns_empty_string(self):
         p = self.__get_params()
         del p["name"]
         result = self.__target.get_page(p)
         self.assertEqual("", result)
 
-    def test_gert_page_with_empty_hardware_name_returns_empty_string(self):
+    def test_empty_hardware_name_returns_empty_string(self):
         p = self.__get_params()
         p["name"] = ""
         result = self.__target.get_page(p)
         self.assertEqual("", result)
 
-    def test_get_page_with_null_platform_returns_empty_string(self):
+    def test_null_platform_returns_empty_string(self):
         p = self.__get_params()
         del p["platform"]
         result = self.__target.get_page(p)
         self.assertEqual("", result)
 
-    def test_get_page_with_session_not_set_raises_session_not_set_exception(self):
+    def test_session_not_set_raises_session_not_set_exception(self):
         self.__target.session = None
         self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_params())
 
-    def test_get_page_not_logged_in_redirects_to_home_page(self):
+    def test_not_logged_in_redirects_to_home_page(self):
         session = Mock(Session)
         session.get_value = Mock(return_value="")
         self.__target.session = session
