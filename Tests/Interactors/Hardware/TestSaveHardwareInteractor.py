@@ -17,28 +17,32 @@ class TestSaveHardwareInteractor(InteractorTestBase):
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence(self):
-        self.__target.execute(self.get_hardware())
-        self.assertTrue(self.persistence.save_hardware.called)
+        hardware = self.get_hardware()
+        user_id = "1234"
+        self.__execute(hardware, user_id)
+        self.persistence.save_hardware.assert_called_with(hardware, user_id)
 
     def test_execute_with_null_hardware_raises_type_error(self):
-        self.assertRaises(TypeError, self.__target.execute, None)
+        self.assertRaises(TypeError, self.__execute, None)
 
     def test_execute_with_id_set_raises_value_error(self):
-        self.assertRaises(ValueError, self.__target.execute, self.get_hardware(hardware_id="id"))
+        self.assertRaises(ValueError, self.__execute, self.get_hardware(hardware_id="id"))
 
     def test_execute_validates_name_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.assertTrue(self.validate_string_field_was_called_with("Hardware name", self.__hardware.name))
 
     def test_execute_validates_platform_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.assertTrue(self.validate_string_field_was_called_with("Platform", self.__hardware.platform))
 
     def test_execute_validates_numowned_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.assertTrue(self.validate_integer_field_was_called_with("Number owned", self.__hardware.num_owned))
 
     def test_execute_validates_numboxed_field(self):
-        self.__target.execute(self.__hardware)
+        self.__execute(self.__hardware)
         self.assertTrue(self.validate_integer_field_was_called_with("Number boxed", self.__hardware.num_boxed))
 
+    def __execute(self, args, user_id="userid"):
+        self.__target.execute(args, user_id)

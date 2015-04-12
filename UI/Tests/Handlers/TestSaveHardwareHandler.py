@@ -21,14 +21,16 @@ class TestSaveHardwareHandler(unittest.TestCase):
         self.__interactor = Mock(SaveHardwareInteractor)
         self.__interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = SaveHardwareHandler(self.__interactor_factory, renderer)
-        self.__target.session = Mock(Session)
+        session = Mock(Session)
+        session.get_value = Mock(return_value="1234")
+        self.__target.session = session
 
     def test_is_instance_of_authenticated_handler(self):
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_executes_save_hardware_interactor(self):
         self.__target.get_page(params=self.__get_params())        
-        self.__interactor.execute.assert_called_with(hardware=self.__get_hardware())
+        self.__interactor.execute.assert_called_with(hardware=self.__get_hardware(), user_id="1234")
 
     def __get_hardware(self):
         h = Hardware()

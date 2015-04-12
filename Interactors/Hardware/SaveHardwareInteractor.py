@@ -3,9 +3,14 @@ from Interactors.Interactor import Interactor
 
 class SaveHardwareInteractor(Interactor):
 
-    def execute(self, hardware):
+    """Tell persistence to save an item of hardware.
+    param hardware: An instance of Hardware. The item of hardware to be saved.
+    param user_id: The uuid of the user whose collection the item of hardware should be added to.
+    returns: None
+    """
+    def execute(self, hardware, user_id):
         self.__validate(hardware)
-        self.persistence.save_hardware(hardware)
+        self.persistence.save_hardware(hardware, user_id)
 
     def __validate(self, hardware):
         if hardware is None:

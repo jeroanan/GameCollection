@@ -142,7 +142,7 @@ function getHardwareNoId() {
     return {
         name: $("#name").val(),
         platform: $("#platform").val(),
-        numcopies: $("#numcopies").val(),
+        numcopies: $("#numowned").val(),
         numboxed: $("#numboxed").val(),
         notes: $("#notes").val()
     };

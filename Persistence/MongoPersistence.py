@@ -71,7 +71,7 @@ class MongoPersistence(AbstractPersistence):
     :returns: The number of games in the user's collection
     """
     def count_games(self, user_id):
-        return self.__db.games.find({"user_id": user_id}).count()
+        return self.__db.games.find({"user_id": str(user_id)}).count()
 
     def count_hardware(self):
         return self.__db.hardware.count()
@@ -143,15 +143,30 @@ class MongoPersistence(AbstractPersistence):
         return map((ResultToHardwareMapper()).map, self.__db.hardware.find({"user_id": str(user_id)})
                    .sort(mapped_sort_field, sorder))
 
-    def get_hardware_details(self, platform_id):
+    """Gets the details of a specific item of hardware.
+    param hardware_id: The uuid of the item of hardware to retrieve.
+    param user_id: The uuid of the current user.
+    returns: An instance of Hardware containing the requested item of hardware.
+    """
+    def get_hardware_details(self, platform_id, user_id):
         try:
-            h = self.__db.hardware.find_one({"_id": ObjectId(platform_id)})
+            h = self.__db.hardware.find_one({
+                "_id": ObjectId(platform_id),
+                "user_id": str(user_id)
+            })
         except InvalidId:
             raise HardwareNotFoundException()
         return ResultToHardwareMapper().map(h)
 
-    def save_hardware(self, hardware):
-        self.__db.hardware.insert(hardware.__dict__)
+    """Save an item of hardware.
+    param hardware: An instance of Hardware. The item of hardware to be saved.
+    param user_id: The uuid of the user whose collection the item of hardware should be added to.
+    returns: None
+    """
+    def save_hardware(self, hardware, user_id):
+        hd = hardware.__dict__
+        hd["user_id"] = str(user_id)
+        self.__db.hardware.insert(hd)
 
     def update_hardware(self, hardware):
         self.__db.hardware.update({"_id": ObjectId(hardware.id)}, {"$set": hardware.__dict__}, upsert=False)

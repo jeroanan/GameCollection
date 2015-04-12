@@ -80,10 +80,20 @@ class AbstractPersistence(object):
     def get_hardware_list(self, sort_field, sort_direction, user_id):
         pass
 
-    def get_hardware_details(self, platform_id):
+    """Gets the details of a specific item of hardware.
+    param hardware_id: The uuid of the item of hardware to retrieve.
+    param user_id: The uuid of the current user.
+    returns: An instance of Hardware containing the requested item of hardware.
+    """
+    def get_hardware_details(self, platform_id, user_id):
         pass
 
-    def save_hardware(self, hardware):
+    """Save an item of hardware.
+    param hardware: An instance of Hardware. The item of hardware to be saved.
+    param user_id: The uuid of the user whose collection the item of hardware should be added to.
+    returns: None
+    """
+    def save_hardware(self, hardware, user_id):
         pass
 
     def update_hardware(self, hardware):
