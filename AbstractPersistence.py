@@ -21,8 +21,12 @@ class AbstractPersistence(object):
     """
     def get_all_games_for_platform(self, params):
         pass
-
-    def count_games(self):
+    
+    """Counts the games in the user's collection.
+    :param user_id: The uuid of the current user.
+    :returns: The number of games in the user's collection
+    """
+    def count_games(self, user_id):
         pass
 
     def count_hardware(self):

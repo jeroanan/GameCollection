@@ -89,5 +89,5 @@ class IndexHandler(Handler):
 
     def __count_games(self):
         count_games_interactor = self.interactor_factory.create("CountGamesInteractor")
-        number_of_games = count_games_interactor.execute()
+        number_of_games = count_games_interactor.execute(self.session.get_value("user_id"))
         return number_of_games

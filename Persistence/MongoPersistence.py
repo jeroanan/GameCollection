@@ -66,8 +66,12 @@ class MongoPersistence(AbstractPersistence):
                                      limit=params.number_of_games)
         return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
 
-    def count_games(self):
-        return self.__db.games.count()
+    """Counts the games in the user's collection.
+    :param user_id: The uuid of the current user.
+    :returns: The number of games in the user's collection
+    """
+    def count_games(self, user_id):
+        return self.__db.games.find({"user_id": user_id}).count()
 
     def count_hardware(self):
         return self.__db.hardware.count()
