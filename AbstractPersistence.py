@@ -126,7 +126,14 @@ class AbstractPersistence(object):
     def delete_genre(self, genre_id):
         pass
 
-    def search(self, search_term, sort_field, sort_dir):
+    """Search the games collection
+    param search_term: The term to do the search upon
+    param sort_field: The field to sort results by
+    param sort_dir: The direction to sort results in
+    param user_id: The uuid of the current user
+    returns: the search results
+    """
+    def search(self, search_term, sort_field, sort_dir, user_id):
         pass
 
     def get_user(self, user):

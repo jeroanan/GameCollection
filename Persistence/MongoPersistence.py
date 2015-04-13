@@ -207,12 +207,20 @@ class MongoPersistence(AbstractPersistence):
     def delete_genre(self, genre_id):
         pass
 
-    def search(self, search_term, sort_field, sort_dir):
+    """Search the games collection
+    param search_term: The term to do the search upon
+    param sort_field: The field to sort results by
+    param sort_dir: The direction to sort results in
+    param user_id: The uuid of the current user
+    returns: A list of instances of Game -- the search results
+    """
+    def search(self, search_term, sort_field, sort_dir, user_id):
         mapped_sort_field = SortFieldMapper().map(sort_field)
-        sorder = MongoSortDirectionMapper().map(sort_dir)
-        results = self.__db.games.find({"$or": [
-            {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},
-            {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
+        sorder = MongoSortDirectionMapper().map(sort_dir)        
+        results = self.__db.games.find(            
+            {"user_id": str(user_id),  "$or": [
+                 {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},                   
+                 {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
         return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))
 
     def get_user(self, user):

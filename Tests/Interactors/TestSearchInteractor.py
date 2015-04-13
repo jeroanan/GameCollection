@@ -1,4 +1,5 @@
 from Interactors.Interactor import Interactor
+from Interactors.Search.Params.SearchInteractorParams import SearchInteractorParams
 from Interactors.Search.SearchInteractor import SearchInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
@@ -15,7 +16,12 @@ class TestSearchInteractor(InteractorTestBase):
 
     def test_execute_calls_persistence_method(self):
         self.__execute()
-        self.persistence.search.assert_called_with(search_term="search", sort_field="title", sort_dir="asc")
+        self.persistence.search.assert_called_with(search_term="search", sort_field="title", sort_dir="asc", user_id="userid")
 
-    def __execute(self, search_term="search", sort_field="title", sort_dir="asc"):
-        self.__target.execute(search_term=search_term, sort_field=sort_field, sort_dir=sort_dir)
+    def __execute(self, search_term="search", sort_field="title", sort_dir="asc", user_id="userid"):
+        p = SearchInteractorParams()
+        p.search_term = search_term
+        p.sort_field = sort_field
+        p.sort_direction = sort_dir
+        p.user_id = user_id
+        self.__target.execute(p)
