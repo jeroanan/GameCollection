@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandler import UpdateHardwareHandler
+from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Tests.WebServer.WebServerTestBase import WebServerTestBase
 
 

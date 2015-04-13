@@ -5,8 +5,8 @@ from Data.Config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
-from UI.Handlers.AddPlatformHandler.AddPlatformHandler import AddPlatformHandler
-from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AddPlatformHandler import AddPlatformHandler
+from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
@@ -15,16 +15,21 @@ from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.HandlerFactory import HandlerFactory
-from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
+from UI.Handlers.IndexHandler import IndexHandler
+from UI.Handlers.LoginHandler import LoginHandler
+from UI.Handlers.LogoutHandler import LogoutHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
-from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
-from UI.Handlers.SaveHardwareHandler.SaveHardwareHandler import SaveHardwareHandler
-from UI.Handlers.SearchHandler.SearchHandler import SearchHandler
+from UI.Handlers.SaveGameHandler import SaveGameHandler
+from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
+from UI.Handlers.SearchHandler import SearchHandler
+from UI.Handlers.SignupHandler import SignupHandler
+from UI.Handlers.SigninHandler import SigninHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.SortHardwareHandler import SortHardwareHandler
-from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
-from UI.Handlers.UpdateHardwareHandler.UpdateHardwareHandler import UpdateHardwareHandler
-from UI.Handlers.UpdatePlatformHandler.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
+from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
@@ -102,6 +107,18 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_sorthardware_returns_sorthardware_handler(self):
         self.__assert_type_string_returns_handler_type("sorthardware", SortHardwareHandler)
+
+    def test_login_returns_login_handler(self):
+        self.__assert_type_string_returns_handler_type("login", LoginHandler)
+
+    def test_signup_returns_signup_handler(self):
+        self.__assert_type_string_returns_handler_type("signup", SignupHandler)
+
+    def test_signin_returns_signin_handler(self):
+        self.__assert_type_string_returns_handler_type("signin", SigninHandler)
+
+    def test_logout_returns_logout_handler(self):
+        self.__assert_type_string_returns_handler_type("logout", LogoutHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

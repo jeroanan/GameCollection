@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from UI.Handlers.SearchHandler.SearchHandler import SearchHandler
+from UI.Handlers.SearchHandler import SearchHandler
 from UI.Tests.WebServer.WebServerTestBase import WebServerTestBase
 
 

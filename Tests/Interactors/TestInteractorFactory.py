@@ -1,33 +1,36 @@
 import unittest
 from unittest.mock import Mock
 
-from Interactors.AddGenreInteractor import AddGenreInteractor
-from Interactors.CountGamesInteractor import CountGamesInteractor
-from Interactors.CountHardwareInteractor import CountHardwareInteractor
-from Interactors.DeleteHardwareInteractor import DeleteHardwareInteractor
-from Interactors.DeletePlatformInteractor import DeletePlatformInteractor
-from Interactors.GetGenreInteractor import GetGenreInteractor
-from Interactors.GetGenresInteractor import GetGenresInteractor
-from Interactors.GetHardwareInteractor import GetHardwareDetailsInteractor
-from Interactors.GetHardwareListInteractor import GetHardwareListInteractor
-from Interactors.AddGameInteractor import AddGameInteractor
-from Interactors.DeleteGameInteractor import DeleteGameInteractor
+from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
+from Interactors.Game.CountGamesInteractor import CountGamesInteractor
+from Interactors.Hardware.CountHardwareInteractor import CountHardwareInteractor
+from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteractor
+from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
+from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
+from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
+from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor
+from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
+from Interactors.Game.AddGameInteractor import AddGameInteractor
+from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
-from Interactors.GetGameInteractor import GetGameInteractor
-from Interactors.GetGamesInteractor import GetGamesInteractor
-from Interactors.GetPlatformInteractor import GetPlatformInteractor
-from Interactors.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
+from Interactors.Game.GetGameInteractor import GetGameInteractor
+from Interactors.Game.GetGamesInteractor import GetGamesInteractor
+from Interactors.Platform.GetPlatformInteractor import GetPlatformInteractor
+from Interactors.Platform.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.SaveHardwareInteractor import SaveHardwareInteractor
-from Interactors.SearchInteractor import SearchInteractor
-from Interactors.UpdateGameInteractor import UpdateGameInteractor
-from Interactors.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
+from Interactors.Search.SearchInteractor import SearchInteractor
+from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
+from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Interactors.User.AddUserInteractor import AddUserInteractor
+from Interactors.User.GetUserInteractor import GetUserInteractor
 from Persistence.MongoPersistence import MongoPersistence
-from Tests.Interactors.TestAddPlatformInteractor import AddPlatformInteractor
-from Tests.Interactors.TestDeleteGenreInteractor import DeleteGenreInteractor
-from Tests.Interactors.TestGetPlatformsInteractor import GetPlatformsInteractor
-from Tests.Interactors.TestUpdatePlatformInteractor import UpdatePlatformInteractor
-from Interactors.UpdateGenreInteractor import UpdateGenreInteractor
+from Interactors.User.LoginInteractor import LoginInteractor
+from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
+from Tests.Interactors.Genre.TestDeleteGenreInteractor import DeleteGenreInteractor
+from Tests.Interactors.Platform.TestGetPlatformsInteractor import GetPlatformsInteractor
+from Tests.Interactors.Platform.TestUpdatePlatformInteractor import UpdatePlatformInteractor
+from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
 
 
 class TestInteractorFactory(unittest.TestCase):
@@ -109,6 +112,15 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create_count_hardware_interactor_returns_count_hardware_interactor(self):
         self.__assert_factory_returns_instance_of("CountHardwareInteractor", CountHardwareInteractor)
+
+    def test_create_login_interactor_returns_login_interactor(self):
+        self.__assert_factory_returns_instance_of("LoginInteractor", LoginInteractor)
+
+    def test_create_adduser_interactor_returns_adduser_interactor(self):
+        self.__assert_factory_returns_instance_of("AddUserInteractor", AddUserInteractor)
+
+    def test_create_getuser_interactor_returns_getuser_interactor(self):
+        self.__assert_factory_returns_instance_of("GetUserInteractor", GetUserInteractor)
 
     def __assert_factory_returns_instance_of(self, type_string, interactor_type):
         result = self.__target.create(type_string)

@@ -1,12 +1,17 @@
-import cherrypy
 from Platform import Platform
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class DeletePlatformHandler(Handler):
+class DeletePlatformHandler(AuthenticatedHandler):
 
     def get_page(self, params):
-        interactor = self.interactor_factory.create("DeletePlatformInteractor")
-        interactor.execute(params.get("platformid", params.get("id", "")))
-        raise cherrypy.HTTPRedirect("/platforms")
+        super().get_page(params)
+        
+        if not self.validate_params(params, ["platformid"]):
+            return ""
 
+        interactor = self.interactor_factory.create("DeletePlatformInteractor")
+        try:
+            interactor.execute(params.get("platformid", params.get("id", "")))
+        except:
+            return ""

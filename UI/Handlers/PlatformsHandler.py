@@ -1,9 +1,10 @@
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class PlatformsHandler(Handler):
+class PlatformsHandler(AuthenticatedHandler):
 
     def get_page(self, args):
+        super().get_page(args)
         return self.renderer.render("platforms.html", title="Manage Platforms", platforms=(self.__get_platforms()),
                                     suggested_platforms=(self.__get_suggested_platforms()))
 

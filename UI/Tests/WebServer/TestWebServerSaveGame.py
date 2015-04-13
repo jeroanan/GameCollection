@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from UI.Handlers.SaveGameHandler.SaveGameHandler import SaveGameHandler
+from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Tests.WebServer.WebServerTestBase import WebServerTestBase
 
 

@@ -20,13 +20,12 @@ $RECYCLE.BIN/
 
 # OSX
 # =========================
-
 .DS_Store
 .AppleDouble
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
 
 # Thumbnails
 ._*
@@ -61,3 +60,4 @@ Tests/__pycache__/TestGamesInteractor.cpython-34.pyc
 Tests/__pycache__/TestGamesInteractor.cpython-34.pyc
 UI/__pycache__/WebServer.cpython-34.pyc
 Tests/__pycache__/TestGamesInteractor.cpython-34.pyc
+sessions/*

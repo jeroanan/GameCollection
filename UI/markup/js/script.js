@@ -142,7 +142,7 @@ function getHardwareNoId() {
     return {
         name: $("#name").val(),
         platform: $("#platform").val(),
-        numcopies: $("#numcopies").val(),
+        numcopies: $("#numowned").val(),
         numboxed: $("#numboxed").val(),
         notes: $("#notes").val()
     };
@@ -203,36 +203,6 @@ function saveError() {
     showValidationFailure("Save Failed!");
 }
 
-function showValidationFailure(failureText) {
-    showValidationMessage($("#failure"), $("#failureText"), failureText);
-}
-
-function showValidationSuccess(successText) {
-    showValidationMessage($("#success"), $("#successText"), successText);
-}
-
-function showValidationMessage(box, boxTextCtrl, boxTextContent) {
-    box.fadeIn();
-    boxTextCtrl.html(boxTextContent);
-}
-
-function hideValidationFailure() {
-    hideValidationBox($("#failure"), $("#failureText"));
-}
-
-function hideValidationSuccess() {
-    hideValidationBox($("#success"), $("#successText"));
-}
-
-function hideValidationBox(box, boxText) {
-    box.fadeOut(
-    {
-        complete: function() {
-            boxText.html("");
-        }
-    })
-}
-
 function sortGames(field) {
     var hdnSort = $('#gamesortfield');
     var hdnDir = $('#gamesortdir');
@@ -277,5 +247,20 @@ function sortHardware(field) {
 }
 
 function toggleSortDirection(oldSortDir) {
-        return oldSortDir == "asc" ? "desc": "asc";
+    return oldSortDir == "asc" ? "desc": "asc";
+}
+
+$(function() {
+	 var sessionStatus = $.cookie("session_status");
+	 if (sessionStatus == "1") {
+		  setLoginText();
+	 } else {
+		  $(".authenticated-header").hide();
+	 }
+})
+
+function setLoginText() {
+	 var userid = $.cookie("user_id");
+	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");
+	 
 }

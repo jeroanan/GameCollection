@@ -1,0 +1,2 @@
+class CookiesNotSetException(Exception):
+    pass
