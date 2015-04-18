@@ -1,3 +1,16 @@
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 import sys
 
 from bson import ObjectId
@@ -17,8 +30,9 @@ from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 from Persistence.Mappers.ResultToUserMapper import ResultToUserMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 
-
+# Provide persistence using MongoDB
 class MongoPersistence(AbstractPersistence):
+
     def __init__(self):
         self.__client = None
         self.__init_mongo_client()
@@ -73,6 +87,9 @@ class MongoPersistence(AbstractPersistence):
     def count_games(self, user_id):
         return self.__db.games.find({"user_id": str(user_id)}).count()
 
+    """Counts the items of hardware
+    :returns: The number of items of hardware
+    """
     def count_hardware(self):
         return self.__db.hardware.count()
         
@@ -91,19 +108,35 @@ class MongoPersistence(AbstractPersistence):
         except InvalidId:
             raise GameNotFoundException
 
+    """Get a list of platforms
+    :returns: A list of type Platform of all stored platforms
+    """
     def get_platforms(self):
         return map(ResultToPlatformMapper().map, self.__db.platforms.find().sort("_Platform__name"))
 
+    """Get a platform
+    :param platform_id: The uuid of a platform
+    :returns: an object of type platform containing the requested platform
+    """
     def get_platform(self, platform_id):
         mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
         return ResultToPlatformMapper().map(mongo_result)
 
+    """Add a platform
+    :param platform: An object of type platform. The platform to be added.
+    """
     def add_platform(self, platform):
         self.__db.platforms.insert(platform.__dict__)
 
+    """Update the details of a platform
+    :param platform: An object of type platform. The platform to be updated.
+    """
     def update_platform(self, platform):
         self.__db.platforms.update({"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
 
+    """Delete a platform
+    :param platform: An object of type platform. The platform to be deleted.
+    """
     def delete_platform(self, platform_id):
         self.__db.platforms.remove({"_id": ObjectId(platform_id)})
 
@@ -223,9 +256,16 @@ class MongoPersistence(AbstractPersistence):
                  {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
         return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))
 
+    """Get a user
+    :param: An object of type User. The user to get.
+    :returns: An object of type User. The desired user.
+    """
     def get_user(self, user):
         result_set = self.__db.users.find_one({"_User__user_id": user.user_id})
         return ResultToUserMapper().map(result_set)
 
+    """Add a user
+    :param: An object of type User. The user to add.xs
+    """
     def add_user(self, user):  
         self.__db.users.insert(user.__dict__)

@@ -1,3 +1,17 @@
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
+# Provides a list of methods for persistence objects to implement.
 class AbstractPersistence(object):
 
     """Add a single game.
@@ -29,6 +43,9 @@ class AbstractPersistence(object):
     def count_games(self, user_id):
         pass
 
+    """Counts the items of hardware
+    :returns: The number of items of hardware
+    """
     def count_hardware(self):
         pass
 
@@ -40,18 +57,34 @@ class AbstractPersistence(object):
     def get_game(self, game_id, user_id):
         pass
 
+    """Get a list of platforms
+    :returns: A list of type Platform of all stored platforms
+    """
     def get_platforms(self):
         pass
 
+    """Get a platform
+    :param platform_id: The uuid of a platform
+    :returns: an object of type platform containing the requested platform
+    """
     def get_platform(self, platform_id):
         pass
 
+    """Add a platform
+    :param platform: An object of type platform. The platform to be added.
+    """
     def add_platform(self, platform):
         pass
 
+    """Update the details of a platform
+    :param platform: An object of type platform. The platform to be updated.
+    """
     def update_platform(self, platform):
         pass
 
+    """Delete a platform
+    :param platform: An object of type platform. The platform to be deleted.
+    """
     def delete_platform(self, platform):
         pass
 
@@ -136,8 +169,15 @@ class AbstractPersistence(object):
     def search(self, search_term, sort_field, sort_dir, user_id):
         pass
 
+    """Get a user
+    :param: An object of type User. The user to get.
+    :returns: An object of type User. The desired user.
+    """
     def get_user(self, user):
         pass
 
+    """Add a user
+    :param: An object of type User. The user to add.xs
+    """
     def add_user(self, user):
         pass
