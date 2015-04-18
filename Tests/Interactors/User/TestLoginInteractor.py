@@ -1,8 +1,22 @@
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
+from logging import Logger
 from mock import Mock
 
 from AbstractPersistence import AbstractPersistence
 from Cryptography.HashProvider import HashProvider
-from Interactors.Interactor import Interactor
+from Interactors.LoggingInteractor import LoggingInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 from Interactors.User.LoginInteractor import LoginInteractor
 from User import User
@@ -18,6 +32,7 @@ class TestLoginInteractor(InteractorTestBase):
         self.__persistence = Mock(AbstractPersistence)
         self.__persistence.get_user = Mock(side_effect=self.__get_user_from_persistence)
         self.__target.persistence = self.__persistence
+        self.__target.logger = Mock(Logger)
         self.__target.set_hash_provider(self.__hash_provider)
 
     def __get_hash(self, hash_text):
@@ -40,7 +55,7 @@ class TestLoginInteractor(InteractorTestBase):
         return u
 
     def test_is_interactor(self):
-        self.assertIsInstance(self.__target, Interactor)
+        self.assertIsInstance(self.__target, LoggingInteractor)
 
     def test_execute_correct_user_password_logs_in(self):
         u = self.__get_user("correctpass", "mypassword")

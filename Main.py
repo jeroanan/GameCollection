@@ -39,10 +39,9 @@ if __name__ == "__main__":
     logger = init_logger()
     logger.info("Starting up...")
     
-    # logging.info("Starting up...")
     persistence = MongoPersistence()
     config = Config()
-    interactor_factory = InteractorFactory(persistence)
+    interactor_factory = InteractorFactory(persistence, logger)
 
     ui = WebServer()
     ui.start(interactor_factory=interactor_factory, config=config, logger=logger)

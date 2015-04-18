@@ -1,3 +1,16 @@
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 from Cryptography.BCryptHashProvider import BCryptHashProvider
 from Interactors.Exceptions.UserExistsException import UserExistsException
 from User import User
@@ -12,8 +25,10 @@ class SignupHandler(Handler):
         if not self.validate_params(params, ["userid", "password"]):
             return "False"
         u = self.__get_user_from_params(params)        
-        try:
+        entered_password = u.password
+        try:            
             self.__add_user(u)
+            u.password = entered_password
         except UserExistsException:
             return "True"
 
@@ -37,6 +52,7 @@ class SignupHandler(Handler):
     def __do_login(self, user):        
         actual_user = self.__get_user_from_database(user)
         login_interactor = self.interactor_factory.create("LoginInteractor")
+        login_interactor.set_hash_provider(BCryptHashProvider())
         login_interactor.execute(user)
         self.session.set_value("user_id", actual_user.id)
         self.cookies.set_cookie("session_status", "1")
