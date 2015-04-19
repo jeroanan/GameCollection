@@ -256,7 +256,7 @@ class MongoPersistence(AbstractPersistence):
                  {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
         return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))
 
-    """Get a user
+    """Get a user by their user_id
     :param: An object of type User. The user to get.
     :returns: An object of type User. The desired user.
     """
@@ -269,3 +269,13 @@ class MongoPersistence(AbstractPersistence):
     """
     def add_user(self, user):  
         self.__db.users.insert(user.__dict__)
+
+    """Change a user's password
+    :param user: An object of type user. The user whose password is to be changed. 
+                 The password property is the new password.
+    """
+    def change_password(self, user):
+        self.__db.users.update({
+            "_id": ObjectId(user.id)
+        }, {"password": user.password}, upsert=False)
+        

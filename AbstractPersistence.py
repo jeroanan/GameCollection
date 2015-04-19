@@ -170,14 +170,21 @@ class AbstractPersistence(object):
         pass
 
     """Get a user
-    :param: An object of type User. The user to get.
+    :param user: An object of type User. The user to get.
     :returns: An object of type User. The desired user.
     """
     def get_user(self, user):
         pass
 
     """Add a user
-    :param: An object of type User. The user to add.xs
+    :param user: An object of type User. The user to add.xs
     """
     def add_user(self, user):
+        pass
+
+    """Change a user's password
+    :param user: An object of type user. The user whose password is to be changed. 
+                 The password property is the new password.
+    """
+    def change_password(self, user):
         pass

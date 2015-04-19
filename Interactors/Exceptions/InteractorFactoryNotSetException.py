@@ -1,0 +1,2 @@
+class InteractorFactoryNotSetException(Exception):
+    pass

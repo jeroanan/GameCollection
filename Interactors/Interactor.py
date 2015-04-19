@@ -15,6 +15,7 @@ class Interactor(object):
 
     def __init__(self):
         self.__persistence = None
+        self.__interactor_factory = None
 
     @property
     def persistence(self):
@@ -23,6 +24,14 @@ class Interactor(object):
     @persistence.setter
     def persistence(self, value):
         self.__persistence = value
+
+    @property
+    def interactor_factory(self):
+        return self.__interactor_factory
+
+    @interactor_factory.setter
+    def interactor_factory(self, value):
+        self.__interactor_factory = value
 
     """Throw a ValueError if field_value is None or an empty string. 
     field_name is included in the exception."""
