@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from UI.Handlers.IndexHandler.IndexHandler import IndexHandler
+from UI.Handlers.IndexHandler import IndexHandler
 from UI.Tests.WebServer.WebServerTestBase import WebServerTestBase
 
 

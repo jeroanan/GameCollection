@@ -1,11 +1,16 @@
+import cherrypy
 import unittest
 from unittest.mock import Mock
 
+from AbstractPersistence import AbstractPersistence
 from Game import Game
+from Interactors.Exceptions.PersistenceException import PersistenceException
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.UpdateGameInteractor import UpdateGameInteractor
-from UI.Handlers.Handler import Handler
-from UI.Handlers.UpdateGameHandler.UpdateGameHandler import UpdateGameHandler
+from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
+from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from UI.Handlers.Session.Session import Session
+from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -15,15 +20,18 @@ class TestUpdateGameHandler(unittest.TestCase):
         interactor_factory = Mock(InteractorFactory)
         self.__interactor = Mock(UpdateGameInteractor)
         interactor_factory.create = Mock(return_value=self.__interactor)
+        session = Mock(Session)
+        session.get_value = Mock(return_value="1234")
         self.__target = UpdateGameHandler(interactor_factory, renderer)
+        self.__target.session = session
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
-    def test_get_page_calls_interactor_execute(self):
+    def test_calls_interactor_execute(self):
         self.__target.get_page(params=self.__get_params())
-        self.__interactor.execute.assert_called_with(game=self.__get_game())
-
+        self.__interactor.execute.assert_called_with(game=self.__get_game(), user_id="1234")
+        
     def __get_game(self):
         g = Game()
         g.id = "id"
@@ -35,16 +43,63 @@ class TestUpdateGameHandler(unittest.TestCase):
         g.notes = "notes"
         return g
 
-    def __get_params(self):
+    def test_no_session_raises_session_not_set_error(self):
+        self.__target.session = None        
+        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_params())
+
+    def test_no_title_gives_empty_string(self):
+        self.__assert_missing_param_gives_empty_string("title")
+
+    def test_empty_title_gives_empty_string(self):
+        result = self.__target.get_page(self.__get_params(title=""))
+        self.assertEqual("", result)
+
+    def test_no_platform_gives_empty_string(self):
+        self.__assert_missing_param_gives_empty_string("platform")
+
+    def test_empty_platform_gives_empty_string(self):
+        result = self.__target.get_page(self.__get_params(platform=""))
+        self.assertEqual("", result)
+
+    def test_persistence_exception_gives_empty_string(self):        
+
+        def init_target():
+            def update_game(game, user_id):
+                raise PersistenceException
+
+            p = Mock(AbstractPersistence)
+            interactor = Mock(UpdateGameInteractor)
+            interactor.execute = Mock(side_effect=update_game)
+            interactor_factory = Mock(InteractorFactory)
+            interactor_factory.create = Mock(return_value=interactor)
+            target = UpdateGameHandler(interactor_factory, Mock(TemplateRenderer))
+            target.session = Mock(Session)
+            return target
+        
+        result = init_target().get_page(self.__get_params())
+        self.assertEqual("", result)
+
+    def __assert_missing_param_gives_empty_string(self, param_name):
+        p = self.__get_params()
+        del p[param_name]
+        result = self.__target.get_page(p)
+        self.assertEqual("", result)
+
+    def test_not_logged_in_redirects_to_home_page(self):
+        self.__target.session = None
+        session = Mock(Session)
+        session.get_value = Mock(return_value="")
+        self.__target.session = session
+        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_params())
+
+    def __get_params(self, title="title", platform="platform"):
         return {
             "id": "id",
-            "title": "title",
+            "title": title,
             "numcopies": 1,
             "numboxed": 2,
             "nummanuals": 3,
-            "platform": "platform",
+            "platform": platform,
             "notes": "notes"
         }
 
-    def test_get_page_empty_params(self):
-        self.__target.get_page({"": ""})

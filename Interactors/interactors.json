@@ -1,0 +1,32 @@
+{
+	 "interactors": [
+		  {"AddGameInteractor": "Game.AddGameInteractor",
+		  "GetGamesInteractor": "Game.GetGamesInteractor",
+        "GetGamesInteractor": "Game.GetGamesInteractor",
+        "GetPlatformsInteractor": "Platform.GetPlatformsInteractor",
+        "AddPlatformInteractor": "Platform.AddPlatformInteractor",
+        "GetGameInteractor": "Game.GetGameInteractor",
+        "UpdateGameInteractor": "Game.UpdateGameInteractor",
+        "DeleteGameInteractor": "Game.DeleteGameInteractor",
+        "GetHardwareListInteractor": "Hardware.GetHardwareListInteractor",
+        "SaveHardwareInteractor": "Hardware.SaveHardwareInteractor",
+        "GetPlatformInteractor": "Platform.GetPlatformInteractor",
+        "UpdatePlatformInteractor": "Platform.UpdatePlatformInteractor",
+        "DeletePlatformInteractor": "Platform.DeletePlatformInteractor",
+        "GetHardwareDetailsInteractor": "Hardware.GetHardwareDetailsInteractor",
+        "UpdateHardwareInteractor": "Hardware.UpdateHardwareInteractor",
+        "DeleteHardwareInteractor": "Hardware.DeleteHardwareInteractor",
+        "GetGenresInteractor": "Genre.GetGenresInteractor",
+        "AddGenreInteractor": "Genre.AddGenreInteractor",
+        "GetGenreInteractor": "Genre.GetGenreInteractor",
+        "UpdateGenreInteractor": "Genre.UpdateGenreInteractor",
+        "DeleteGenreInteractor": "Genre.DeleteGenreInteractor",
+        "CountGamesInteractor": "Game.CountGamesInteractor",
+        "SearchInteractor": "Search.SearchInteractor",
+        "CountHardwareInteractor": "Hardware.CountHardwareInteractor",
+        "LoginInteractor": "User.LoginInteractor",
+        "AddUserInteractor": "User.AddUserInteractor",
+        "GetUserInteractor": "User.GetUserInteractor"
+		  }
+	 ]
+}

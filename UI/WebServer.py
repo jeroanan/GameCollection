@@ -1,6 +1,23 @@
+# This file is part of Icarus.
+
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>
+
+import logging
 import os
 
 import cherrypy
+
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 
 from UI.Handlers.HandlerFactory import HandlerFactory
@@ -8,11 +25,17 @@ from UI.TemplateRenderer import TemplateRenderer
 
 
 class WebServer(object):
-    def __init__(self, interactor_factory=None, renderer=None, config=None):
+    def __init__(self, interactor_factory=None, renderer=None, config=None, logger=None):
+        self.__logger = logger
         self.__renderer = renderer
-        if renderer is None:
-            self.__renderer = TemplateRenderer()
+        self.__set_defaults()
         self.__handler_factory = HandlerFactory(interactor_factory, self.__renderer, config)
+
+    def __set_defaults(self):
+        if self.__renderer is None:
+            self.__renderer = TemplateRenderer()
+        if self.__logger is None:
+            self.__logger = logging.basicConfig()
 
     @property
     def renderer(self):
@@ -26,20 +49,9 @@ class WebServer(object):
     def handler_factory(self, value):
         self.__handler_factory = value
 
-    def start(self, interactor_factory, config):
-        conf = {
-            '/': {
-                'tools.sessions.on': True,
-                'tools.staticdir.root': os.path.abspath(os.getcwd()),
-                'tools.gzip.on': True
-            },
-            '/static': {
-                'tools.staticdir.on': True,
-                'tools.staticdir.dir': './UI/markup/',
-                'tools.gzip.on': True
-            }
-        }
-        cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config), '/', conf)
+    def start(self, interactor_factory, config, logger):
+        cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config,logger=logger), 
+                            '/', 'UI/app.conf')
 
     @cherrypy.expose()
     def default(self, *args, **kwargs):

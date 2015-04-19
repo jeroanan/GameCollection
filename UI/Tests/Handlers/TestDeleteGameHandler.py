@@ -1,13 +1,14 @@
+import cherrypy
 import unittest
 from unittest.mock import Mock
 
-import cherrypy
 from Game import Game
-
-from Interactors.DeleteGameInteractor import DeleteGameInteractor
+from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
-from UI.Handlers.Handler import Handler
+from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -19,23 +20,49 @@ class TestDeleteGameHandler(unittest.TestCase):
         self.__interactor = Mock(DeleteGameInteractor)
         self.__interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = DeleteGameHandler(self.__interactor_factory, renderer)
+        session = Mock(Session)
+        session.get_value = Mock(return_value="1234")
+        self.__target.session = session
 
-    def test_is_instance_of_handler(self):
-        self.assertIsInstance(self.__target, Handler)
+    def test_is_instance_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
 
-    def test_get_page_calls_interactor_execute(self):
-        self.__target.get_page(self.__get_args())
-        self.__interactor.execute.assert_called_with(self.__get_game())
+    def test_calls_interactor_execute(self):
+        def get_game():
+            g = Game()
+            g.id = "id"
+            return g
 
-    def __get_game(self):
-        g = Game()
-        g.id = "id"
-        return g
+        self.__get_page(self.__get_args())
+        self.__interactor.execute.assert_called_with(get_game(), "1234")
 
-    def __get_args(self):
+    def test_no_id_returns_empty_string(self):
+        p = self.__get_args()
+        del p["gameid"]
+        result = self.__get_page(p)
+        self.assertEqual("", result)
+
+    def test_empty_id_returns_empty_string(self):
+        p = self.__get_args(id="")
+        result = self.__get_page(p)
+        self.assertEqual("", result)        
+
+    def test_session_not_set_raises_session_not_set_exception(self):
+        self.__target.session = None
+        self.assertRaises(SessionNotSetException, self.__get_page, self.__get_args())
+
+    def test_not_logged_in_redirects_to_home_page(self):
+        self.__target.session = None
+        session = Mock(Session)
+        session.get_value = Mock(return_value="")
+        self.__target.session = session
+        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page, self.__get_args())
+        
+    def __get_page(self, args):
+        return self.__target.get_page(args)
+
+    def __get_args(self, id="id"):
         return {
-            "gameid": "id"
+            "gameid": id
         }
 
-    def test_get_page_empty_args(self):
-        self.__target.get_page({"": ""})

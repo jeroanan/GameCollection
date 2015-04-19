@@ -1,0 +1,32 @@
+{%extends 'master.html'%}
+    {%block content%}
+        <script type="text/javascript" src="/static/js/login.min.js"></script>
+        <title>Login</title>
+        <h1 class="form-header">Login</h1>
+        {% include 'status.html' %}
+        <form>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="form-group col-md-4">
+                        <input type="text" name="userid" id="userid" class="form-control" placeholder="User ID"
+										 autofocus="autofocus" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="form-group col-md-4">
+                        <input type="password" name="password" id="password" class="form-control"
+                               placeholder="Password"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="form-group col-md-4">
+                        <input type="button" value="New User" class="pull-left btn" id="newuser" />
+                        <input value="Login" class="pull-right btn-primary btn" type="submit" id="login" name="login" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    {%endblock%}

@@ -1,6 +1,6 @@
 from unittest.mock import Mock
 
-from UI.Handlers.AllGamesHandler.AllGamesHandler import AllGamesHandler
+from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Tests.WebServer.WebServerTestBase import WebServerTestBase
 
 

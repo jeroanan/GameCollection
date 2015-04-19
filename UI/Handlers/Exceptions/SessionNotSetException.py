@@ -1,0 +1,2 @@
+class SessionNotSetException(Exception):
+    pass
