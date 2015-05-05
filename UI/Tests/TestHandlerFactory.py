@@ -8,6 +8,7 @@ from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
+from UI.Handlers.ChangePasswordHandler import ChangePasswordHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
@@ -119,6 +120,9 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_logout_returns_logout_handler(self):
         self.__assert_type_string_returns_handler_type("logout", LogoutHandler)
+
+    def test_change_password_returns_change_password_handler(self):
+        self.__assert_type_string_returns_handler_type("changepassword", ChangePasswordHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

@@ -26,7 +26,8 @@
         "CountHardwareInteractor": "Hardware.CountHardwareInteractor",
         "LoginInteractor": "User.LoginInteractor",
         "AddUserInteractor": "User.AddUserInteractor",
-        "GetUserInteractor": "User.GetUserInteractor"
+        "GetUserInteractor": "User.GetUserInteractor",
+		  "ChangePasswordInteractor": "User.ChangePasswordInteractor"
 		  }
 	 ]
 }

@@ -49,7 +49,6 @@ class InteractorFactory(object):
 
     def __initialise_interactor(self, interactor):
         interactor.persistence = self.__persistence
-
         if isinstance(interactor, LoggingInteractor):
             interactor.logger = self.__logger
         return interactor
