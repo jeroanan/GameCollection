@@ -1,3 +1,18 @@
+# This file is part of Icarus.
+
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>
+
 import unittest
 from unittest.mock import Mock
 
@@ -8,7 +23,6 @@ from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
-from UI.Handlers.ChangePasswordHandler import ChangePasswordHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
@@ -120,9 +134,6 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_logout_returns_logout_handler(self):
         self.__assert_type_string_returns_handler_type("logout", LogoutHandler)
-
-    def test_change_password_returns_change_password_handler(self):
-        self.__assert_type_string_returns_handler_type("changepassword", ChangePasswordHandler)
 
     def __assert_type_string_returns_handler_type(self, type_string, handler_type):
         handler = self.__target.create(type_string)

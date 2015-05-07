@@ -67,7 +67,7 @@ class MongoPersistence(AbstractPersistence):
         sorder = MongoSortDirectionMapper().map(params.sort_direction)
         mapped_sort_field = SortFieldMapper().map(params.sort_field)
         games = self.__db.games.find({"user_id": str(params.user_id)}, limit=params.number_of_games)
-        return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
+        return self.__map_games_list(games.sort(mapped_sort_field, sorder))
     
     def get_all_games_for_platform(self, params):
         """Gets a list of games for a platform.
@@ -78,7 +78,9 @@ class MongoPersistence(AbstractPersistence):
         mapped_sort_field = SortFieldMapper().map(params.sort_field)
         games = self.__db.games.find({"_Game__platform": params.platform, "user_id": str(params.user_id)}, 
                                      limit=params.number_of_games)
-        return map((ResultToGameMapper()).map, games.sort(mapped_sort_field, sorder))
+        return self.__map_games_list(games.sort(mapped_sort_field, sorder))
+
+    
     
     def count_games(self, user_id):
         """Counts the games in the user's collection.
@@ -104,10 +106,16 @@ class MongoPersistence(AbstractPersistence):
                 "_id": ObjectId(game_id),
                 "user_id": str(user_id)
             })
-            return (ResultToGameMapper()).map(cursor)
+            return (ResultToGameMapper(cursor).map())
         except InvalidId:
             raise GameNotFoundException
     
+    def __map_games_list(self, result_set):
+        out = []
+        for g in result_set:
+            out.append(ResultToGameMapper(g).map())
+        return out
+
     def get_platforms(self):
         """Get a list of platforms
         :returns: A list of type Platform of all stored platforms
@@ -254,7 +262,7 @@ class MongoPersistence(AbstractPersistence):
             {"user_id": str(user_id),  "$or": [
                  {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},                   
                  {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
-        return map(ResultToGameMapper().map, results.sort(mapped_sort_field, sorder))
+        return map(ResultToGameMapper(results.sort(mapped_sort_field, sorder)).map)
 
     
     def get_user(self, user):

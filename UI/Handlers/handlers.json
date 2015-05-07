@@ -23,7 +23,6 @@
             "login": "LoginHandler",
             "signup": "SignupHandler",
             "signin": "SigninHandler",
-				"logout": "LogoutHandler",
-				"changepassword": "ChangePasswordHandler"}
+				"logout": "LogoutHandler"}
 		  ]
 }
