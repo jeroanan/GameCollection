@@ -22,13 +22,24 @@ class ResultToHardwareMapper(object):
     # Maps a single MongoDB result row to an object of type Hardware
 
     def __init__(self, mongo_result):
+        """Initialise the mapper
+        :param mongo_result: A MongoDB result. The following fields
+        can currently be mapped:
+          * _id
+          * _Hardware__name
+          * _Hardware__num_owned
+          * _Hardware__num_boxed
+          * _Hardware__notes
+        Any of these fields that are not included will not be mapped and
+        be returned as their default values in the Hardware object."""
+
+        if mongo_result is None:
+                raise HardwareNotFoundException()
         self.__mongo_result = mongo_result
 
-    def map(self):
-        if self.__mongo_result is None:
-            raise HardwareNotFoundException()
-        hardware = Hardware()
-    
+    def map(self):    
+        """Perform mapping on the MongoDB result set passed in at object construction
+        :returns: An object of type Hardware containing the mapped result."""
         mappings = {
             "_id": "id",
             "_Hardware__name": "name",
@@ -37,6 +48,8 @@ class ResultToHardwareMapper(object):
             "_Hardware__num_boxed": "num_boxed",
             "_Hardware__notes": "notes"
         }
+
+        hardware = Hardware()
 
         for k in mappings:
             if k in self.__mongo_result:

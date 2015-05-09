@@ -121,7 +121,11 @@ class MongoPersistence(AbstractPersistence):
         """Get a list of platforms
         :returns: A list of type Platform of all stored platforms
         """
-        return map(ResultToPlatformMapper().map, self.__db.platforms.find().sort("_Platform__name"))
+        result = self.__db.platforms.find().sort("_Platform__name")
+        out = []
+        for p in result:
+            out.append(ResultToPlatformMapper(p).map())
+        return out
     
     def get_platform(self, platform_id):
         """Get a platform
@@ -129,7 +133,7 @@ class MongoPersistence(AbstractPersistence):
         :returns: an object of type platform containing the requested platform
         """
         mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
-        return ResultToPlatformMapper().map(mongo_result)
+        return ResultToPlatformMapper(mongo_result).map()
     
     def add_platform(self, platform):
         """Add a platform
