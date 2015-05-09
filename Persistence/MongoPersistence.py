@@ -1,3 +1,4 @@
+# Copyright (c) 20115 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -181,8 +182,11 @@ class MongoPersistence(AbstractPersistence):
         """    
         sorder = MongoSortDirectionMapper().map(sort_direction)
         mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
-        return map((ResultToHardwareMapper()).map, self.__db.hardware.find({"user_id": str(user_id)})
-                   .sort(mapped_sort_field, sorder))
+        result = self.__db.hardware.find({"user_id": str(user_id)}).sort(mapped_sort_field, sorder)
+        out = []
+        for r in result:
+            out.append(ResultToHardwareMapper(r).map())
+        return out
     
     def get_hardware_details(self, platform_id, user_id):
         """Gets the details of a specific item of hardware.
@@ -197,7 +201,7 @@ class MongoPersistence(AbstractPersistence):
             })
         except InvalidId:
             raise HardwareNotFoundException()
-        return ResultToHardwareMapper().map(h)
+        return ResultToHardwareMapper(h).map()
     
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
