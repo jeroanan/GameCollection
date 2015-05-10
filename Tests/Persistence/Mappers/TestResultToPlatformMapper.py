@@ -15,6 +15,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
 import unittest
+from Tests.Persistence.Mappers.MapTools import get_map_checker
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 from Platform import Platform
 
@@ -26,32 +27,11 @@ class TestResultToPlatformMapper(unittest.TestCase):
                                "_Platform__name": "Name", 
                                "_Platform__description": "Description"}
         self.__target = ResultToPlatformMapper(self.__mongo_result)
+        self.__check_maps = get_map_checker(self.__target)
 
-    def test_maps_id(self):
-        self.__assert_field_maps("id", "id")
-
-    def test_map_none_id_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_id", "id")
-
-    def test_maps_name(self):        
-        self.__assert_field_maps("Name", "name")
-
-    def test_map_none_name_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_Platform__name", "name")
-
-    def test_maps_description(self):
-        self.__assert_field_maps("Description", "description")
-
-    def test_none_description_leaves_as_Default(self):
-        self.__assert_none_mapped_leaves_default("_Platform__description", "description")
-
-    def __assert_field_maps(self, expected_value, field_name):
-        mapped = self.__target.map()
-        self.assertEqual(expected_value, getattr(mapped, field_name))
-
-    def __assert_none_mapped_leaves_default(self, mongo_field_name, mapped_field_name):
-        h = Platform()
-        del(self.__mongo_result[mongo_field_name])
-        mapper = ResultToPlatformMapper(self.__mongo_result)
-        mapped = mapper.map()
-        self.assertEqual(getattr(h, mapped_field_name), getattr(mapped, mapped_field_name))
+    def test_mappings(self):
+        mappings = {"id": "id",
+                    "Name": "name",
+                    "Description": "description"}
+        for m in mappings:
+            self.assertTrue(self.__check_maps(m, mappings[m]), "Failed to map {0}.".format(mappings[m]))

@@ -17,6 +17,8 @@ from copy import copy
 from Game import Game
 from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 
+from Persistence.Mappers.Mapping import do_mapping
+
 
 class ResultToGameMapper(object):
     # map a MongoDB result to an object of type Game
@@ -38,12 +40,6 @@ class ResultToGameMapper(object):
 
     def map(self):
         # Map a single MongoDB result to an object of type Game
-        def map_field(mongo_field_name, mapped_field_name, game):
-            g = copy(game)
-            if mongo_field_name in self.__mongo_result:
-                setattr(g, mapped_field_name, self.__mongo_result[mongo_field_name])
-            return g
-        
         if self.__mongo_result is None:
             raise GameNotFoundException
 
@@ -56,9 +52,6 @@ class ResultToGameMapper(object):
                     "_Game__notes": "notes",
                     "_Game__date_purchased": "date_purchased",
                     "_Game__approximate_date_purchased": "approximate_date_purchased"}
-                    
-        mapped = Game()        
-        for k in mappings:
-            mapped = map_field(k, mappings[k], mapped)
-
-        return mapped
+        
+        game = Game()
+        return do_mapping(mappings, self.__mongo_result, game)

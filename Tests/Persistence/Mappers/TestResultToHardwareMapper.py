@@ -17,63 +17,29 @@
 import unittest
 
 from Hardware import Hardware
+from Tests.Persistence.Mappers.MapTools import get_map_checker
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 
 
 class TestResultToHardwareMapper(unittest.TestCase):
-    
+
     def setUp(self):
-        self.__mongo_result = {"_id": "id", 
-                               "_Hardware__name": "name", 
-                               "_Hardware__platform": "platform",
-                               "_Hardware__num_owned": "1",
-                               "_Hardware__num_boxed": "2",
-                               "_Hardware__notes": "notes"}
-        self.__target = ResultToHardwareMapper(self.__mongo_result)
+        mongo_result = {"_id": "id", 
+                        "_Hardware__name": "name", 
+                        "_Hardware__platform": "platform",
+                        "_Hardware__num_owned": "1",
+                        "_Hardware__num_boxed": "2",
+                        "_Hardware__notes": "notes"}
+        target = ResultToHardwareMapper(mongo_result)
+        self.__check_maps = get_map_checker(target)
 
-    def test_maps_id(self):
-        self.__assert_field_maps("id", "id")
-
-    def test_map_none_id_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_id", "id")
-
-    def test_maps_hardware_name(self):
-        self.__assert_field_maps("name", "name")        
-
-    def test_map_none_hardware_name_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_Hardware__name", "name")
-
-    def test_maps_platform(self):
-        self.__assert_field_maps("platform", "platform")
-
-    def test_map_none_platform_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_Hardware__platform", "platform")
-
-    def test_maps_num_owned(self):
-        self.__assert_field_maps("1", "num_owned")
-
-    def test_map_none_num_owned_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_Hardware__num_owned", "num_owned")
-
-    def test_map_num_boxed_maps_num_(self):
-        self.__assert_field_maps("2", "num_boxed")
-
-    def test_map_none_num_boxed_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_Hardware__num_boxed", "num_boxed")
-
-    def test_map_notes_maps_notes(self):
-        self.__assert_field_maps("notes", "notes")
+    def test_mappings(self):
+        mappings = {"id": "id",
+                    "name": "name",
+                    "platform": "platform",
+                    "1": "num_owned",
+                    "2": "num_boxed",
+                    "notes": "notes"}
+        for m in mappings:
+            self.assertTrue(self.__check_maps(m, mappings[m]), "Failed to map {0}.".format(mappings[m]))
         
-    def test_map_none_notes_leaves_as_default(self):
-        self.__assert_none_mapped_leaves_default("_Hardware__notes", "notes")
-
-    def __assert_field_maps(self, expected_value, field_name):
-        mapped = self.__target.map()
-        self.assertEqual(expected_value, getattr(mapped, field_name))
-
-    def __assert_none_mapped_leaves_default(self, mongo_field_name, mapped_field_name):
-        h = Hardware()
-        del(self.__mongo_result[mongo_field_name])
-        mapper = ResultToHardwareMapper(self.__mongo_result)
-        mapped = mapper.map()
-        self.assertEqual(getattr(h, mapped_field_name), getattr(mapped, mapped_field_name))

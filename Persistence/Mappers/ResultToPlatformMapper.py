@@ -16,21 +16,26 @@
 
 from Platform import Platform
 
+from Persistence.Mappers.Mapping import do_mapping
 
 class ResultToPlatformMapper(object):
+    # Maps a Mongo Result to an object of type Platform
 
     def __init__(self, mongo_result):
+        """Initialise the mapper
+        :param mongo_result: A MongoDB result. The following fields
+        can currently be mapped:
+          * _id
+          * _Platform__name
+          * _Platform__description
+        """
         self.__mongo_result = mongo_result
 
     def map(self):
-
+        # Maps a Mongo Result to an object of type Platform
         mappings = {"_id": "id",
                     "_Platform__name": "name",
                     "_Platform__description": "description"}
         
         platform = Platform()
-        for k in mappings:
-            if k in self.__mongo_result:
-                setattr(platform, mappings[k], self.__mongo_result[k])
-
-        return platform
+        return do_mapping(mappings, self.__mongo_result, platform)

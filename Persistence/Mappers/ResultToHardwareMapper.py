@@ -17,6 +17,8 @@
 from Hardware import Hardware
 from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundException
 
+from Persistence.Mappers.Mapping import do_mapping
+
 
 class ResultToHardwareMapper(object):
     # Maps a single MongoDB result row to an object of type Hardware
@@ -50,9 +52,7 @@ class ResultToHardwareMapper(object):
         }
 
         hardware = Hardware()
+        return do_mapping(mappings, self.__mongo_result, hardware)
 
-        for k in mappings:
-            if k in self.__mongo_result:
-                setattr(hardware, mappings[k], self.__mongo_result[k])
 
-        return hardware
+    
