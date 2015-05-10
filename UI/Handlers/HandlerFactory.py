@@ -18,20 +18,24 @@ class HandlerFactory(object):
             return json.load(f)["handlers"][0]        
 
     def create(self, handler_type):
+
+        def string_to_handler():
+            ht = self.__handlers[handler_type]
+            module = __import__("UI.Handlers." + ht, fromlist=ht)
+            class_ = getattr(module, ht)
+            return class_(self.__interactor_factory, self.__renderer)
+
+        handler = None
+
         if handler_type == "index":
-            handler = IndexHandler(self.__interactor_factory, self.__renderer, self.__config)        
-            handler.session = Session()
-            return handler
+            handler = IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
+        elif handler_type in self.__handlers:
+            handler = string_to_handler()
+        else:
+            raise UnrecognisedHandlerException
 
-        if handler_type in self.__handlers:
-            handler = self.__string_to_handler(self.__handlers[handler_type])
-            handler.session = Session()
-            handler.cookies = Cookies()
-            return handler
+        handler.session = Session()
+        handler.cookies = Cookies()
+        return handler
 
-        raise UnrecognisedHandlerException
-
-    def __string_to_handler(self, handler_type):
-        module = __import__("UI.Handlers." + handler_type, fromlist=handler_type)
-        class_ = getattr(module, handler_type)
-        return class_(self.__interactor_factory, self.__renderer)
+    

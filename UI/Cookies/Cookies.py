@@ -9,3 +9,6 @@ class Cookies(object):
     def clear_cookie(self, key):
         cherrypy.response.cookie[key] = ""
         cherrypy.response.cookie[key]["expires"] = 0
+
+    def renew_cookie(self, key):
+        print(key in cherrypy.request.cookie[key])
