@@ -279,7 +279,7 @@ class MongoPersistence(AbstractPersistence):
         :returns: An object of type User. The desired user.
         """
         result_set = self.__db.users.find_one({"_User__user_id": user.user_id})
-        return ResultToUserMapper().map(result_set)
+        return ResultToUserMapper(result_set).map()
     
     def add_user(self, user):  
         """Add a user
