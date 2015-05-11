@@ -149,9 +149,9 @@ class MongoPersistence(AbstractPersistence):
     
     def delete_platform(self, platform_id):
         """Delete a platform
-        :param platform: An object of type platform. The platform to be deleted.
+        :param platform_id: The id of the platform to be deleted
         """
-        self.__db.platforms.remove({"_id": ObjectId(platform_id)})
+        self.__db.platforms.remove({"_id": platform_id})
     
     def update_game(self, game,  user_id):
         """Update the given game if it belongs to the given user

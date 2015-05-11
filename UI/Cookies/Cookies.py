@@ -27,6 +27,5 @@ class Cookies(object):
 
     def renew_cookie(self, key):
         if key in cherrypy.request.cookie:
-            print("cookie: {0}".format(cherrypy.request.cookie[key].coded_value))
             cherrypy.response.cookie[key] = cherrypy.request.cookie[key].coded_value
             cherrypy.response.cookie[key]["expires"] = 3600

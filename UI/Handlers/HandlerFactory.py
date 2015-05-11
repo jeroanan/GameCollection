@@ -1,3 +1,4 @@
+# copyright (c) David Wilson 2015
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify

@@ -16,12 +16,17 @@ from Interactors.LoggingInteractor import LoggingInteractor
 
 
 class LoginInteractor(LoggingInteractor):
+    # Logic for verifying and performing a log-in
 
     def __init__(self):
         super().__init__()
         self.__hash_provider = HashProvider()
 
     def execute(self, user):
+        """Executes the login logic.
+        :param user: An object of type User
+        :returns: True if login is successful, otherwise False
+        """
         self.__validate(user)
         hashed_pw = self.__hash_provider.hash_text(user.password)
         db_user = self.persistence.get_user(user)
