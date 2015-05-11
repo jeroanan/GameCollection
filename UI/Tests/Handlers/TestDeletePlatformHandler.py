@@ -1,3 +1,17 @@
+# Copyright (c) David Wilson 2015
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 import unittest
 from unittest.mock import Mock
 
@@ -33,26 +47,16 @@ class TestDeletePlatformHandler(unittest.TestCase):
     def test_null_id_returns_empty_string(self):
         p = self.__get_params()
         del p["platformid"]
-        result = self.__target.get_page(p)
-        self.assertEqual("", result)
+        self.__assert_target_returns_empty_string(p)
 
     def test_empty_id_returns_empty_string(self):
         p = self.__get_params()
         p["platformid"] = ""
-        result = self.__target.get_page(p)
+        self.__assert_target_returns_empty_string(p)
+
+    def __assert_target_returns_empty_string(self, params):
+        result = self.__target.get_page(params)
         self.assertEqual("", result)
-
-    def test_interactor_throws_exception_returns_empty_string(self):
-        def boom(platform):
-            raise Exception("boom")
-
-        interactor = Mock(DeletePlatformInteractor)
-        interactor.execute = Mock(side_effect=boom)
-        interactor_factory = Mock(InteractorFactory)
-        interactor_factory.create = Mock(return_value=interactor)
-        target = DeletePlatformHandler(interactor_factory, None)
-        target.session = Mock(Session)
-        target.get_page(self.__get_params())
 
     def test_session_not_set_raises_session_not_set_exception(self):
         self.__target.session = None
@@ -62,8 +66,7 @@ class TestDeletePlatformHandler(unittest.TestCase):
         session = Mock(Session)
         session.get_value = Mock(return_value="")
         self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page)
-        
+        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page)        
 
     def __get_page(self):
         self.__target.get_page(self.__get_params())

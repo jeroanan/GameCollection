@@ -1,3 +1,4 @@
+# Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -46,9 +47,29 @@ class Interactor(object):
         if field_value is None or str(field_value).strip() == "":
             raise ValueError("%s must have a value" % field_name)
 
+    def validate_string_fields(self, validations):
+        """Run validate_string_field for a collection of fields.
+        :param validations. A dictionary:
+          * Key -- The textual name of the field to test
+          * Value -- The variable of the field to test
+        """
+        self.__validate_fields(self.validate_string_field, validations)
+
     def validate_integer_field(self, field_name, field_value):
         """Throw a value error if the given field value is not a numeric digit
         :param field_name: The textual name of the field. Used in the event of the field being invalid
         :param field_value: The value to test"""
         if not str(field_value).isdigit():
             raise ValueError("%s must be a number" % field_name)
+
+    def validate_integer_fields(self, validations):
+        """Run validate_integer_field for a collection of fields.
+        :param validations. A dictionary:
+          * Key -- The textual name of the field to test
+          * Value -- The variable of the field to test
+        """
+        self.__validate_fields(self.validate_integer_field, validations)
+
+    def __validate_fields(self, validation_function, validations):
+        for v in validations:
+            validation_function(v, validations[v])

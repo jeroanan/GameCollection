@@ -39,7 +39,9 @@ class SigninHandler(Handler):
             return "False"
 
         user = self.__params_to_user(params)
-        if self.__login_check(user):
+        success = self.__login_check(user)
+
+        if success:
             self.__do_login(user)
 
         return str(success)        

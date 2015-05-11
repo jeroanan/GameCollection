@@ -1,3 +1,17 @@
+# Copyright (c) David Wilson 2015
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 from Interactors.Interactor import Interactor
 from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
@@ -28,21 +42,23 @@ class TestSaveHardwareInteractor(InteractorTestBase):
     def test_execute_with_id_set_raises_value_error(self):
         self.assertRaises(ValueError, self.__execute, self.get_hardware(hardware_id="id"))
 
-    def test_execute_validates_name_field(self):
-        self.__execute(self.__hardware)
-        self.assertTrue(self.validate_string_field_was_called_with("Hardware name", self.__hardware.name))
+    def test_execute_validates_string_fields(self):
+        fields = {"Hardware name": self.__hardware.name,
+                  "Platform": self.__hardware.platform} 
+    
+        self.__assert_field_validation_called(fields, self.validate_string_field_was_called_with)
 
-    def test_execute_validates_platform_field(self):
-        self.__execute(self.__hardware)
-        self.assertTrue(self.validate_string_field_was_called_with("Platform", self.__hardware.platform))
+    def test_execute_validates_integer_fields(self):
+        fields = {"Number owned": self.__hardware.num_owned,
+                  "Number boxed": self.__hardware.num_boxed}
 
-    def test_execute_validates_numowned_field(self):
-        self.__execute(self.__hardware)
-        self.assertTrue(self.validate_integer_field_was_called_with("Number owned", self.__hardware.num_owned))
+        self.__assert_field_validation_called(fields, self.validate_integer_field_was_called_with)
 
-    def test_execute_validates_numboxed_field(self):
+    def __assert_field_validation_called(self, fields, called_with_func):
         self.__execute(self.__hardware)
-        self.assertTrue(self.validate_integer_field_was_called_with("Number boxed", self.__hardware.num_boxed))
+        
+        for f in fields:
+            self.assertTrue(called_with_func(f, fields[f]), f)
 
     def __execute(self, args, user_id="userid"):
         self.__target.execute(args, user_id)
