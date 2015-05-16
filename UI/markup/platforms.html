@@ -25,21 +25,26 @@
         </table>
 
         <h2 class="page-header">Add Platform</h2>
-        <form action="addplatform" method="post" role="form" class="form-horizontal">
+        <form action="" method="post" role="form" class="form-horizontal">
             <div class="row">
                 <div class="form-group col-xs-4">
                     <label for="name">Name</label>
-                    <input type="text" name="name" required="required" placeholder="Name" class="form-control" />
+                    <input type="text" id="name" name="name" required="required" placeholder="Name" 
+									class="form-control" />
                 </div>
                 <div class="col-xs-1"></div>
                 <div class="form-group col-xs-4">
                     <label for="description">Description</label>
-                    <input type="text" name="description" placeholder="Description" class="form-control" />
+                    <input type="text" id="description" name="description" placeholder="Description" 
+									class="form-control" />
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-xs-3">
-                    <input class="btn btn-primary" type="submit" value="Add" />
+              		<button class="btn btn-primary"
+                          onclick="addNewPlatform();return false;">
+						  Add
+                  </button>
                 </div>
             </div>
         </form>
@@ -60,7 +65,7 @@
                     <td>{{platform.description}}</td>
                     <td>
                         <button class="btn btn-success"
-                                onclick="addSuggestedPlatform('{{platform.name}}', '{{platform.description}}');">Add
+                                onclick="addPlatform('{{platform.name}}', '{{platform.description}}');">Add
                         </button>
                     </td>
                 </tr>

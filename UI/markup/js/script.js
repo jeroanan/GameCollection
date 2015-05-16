@@ -57,7 +57,7 @@ function deletionSuccessful() {
     showValidationSuccess("Deletion successful");
     setTimeout(function() {
         hideValidationSuccess();
-        window.history.back();
+        navigate(document.referrer);
     }, 3000)
 }
 
@@ -80,8 +80,29 @@ function editPlatform(id) {
     navigate("/editplatform?platformid=" + id);
 }
 
-function addSuggestedPlatform(name, description) {
-    navigate("/addplatform?name=" + name + "&description=" + description);
+function addNewPlatform() {
+	 addPlatform($("#name").val(), $("#description").val());
+}
+
+function addPlatform(name, description) {
+	 $.ajax({
+		  url: "/addplatform",
+		  data: {"name": name,
+					"description": description}})
+		  .always(function() { document.location.reload(); });
+}
+
+function addNewGenre() {
+	 addGenre($("#name").val(), $("#description").val());
+}
+
+function addGenre(name, description) {
+	 $.ajax({
+		  url: "/addgenre",
+		  data: {"name": name,
+				  "description": description}})
+		  .always(function () { document.location.reload(); });
+
 }
 
 function deleteGenre(id) {
@@ -209,7 +230,7 @@ function saveSuccess() {
     showValidationSuccess("Save Successful");
     setTimeout(function() {
         hideValidationSuccess();
-        window.history.back();
+        navigate(document.referrer);
     }, 3000)
 }
 

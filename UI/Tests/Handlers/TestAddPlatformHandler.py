@@ -39,8 +39,6 @@ class TestAddPlatformHandler(unittest.TestCase):
         renderer = Mock(TemplateRenderer)
         self.__target = AddPlatformHandler(interactor_factory, renderer)
         self.__target.session = Mock(Session) 
-        self.__platform_name = "name"
-        self.__platform_description = "description"
         missing_param_assertion = get_missing_param_assertion(self.__target)
         self.__missing_param_test = partial(missing_param_assertion, params=self.__get_args())
         empty_param_assertion = get_empty_param_assertion(self.__target)
@@ -51,13 +49,7 @@ class TestAddPlatformHandler(unittest.TestCase):
 
     def test_calls_interactor_execute(self):
         self.__get_page()
-        self.__interactor.execute.assert_called_with(self.__get_platform())
-
-    def __get_platform(self):
-        platform = Platform()
-        platform.name = self.__platform_name
-        platform.description = self.__platform_description
-        return platform
+        self.__interactor.execute.assert_called_with(Platform.from_dict(self.__get_args()))
 
     def __get_page(self):
         params = self.__get_args()
@@ -69,19 +61,9 @@ class TestAddPlatformHandler(unittest.TestCase):
     def test_platform_empty_name_returns_empty_string(self):
         self.assertTrue(self.__empty_param_test("name"))
 
-    def test_session_not_set_raises_session_not_set_exception(self):
-        self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_args())
-
-    def test_not_logged_in_redirects_to_home_page(self):
-        session = Mock(Session)
-        session.get_value = Mock(return_value="")
-        self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_args())
-
-    def __get_args(self):
+    def __get_args(self, name="name", description="description"):
         return {
-            "name": self.__platform_name,
-            "description": self.__platform_description
+            "name": name,
+            "description": description
         }
 

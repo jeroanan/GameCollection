@@ -27,21 +27,22 @@
 </table>
 
 <h2 class="page-header">Add Genre</h2>
-<form action="addgenre" method="post" role="form" class="form-horizontal">
+<form action="" method="post" role="form" class="form-horizontal">
   <div class="row">
     <div class="form-group col-xs-4">
       <label for="name">Name</label>
-      <input type="text" name="name" required="required" placeholder="Name" class="form-control" />
+      <input type="text" name="name" id="name" required="required" placeholder="Name" class="form-control" />
     </div>
     <div class="col-xs-1"></div>
     <div class="form-group col-xs-4">
       <label for="description">Description</label>
-      <input type="text" name="description" placeholder="Description" class="form-control" />
+      <input type="text" name="description" id="description" placeholder="Description" class="form-control" />
     </div>
   </div>
   <div class="row">
     <div class="form-group col-xs-3">
-      <input class="btn btn-primary" type="submit" value="Add" />
+		<button class="btn btn-primary"
+                onclick="addNewGenre()">Add
     </div>
   </div>
 </form>
