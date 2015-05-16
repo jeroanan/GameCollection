@@ -39,9 +39,13 @@ class TestIndexHandler(unittest.TestCase):
     def __get_interactors(self):
         return [self.__get_games_interactor, self.__get_hardware_list_interactor, self.__count_games_interactor]
 
-    def test_gets_number_of_games_config_setting(self):
+    def test_gets_config_settings(self):
         self.__get_page(self.__get_args())
-        self.__config.get.assert_called_with("front-page-games")
+        settings = ["front-page-games",
+                    "front-page-hardware"]
+        
+        for s in settings:
+            self.__config.get.assert_any_call(s)
 
     def test_calls_renderer(self):
         params = {"gamesort": "title"}

@@ -23,6 +23,7 @@
             "login": "LoginHandler",
             "signup": "SignupHandler",
             "signin": "SigninHandler",
-				"logout": "LogoutHandler"}
+				"logout": "LogoutHandler",
+				"genres": "GenresHandler"}
 		  ]
 }

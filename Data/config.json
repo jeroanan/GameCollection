@@ -1,5 +1,6 @@
 {
   "config": {
-    "front-page-games": 10
+		"front-page-games": 10,
+		"front-page-hardware": 10		
   }
 }

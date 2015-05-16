@@ -1,3 +1,4 @@
+# Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +13,14 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
+from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
 from Persistence.Exceptions.UnrecognisedFieldNameException import UnrecognisedFieldNameException
 from UI.Handlers.Handler import Handler
 
 
 class IndexHandler(Handler):
-    
+    # Handles requests for the index page
+
     def __init__(self, interactor_factory, renderer, config):
         """Constructor
         param interactor_factory: An instance of InteractorFactory
@@ -33,8 +36,7 @@ class IndexHandler(Handler):
     
     def get_page(self, args):
         """The index page.
-        Currently the index page displays a summary of the user's games and hardware. It also displays a count
-        with each of these.
+        Currently the index page displays a summary of the user's games and hardware. It also displays a games count.
         param args: A dictionary that is comprised of the following keys:
           + gamesort -- a string containing the name of the column to sort the list of games by.
           + gamesortdir -- a string containing the direction the games should be sorted in.
@@ -101,11 +103,17 @@ class IndexHandler(Handler):
             raise cherrypy.HTTPRedirect("/")
         return games
 
-    def __get_hardware(self):
-        get_hardware_list_interactor = self.interactor_factory.create("GetHardwareListInteractor")
-        return get_hardware_list_interactor.execute(sort_field=self.__hardware_sort, 
-                                                    sort_direction=self.__hardware_sort_dir, 
-                                                    user_id=self.session.get_value("user_id"))
+    def __get_hardware(self):       
+        def get_interactor_params():
+            p = GetHardwareListInteractorParams()
+            p.sort_field = self.__hardware_sort
+            p.sort_dir = self.__hardware_sort_dir
+            p.user_id = self.session.get_value("user_id")
+            p.number_of_items = self.__config.get("front-page-hardware")
+            return p
+
+        get_hardware_list_interactor = self.interactor_factory.create("GetHardwareListInteractor")        
+        return get_hardware_list_interactor.execute(get_interactor_params())
 
 
     def __count_games(self):

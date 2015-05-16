@@ -40,6 +40,7 @@ class MongoPersistence(AbstractPersistence):
         self.__db = self.__client.GamesCollection
 
     def __init_mongo_client(self):
+        # Initialise the database connection.
         try:
             self.__client = MongoClient()
         except ConnectionFailure:
@@ -47,6 +48,7 @@ class MongoPersistence(AbstractPersistence):
             sys.exit(-1)
 
     def __del__(self):
+        # Destructor. Make sure the connection to MongoDB is closed.
         if self.__client is not None:
             self.__client.close()
     
@@ -80,8 +82,6 @@ class MongoPersistence(AbstractPersistence):
         games = self.__db.games.find({"_Game__platform": params.platform, "user_id": str(params.user_id)}, 
                                      limit=params.number_of_games)
         return self.__map_games_list(games.sort(mapped_sort_field, sorder))
-
-    
     
     def count_games(self, user_id):
         """Counts the games in the user's collection.
@@ -112,20 +112,14 @@ class MongoPersistence(AbstractPersistence):
             raise GameNotFoundException
     
     def __map_games_list(self, result_set):
-        out = []
-        for g in result_set:
-            out.append(ResultToGameMapper(g).map())
-        return out
+        return list(map(lambda g: ResultToGameMapper(g).map(), result_set))
 
     def get_platforms(self):
         """Get a list of platforms
         :returns: A list of type Platform of all stored platforms
         """
         result = self.__db.platforms.find().sort("_Platform__name")
-        out = []
-        for p in result:
-            out.append(ResultToPlatformMapper(p).map())
-        return out
+        return list(map(lambda p: ResultToPlatformMapper(p).map(), result))
     
     def get_platform(self, platform_id):
         """Get a platform
@@ -187,10 +181,7 @@ class MongoPersistence(AbstractPersistence):
         sorder = MongoSortDirectionMapper().map(sort_direction)
         mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
         result = self.__db.hardware.find({"user_id": str(user_id)}).sort(mapped_sort_field, sorder)
-        out = []
-        for r in result:
-            out.append(ResultToHardwareMapper(r).map())
-        return out
+        return list(map(lambda p: ResultToHardwareMapper(p).map(), result))
     
     def get_hardware_details(self, platform_id, user_id):
         """Gets the details of a specific item of hardware.

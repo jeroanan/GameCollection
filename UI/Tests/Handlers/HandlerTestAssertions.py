@@ -11,16 +11,26 @@
 
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
-from Interactors.Interactor import Interactor
+
+def get_missing_param_assertion(handler):
+    
+    def assert_missing_param_returns_empty_string(param, params):
+        del(params[param])
+        result = handler.get_page(params)
+        return result == ""
+
+    return assert_missing_param_returns_empty_string
 
 
-class GetHardwareListInteractor(Interactor):
+def get_empty_param_assertion(handler):
+    
+    def assert_empty_param_returns_empty_string(param, params):
+        params[param] = ""
+        result = handler.get_page(params)
+        return result == ""
+    
+    return assert_empty_param_returns_empty_string
 
-    """Request a list of the user's hardware from persistence
-    param params: An object of type GetHardwareListInteractorParams
-    returns: A list of instances of Hardware 
-    """
-    def execute(self, params):
-        return self.persistence.get_hardware_list(sort_field=params.sort_field, 
-                                                  sort_direction=params.sort_direction, 
-                                                  user_id=params.user_id)
+def assert_operation_on_params_returns_true(func, params):
+        for p in params:
+            return func(p)

@@ -12,7 +12,7 @@ class SaveHardwareHandler(AuthenticatedHandler):
     :param args: A dictionary containing the following keys:
                  + name --  The name of the hardware. Mandatory.
                  + platform -- The hardware's platform. Mandatory.
-                 + numowned -- The number owned. Mandatory.
+                 + numcopies -- The number owned. Mandatory.
                  + numboxed -- The number owned boxed
                  + notes -- any other notes made by the user
     :returns: If one of the mandatory fields is omitted then an empty string is returned. Else None.
