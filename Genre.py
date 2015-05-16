@@ -48,7 +48,13 @@ class Genre(object):
 
     @staticmethod
     def from_dict(d):
+        """Creates a new Genre object based on a provided dictionary.
+        :param d: A dictionary with the following keys:
+           * name
+           * description
+        :returns: An object of type Genre with its properties set. Missing keys
+        from the dictionary will cause that parameter in the object to be left as its default."""
         g = Genre()
-        g.name = d.get("name", "")
-        g.description = d.get("description", "")
+        g.name = d.get("name", g.name)
+        g.description = d.get("description", g.description)
         return g

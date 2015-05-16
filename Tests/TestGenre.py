@@ -12,20 +12,20 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+import unittest
 from Genre import Genre
-from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
-from Interactors.InteractorFactory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
-
-class AddGenreHandler(AuthenticatedHandler):
+class TestGenre(unittest.TestCase):
     
-    def __init__(self, interactor_factory, renderer):
-        super().__init__(interactor_factory, renderer)        
+    def test_from_dict_returns_genre(self):
+        g = Genre.from_dict({"": ""})
+        self.assertIsInstance(g, Genre)
 
-    def get_page(self, params):
-        super().get_page(params)
-        if not self.validate_params(params, ["name", "description"]):
-            return ""
-        interactor = self.interactor_factory.create("AddGenreInteractor")
-        interactor.execute(Genre.from_dict(params))
+    def test_does_mappings(self):
+        d = {"name": "name",
+             "description": "description"}
+        g = Genre.from_dict(d)
+        self.assertEqual(d["name"], g.name)
+        self.assertEqual(d["description"], g.description)
+
+    
