@@ -21,11 +21,24 @@ class TestGenre(unittest.TestCase):
         g = Genre.from_dict({"": ""})
         self.assertIsInstance(g, Genre)
 
-    def test_does_mappings(self):
+    def test_from_dict_does_mappings(self):
         d = {"name": "name",
              "description": "description"}
         g = Genre.from_dict(d)
         self.assertEqual(d["name"], g.name)
         self.assertEqual(d["description"], g.description)
 
-    
+    def test_from_mongo_result_returns_genre(self):
+        g = Genre.from_mongo_result({"": ""})
+        self.assertIsInstance(g, Genre)
+
+    def test_from_mongo_result_does_mappings(self):
+        d = {"_id": "id",
+             "_Genre__name": "name",
+             "_Genre__description": "description"}
+        g = Genre.from_mongo_result(d)
+        self.assertEqual(d["_id"], g.id)
+        self.assertEqual(d["_Genre__name"], g.name)
+        self.assertEqual(d["_Genre__description"], g.description)
+        
+

@@ -58,3 +58,18 @@ class Genre(object):
         g.name = d.get("name", g.name)
         g.description = d.get("description", g.description)
         return g
+    
+    @staticmethod
+    def from_mongo_result(mongo_result):
+        """Creates a nw Genre object based on the provided result from MongoDB.
+        :param mongo_result: A dictionary wiht the following keys:
+           * _id
+           * _Genre__name
+           * _Genre__description
+        :returns: An object of type Genre with its properties set. Missing keys
+        from the dictionary will cause that parameter in the object to be left as its default."""
+        g = Genre()
+        g.id = mongo_result.get("_id", g.id)
+        g.name = mongo_result.get("_Genre__name", g.name)
+        g.description = mongo_result.get("_Genre__description", g.description)
+        return g

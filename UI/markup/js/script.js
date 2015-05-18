@@ -81,28 +81,35 @@ function editPlatform(id) {
 }
 
 function addNewPlatform() {
-	 addPlatform($("#name").val(), $("#description").val());
+	 addNewNameDescription(addPlatform);
 }
 
 function addPlatform(name, description) {
+	 addNameDescription("/addplatform", name, description);
+}
+
+function addNewGenre() {
+	 addNewNameDescription(addGenre);
+}
+
+function addGenre(name, description) {
+	 addNameDescription("/addgenre", name, description);
+}
+
+function addNewNameDescription(f) {
+	 f($("#name").val(), $("#description").val());
+}
+
+function addNameDescription(url, name, description) {
 	 $.ajax({
-		  url: "/addplatform",
+		  url: url,
 		  data: {"name": name,
 					"description": description}})
 		  .always(function() { document.location.reload(); });
 }
 
-function addNewGenre() {
-	 addGenre($("#name").val(), $("#description").val());
-}
-
-function addGenre(name, description) {
-	 $.ajax({
-		  url: "/addgenre",
-		  data: {"name": name,
-				  "description": description}})
-		  .always(function () { document.location.reload(); });
-
+function editGenre(id) {
+	 navigate("/editgenre?genreid=" + id);
 }
 
 function deleteGenre(id) {

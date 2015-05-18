@@ -25,6 +25,7 @@
             "signin": "SigninHandler",
 				"logout": "LogoutHandler",
 				"genres": "GenresHandler",
-				"addgenre": "AddGenreHandler"}
+				"addgenre": "AddGenreHandler",
+				"editgenre": "EditGenreHandler"}
 		  ]
 }

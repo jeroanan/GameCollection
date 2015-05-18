@@ -20,12 +20,12 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
 from AbstractPersistence import AbstractPersistence
+from Genre import Genre
 from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundException
 from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
-from Persistence.Mappers.ResultToGenreMapper import ResultToGenreMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 from Persistence.Mappers.ResultToUserMapper import ResultToUserMapper
@@ -231,18 +231,125 @@ class MongoPersistence(AbstractPersistence):
             "user_id": str(user_id)
         })
 
+    def add_genre(self, genre):
+        self.__db.genres.insert(genre.__dict__)
+
+    def update_genre(self, genre):
+        """Update the details of a genre
+        :param genre: An object of type genre. The genre to be updated.
+        """
+        self.__db.genres.update({"_id": ObjectId(genre.id)}, {"$set": genre.__dict__}, upsert=False)
+    
+    def delete_platform(self, platform_id):
+        """Delete a platform
+        :param platform_id: The id of the platform to be deleted
+        """
+        self.__db.platforms.remove({"_id": ObjectId(platform_id)})
+    
+    def update_game(self, game,  user_id):
+        """Update the given game if it belongs to the given user
+        :param game_id: An object of type Game -- the game to be updated
+        :param user_id: A string containing the uuid of the given user
+        :returns: None
+        """
+        gd = game.__dict__
+        gd["user_id"] = str(user_id)
+        self.__db.games.update({
+            "_id": ObjectId(game.id),
+            "user_id": str(user_id)
+        }, {"$set": gd}, upsert=False)
+    
+    def delete_game(self, game, user_id):
+        """Delete the given game if it belongs to the given user
+        :param game: An object of type Game -- the game to be deleted
+        :param user_id: A string containing the uuid of the given user
+        :returns: None
+        """
+        self.__db.games.remove({
+            "_id": ObjectId(game.id),
+            "user_id": str(user_id)
+        })
+    
+    def get_hardware_list(self, sort_field, sort_direction, user_id):
+        """Get a list of all hardware in the user's collection
+        param sort_field: The field to sort the hardware on
+        param sort_direction: The order to sort the hardware in
+        param user_id: The uuid of the user
+        returns: A list of instances of Hardware 
+        """    
+        sorder = MongoSortDirectionMapper().map(sort_direction)
+        mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
+        result = self.__db.hardware.find({"user_id": str(user_id)}).sort(mapped_sort_field, sorder)
+        return list(map(lambda p: ResultToHardwareMapper(p).map(), result))
+    
+    def get_hardware_details(self, platform_id, user_id):
+        """Gets the details of a specific item of hardware.
+        param hardware_id: The uuid of the item of hardware to retrieve.
+        param user_id: The uuid of the current user.
+        returns: An instance of Hardware containing the requested item of hardware.
+        """
+        try:
+            h = self.__db.hardware.find_one({
+                "_id": ObjectId(platform_id),
+                "user_id": str(user_id)
+            })
+        except InvalidId:
+            raise HardwareNotFoundException()
+        return ResultToHardwareMapper(h).map()
+    
+    def save_hardware(self, hardware, user_id):
+        """Save an item of hardware.
+        param hardware: An instance of Hardware. The item of hardware to be saved.
+        param user_id: The uuid of the user whose collection the item of hardware should be added to.
+        returns: None
+        """
+        hd = hardware.__dict__
+        hd["user_id"] = str(user_id)
+        self.__db.hardware.insert(hd)
+    
+    def update_hardware(self, hardware, user_id):
+        """Update the given item of hardware.
+        param hardware: An instance of Hardware. The item of hardware to be updated.
+        param user_id: The uuid of the current user.
+        returns: None
+        """
+        hd = hardware.__dict__
+        hd["user_id"] = str(user_id)        
+        self.__db.hardware.update({
+            "_id": ObjectId(hardware.id),
+            "user_id": str(user_id)
+        }, {"$set": hd}, upsert=False)
+    
+    def delete_hardware(self, hardware_id, user_id):
+        """Delete the given item of hardware.
+        param hardware_id: The uuid of the item of hardware to be deleted
+        param user_id: The uuid of the current user
+        """
+        self.__db.hardware.remove({
+            "_id": ObjectId(hardware_id),
+            "user_id": str(user_id)
+        })
+
     def get_genres(self):
-        return map(ResultToGenreMapper().map, self.__db.genres.find())
+        """Get all genres.
+        :returns: A list of type Genre that contains all genres in the system.
+        """
+        return map(Genre.from_mongo_result, self.__db.genres.find().sort("_Genre__name"))
 
     def add_genre(self, genre):
         self.__db.genres.insert(genre.__dict__)
 
     def get_genre_details(self, genre_id):
+        """Get the details of a genre.
+        :param genre_id: The object id of the genre to be retrieved.
+        :returns: An object of type Genre containing the genre.
+        """
         g = self.__db.genres.find_one({"_id": ObjectId(genre_id)})
-        return ResultToGenreMapper().map(g)
+        return Genre.from_mongo_result(g)
 
     def update_genre(self, genre):
         pass
+        #self.__db.platforms.update({"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
 
     def delete_genre(self, genre_id):
         pass

@@ -27,6 +27,7 @@ from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
+from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.AddGenreHandler import AddGenreHandler
@@ -89,7 +90,8 @@ class TestHandlerFactory(unittest.TestCase):
                     "signin": SigninHandler,
                     "logout": LogoutHandler,
                     "genres": GenresHandler,
-                    "addgenre": AddGenreHandler}
+                    "addgenre": AddGenreHandler,
+                    "editgenre": EditGenreHandler}
 
         for m in mappings:
             self.__assert_type_string_returns_handler_type(m, mappings[m])

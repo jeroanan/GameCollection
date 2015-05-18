@@ -47,8 +47,6 @@ class HandlerFactory(object):
             class_ = getattr(module, ht)
             return class_(self.__interactor_factory, self.__renderer)
 
-        
-
         if handler_type == "index":
             handler = IndexHandler(self.__interactor_factory, self.__renderer, self.__config)
         elif handler_type in self.__handlers:
