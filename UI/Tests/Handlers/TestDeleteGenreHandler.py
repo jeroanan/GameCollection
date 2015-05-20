@@ -15,22 +15,29 @@
 import unittest
 from unittest.mock import Mock
 
+from Genre import Genre
 from Interactors.InteractorFactory import InteractorFactory
+from Interactors.Genre.DeleteGenreInteractor import DeleteGenreInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-
-
-class DeleteGenreHandler(AuthenticatedHandler):
-    pass
+from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
+from UI.Handlers.Session.Session import Session
 
 
 class TestDeleteGenreHandler(unittest.TestCase):
 
     def setUp(self):
-        self.__interactor_factory = Mock(InteractorFactory)
-        self.__target = DeleteGenreHandler(None, None)
+        self.__interactor = Mock(DeleteGenreInteractor)
+        interactor_factory = Mock(InteractorFactory)
+        interactor_factory.create = Mock(return_value=self.__interactor)
+        self.__target = DeleteGenreHandler(interactor_factory, None)
+        self.__target.session = Mock(Session)
+        self.__get_params = lambda genre_id=id: {"id": genre_id}
+        self.__genre = Genre.from_dict(self.__get_params())
+        self.__get_page = lambda: self.__target.get_page(self.__get_params()) 
 
     def test_is_type_of_authenticated_handler(self):
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
-    def test_creates_delete_genre_interactor(self):
-        pass
+    def test_executes_interactor(self):
+        self.__get_page()
+        self.__interactor.execute.assert_called_with(self.__genre)

@@ -348,7 +348,11 @@ class MongoPersistence(AbstractPersistence):
         return Genre.from_mongo_result(g)
 
     def delete_genre(self, genre_id):
-        pass
+        """Delete a genre.
+        :param genre_id: The ObjectId of the genre to be deleted.
+        :returns: None
+        """
+        self.__db.genres.remove({"_id": ObjectId(genre_id)})
     
     def search(self, search_term, sort_field, sort_dir, user_id):
         """Search the games collection

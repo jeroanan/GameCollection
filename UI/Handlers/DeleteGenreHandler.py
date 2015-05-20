@@ -1,6 +1,4 @@
-# copyright (c) David Wilson 2015
-# This file is part of Icarus.
-
+# Copyright (c) 20115 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,10 +12,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Interactor import Interactor
+from Genre import Genre
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
+class DeleteGenreHandler(AuthenticatedHandler):
+    # Handles requests to delete a genre
 
-class DeleteGenreInteractor(Interactor):
-
-    def execute(self, genre):
-        self.persistence.delete_genre(genre.id)
+    def get_page(self, params):
+        """Handles a request to delete a genre.
+        :param params: A dictionary containing the following keys:
+           * id
+        :returns: None
+        """
+        super().get_page(params)
+        interactor = self.interactor_factory.create("DeleteGenreInteractor")
+        interactor.execute(Genre.from_dict(params))

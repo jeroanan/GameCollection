@@ -31,6 +31,7 @@ from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.AddGenreHandler import AddGenreHandler
+from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.GenresHandler import GenresHandler
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
@@ -93,7 +94,8 @@ class TestHandlerFactory(unittest.TestCase):
                     "genres": GenresHandler,
                     "addgenre": AddGenreHandler,
                     "editgenre": EditGenreHandler,
-                    "updategenre": UpdateGenreHandler}
+                    "updategenre": UpdateGenreHandler,
+                    "deletegenre": DeleteGenreHandler}
 
         for m in mappings:
             self.__assert_type_string_returns_handler_type(m, mappings[m])

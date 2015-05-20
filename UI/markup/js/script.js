@@ -113,7 +113,8 @@ function editGenre(id) {
 }
 
 function deleteGenre(id) {
-    navigate("/deletegenre?genreid=" + id)
+	 j = {"id": id}
+	 ajaxDelete("/deletegenre", j);
 }
 
 function navigate(url) {
