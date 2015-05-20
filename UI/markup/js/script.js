@@ -204,20 +204,32 @@ function validateSaveHardware(j) {
 }
 
 function updatePlatform() {
-    var j = {
+	 updateNameDescription("/updateplatform");
+}
+
+function updateGenre() {
+	 updateNameDescription("/updategenre");
+}
+
+function updateNameDescription(updateUri) {
+	 var j = getIdNameDescriptionJson();
+    if (!validateSaveNameDescriptionJson(j)) return;
+    ajaxSave(updateUri, j);
+}
+
+function getIdNameDescriptionJson() {
+	 return {
         id: $("#id").val(),
         name: $("#name").val(),
         description: $("#description").val()
     };
-    if (!validateSavePlatform(j)) return;
-    ajaxSave("/updateplatform", j);
 }
 
-function validateSavePlatform(j) {
+function validateSaveNameDescriptionJson(j) {
     hideValidationFailure();
     var failureText = "";
     if (j.name == "") failureText = "Please enter a name";
-    if (j.description == "") failureText = appendText(failureText, "Please enter a deacription")
+    if (j.description == "") failureText = appendText(failureText, "Please enter a description")
 
     var validationSuccessful = failureText == "";
     if (!validationSuccessful) showValidationFailure(failureText);
@@ -237,7 +249,6 @@ function saveSuccess() {
     showValidationSuccess("Save Successful");
     setTimeout(function() {
         hideValidationSuccess();
-        navigate(document.referrer);
     }, 3000)
 }
 

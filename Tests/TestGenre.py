@@ -23,10 +23,12 @@ class TestGenre(unittest.TestCase):
 
     def test_from_dict_does_mappings(self):
         d = {"name": "name",
-             "description": "description"}
+             "description": "description",
+             "id": "id"}
         g = Genre.from_dict(d)
         self.assertEqual(d["name"], g.name)
         self.assertEqual(d["description"], g.description)
+        self.assertEqual(d["id"], g.id)
 
     def test_from_mongo_result_returns_genre(self):
         g = Genre.from_mongo_result({"": ""})

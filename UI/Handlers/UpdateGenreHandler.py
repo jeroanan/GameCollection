@@ -15,10 +15,19 @@
 from Genre import Genre
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
-class EditGenreHandler(AuthenticatedHandler):
-    
+
+class UpdateGenreHandler(AuthenticatedHandler):
+    # Handle requests to update a genre
+
     def get_page(self, params):
-        super().get_page(params)
-        interactor = self.interactor_factory.create("GetGenreInteractor")
-        genre = interactor.execute(params.get("genreid", ""))
-        return self.renderer.render("editgenre.html", genre=genre, title="Edit Genre")
+        """Update a genre given in the params dictionary. This function is designed
+        to be called as an ajax call and gives no HTML output.
+        :param params: A dictionary containing the details of the genre. Expected keys are:
+           * id
+           * name
+           * description
+        :returns: An empty string
+        """
+        interactor = self.interactor_factory.create("UpdateGenreInteractor") 
+        interactor.execute(Genre.from_dict(params))
+        return ""

@@ -45,6 +45,7 @@ from UI.Handlers.SigninHandler import SigninHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
+from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.Handlers.Session.Session import Session
@@ -91,7 +92,8 @@ class TestHandlerFactory(unittest.TestCase):
                     "logout": LogoutHandler,
                     "genres": GenresHandler,
                     "addgenre": AddGenreHandler,
-                    "editgenre": EditGenreHandler}
+                    "editgenre": EditGenreHandler,
+                    "updategenre": UpdateGenreHandler}
 
         for m in mappings:
             self.__assert_type_string_returns_handler_type(m, mappings[m])

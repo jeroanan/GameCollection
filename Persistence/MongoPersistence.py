@@ -347,10 +347,6 @@ class MongoPersistence(AbstractPersistence):
         g = self.__db.genres.find_one({"_id": ObjectId(genre_id)})
         return Genre.from_mongo_result(g)
 
-    def update_genre(self, genre):
-        pass
-        #self.__db.platforms.update({"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
-
     def delete_genre(self, genre_id):
         pass
     

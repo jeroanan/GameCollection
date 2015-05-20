@@ -12,13 +12,25 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Genre import Genre
+import unittest
+from unittest.mock import Mock
+
+from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
-class EditGenreHandler(AuthenticatedHandler):
-    
-    def get_page(self, params):
-        super().get_page(params)
-        interactor = self.interactor_factory.create("GetGenreInteractor")
-        genre = interactor.execute(params.get("genreid", ""))
-        return self.renderer.render("editgenre.html", genre=genre, title="Edit Genre")
+
+class DeleteGenreHandler(AuthenticatedHandler):
+    pass
+
+
+class TestDeleteGenreHandler(unittest.TestCase):
+
+    def setUp(self):
+        self.__interactor_factory = Mock(InteractorFactory)
+        self.__target = DeleteGenreHandler(None, None)
+
+    def test_is_type_of_authenticated_handler(self):
+        self.assertIsInstance(self.__target, AuthenticatedHandler)
+
+    def test_creates_delete_genre_interactor(self):
+        pass

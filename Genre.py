@@ -55,6 +55,7 @@ class Genre(object):
         :returns: An object of type Genre with its properties set. Missing keys
         from the dictionary will cause that parameter in the object to be left as its default."""
         g = Genre()
+        g.id = d.get("id", g.id)
         g.name = d.get("name", g.name)
         g.description = d.get("description", g.description)
         return g

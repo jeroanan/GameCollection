@@ -1,7 +1,8 @@
 {%extends 'master.html' %}
 {% block content %}
+{% include 'status.html' %}
 <h1 class="page-header">{{title}}</h1>
-<form class="form-vertical" role="form" method="post" action="updategenre">
+<form class="form-vertical" role="form" method="post" action="">
 
     <div class="row">
          <div class="form-group col-sm-10">
@@ -23,12 +24,12 @@
 
      <div class="row">
          <div class="form-group col-sm-3">
-            <input type="submit" class="btn btn-primary" />
+            <input type="button" class="btn btn-primary" value="Save" onclick="updateGenre();" />
             <input type="button" class="btn" value="Cancel" onclick="cancelEditGenre()" />
             <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
          </div>
      </div>
-    <div class="hidden" id="deleteConfirm">
+    <div style="display: none;" class="text-danger" id="deleteConfirm">
         Really delete this genre?
             <a href="javascript:deleteGenre('{{genre.id}}');">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
     </div>

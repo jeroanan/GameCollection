@@ -26,6 +26,7 @@
 				"logout": "LogoutHandler",
 				"genres": "GenresHandler",
 				"addgenre": "AddGenreHandler",
-				"editgenre": "EditGenreHandler"}
+				"editgenre": "EditGenreHandler",
+				"updategenre": "UpdateGenreHandler"}
 		  ]
 }
