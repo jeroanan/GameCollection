@@ -43,8 +43,8 @@ class Platform(object):
         self.__description = value
 
     def __eq__(self, other):
-        return self.id == other.id and self.name == other.name and self.description == other.description
-
+        return self.name == other.name and self.description == other.description
+        
     @staticmethod
     def from_dict(d):
         p = Platform()

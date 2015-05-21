@@ -47,28 +47,28 @@
   </div>
 </form>
 
-<h2 class="page-header">Suggested Genres</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {%for genre in suggested_genres%}
-    <tr>
-      <td>{{genre.name}}</td>
-      <td>{{genre.description}}</td>
-      <td>
-        <button class="btn btn-success"
-                onclick="addSuggestedGenre('{{genre.name}}', '{{genre.description}}');">Add
-        </button>
-      </td>
-    </tr>
-    {%endfor%}
-  </tbody>
-</table>
+<!-- <h2 class="page-header">Suggested Genres</h2> -->
+<!-- <table class="table table-striped"> -->
+<!--   <thead> -->
+<!--     <tr> -->
+<!--       <th>Name</th> -->
+<!--       <th>Description</th> -->
+<!--       <th></th> -->
+<!--     </tr> -->
+<!--   </thead> -->
+<!--   <tbody> -->
+<!--     {%for genre in suggested_genres%} -->
+<!--     <tr> -->
+<!--       <td>{{genre.name}}</td> -->
+<!--       <td>{{genre.description}}</td> -->
+<!--       <td> -->
+<!--         <button class="btn btn-success" -->
+<!--                 onclick="addSuggestedGenre('{{genre.name}}', '{{genre.description}}');">Add -->
+<!--         </button> -->
+<!--       </td> -->
+<!--     </tr> -->
+<!--     {%endfor%} -->
+<!--   </tbody> -->
+<!-- </table> -->
 
 {% endblock %}
