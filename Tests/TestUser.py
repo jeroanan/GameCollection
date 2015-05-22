@@ -28,3 +28,15 @@ class TestUser(unittest.TestCase):
         self.assertEqual(d["password"], u.password)
         self.assertEqual(d["id"], u.id)
         
+    def test_from_mongo_result_returns_user(self):
+        u = User.from_mongo_result({"":""})
+        self.assertIsInstance(u, User)
+
+    def test_from_mongo_result_does_mapping(self):
+        ud = {"_id": "id",
+              "_User__user_id": "user_id",
+              "_User__password": "password"}
+        u = User.from_mongo_result(ud)
+        self.assertEqual(ud["_id"], u.id)
+        self.assertEqual(ud["_User__user_id"], u.user_id)
+        self.assertEqual(ud["_User__password"], u.password)

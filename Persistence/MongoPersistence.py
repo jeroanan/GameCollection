@@ -30,6 +30,7 @@ from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 from Persistence.Mappers.ResultToUserMapper import ResultToUserMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
+from User import User
 
 class MongoPersistence(AbstractPersistence):
     # Provide persistence using MongoDB
@@ -377,7 +378,7 @@ class MongoPersistence(AbstractPersistence):
         :returns: An object of type User. The desired user.
         """
         result_set = self.__db.users.find_one({"_User__user_id": user.user_id})
-        return ResultToUserMapper(result_set).map()
+        return user.from_mongo_result(result_set)
     
     def add_user(self, user):  
         """Add a user

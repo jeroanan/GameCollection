@@ -61,3 +61,17 @@ class User(object):
         u.id = d.get("id", u.id)
         return u
 
+    @staticmethod
+    def from_mongo_result(mongo_result):
+        """Initialises a User object from a MongoDB resultset
+        :param mongo_result: A dictionary with the following keys:
+           * _id
+           * _User__user_id
+           * _User__password
+        :returns: A populated User object. Any keys missing from mongo_result will have their values left as default.
+        """
+        u = User()
+        u.id = mongo_result.get("_id", u.id)
+        u.user_id = mongo_result.get("_User__user_id", u.user_id)
+        u.password = mongo_result.get("_User__password", u.password)
+        return u
