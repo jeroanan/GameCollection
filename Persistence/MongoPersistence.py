@@ -28,7 +28,6 @@ from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMappe
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
-from Persistence.Mappers.ResultToUserMapper import ResultToUserMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 from User import User
 
