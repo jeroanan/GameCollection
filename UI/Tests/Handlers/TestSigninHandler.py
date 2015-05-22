@@ -1,3 +1,17 @@
+# Copyright (c) David Wilson 2015
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 import unittest
 from unittest.mock import Mock
 
@@ -17,35 +31,26 @@ from User import User
 class TestSigninHandler(unittest.TestCase):
     
     def setUp(self):
-        def get_user(u):
-            user = User()
-            user.id = "1234"        
-            user.user_id = u.user_id
-            return user
-
+        get_user = lambda u: User.from_dict({"id": "1234",
+                                             "userid": u.user_id})
         self.__interactor = Mock(LoginInteractor)
+        self.__interactor_execute = lambda u: u.user_id == "validuser"
         self.__interactor.execute = Mock(side_effect=self.__interactor_execute)
         self.__get_user_interactor = Mock(GetUserInteractor)
         self.__get_user_interactor.execute = Mock(side_effect=get_user)
         self.__hash_provider = Mock(HashProvider)
-        self.__interactor_factory = Mock(InteractorFactory)
-        self.__interactor_factory.create = Mock(side_effect=self.__interactor_factory_create)
+        interactor_factory = Mock(InteractorFactory)
+        interactor_factory.create = Mock(side_effect=self.__interactor_factory_create)
         self.__session = Mock(Session)
-        self.__target = SigninHandler(self.__interactor_factory, None)
+        self.__target = SigninHandler(interactor_factory, None)
         self.__target.session = self.__session
         self.__cookies = Mock(Cookies)
         self.__target.cookies = self.__cookies
 
-    def __interactor_execute(self, user):
-        if user.user_id == "validuser":
-            return True
-        return False
-
     def __interactor_factory_create(self, interactor_type):
-        if interactor_type == "LoginInteractor":
-            return self.__interactor
-        if interactor_type == "GetUserInteractor":
-            return self.__get_user_interactor
+        interactors = {"LoginInteractor": self.__interactor,
+                       "GetUserInteractor": self.__get_user_interactor}
+        return interactors.get(interactor_type, None)
 
     def test_is_session_handler(self):
         self.assertIsInstance(self.__target, Handler)
@@ -106,7 +111,5 @@ class TestSigninHandler(unittest.TestCase):
             }
 
     def __get_user(self, user_id="userid"):
-        u = User()
-        u.user_id = user_id
-        u.password = "password"
-        return u
+        return User.from_dict({"userid": user_id,
+                               "password": "password"})

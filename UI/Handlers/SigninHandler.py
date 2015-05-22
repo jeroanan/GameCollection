@@ -1,3 +1,4 @@
+# Copyright (c) 2015 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -38,7 +39,7 @@ class SigninHandler(Handler):
         if not self.validate_params(params, ["userid", "password"]):
             return "False"
 
-        user = self.__params_to_user(params)
+        user = User.from_dict(params)
         success = self.__login_check(user)
 
         if success:
@@ -54,12 +55,6 @@ class SigninHandler(Handler):
 
         login_interactor = get_login_interactor()
         return login_interactor.execute(user)
-
-    def __params_to_user(self, params):
-        u = User()
-        u.user_id = params.get("userid", "")
-        u.password = params.get("password", "")
-        return u
 
     def __do_login(self, user):
         def get_actual_user():

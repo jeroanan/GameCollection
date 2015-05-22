@@ -1,3 +1,4 @@
+# Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -24,7 +25,7 @@ class SignupHandler(Handler):
 
         if not self.validate_params(params, ["userid", "password"]):
             return "False"
-        u = self.__get_user_from_params(params)        
+        u = User.from_dict(params)        
         entered_password = u.password
         try:            
             self.__add_user(u)
@@ -34,15 +35,6 @@ class SignupHandler(Handler):
 
         self.__do_login(u)
         return "True"
-        
-    def __get_user_from_params(self, params):
-        return self.__get_user(params.get("userid", ""), params.get("password", ""))        
-
-    def __get_user(self, user_id, password):
-        u = User()
-        u.user_id = user_id
-        u.password = password        
-        return u
 
     def __add_user(self, user):
         add_user_interactor = self.interactor_factory.create("AddUserInteractor")
