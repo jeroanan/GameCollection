@@ -3,35 +3,44 @@
 {% include 'status.html' %}
 <h1 class="page-header">{{title}}</h1>
 <form class="form-vertical" role="form" method="post" action="">
+  
+  <div class="row">
+	 <div class="col-sm-5">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{genre.name}}" class="form-control" required="required"
+               autofocus="autofocus"/>
+      </div>
+	 </div>
+	 <div class="col-sm-2"></div>
+	 <div class="col-sm-5">
+		<div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" class="form-control"
+					value="{{genre.description}}" />
+        <input type="hidden" id="id" name="id" value="{{genre.id}}" />
+		</div>
+	 </div>
+  </div>
 
-    <div class="row">
-         <div class="form-group col-sm-10">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="{{genre.name}}" class="form-control" required="required"
-                    autofocus="autofocus"/>
-         </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-sm-10">
-            <label for="description">Description</label>
-            <input type="text" name="description" id="description" class="form-control"
-                   value="{{genre.description}}" />
-            <input type="hidden" id="id" name="id" value="{{genre.id}}" />
-        </div>
-    </div>
-
-
-     <div class="row">
-         <div class="form-group col-sm-3">
-            <input type="button" class="btn btn-primary" value="Save" onclick="updateGenre();" />
-            <input type="button" class="btn" value="Cancel" onclick="cancelEditGenre()" />
-            <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
-         </div>
-     </div>
-    <div style="display: none;" class="text-danger" id="deleteConfirm">
-        Really delete this genre?
-            <a href="javascript:deleteGenre('{{genre.id}}');">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
-    </div>
+<div class="row">
+  <div class="col-sm-1">
+    <input type="button" class="btn btn-primary" value="Save" onclick="updateGenre();" />
+  </div>
+  <div class="col-sm-1">
+    <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+  </div>
+  <div class="col-sm-9"></div>
+  <div class="col-sm-1">
+    <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
+  </div>
+</div>
 </form>
+
+<div style="display: none;" class="text-danger" id="deleteConfirm">
+  Really delete this genre?
+  <a href="javascript:deleteGenre('{{genre.id}}');">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+</div>
+
 {% endblock %}
+

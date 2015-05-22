@@ -7,50 +7,61 @@
 
          <form class="form-horizontal" method="post" role="form" action="updategame">
              <div class="row">
-                 <div class="form-group col-sm-10">
-                    <label for="title">Title</label>
-                    <input id="title" name="title" value="{{game.title}}" class="form-control" autofocus="autofocus" />
+					<div class="col-sm-5">
+                 <div class="form-group">						 
+                   <label for="title">Title</label>
+                   <input id="title" name="title" value="{{game.title}}" class="form-control" autofocus="autofocus" />
                  </div>
+					</div>
+					
+					<div class="col-sm-2"></div>
+					<div class="col-sm-5">
+                 <div class="form-group">
+                   <label for="platform">Platform</label>
+                   <select name="platform" id="platform" required="required" class="form-control">
+                     {% for platform in platforms %}
+                     {% if platform.name==game.platform %}
+                     <option value="{{platform.name}}" selected="selected">{{platform.name}}</option>
+                     {% else %}
+                     <option value="{{platform.name}}">{{platform.name}}</option>
+                     {% endif %}
+                     {% endfor %}
+                   </select>
+                 </div>
+					</div>
              </div>
 
              <div class="row">
-                 <div class="form-group col-sm-10">
-                    <label for="platform">Platform</label>
-                    <select name="platform" id="platform" required="required" class="form-control">
-                        {% for platform in platforms %}
-                            {% if platform.name==game.platform %}
-                                <option value="{{platform.name}}" selected="selected">{{platform.name}}</option>
-                            {% else %}
-                                <option value="{{platform.name}}">{{platform.name}}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
+					<div class="col-sm-2">
+                 <div class="form-group">
+                   <label for="numcopies">Number of Copies</label>
+                   <input name="numcopies" id="numcopies" type="number" class="form-control" value="{{game.num_copies}}" />
                  </div>
-             </div>
+					</div>
 
-             <div class="row">
-                 <div class="form-group col-sm-3">
-                    <label for="numcopies">Number of Copies</label>
-                    <input name="numcopies" id="numcopies" type="number" class="form-control" value="{{game.num_copies}}" />
+					<div class="col-sm-1"></div>
+					<div class="col-sm-2">
+                 <div class="form-group">
+                   <label for="numboxed">Boxes</label>
+                   <input name="numboxed" id="numboxed" type="number" class="form-control" value="{{game.num_boxed}}">
                  </div>
+					</div>
 
-                 <div class="col-sm-1"></div>
-                 <div class="form-group col-sm-3">
-                    <label for="numboxed">Boxes</label>
-                    <input name="numboxed" id="numboxed" type="number" class="form-control" value="{{game.num_boxed}}">
+					<div class="col-sm-1"></div>				
+
+					<div class="col-sm-2">
+                 <div class="form-group">
+                   <label for="nummanuals">Manuals</label>
+                   <input name="nummanuals" id="nummanuals" class="form-control" type="number"
+                          value="{{game.num_manuals}}">
+                   <input type="hidden" id="id" name="id" value="{{game.id}}" />
                  </div>
+					</div>
 
-                 <div class="col-sm-1"></div>
-                 <div class="form-group col-sm-3">
-                    <label for="nummanuals">Manuals</label>
-                    <input name="nummanuals" id="nummanuals" class="form-control" type="number"
-                           value="{{game.num_manuals}}">
-                    <input type="hidden" id="id" name="id" value="{{game.id}}" />
-                </div>
-             </div>
-
-             <div class="row">
-                 <div class="form-group col-sm-3">
+					<div class="col-sm-1"></div>
+             
+					  <div class="col-sm-2">
+						 <div class="form-group">
                      <label for="datepurchased">Date Purchased</label>
                      <input id="datepurchased" name="datepurchased" type="text" class="picker form-control"/>
                      <div class="checkbox"><label>
@@ -61,25 +72,32 @@
                          <input name="approximatepurchaseddate" id="approximatepurchaseddate" type="checkbox"  />
                          {% endif %}
                          Approximate date</label></div>
+						 </div>
+					  </div>
+             </div>
+
+             <div class="row">
+					<div class="col-sm-12">
+                 <div class="form-group">
+                   <label for="notes">Notes</label>
+                   <textarea id="notes" name="notes" class="form-control" rows="5">{{game.notes}}</textarea>
                  </div>
-             </div>
-
-
-             <div class="row">
-                <div class="form-group col-sm-10">
-                    <label for="notes">Notes</label>
-                    <textarea id="notes" name="notes" class="form-control" rows="5">{{game.notes}}</textarea>
-                </div>
+					</div>
              </div>
 
              <div class="row">
-                <div class="form-group col-sm-6">
-                    <input type="button" class="btn btn-primary" value="Save" onclick="updateGame();" />
-                    <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
-                    <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
-                </div>
+					<div class="col-sm-1">
+                 <input type="button" class="btn btn-primary" value="Save" onclick="updateGame();" />
+					</div>
+					<div class="col-sm-1">
+                 <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+					</div>
+					<div class="col-sm-9"></div>
+					<div class="col-sm-1">
+                 <input type="button" class="btn btn-danger" value="Delete" onclick="showDeleteConfirm()"/>
+					</div>
              </div>
-        </form>
+         </form>
         <div style="display: none;" class="text-danger" id="deleteConfirm">
             <span>Really delete this game?</span>
             <a href="javascript:deleteGame()">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm()">No</a>

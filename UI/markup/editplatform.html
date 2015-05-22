@@ -1,36 +1,46 @@
 {% extends 'master.html' %}
 {% block content %}
-    {% include 'status.html' %}
+{% include 'status.html' %}
 
-    <h1>{{title}}</h1>
-        <form class="form-vertical" method="post" action="updateplatform" role="form">
-             <div class="row">
-                 <div class="form-group col-sm-10">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" value="{{platform.name}}" class="form-control"
-                           required="required" autofocus="autofocus" />
-                 </div>
-             </div>
-
-             <div class="row">
-                 <div class="form-group col-sm-10">
-                     <label for="description">Description</label>
-                     <input type="text" name="description" id="description" class="form-control"
-                            value="{{platform.description}}" />
-                     <input type="hidden" id="id" name="id" value="{{platform.id}}" />
-                 </div>
-             </div>
-
-             <div class="row">
-                 <div class="form-group col-sm-3">
-                     <input type="button" class="btn btn-primary" value="Save" onclick="updatePlatform();" />
-                     <input type="button" class="btn" value="Cancel" onclick="cancelEditPlatform()" />
-                     <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
-                 </div>
-             </div>
-        </form>
-        <div id="deleteConfirm" style="display: none;" class="text-danger">
-        Really delete this platform?
-            <a href="javascript:deletePlatform();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
-        </div>
+<h1>{{title}}</h1>
+<form class="form-vertical" method="post" action="updateplatform" role="form">
+  <div class="row">
+	 <div class="col-sm-5">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{platform.name}}" class="form-control"
+               required="required" autofocus="autofocus" />
+      </div>
+	 </div>
+	 
+	 <div class="col-sm-2"></div>
+	 
+	 <div class="col-sm-5">
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" class="form-control"
+               value="{{platform.description}}" />
+        <input type="hidden" id="id" name="id" value="{{platform.id}}" />
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+	 <div class="col-sm-1">
+      <input type="button" class="btn btn-primary" value="Save" onclick="updatePlatform();" />
+	 </div>
+	 <div class="col-sm-1">
+      <input type="button" class="btn" value="Cancel" onclick="cancelEditPlatform()" />
+	 </div>
+	 <div class="col-sm-9"></div>
+	 <div class="col-sm-1">
+      <input type="button" class="btn btn-danger" value="Delete" onclick="showDeleteConfirm()"/>
+	 </div>
+	 
+  </div>
+</form>
+<div id="deleteConfirm" style="display: none;" class="text-danger">
+  Really delete this platform?
+  <a href="javascript:deletePlatform();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+</div>
 {% endblock %}
