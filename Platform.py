@@ -47,8 +47,30 @@ class Platform(object):
         
     @staticmethod
     def from_dict(d):
+        """Initialises an instance of Platform from a dictionary.
+        :param d: A dictionary containing the following keys:
+           * name
+           * description
+        :returns: An instance of Platform with its properties set. Keys missing from d
+                  will be initialised to their default values.
+        """
         p = Platform()
         p.name = d.get("name", p.name)
         p.description = d.get("description", p.description)
         return p
 
+    @staticmethod
+    def from_mongo_result(mongo_result):
+        """Initialises an instance of Platform from a dictionary.
+        :param mongo_result: A MongoDB result as a dictionary. The following keys are expected:
+           * _id
+           * _Platform__name
+           * _Platform__description
+        :returns: An instance of Platform with its properties set. Keys missing from mongo_result
+                  will be initialised to their default values.
+        """
+        p =  Platform()
+        p.id = mongo_result["_id"]
+        p.name = mongo_result["_Platform__name"]
+        p.description = mongo_result["_Platform__description"]
+        return p

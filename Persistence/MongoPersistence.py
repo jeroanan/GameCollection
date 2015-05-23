@@ -27,8 +27,8 @@ from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
 from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
-from Persistence.Mappers.ResultToPlatformMapper import ResultToPlatformMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
+from Platform import Platform
 from User import User
 
 class MongoPersistence(AbstractPersistence):
@@ -119,7 +119,7 @@ class MongoPersistence(AbstractPersistence):
         :returns: A list of type Platform of all stored platforms
         """
         result = self.__db.platforms.find().sort("_Platform__name")
-        return list(map(lambda p: ResultToPlatformMapper(p).map(), result))
+        return list(map(lambda p: Platform.from_mongo_result(p), result))
     
     def get_platform(self, platform_id):
         """Get a platform
@@ -127,7 +127,7 @@ class MongoPersistence(AbstractPersistence):
         :returns: an object of type platform containing the requested platform
         """
         mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
-        return ResultToPlatformMapper(mongo_result).map()
+        return Platform.from_mongo_result(mongo_result)
     
     def add_platform(self, platform):
         """Add a platform

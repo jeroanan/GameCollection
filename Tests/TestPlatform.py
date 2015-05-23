@@ -32,4 +32,20 @@ class TestPlatform(unittest.TestCase):
         result = Platform.from_dict(d)
         self.assertEqual(d["name"], result.name)
         self.assertEqual(d["description"], result.description)
+
+    def test_from_mongo_result_performs_mapping(self):
+        """Initialise the mapper
+        :param mongo_result: A MongoDB result. The following fields
+        can currently be mapped:
+          * _id
+          * _Platform__name
+          * _Platform__description
+        """
+        d = {"_id": "id",
+             "_Platform__name": "name",
+             "_Platform__description": "description"}
+        p = Platform.from_mongo_result(d)
+        self.assertEqual(d["_id"], p.id)
+        self.assertEqual(d["_Platform__name"], p.name)
+        self.assertEqual(d["_Platform__description"], p.description)
         
