@@ -87,3 +87,32 @@ class Game(object):
         return (self.title == other.title and self.platform == other.platform and self.num_copies == other.num_copies
                 and self.num_boxed == other.num_boxed and self.num_manuals == other.num_manuals and
                 self.notes == other.notes)
+
+    @staticmethod
+    def from_mongo_result(mongo_result):
+        """Initialises an instance of Game from a MongoDB result.
+        :param mongo_result: A MongoDB result as a dictionary with the following keys:
+           * _id
+           * __Game__title
+           * _Game__platform
+           * _Game__num_copies 
+           * _Game__num_boxed
+           * _Game__num_manuals
+           * _Game__notes
+           * _Game__date_purchased
+           * _Game__approximate_date_purchased
+        :returns: An instance of Game with its properties set. Missing keys from mongo_result will have their property 
+                  set as the default.
+        """
+        g = Game()
+        g.id = mongo_result.get("_id", g.id)
+        g.title = mongo_result.get("_Game__title", g.title)
+        g.platform = mongo_result.get("_Game__platform", g.platform)
+        g.num_copies = mongo_result.get("_Game__num_copies", g.num_copies)
+        g.num_boxed = mongo_result.get("_Game__num_boxed", g.num_boxed)
+        g.num_manuals = mongo_result.get("_Game__num_manuals", g.num_manuals)
+        g.notes = mongo_result.get("_Game__notes", g.notes)
+        g.date_purchased = mongo_result.get("_Game__date_purchased", g.date_purchased)
+        g.approximate_date_purchased = mongo_result.get("_Game__approximate_date_purchased", 
+                                                        g.approximate_date_purchased)
+        return g

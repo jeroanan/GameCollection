@@ -25,9 +25,9 @@ from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundException
 from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
-from Persistence.Mappers.ResultToGameMapper import ResultToGameMapper
 from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
+from Game import Game
 from Platform import Platform
 from User import User
 
@@ -107,12 +107,12 @@ class MongoPersistence(AbstractPersistence):
                 "_id": ObjectId(game_id),
                 "user_id": str(user_id)
             })
-            return (ResultToGameMapper(cursor).map())
+            return Game.from_mongo_result(cursor)
         except InvalidId:
             raise GameNotFoundException
     
     def __map_games_list(self, result_set):
-        return list(map(lambda g: ResultToGameMapper(g).map(), result_set))
+        return list(map(lambda g: Game.from_mongo_result(g), result_set))
 
     def get_platforms(self):
         """Get a list of platforms
@@ -356,11 +356,11 @@ class MongoPersistence(AbstractPersistence):
     
     def search(self, search_term, sort_field, sort_dir, user_id):
         """Search the games collection
-        param search_term: The term to do the search upon
-        param sort_field: The field to sort results by
-        param sort_dir: The direction to sort results in
-        param user_id: The uuid of the current user
-        returns: A list of instances of Game -- the search results
+        :param search_term: The term to do the search upon
+        :param sort_field: The field to sort results by
+        :param sort_dir: The direction to sort results in
+        :param user_id: The uuid of the current user
+        :returns: A list of instances of Game -- the search results
         """
         mapped_sort_field = SortFieldMapper().map(sort_field)
         sorder = MongoSortDirectionMapper().map(sort_dir)        
@@ -368,7 +368,7 @@ class MongoPersistence(AbstractPersistence):
             {"user_id": str(user_id),  "$or": [
                  {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},                   
                  {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
-        return map(ResultToGameMapper(results.sort(mapped_sort_field, sorder)).map)
+        return map(Game.from_mongo_result, results.sort(mapped_sort_field, sorder))
 
     
     def get_user(self, user):
