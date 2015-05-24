@@ -25,9 +25,9 @@ from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundException
 from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
-from Persistence.Mappers.ResultToHardwareMapper import ResultToHardwareMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 from Game import Game
+from Hardware import Hardware
 from Platform import Platform
 from User import User
 
@@ -171,18 +171,6 @@ class MongoPersistence(AbstractPersistence):
             "user_id": str(user_id)
         })
     
-    def get_hardware_list(self, sort_field, sort_direction, user_id):
-        """Get a list of all hardware in the user's collection
-        param sort_field: The field to sort the hardware on
-        param sort_direction: The order to sort the hardware in
-        param user_id: The uuid of the user
-        returns: A list of instances of Hardware 
-        """    
-        sorder = MongoSortDirectionMapper().map(sort_direction)
-        mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
-        result = self.__db.hardware.find({"user_id": str(user_id)}).sort(mapped_sort_field, sorder)
-        return list(map(lambda p: ResultToHardwareMapper(p).map(), result))
-    
     def get_hardware_details(self, platform_id, user_id):
         """Gets the details of a specific item of hardware.
         param hardware_id: The uuid of the item of hardware to retrieve.
@@ -196,7 +184,7 @@ class MongoPersistence(AbstractPersistence):
             })
         except InvalidId:
             raise HardwareNotFoundException()
-        return ResultToHardwareMapper(h).map()
+        return Hardware.from_mongo_result(h)
     
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
@@ -280,22 +268,7 @@ class MongoPersistence(AbstractPersistence):
         sorder = MongoSortDirectionMapper().map(sort_direction)
         mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
         result = self.__db.hardware.find({"user_id": str(user_id)}).sort(mapped_sort_field, sorder)
-        return list(map(lambda p: ResultToHardwareMapper(p).map(), result))
-    
-    def get_hardware_details(self, platform_id, user_id):
-        """Gets the details of a specific item of hardware.
-        param hardware_id: The uuid of the item of hardware to retrieve.
-        param user_id: The uuid of the current user.
-        returns: An instance of Hardware containing the requested item of hardware.
-        """
-        try:
-            h = self.__db.hardware.find_one({
-                "_id": ObjectId(platform_id),
-                "user_id": str(user_id)
-            })
-        except InvalidId:
-            raise HardwareNotFoundException()
-        return ResultToHardwareMapper(h).map()
+        return list(map(lambda p: Hardware.from_mongo_result(p), result))
     
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.

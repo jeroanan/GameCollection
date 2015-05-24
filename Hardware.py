@@ -1,3 +1,18 @@
+# Copyright (c) 20115 David Wilson
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
+
 class Hardware():
 
     def __init__(self):
@@ -59,3 +74,23 @@ class Hardware():
     def __eq__(self, other):
         return (self.id == other.id and self.name == other.name and self.num_owned == other.num_owned and
                 self.num_boxed == other.num_boxed and self.notes == other.notes)
+
+    @staticmethod
+    def from_mongo_result(mongo_result):
+        """Initialises Hardware object from a MongoDB result.
+        :param mongo_result: A MongoDB result as a dictionary. The following keys are expected:
+                             * _id
+                             * _Hardware__name
+                             * _Hardware__num_owned
+                             * _Hardware__num_boxed
+                             * _Hardware__notes
+        :returns: A Hardware object with its properties properly initialised. Any missing keys from mongo_db will cause 
+                  the object to have that property initialised as its default.
+        """
+        h = Hardware()
+        h.id = mongo_result.get("_id", h.id)
+        h.name = mongo_result.get("_Hardware__name", h.name)
+        h.num_owned = mongo_result.get("_Hardware__num_owned", h.num_owned)
+        h.num_boxed = mongo_result.get("_Hardware__num_boxed", h.num_boxed)
+        h.notes = mongo_result.get("_Hardware__notes", h.notes)
+        return h

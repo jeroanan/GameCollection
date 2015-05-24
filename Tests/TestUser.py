@@ -20,6 +20,7 @@ from User import User
 class TestUser(unittest.TestCase):
 
     def test_from_dict_does_mapping(self):
+        """Mapping from a dictionary to a User object performs correct mappings"""
         d = {"userid": "user_id",
              "password": "pw",
              "id": "1234"}
@@ -27,12 +28,9 @@ class TestUser(unittest.TestCase):
         self.assertEqual(d["userid"], u.user_id)
         self.assertEqual(d["password"], u.password)
         self.assertEqual(d["id"], u.id)
-        
-    def test_from_mongo_result_returns_user(self):
-        u = User.from_mongo_result({"":""})
-        self.assertIsInstance(u, User)
 
     def test_from_mongo_result_does_mapping(self):
+        """Mongo result maps to User object"""
         ud = {"_id": "id",
               "_User__user_id": "user_id",
               "_User__password": "password"}
