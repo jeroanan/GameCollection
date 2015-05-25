@@ -18,11 +18,13 @@ from Hardware import Hardware
 
 
 class TestHardware(unittest.TestCase):
-    
+    """Unit tests for the Hardware class"""
+
     def test_from_mongo_result_performs_mapping(self):
         """Mapping mongo result to Hardware object properly initialises User object."""
         hd = {"_id": "id",
               "_Hardware__name": "name",
+              "_Hardware__platform": "platform",
               "_Hardware__num_owned": 1,
               "_Hardware__num_boxed": 2,
               "_Hardware__notes": "notes"}
@@ -30,6 +32,7 @@ class TestHardware(unittest.TestCase):
         h = Hardware.from_mongo_result(hd)
         self.assertEqual(hd["_id"], h.id)
         self.assertEqual(hd["_Hardware__name"], h.name)
+        self.assertEqual(hd["_Hardware__platform"], h.platform)
         self.assertEqual(hd["_Hardware__num_owned"], h.num_owned)
         self.assertEqual(hd["_Hardware__num_boxed"], h.num_boxed)
         self.assertEqual(hd["_Hardware__notes"], h.notes)

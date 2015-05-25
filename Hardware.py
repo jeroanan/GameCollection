@@ -90,6 +90,7 @@ class Hardware():
         h = Hardware()
         h.id = mongo_result.get("_id", h.id)
         h.name = mongo_result.get("_Hardware__name", h.name)
+        h.platform = mongo_result.get("_Hardware__platform", h.platform)
         h.num_owned = mongo_result.get("_Hardware__num_owned", h.num_owned)
         h.num_boxed = mongo_result.get("_Hardware__num_boxed", h.num_boxed)
         h.notes = mongo_result.get("_Hardware__notes", h.notes)
