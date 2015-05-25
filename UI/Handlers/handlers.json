@@ -28,6 +28,7 @@
 				"addgenre": "AddGenreHandler",
 				"editgenre": "EditGenreHandler",
 				"updategenre": "UpdateGenreHandler",
-				"deletegenre": "DeleteGenreHandler"}
+				"deletegenre": "DeleteGenreHandler",
+				"users": "UsersHandler"}
 		  ]
 }

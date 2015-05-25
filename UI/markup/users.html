@@ -1,0 +1,22 @@
+{% extends 'master.html'%}
+{% block content %}
+
+<h1 class="page-header">{{title}}</h1>
+<h1 class="page-header">All Users</h2>
+<div class="row">
+  <table class="table table-striped">
+	   <thead>
+		  <tr>
+			 <th>User ID</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  {% for user in users %}
+		  <tr>
+			 <td><a href="/edituser?id={{ user.id }}" title="Edit details for {{user.user_id}}">{{ user.user_id }}</a></td>
+		  </tr>
+		  {% endfor %}
+		</tbody>
+  </table>
+</div>
+{% endblock %}

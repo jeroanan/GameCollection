@@ -18,8 +18,10 @@ from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class UsersHandler(AuthenticatedHandler):
+    # Handle requests for the users page
     
     def get_page(self, params):
+        """Handle requests for the users page."""
         super().get_page(params)
         interactor = self.interactor_factory.create("GetUsersInteractor")
         users = interactor.execute()

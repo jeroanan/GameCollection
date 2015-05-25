@@ -358,7 +358,7 @@ class MongoPersistence(AbstractPersistence):
         """Get all users
         :returns: A list of User. All users.
         """
-        return map(User.from_mongo_result, self.__db.users.find())
+        return map(User.from_mongo_result, self.__db.users.find().sort("_User__user_id"))
 
     def add_user(self, user):  
         """Add a user

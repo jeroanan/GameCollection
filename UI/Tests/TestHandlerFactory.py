@@ -50,6 +50,7 @@ from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.UsersHandler import UsersHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
@@ -64,9 +65,11 @@ class TestHandlerFactory(unittest.TestCase):
         self.__target = HandlerFactory(interactor_factory, renderer, config)
 
     def test_create_with_unrecognised_type_string_throws_unrecognised_handler_exception(self):
+        """Calling HandlerFactory.Create with an unrecognised handler type raises UnrecognisedHandlerException."""
         self.assertRaises(UnrecognisedHandlerException, self.__target.create, "UnrecognisedHandlerType")
 
     def test_handler_creation(self):
+        """Calling HandlerFactory.Create with a recgonised handler type creates the correct ttype of Handler."""
         mappings = {"index": IndexHandler,
                     "savegame": SaveGameHandler,
                     "addgame": AddGameHandler,
@@ -96,6 +99,7 @@ class TestHandlerFactory(unittest.TestCase):
                     "addgenre": AddGenreHandler,
                     "editgenre": EditGenreHandler,
                     "updategenre": UpdateGenreHandler,
-                    "deletegenre": DeleteGenreHandler}
+                    "deletegenre": DeleteGenreHandler,
+                    "users": UsersHandler}
 
         list(map(lambda m: self.assertIsInstance(self.__target.create(m), mappings[m]), mappings))
