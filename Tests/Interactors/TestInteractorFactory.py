@@ -18,38 +18,39 @@ from logging import Logger
 import unittest
 from unittest.mock import Mock
 
-from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
-from Interactors.Game.CountGamesInteractor import CountGamesInteractor
-from Interactors.Hardware.CountHardwareInteractor import CountHardwareInteractor
-from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteractor
-from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
-from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
-from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
-from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor
-from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
-from Interactors.Game.AddGameInteractor import AddGameInteractor
-from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
+from Interactors.Game.AddGameInteractor import AddGameInteractor
+from Interactors.Game.CountGamesInteractor import CountGamesInteractor
+from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Game.GetGameInteractor import GetGameInteractor
 from Interactors.Game.GetGamesInteractor import GetGamesInteractor
+from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
+from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
+from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
+from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
+from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
+from Interactors.Hardware.CountHardwareInteractor import CountHardwareInteractor
+from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteractor
+from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor
+from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
+from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
+from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
+from Interactors.InteractorFactory import InteractorFactory
+from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
+from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.Platform.GetPlatformInteractor import GetPlatformInteractor
 from Interactors.Platform.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
-from Interactors.InteractorFactory import InteractorFactory
-from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
 from Interactors.Search.SearchInteractor import SearchInteractor
-from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
-from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteractor
 from Interactors.User.AddUserInteractor import AddUserInteractor
 from Interactors.User.ChangePasswordInteractor import ChangePasswordInteractor
 from Interactors.User.GetUserInteractor import GetUserInteractor
 from Interactors.User.GetUsersInteractor import GetUsersInteractor
-from Persistence.MongoPersistence import MongoPersistence
 from Interactors.User.LoginInteractor import LoginInteractor
-from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
+from Interactors.User.UpdateUserInteractor import UpdateUserInteractor
+from Persistence.MongoPersistence import MongoPersistence
 from Tests.Interactors.Genre.TestDeleteGenreInteractor import DeleteGenreInteractor
 from Tests.Interactors.Platform.TestGetPlatformsInteractor import GetPlatformsInteractor
 from Tests.Interactors.Platform.TestUpdatePlatformInteractor import UpdatePlatformInteractor
-from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
 
 
 class TestInteractorFactory(unittest.TestCase):
@@ -95,7 +96,8 @@ class TestInteractorFactory(unittest.TestCase):
                     "AddUserInteractor": AddUserInteractor,
                     "GetUserInteractor": GetUserInteractor,
                     "ChangePasswordInteractor": ChangePasswordInteractor,
-                    "GetUsersInteractor": GetUsersInteractor
+                    "GetUsersInteractor": GetUsersInteractor,
+                    "UpdateUserInteractor": UpdateUserInteractor
                     }
 
         assert_mapping = lambda m: self.assertIsInstance(self.__target.create(m), mappings[m], m)

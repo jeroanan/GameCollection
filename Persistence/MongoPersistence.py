@@ -173,9 +173,9 @@ class MongoPersistence(AbstractPersistence):
     
     def get_hardware_details(self, platform_id, user_id):
         """Gets the details of a specific item of hardware.
-        param hardware_id: The uuid of the item of hardware to retrieve.
-        param user_id: The uuid of the current user.
-        returns: An instance of Hardware containing the requested item of hardware.
+        :param hardware_id: The uuid of the item of hardware to retrieve.
+        :param user_id: The uuid of the current user.
+        :returns: An instance of Hardware containing the requested item of hardware.
         """
         try:
             h = self.__db.hardware.find_one({
@@ -188,9 +188,9 @@ class MongoPersistence(AbstractPersistence):
     
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
-        param hardware: An instance of Hardware. The item of hardware to be saved.
-        param user_id: The uuid of the user whose collection the item of hardware should be added to.
-        returns: None
+        :param hardware: An instance of Hardware. The item of hardware to be saved.
+        :param user_id: The uuid of the user whose collection the item of hardware should be added to.
+        :returns: None
         """
         hd = hardware.__dict__
         hd["user_id"] = str(user_id)
@@ -198,9 +198,9 @@ class MongoPersistence(AbstractPersistence):
     
     def update_hardware(self, hardware, user_id):
         """Update the given item of hardware.
-        param hardware: An instance of Hardware. The item of hardware to be updated.
-        param user_id: The uuid of the current user.
-        returns: None
+        :param hardware: An instance of Hardware. The item of hardware to be updated.
+        :param user_id: The uuid of the current user.
+        :returns: None
         """
         hd = hardware.__dict__
         hd["user_id"] = str(user_id)        
@@ -211,8 +211,8 @@ class MongoPersistence(AbstractPersistence):
     
     def delete_hardware(self, hardware_id, user_id):
         """Delete the given item of hardware.
-        param hardware_id: The uuid of the item of hardware to be deleted
-        param user_id: The uuid of the current user
+        :param hardware_id: The uuid of the item of hardware to be deleted
+        :param user_id: The uuid of the current user
         """
         self.__db.hardware.remove({
             "_id": ObjectId(hardware_id),
@@ -260,10 +260,10 @@ class MongoPersistence(AbstractPersistence):
     
     def get_hardware_list(self, sort_field, sort_direction, user_id):
         """Get a list of all hardware in the user's collection
-        param sort_field: The field to sort the hardware on
-        param sort_direction: The order to sort the hardware in
-        param user_id: The uuid of the user
-        returns: A list of instances of Hardware 
+        :param sort_field: The field to sort the hardware on
+        :param sort_direction: The order to sort the hardware in
+        :param user_id: The uuid of the user
+        :returns: A list of instances of Hardware 
         """    
         sorder = MongoSortDirectionMapper().map(sort_direction)
         mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
@@ -272,9 +272,9 @@ class MongoPersistence(AbstractPersistence):
     
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
-        param hardware: An instance of Hardware. The item of hardware to be saved.
-        param user_id: The uuid of the user whose collection the item of hardware should be added to.
-        returns: None
+        :param hardware: An instance of Hardware. The item of hardware to be saved.
+        :param user_id: The uuid of the user whose collection the item of hardware should be added to.
+        :returns: None
         """
         hd = hardware.__dict__
         hd["user_id"] = str(user_id)
@@ -282,9 +282,9 @@ class MongoPersistence(AbstractPersistence):
     
     def update_hardware(self, hardware, user_id):
         """Update the given item of hardware.
-        param hardware: An instance of Hardware. The item of hardware to be updated.
-        param user_id: The uuid of the current user.
-        returns: None
+        :param hardware: An instance of Hardware. The item of hardware to be updated.
+        :param user_id: The uuid of the current user.
+        :returns: None
         """
         hd = hardware.__dict__
         hd["user_id"] = str(user_id)        
@@ -295,8 +295,8 @@ class MongoPersistence(AbstractPersistence):
     
     def delete_hardware(self, hardware_id, user_id):
         """Delete the given item of hardware.
-        param hardware_id: The uuid of the item of hardware to be deleted
-        param user_id: The uuid of the current user
+        :param hardware_id: The uuid of the item of hardware to be deleted
+        :param user_id: The uuid of the current user
         """
         self.__db.hardware.remove({
             "_id": ObjectId(hardware_id),
@@ -348,11 +348,16 @@ class MongoPersistence(AbstractPersistence):
     
     def get_user(self, user):
         """Get a user by their user_id
-        :param: An object of type User. The user to get.
+        :param: An object of type User. The user to get. If the user's id property is set then it is used to retrieve 
+                the user. Otherwise, the user_id attribute is used.
         :returns: An object of type User. The desired user.
         """
-        result_set = self.__db.users.find_one({"_User__user_id": user.user_id})
-        return user.from_mongo_result(result_set)
+        result_set = []
+        if user.id != "":
+            result_set = self.__db.users.find_one({"_id": ObjectId(user.id)})
+        else:
+            result_set = self.__db.users.find_one({"_User__user_id": user.user_id})
+        return User.from_mongo_result(result_set)
     
     def get_all_users(self):
         """Get all users
@@ -366,10 +371,17 @@ class MongoPersistence(AbstractPersistence):
         """
         self.__db.users.insert(user.__dict__)
     
+    def update_user(self, user):
+        """Update the details of a user
+        :param user: An object of type User. The id field is set to the id of the user to update. The rest of the 
+        fields contain the new values.
+        """
+        self.__db.users.update({"_id": ObjectId(user.id)}, {"$set": user.__dict__}, upsert=False)
+
     def change_password(self, user):
         """Change a user's password
         :param user: An object of type user. The user whose password is to be changed. 
-        The password property is the new password.
+                     The password property is the new password.
         """
         self.__db.users.update({
             "_User__user_id": user.user_id

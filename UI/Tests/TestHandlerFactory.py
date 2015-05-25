@@ -20,19 +20,20 @@ from unittest.mock import Mock
 from Data.Config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
+from UI.Handlers.AddGenreHandler import AddGenreHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
+from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
+from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
-from UI.Handlers.AddGenreHandler import AddGenreHandler
-from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.GenresHandler import GenresHandler
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.IndexHandler import IndexHandler
@@ -42,8 +43,9 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
-from UI.Handlers.SignupHandler import SignupHandler
+from UI.Handlers.Session.Session import Session
 from UI.Handlers.SigninHandler import SigninHandler
+from UI.Handlers.SignupHandler import SignupHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
 from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
@@ -51,14 +53,15 @@ from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.Handlers.UsersHandler import UsersHandler
-from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
 
 class TestHandlerFactory(unittest.TestCase):
+    """Unit tests for the HandlerFactory class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         interactor_factory = Mock(InteractorFactory)
         renderer = Mock(TemplateRenderer)
         config = Mock(Config)
@@ -100,6 +103,7 @@ class TestHandlerFactory(unittest.TestCase):
                     "editgenre": EditGenreHandler,
                     "updategenre": UpdateGenreHandler,
                     "deletegenre": DeleteGenreHandler,
-                    "users": UsersHandler}
+                    "users": UsersHandler,
+                    "edituser": EditUserHandler}
 
         list(map(lambda m: self.assertIsInstance(self.__target.create(m), mappings[m]), mappings))

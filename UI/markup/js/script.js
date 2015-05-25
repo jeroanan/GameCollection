@@ -117,6 +117,11 @@ function deleteGenre(id) {
 	 ajaxDelete("/deletegenre", j);
 }
 
+function deleteUser(id) {
+	 j = {"id": id}
+	 ajaxDelete("/deleteuser", j);
+}
+
 function navigate(url) {
     window.location = url;
 }
@@ -216,6 +221,14 @@ function updateNameDescription(updateUri) {
 	 var j = getIdNameDescriptionJson();
     if (!validateSaveNameDescriptionJson(j)) return;
     ajaxSave(updateUri, j);
+}
+
+function updateUser(id) {
+	 j  = {
+		  "id": id,
+		  "userid": $('#userid').val() 
+	 };
+	 ajaxSave("/updateuser", j);
 }
 
 function getIdNameDescriptionJson() {

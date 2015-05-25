@@ -202,7 +202,14 @@ class AbstractPersistence(object):
 
     def add_user(self, user):
         """Add a user
-        :param user: An object of type User. The user to add.xs
+        :param user: An object of type User. The user to add.
+        """
+        pass
+
+    def update_user(self, user):
+        """Update the details of a user
+        :param user: An object of type User. The id field is set to the id of the user to update. The rest of the 
+                     fields contain the new values.
         """
         pass
 

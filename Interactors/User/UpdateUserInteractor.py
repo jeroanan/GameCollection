@@ -1,4 +1,4 @@
-# Copyright (c) David Wilson 2015
+# Copyright (c) 20115 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,23 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+
 from Interactors.Interactor import Interactor
 
-
-class GetUserInteractor(Interactor):
-    # Logic to get a user from persistence
+class UpdateUserInteractor(Interactor):
+    """Use persistence to update the details of a user"""
 
     def execute(self, user):
-        """Get a user from persistence
-        :param user: An object of type user containing the id or user_id of the user to get. The id will take precdence.
-        :returns: An object of type User. The retrieved user record.
-        """
-        def validate(user):
-            if user is None:
-                raise TypeError
-
-        validate(user)
-        return self.persistence.get_user(user)
-
-    
-
+        """Use persistence to update the details of a user
+        :param user: The user to be updated by id with the user's details."""
+        self.persistence.update_user(user)

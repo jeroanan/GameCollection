@@ -29,6 +29,7 @@
 				"editgenre": "EditGenreHandler",
 				"updategenre": "UpdateGenreHandler",
 				"deletegenre": "DeleteGenreHandler",
-				"users": "UsersHandler"}
+				"users": "UsersHandler",
+				"edituser": "EditUserHandler"}
 		  ]
 }
