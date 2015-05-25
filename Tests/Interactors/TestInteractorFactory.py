@@ -26,6 +26,7 @@ from Interactors.Game.GetGameInteractor import GetGameInteractor
 from Interactors.Game.GetGamesInteractor import GetGamesInteractor
 from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
 from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
+from Interactors.Genre.DeleteGenreInteractor import DeleteGenreInteractor
 from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
 from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
 from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
@@ -39,7 +40,9 @@ from Interactors.InteractorFactory import InteractorFactory
 from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
 from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
 from Interactors.Platform.GetPlatformInteractor import GetPlatformInteractor
+from Interactors.Platform.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.Platform.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
+from Interactors.Platform.UpdatePlatformInteractor import UpdatePlatformInteractor
 from Interactors.Search.SearchInteractor import SearchInteractor
 from Interactors.User.AddUserInteractor import AddUserInteractor
 from Interactors.User.ChangePasswordInteractor import ChangePasswordInteractor
@@ -48,9 +51,6 @@ from Interactors.User.GetUsersInteractor import GetUsersInteractor
 from Interactors.User.LoginInteractor import LoginInteractor
 from Interactors.User.UpdateUserInteractor import UpdateUserInteractor
 from Persistence.MongoPersistence import MongoPersistence
-from Tests.Interactors.Genre.TestDeleteGenreInteractor import DeleteGenreInteractor
-from Tests.Interactors.Platform.TestGetPlatformsInteractor import GetPlatformsInteractor
-from Tests.Interactors.Platform.TestUpdatePlatformInteractor import UpdatePlatformInteractor
 
 
 class TestInteractorFactory(unittest.TestCase):
