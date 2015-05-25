@@ -30,6 +30,7 @@
 				"updategenre": "UpdateGenreHandler",
 				"deletegenre": "DeleteGenreHandler",
 				"users": "UsersHandler",
-				"edituser": "EditUserHandler"}
+				"edituser": "EditUserHandler",
+				"updateuser": "UpdateUserHandler"}
 		  ]
 }

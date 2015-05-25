@@ -32,6 +32,7 @@ from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
+from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.GenresHandler import GenresHandler
@@ -52,9 +53,9 @@ from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
+from UI.Handlers.UpdateUserHandler import UpdateUserHandler
 from UI.Handlers.UsersHandler import UsersHandler
 from UI.TemplateRenderer import TemplateRenderer
-from UI.Tests.Handlers.TestEditPlatformHandler import EditPlatformHandler
 
 
 class TestHandlerFactory(unittest.TestCase):
@@ -104,6 +105,7 @@ class TestHandlerFactory(unittest.TestCase):
                     "updategenre": UpdateGenreHandler,
                     "deletegenre": DeleteGenreHandler,
                     "users": UsersHandler,
-                    "edituser": EditUserHandler}
+                    "edituser": EditUserHandler,
+                    "updateuser": UpdateUserHandler}
 
         list(map(lambda m: self.assertIsInstance(self.__target.create(m), mappings[m]), mappings))
