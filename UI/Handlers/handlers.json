@@ -31,6 +31,7 @@
 				"deletegenre": "DeleteGenreHandler",
 				"users": "UsersHandler",
 				"edituser": "EditUserHandler",
-				"updateuser": "UpdateUserHandler"}
+				"updateuser": "UpdateUserHandler",
+				"deleteuser": "DeleteUserHandler"}
 		  ]
 }

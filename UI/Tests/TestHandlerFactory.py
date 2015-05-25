@@ -29,6 +29,7 @@ from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
+from UI.Handlers.DeleteUserHandler import DeleteUserHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
@@ -106,6 +107,7 @@ class TestHandlerFactory(unittest.TestCase):
                     "deletegenre": DeleteGenreHandler,
                     "users": UsersHandler,
                     "edituser": EditUserHandler,
-                    "updateuser": UpdateUserHandler}
+                    "updateuser": UpdateUserHandler,
+                    "deleteuser": DeleteUserHandler}
 
         list(map(lambda m: self.assertIsInstance(self.__target.create(m), mappings[m]), mappings))

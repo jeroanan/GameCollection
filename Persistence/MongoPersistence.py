@@ -378,6 +378,12 @@ class MongoPersistence(AbstractPersistence):
         """
         self.__db.users.update({"_id": ObjectId(user.id)}, {"$set": user.__dict__}, upsert=False)
 
+    def delete_user(self, user):
+        """Delete a user
+        :param user: An object of type user. Contains the id of the user to be deleted.
+        """
+        self.__db.users.remove({"_id": ObjectId(user.id)})
+
     def change_password(self, user):
         """Change a user's password
         :param user: An object of type user. The user whose password is to be changed. 

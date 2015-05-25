@@ -46,6 +46,7 @@ from Interactors.Platform.UpdatePlatformInteractor import UpdatePlatformInteract
 from Interactors.Search.SearchInteractor import SearchInteractor
 from Interactors.User.AddUserInteractor import AddUserInteractor
 from Interactors.User.ChangePasswordInteractor import ChangePasswordInteractor
+from Interactors.User.DeleteUserInteractor import DeleteUserInteractor
 from Interactors.User.GetUserInteractor import GetUserInteractor
 from Interactors.User.GetUsersInteractor import GetUsersInteractor
 from Interactors.User.LoginInteractor import LoginInteractor
@@ -54,8 +55,10 @@ from Persistence.MongoPersistence import MongoPersistence
 
 
 class TestInteractorFactory(unittest.TestCase):
+    """Unit tests for the InteractorFactory class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class."""
         self.__target = InteractorFactory(Mock(MongoPersistence), Mock(Logger))
 
     def test_create_unrecognised_type_string_throws_exception(self):
@@ -97,7 +100,8 @@ class TestInteractorFactory(unittest.TestCase):
                     "GetUserInteractor": GetUserInteractor,
                     "ChangePasswordInteractor": ChangePasswordInteractor,
                     "GetUsersInteractor": GetUsersInteractor,
-                    "UpdateUserInteractor": UpdateUserInteractor
+                    "UpdateUserInteractor": UpdateUserInteractor,
+                    "DeleteUserInteractor": DeleteUserInteractor
                     }
 
         assert_mapping = lambda m: self.assertIsInstance(self.__target.create(m), mappings[m], m)

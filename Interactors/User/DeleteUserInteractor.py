@@ -12,17 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from User import User
+from Interactors.Interactor import Interactor
 
-class UpdateUserHandler(AuthenticatedHandler):
-    """Handles requests to update the details of a user"""
 
-    def get_page(self, params):
-        """Handles requests to update the details of a user
-        :param params: A dictionary containing the following keys:
-                       * id
-        """
-        super().get_page(params)
-        interactor = self.interactor_factory.create("UpdateUserInteractor")
-        interactor.execute(User.from_dict(params))
+class DeleteUserInteractor(Interactor):
+    """Use persistence to delete a user"""
+    
+    def execute(self, user):
+        """Delete a user.
+        :param user: The user to delete. The id property contains the id of the user to delete."""
+        self.persistence.delete_user(user)

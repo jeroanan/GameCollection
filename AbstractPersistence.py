@@ -213,6 +213,12 @@ class AbstractPersistence(object):
         """
         pass
 
+    def delete_user(self, user):
+        """Delete a user
+        :param user: An object of type user. Contains the id of the user to be deleted.
+        """
+        pass
+
     def change_password(self, user):
         """Change a user's password
         :param user: An object of type user. The user whose password is to be changed. 

@@ -29,7 +29,8 @@
         "GetUserInteractor": "User.GetUserInteractor",
 		  "ChangePasswordInteractor": "User.ChangePasswordInteractor",
 		  "GetUsersInteractor": "User.GetUsersInteractor",		
-		  "UpdateUserInteractor": "User.UpdateUserInteractor"
+		  "UpdateUserInteractor": "User.UpdateUserInteractor",
+			"DeleteUserInteractor": "User.DeleteUserInteractor"
 		  }
 	 ]
 }
