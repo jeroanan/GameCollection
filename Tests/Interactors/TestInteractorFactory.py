@@ -42,6 +42,7 @@ from Interactors.Hardware.UpdateHardwareInteractor import UpdateHardwareInteract
 from Interactors.User.AddUserInteractor import AddUserInteractor
 from Interactors.User.ChangePasswordInteractor import ChangePasswordInteractor
 from Interactors.User.GetUserInteractor import GetUserInteractor
+from Interactors.User.GetUsersInteractor import GetUsersInteractor
 from Persistence.MongoPersistence import MongoPersistence
 from Interactors.User.LoginInteractor import LoginInteractor
 from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
@@ -57,9 +58,12 @@ class TestInteractorFactory(unittest.TestCase):
         self.__target = InteractorFactory(Mock(MongoPersistence), Mock(Logger))
 
     def test_create_unrecognised_type_string_throws_exception(self):
+        """Test that calling InteractorFactory.create with an unknown Interactor type raises an 
+         UnrecognisedInteractorTypeException""" 
         self.assertRaises(UnrecognisedInteractorTypeException, self.__target.create, "InteractorType")
 
     def test_create(self):
+        """Test that all known types of Interactor can be created with InteractorFactory"""
         mappings = {"AddGameInteractor": AddGameInteractor,
                     "GetGamesInteractor": GetGamesInteractor,
                     "GetPlatformsInteractor": GetPlatformsInteractor,
@@ -90,10 +94,10 @@ class TestInteractorFactory(unittest.TestCase):
                     "LoginInteractor": LoginInteractor,
                     "AddUserInteractor": AddUserInteractor,
                     "GetUserInteractor": GetUserInteractor,
-                    "ChangePasswordInteractor": ChangePasswordInteractor
+                    "ChangePasswordInteractor": ChangePasswordInteractor,
+                    "GetUsersInteractor": GetUsersInteractor
                     }
 
-        for m in mappings:
-            result = self.__target.create(m)
-            self.assertIsInstance(result, mappings[m], m)
+        assert_mapping = lambda m: self.assertIsInstance(self.__target.create(m), mappings[m], m)
+        list(map(assert_mapping, mappings))
 

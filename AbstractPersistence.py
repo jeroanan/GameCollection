@@ -14,177 +14,201 @@
 # Provides a list of methods for persistence objects to implement.
 class AbstractPersistence(object):
 
-    """Add a single game.
-    :param params: An object of type Game
-    :param user_id: The id of the current user (actual id rather than username)
-    :returns: None
-    """
+    
     def add_game(self, game, user_id):
-        pass
-
-    """Gets a list of games.
-    :param params: An object of type GetGamesInteractorParams
-    :returns: A list of Game
-    """
-    def get_all_games(self, params):
-        pass
-
-    """Gets a list of games for a platform.
-    :param params: An object of type GetGamesInteractorParams
-    :returns: A list of Game
-    """
-    def get_all_games_for_platform(self, params):
+        """Add a single game.
+        :param params: An object of type Game
+        :param user_id: The id of the current user (actual id rather than username)
+        :returns: None
+        """
         pass
     
-    """Counts the games in the user's collection.
-    :param user_id: The uuid of the current user.
-    :returns: The number of games in the user's collection
-    """
+    def get_all_games(self, params):
+        """Gets a list of games.
+        :param params: An object of type GetGamesInteractorParams
+        :returns: A list of Game
+        """
+        pass
+    
+    def get_all_games_for_platform(self, params):
+        """Gets a list of games for a platform.
+        :param params: An object of type GetGamesInteractorParams
+        :returns: A list of Game
+        """
+        pass    
+
     def count_games(self, user_id):
+        """Counts the games in the user's collection.
+        :param user_id: The uuid of the current user.
+        :returns: The number of games in the user's collection
+        """
         pass
 
-    """Counts the items of hardware
-    :returns: The number of items of hardware
-    """
     def count_hardware(self):
+        """Counts the items of hardware
+        :returns: The number of items of hardware
+        """
         pass
 
-    """Gets a specific game if it matches the given user
-    :param game_id: A string containing the uuid of the game
-    :param user_id: A string containing the uuid of the given user
-    :returns: An object of type Game
-    """
     def get_game(self, game_id, user_id):
+        """Gets a specific game if it matches the given user
+        :param game_id: A string containing the uuid of the game
+        :param user_id: A string containing the uuid of the given user
+        :returns: An object of type Game
+        """
         pass
 
-    """Get a list of platforms
-    :returns: A list of type Platform of all stored platforms
-    """
     def get_platforms(self):
+        """Get a list of platforms
+        :returns: A list of type Platform of all stored platforms
+        """
         pass
 
-    """Get a platform
-    :param platform_id: The uuid of a platform
-    :returns: an object of type platform containing the requested platform
-    """
     def get_platform(self, platform_id):
+        """Get a platform
+        :param platform_id: The uuid of a platform
+        :returns: an object of type platform containing the requested platform
+        """
         pass
 
-    """Add a platform
-    :param platform: An object of type platform. The platform to be added.
-    """
     def add_platform(self, platform):
+        """Add a platform
+        :param platform: An object of type platform. The platform to be added.
+        """
         pass
 
-    """Update the details of a platform
-    :param platform: An object of type platform. The platform to be updated.
-    """
     def update_platform(self, platform):
+        """Update the details of a platform
+        :param platform: An object of type platform. The platform to be updated.
+        """
         pass
 
-    """Delete a platform
-    :param platform: An object of type platform. The platform to be deleted.
-    """
     def delete_platform(self, platform):
+        """Delete a platform
+        :param platform: An object of type platform. The platform to be deleted.
+        """
         pass
 
-    """Update the given game if it belongs to the given user
-    :param game_id: An object of type Game -- the game to be updated
-    :param user_id: A string containing the uuid of the given user
-    :returns: None
-    """
     def update_game(self, game):
+        """Update the given game if it belongs to the given user
+        :param game_id: An object of type Game -- the game to be updated
+        :param user_id: A string containing the uuid of the given user
+        :returns: None
+        """
         pass
 
-    """Delete the given game if it belongs to the given user
-    :param game_id: An object of type Game -- the game to be deleted
-    :param user_id: A string containing the uuid of the given user
-    :returns: None
-    """
     def delete_game(self, game, user_id):
+        """Delete the given game if it belongs to the given user
+        :param game_id: An object of type Game -- the game to be deleted
+        :param user_id: A string containing the uuid of the given user
+        :returns: None
+        """
         pass
 
-    """Get a list of all hardware in the user's collection
-    param sort_field: The field to sort the hardware on
-    param sort_direction: The order to sort the hardware in
-    param user_id: The uuid of the user
-    returns: A list of instances of Hardware 
-    """
     def get_hardware_list(self, sort_field, sort_direction, user_id):
+        """Get a list of all hardware in the user's collection
+        param sort_field: The field to sort the hardware on
+        param sort_direction: The order to sort the hardware in
+        param user_id: The uuid of the user
+        returns: A list of instances of Hardware 
+        """
         pass
 
-    """Gets the details of a specific item of hardware.
-    param hardware_id: The uuid of the item of hardware to retrieve.
-    param user_id: The uuid of the current user.
-    returns: An instance of Hardware containing the requested item of hardware.
-    """
     def get_hardware_details(self, platform_id, user_id):
+        """Gets the details of a specific item of hardware.
+        param hardware_id: The uuid of the item of hardware to retrieve.
+        param user_id: The uuid of the current user.
+        returns: An instance of Hardware containing the requested item of hardware.
+        """
         pass
 
-    """Save an item of hardware.
-    param hardware: An instance of Hardware. The item of hardware to be saved.
-    param user_id: The uuid of the user whose collection the item of hardware should be added to.
-    returns: None
-    """
     def save_hardware(self, hardware, user_id):
+        """Save an item of hardware.
+        param hardware: An instance of Hardware. The item of hardware to be saved.
+        param user_id: The uuid of the user whose collection the item of hardware should be added to.
+        returns: None
+        """
         pass
 
-    """Update the given item of hardware
-    param hardware: An instance of Hardware. The item of hardware to be updated.
-    param user_id: The uuid of the current user.
-    returns: None
-    """
     def update_hardware(self, hardware, user_idx):
+        """Update the given item of hardware
+        param hardware: An instance of Hardware. The item of hardware to be updated.
+        param user_id: The uuid of the current user.
+        returns: None
+        """
         pass
 
-    """Delete the given item of hardware.
-    param hardware_id: The uuid of the item of hardware to be deleted
-    param user_id: The uuid of the current user
-    """
     def delete_hardware(self, hardware_id, user_id):
+        """Delete the given item of hardware.
+        param hardware_id: The uuid of the item of hardware to be deleted
+        param user_id: The uuid of the current user
+        """
         pass
 
     def get_genres(self):
+        """Get all genres.
+        :returns: A list of type Genre that contains all genres in the system.
+        """
         pass
 
     def add_genre(self, genre):
+        """Add a genre
+        :param genre: An object of type Genre. The genre to be added.
+        """
         pass
 
     def get_genre_details(self, genre_id):
+        """Get the details of a genre.
+        :param genre_id: The object id of the genre to be retrieved.
+        :returns: An object of type Genre containing the genre.
+        """
         pass
 
     def update_genre(self, genre):
+        """Update the details of a genre
+        :param genre: An object of type genre. The genre to be updated.
+        """
         pass
 
     def delete_genre(self, genre_id):
+        """Delete a genre.
+        :param genre_id: The ObjectId of the genre to be deleted.
+        :returns: None
+        """
         pass
 
-    """Search the games collection
-    param search_term: The term to do the search upon
-    param sort_field: The field to sort results by
-    param sort_dir: The direction to sort results in
-    param user_id: The uuid of the current user
-    returns: the search results
-    """
     def search(self, search_term, sort_field, sort_dir, user_id):
+        """Search the games collection
+        param search_term: The term to do the search upon
+        param sort_field: The field to sort results by
+        param sort_dir: The direction to sort results in
+        param user_id: The uuid of the current user
+        returns: the search results
+        """
         pass
 
-    """Get a user
-    :param user: An object of type User. The user to get.
-    :returns: An object of type User. The desired user.
-    """
     def get_user(self, user):
+        """Get a user
+        :param user: An object of type User. The user to get.
+        :returns: An object of type User. The desired user.
+        """
         pass
 
-    """Add a user
-    :param user: An object of type User. The user to add.xs
-    """
+    def get_all_users(self):
+        """Get all users
+        :returns: A list of User. All users.
+        """
+        pass
+
     def add_user(self, user):
+        """Add a user
+        :param user: An object of type User. The user to add.xs
+        """
         pass
 
-    """Change a user's password
-    :param user: An object of type user. The user whose password is to be changed. 
-                 The password property is the new password.
-    """
     def change_password(self, user):
+        """Change a user's password
+        :param user: An object of type user. The user whose password is to be changed. 
+        The password property is the new password.
+        """
         pass

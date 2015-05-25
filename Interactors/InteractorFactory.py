@@ -32,6 +32,11 @@ class InteractorFactory(object):
             return json.load(f)["interactors"][0]    
 
     def create(self, interactor_type):
+        """Create an Interactor of the specified type.
+        :param interactor_type: A string indicating which type of Interactor should be created.
+        :returns: An interactor of the specified type. If interactor_type does not correspond to a known type of 
+                  interactor then an UnrecognisdInteractorTypeException is raised.
+        """
         if interactor_type == "GetSuggestedPlatformsInteractor":
             return self.__initialise_interactor(GetSuggestedPlatformsInteractor(LoadSuggestedPlatforms()))
 

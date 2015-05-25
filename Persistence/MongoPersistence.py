@@ -310,6 +310,9 @@ class MongoPersistence(AbstractPersistence):
         return map(Genre.from_mongo_result, self.__db.genres.find().sort("_Genre__name"))
 
     def add_genre(self, genre):
+        """Add a genre
+        :param genre: An object of type Genre. The genre to be added.
+        """
         self.__db.genres.insert(genre.__dict__)
 
     def get_genre_details(self, genre_id):
@@ -342,7 +345,6 @@ class MongoPersistence(AbstractPersistence):
                  {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},                   
                  {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
         return map(Game.from_mongo_result, results.sort(mapped_sort_field, sorder))
-
     
     def get_user(self, user):
         """Get a user by their user_id
@@ -352,12 +354,17 @@ class MongoPersistence(AbstractPersistence):
         result_set = self.__db.users.find_one({"_User__user_id": user.user_id})
         return user.from_mongo_result(result_set)
     
+    def get_all_users(self):
+        """Get all users
+        :returns: A list of User. All users.
+        """
+        return map(User.from_mongo_result, self.__db.users.find())
+
     def add_user(self, user):  
         """Add a user
         :param: An object of type User. The user to add.
         """
         self.__db.users.insert(user.__dict__)
-
     
     def change_password(self, user):
         """Change a user's password

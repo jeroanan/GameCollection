@@ -1,3 +1,4 @@
+# Copyright (c) David Wilson 2015x
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -97,9 +98,4 @@ class TestHandlerFactory(unittest.TestCase):
                     "updategenre": UpdateGenreHandler,
                     "deletegenre": DeleteGenreHandler}
 
-        for m in mappings:
-            self.__assert_type_string_returns_handler_type(m, mappings[m])
-
-    def __assert_type_string_returns_handler_type(self, type_string, handler_type):
-        handler = self.__target.create(type_string)
-        self.assertIsInstance(handler, handler_type, type_string)
+        list(map(lambda m: self.assertIsInstance(self.__target.create(m), mappings[m]), mappings))
