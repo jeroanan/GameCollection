@@ -16,7 +16,7 @@ import unittest
 from unittest.mock import Mock
 
 from Genre import Genre
-from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
+from Interactors.GenreInteractors import GetGenreInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
@@ -25,27 +25,27 @@ from UI.TemplateRenderer import TemplateRenderer
 
 
 class TestEditGenreHandler(unittest.TestCase):
+    """Unit tests for the EditGenreHandler class"""
     
     def setUp(self):        
-        self.__get_params = lambda genre_id="id": {"genreid": genre_id}
-        self.__get_page = lambda: self.__target.get_page(self.__get_params())
-        self.__genre = Genre.from_dict(self.__get_params())
+        """setUp function for all unit tests in this class"""
+        get_params = lambda genre_id="id": {"genreid": genre_id}
+        self.__get_page = lambda: self.__target.get_page(get_params())
+        self.__genre = Genre.from_dict(get_params())
         interactor_factory = Mock(InteractorFactory)
-        self.__interactor = Mock(GetGenreInteractor)
-        self.__interactor.execute = Mock(return_value=self.__genre)
-        interactor_factory.create = Mock(return_value=self.__interactor)
+        interactor = Mock(GetGenreInteractor)
+        interactor.execute = Mock(return_value=self.__genre)
+        interactor_factory.create = Mock(return_value=interactor)
         self.__renderer = Mock(TemplateRenderer)
         self.__target = EditGenreHandler(interactor_factory, self.__renderer)
         self.__target.session = Mock(Session)        
 
     def test_is_type_of_authenticated_handler(self):
+        """Test that EditGenreHandler is derived from AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
         
-    def test_get_page_executes_interactor(self):
-        self.__get_page()
-        self.__interactor.execute.assert_called_with("id")
-
     def test_get_page_calls_renderer(self):
+        """Test that calling EditGenreHandler.get_page causes renderer.render to be called wiht the correct data."""
         self.__get_page()
         self.__renderer.render.assert_called_with("editgenre.html", genre=self.__genre, title="Edit Genre")
 

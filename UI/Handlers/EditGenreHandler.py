@@ -16,8 +16,14 @@ from Genre import Genre
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 class EditGenreHandler(AuthenticatedHandler):
-    
+    """Handles requests to edit a genre"""
+
     def get_page(self, params):
+        """Handle a request to edit a genre.
+        :param params: A dictionary containing the following keys: 
+                          * genreid
+        :returns: A rendered HTML page containing the details of the given genre
+        """
         super().get_page(params)
         interactor = self.interactor_factory.create("GetGenreInteractor")
         genre = interactor.execute(params.get("genreid", ""))

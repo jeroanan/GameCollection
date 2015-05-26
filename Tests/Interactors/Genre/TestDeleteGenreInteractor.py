@@ -15,23 +15,26 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Genre import Genre
-from Interactors.Genre.DeleteGenreInteractor import DeleteGenreInteractor
+from Interactors.GenreInteractors import DeleteGenreInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
 class TestDeleteGenreInteractor(InteractorTestBase):
-
+    """Unit tests for the DeleteGenreInteractor class"""
+    
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         super().setUp()
         self.__target = DeleteGenreInteractor()
         self.__target.persistence = self.persistence
 
     def test_is_interactor(self):
+        """Test that DeleteGenreInteractor is derived from Interactor"""
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence(self):
-        g = Genre()
-        g.id = "id"
+        """Test that calling DeleteGenreInteractor.execute calls persistence.delete_genre"""
+        g = Genre.from_dict({"id": "id"})
         self.__target.execute(genre=g)
         self.persistence.delete_genre.assert_called_with(g.id)

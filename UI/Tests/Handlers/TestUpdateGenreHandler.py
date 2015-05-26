@@ -16,15 +16,17 @@ import unittest
 from unittest.mock import Mock
 
 from Genre import Genre
-from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
+from Interactors.GenreInteractors import UpdateGenreInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 
 class TestUpdateGenreHandler(unittest.TestCase):
-    
+    """Unit tests for the UpdateGenreHandler class"""
+
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         interactor_factory = Mock(InteractorFactory)
         self.__interactor = Mock(UpdateGenreInteractor)
         interactor_factory.create = Mock(return_value=self.__interactor)
@@ -37,9 +39,11 @@ class TestUpdateGenreHandler(unittest.TestCase):
         self.__genre = Genre.from_dict(self.__get_params())
 
     def test_is_type_of_authenticated_handler(self):
+        """Test hat UpdateGenreHandler is derived from AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_executes_interactor(self):
+        """Test that calling UpdateGenreHandler.get_page causes UpdateGenreInteractor.execute to be called"""
         self.__get_page()
         self.__interactor.execute.assert_called_with(self.__genre)
     

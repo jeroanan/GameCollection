@@ -17,15 +17,17 @@ from unittest.mock import Mock
 
 from Genre import Genre
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.Genre.DeleteGenreInteractor import DeleteGenreInteractor
+from Interactors.GenreInteractors import DeleteGenreInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.Session.Session import Session
 
 
 class TestDeleteGenreHandler(unittest.TestCase):
+    """Unit tests for the DeleteGenreHandler class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class."""
         self.__interactor = Mock(DeleteGenreInteractor)
         interactor_factory = Mock(InteractorFactory)
         interactor_factory.create = Mock(return_value=self.__interactor)
@@ -36,8 +38,10 @@ class TestDeleteGenreHandler(unittest.TestCase):
         self.__get_page = lambda: self.__target.get_page(self.__get_params()) 
 
     def test_is_type_of_authenticated_handler(self):
+        """Test that DeleteGenreHandler is derived from AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_executes_interactor(self):
+        """Test that calling DeleteGenreHandler.get_page causes DeleteGenreInteractor.execute to be called"""
         self.__get_page()
         self.__interactor.execute.assert_called_with(self.__genre)

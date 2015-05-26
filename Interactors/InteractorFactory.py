@@ -46,7 +46,11 @@ class InteractorFactory(object):
         raise UnrecognisedInteractorTypeException
 
     def __string_to_interactor(self, interactor_type):
-        module = __import__("Interactors." + interactor_type, fromlist=interactor_type)
+        try:
+            module = __import__("Interactors." + interactor_type, fromlist=interactor_type)
+        except ImportError:  #We're using one of the new classes to group interactors by feature.
+            it = str.split(interactor_type, ".")
+            module = __import__("Interactors." + it[0], fromlist=it[1])
         class_name = str.split(interactor_type, ".")[1]
         class_ = getattr(module, class_name)
         instantiated = class_()

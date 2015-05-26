@@ -13,16 +13,17 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Genre import Genre
-from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
+from Interactors.GenreInteractors import GetGenresInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 
 class GenresHandler(AuthenticatedHandler):
-    # Handle requests for the genre management page.
+    """Handle requests for the genre management page."""
 
     def __init__(self, interactor_factory, renderer):
+        """Initialise the handler"""
         super().__init__(interactor_factory, renderer)
     
     def get_page(self, args):

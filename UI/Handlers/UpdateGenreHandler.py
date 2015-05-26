@@ -17,7 +17,7 @@ from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class UpdateGenreHandler(AuthenticatedHandler):
-    # Handle requests to update a genre
+    """Handle requests to update a genre"""
 
     def get_page(self, params):
         """Update a genre given in the params dictionary. This function is designed

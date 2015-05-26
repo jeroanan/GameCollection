@@ -25,11 +25,8 @@ from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Game.GetGameInteractor import GetGameInteractor
 from Interactors.Game.GetGamesInteractor import GetGamesInteractor
 from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
-from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
-from Interactors.Genre.DeleteGenreInteractor import DeleteGenreInteractor
-from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
-from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
-from Interactors.Genre.UpdateGenreInteractor import UpdateGenreInteractor
+from Interactors.GenreInteractors import (AddGenreInteractor, DeleteGenreInteractor, GetGenresInteractor, 
+                                          GetGenreInteractor, UpdateGenreInteractor)
 from Interactors.Hardware.CountHardwareInteractor import CountHardwareInteractor
 from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor

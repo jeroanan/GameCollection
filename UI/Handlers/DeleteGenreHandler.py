@@ -16,7 +16,7 @@ from Genre import Genre
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 class DeleteGenreHandler(AuthenticatedHandler):
-    # Handles requests to delete a genre
+    """Handles requests to delete a genre"""
 
     def get_page(self, params):
         """Handles a request to delete a genre.

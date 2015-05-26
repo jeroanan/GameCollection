@@ -16,7 +16,7 @@ import unittest
 from unittest.mock import Mock
 
 from Genre import Genre
-from Interactors.Genre.GetGenresInteractor import GetGenresInteractor
+from Interactors.GenreInteractors import GetGenresInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.GenresHandler import GenresHandler
@@ -25,8 +25,10 @@ from UI.TemplateRenderer import TemplateRenderer
 
 
 class TestGenresHandler(unittest.TestCase):
-    
+    """Unit tests for the GenresHandler class"""
+
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         self.__genres = [Genre()]
         interactor_factory = Mock(InteractorFactory)        
         interactor = Mock(GetGenresInteractor)
@@ -38,8 +40,10 @@ class TestGenresHandler(unittest.TestCase):
         
 
     def test_is_type_of_authenticated_handler(self):
+        """Test that GenresHandler is derived from AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_renders_page(self):
+        """Test that calling GenresHandler.get_page causes renderer.render to be called with the correct parameters"""
         self.__target.get_page(None)
         self.__renderer.render.assert_called_with("genres.html", title="Manage Genres", genres=self.__genres)

@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import Mock
 
 from Genre import Genre
-from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
+from Interactors.GenreInteractors import AddGenreInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.AddGenreHandler import AddGenreHandler
@@ -28,39 +28,41 @@ from UI.Tests.Handlers.HandlerTestAssertions import (get_missing_param_assertion
 
 
 class TestAddGenreHandler(unittest.TestCase):
+    "Unit tests for the AddGenreHandler class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         self.__interactor = Mock(AddGenreInteractor)
         interactor_factory = Mock(InteractorFactory)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = AddGenreHandler(interactor_factory, None)
         self.__target.session = Mock(Session)
+        self.__params = {"name": "name",
+                         "description": "description"}
         self.__set_assertions()
         
     def __set_assertions(self):
+        """Initialise assertion functions"""
         missing_param_assertion = get_missing_param_assertion(self.__target)
-        self.__missing_param_test = partial(missing_param_assertion, params=self.__get_params())
+        self.__missing_param_test = partial(missing_param_assertion, params=self.__params)
         empty_param_assertion = get_empty_param_assertion(self.__target)
-        self.__empty_param_test = partial(empty_param_assertion, params=self.__get_params())
+        self.__empty_param_test = partial(empty_param_assertion, params=self.__params)
 
     def test_is_type_of_authenticated_handler(self):
+        """Test that AddGenreHandler is derived from AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_misssing_required_params_returns_empty_string(self):
+        """Missing required parameters to AddGenreHandler.get_page should cause it to return an empty string"""
         params = ["name", "description"]
         self.assertTrue(assert_operation_on_params_returns_true(self.__missing_param_test, params))
 
     def test_empty_required_params_returns_empty_string(self):
+        """Empty required parameters to AddGenreHandler.get_page should cause it to return an empty string"""
         params = ["name", "description"]
         self.assertTrue(assert_operation_on_params_returns_true(self.__empty_param_test, params))    
 
     def test_executes_interactor(self):
-        params = self.__get_params()
-        self.__target.get_page(params)
-        self.__interactor.execute.assert_called_with(Genre.from_dict(self.__get_params()))
-
-    def __get_params(self, name="name", description="description"):
-        return {"name": name,
-                "description": description}
-
-
+        """Test that AddGenreHandler.get_page executes AddGenreInteractor.execute"""
+        self.__target.get_page(self.__params)
+        self.__interactor.execute.assert_called_with(Genre.from_dict(self.__params))

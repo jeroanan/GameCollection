@@ -13,17 +13,25 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Genre import Genre
-from Interactors.Genre.AddGenreInteractor import AddGenreInteractor
+from Interactors.GenreInteractors import AddGenreInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class AddGenreHandler(AuthenticatedHandler):
-    
+    """Handles requests to add a genre"""
+
     def __init__(self, interactor_factory, renderer):
+        """Initialise handler"""
         super().__init__(interactor_factory, renderer)        
 
     def get_page(self, params):
+        """Handle requests to add a genre.
+        :param params: A dictionary containing the details of the genre to add. The dictionary can contain the 
+                       following keys:
+                          * name
+                          * description
+        """
         super().get_page(params)
         if not self.validate_params(params, ["name", "description"]):
             return ""

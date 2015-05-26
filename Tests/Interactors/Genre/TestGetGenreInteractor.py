@@ -12,21 +12,25 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Genre.GetGenreInteractor import GetGenreInteractor
+from Interactors.GenreInteractors import GetGenreInteractor
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
 class TestGetGenreInteractor(InteractorTestBase):
+    """Unit tests for the GetGenreInteractor class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         super().setUp()
         self.__target = GetGenreInteractor()
         self.__target.persistence = self.persistence
 
     def test_is_instance_of_interactor(self):
+        """Test that GetGenreInteractor is derived from Interactor"""
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence_method(self):
+        """Test that calling GetGenreInteractor.execute causes persistence.get_genre_details to be called"""
         self.__target.execute(genre_id="id")
         self.persistence.get_genre_details.assert_called_with("id")
