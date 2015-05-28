@@ -1,14 +1,30 @@
+# Copyright (c) David Wilson 2015
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 from unittest.mock import Mock
 from AbstractPersistence import AbstractPersistence
 from Interactors.Exceptions.PersistenceException import PersistenceException
 from Interactors.Interactor import Interactor
-from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
+from Interactors.GameInteractors import UpdateGameInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
 class TestUpdateGameInteractor(InteractorTestBase):
+    """Unit tests for the UpdateGameInteractor class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         super().setUp()
         self.__target = UpdateGameInteractor()
         self.__target.persistence = self.persistence
@@ -18,16 +34,20 @@ class TestUpdateGameInteractor(InteractorTestBase):
                                     notes="")
 
     def test_is_instance_of_interactor(self):
+        """Test that UpdateGameInteractor derives from Interactor"""
         self.assertIsInstance(self.__target, Interactor)
 
     def test_calls_persistence_method(self):
+        """Test that calling UpdateGameInteractor.execute causes persistence.update_game to be called"""
         self.__execute(self.__game, "userid")
         self.persistence.update_game.assert_called_with(self.__game, "userid")
 
     def test_with_null_game_raises_type_error(self):
+        """Test that calling UpdateGameInteractor.execute with a null game causes TypeError to be raised"""
         self.assertRaises(TypeError, self.__execute, None)
 
     def test_validates_title_field(self):
+        #DUPLICATION
         self.__assert_string_validation("Game title", self.__game.title)
 
     def test_validates_platform_field(self):

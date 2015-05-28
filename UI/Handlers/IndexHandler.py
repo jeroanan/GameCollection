@@ -15,10 +15,10 @@
 from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
 from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
 from Persistence.Exceptions.UnrecognisedFieldNameException import UnrecognisedFieldNameException
-from UI.Handlers.Handler import Handler
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
-class IndexHandler(Handler):
+class IndexHandler(AuthenticatedHandler):
     # Handles requests for the index page
 
     def __init__(self, interactor_factory, renderer, config):

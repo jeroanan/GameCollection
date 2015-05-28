@@ -19,14 +19,10 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
-from Interactors.GameInteractors import AddGameInteractor
-from Interactors.Game.CountGamesInteractor import CountGamesInteractor
-from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
-from Interactors.Game.GetGameInteractor import GetGameInteractor
-from Interactors.Game.GetGamesInteractor import GetGamesInteractor
-from Interactors.Game.UpdateGameInteractor import UpdateGameInteractor
+from Interactors.GameInteractors import (AddGameInteractor, CountGamesInteractor, DeleteGameInteractor, 
+                                         GetGameInteractor, GetGamesInteractor, UpdateGameInteractor)
 from Interactors.GenreInteractors import (AddGenreInteractor, DeleteGenreInteractor, GetGenresInteractor, 
-                                          GetGenreInteractor, UpdateGenreInteractor)
+                                          GetGenreInteractor, UpdateGenreInteractor, DeleteGenreInteractor)
 from Interactors.Hardware.CountHardwareInteractor import CountHardwareInteractor
 from Interactors.Hardware.DeleteHardwareInteractor import DeleteHardwareInteractor
 from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor
