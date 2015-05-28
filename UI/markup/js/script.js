@@ -138,6 +138,7 @@ function saveGame() {
     var j = getGameNoId();
     if (!validateSaveGame(j)) return;
     ajaxSave("/savegame", j);
+	 window.history.back();
 }
 
 function getGameNoId() {

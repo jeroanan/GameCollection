@@ -234,19 +234,6 @@ class MongoPersistence(AbstractPersistence):
         """
         self.__db.platforms.remove({"_id": ObjectId(platform_id)})
     
-    def update_game(self, game,  user_id):
-        """Update the given game if it belongs to the given user
-        :param game_id: An object of type Game -- the game to be updated
-        :param user_id: A string containing the uuid of the given user
-        :returns: None
-        """
-        gd = game.__dict__
-        gd["user_id"] = str(user_id)
-        self.__db.games.update({
-            "_id": ObjectId(game.id),
-            "user_id": str(user_id)
-        }, {"$set": gd}, upsert=False)
-    
     def delete_game(self, game, user_id):
         """Delete the given game if it belongs to the given user
         :param game: An object of type Game -- the game to be deleted

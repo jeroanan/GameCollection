@@ -45,13 +45,15 @@ class TestGame(unittest.TestCase):
 
     def test_from_dict(self):
         """Test that mapping a game object from a dictionary is correct."""
-        gd = {"title": "Title",
+        gd = {"id": "id",
+              "title": "Title",
               "numcopies": 1,
               "numboxed": 2,
               "nummanuals": 3,
               "platform": "Platform",
               "notes": "Notes"}
         g = Game.from_dict(gd)
+        self.assertEqual(gd["id"], g.id)
         self.assertEqual(gd["title"], g.title)
         self.assertEqual(gd["numcopies"], g.num_copies)
         self.assertEqual(gd["numboxed"], g.num_boxed)

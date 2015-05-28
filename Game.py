@@ -135,6 +135,7 @@ class Game(object):
     def from_dict(d):
         """Initialises an instance of Game from a dictionary.
         :param d: A dictionary with the following keys:
+                     * id
                      * title
                      * num_copies
                      * num_boxed
@@ -144,6 +145,7 @@ class Game(object):
         :returns: An instance of Game with its properties set. Missing keys from d will have their property
                   set as the default."""
         g = Game()
+        g.id = d.get("id", g.id)
         g.title = d.get("title", g.title)
         g.num_copies = d.get("numcopies", g.num_copies)
         g.num_boxed = d.get("numboxed", g.num_boxed)
