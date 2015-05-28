@@ -18,8 +18,10 @@ from Game import Game
 
 
 class TestGame(unittest.TestCase):
+    """Unit tests for the Game class"""
     
     def test_from_mongo_result_performs_mapping(self):
+        """Test that mapping a Game object from a MonoDB result is correct"""
         gd = {"_id": "id",
               "_Game__title": "title",
               "_Game__platform": "platform",
@@ -40,3 +42,20 @@ class TestGame(unittest.TestCase):
         self.assertEqual(gd["_Game__notes"], g.notes)
         self.assertEqual(gd["_Game__date_purchased"], g.date_purchased)
         self.assertEqual(gd["_Game__approximate_date_purchased"], g.approximate_date_purchased)
+
+    def test_from_dict(self):
+        """Test that mapping a game object from a dictionary is correct."""
+        gd = {"title": "Title",
+              "numcopies": 1,
+              "numboxed": 2,
+              "nummanuals": 3,
+              "platform": "Platform",
+              "notes": "Notes"}
+        g = Game.from_dict(gd)
+        self.assertEqual(gd["title"], g.title)
+        self.assertEqual(gd["numcopies"], g.num_copies)
+        self.assertEqual(gd["numboxed"], g.num_boxed)
+        self.assertEqual(gd["nummanuals"], g.num_manuals)
+        self.assertEqual(gd["platform"], g.platform)
+        self.assertEqual(gd["notes"], g.notes)
+        

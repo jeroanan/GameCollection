@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
-from Interactors.Game.AddGameInteractor import AddGameInteractor
+from Interactors.GameInteractors import AddGameInteractor
 from Interactors.Game.CountGamesInteractor import CountGamesInteractor
 from Interactors.Game.DeleteGameInteractor import DeleteGameInteractor
 from Interactors.Game.GetGameInteractor import GetGameInteractor

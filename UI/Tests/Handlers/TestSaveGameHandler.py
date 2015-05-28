@@ -1,20 +1,36 @@
+# Copyright (c) David Wilson 2015
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 import cherrypy
 import unittest
 from unittest.mock import Mock
 
 from Game import Game
-from Interactors.Game.AddGameInteractor import AddGameInteractor
+from Interactors.GameInteractors import AddGameInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
-
+from UI.Tests.Handlers.HandlerTestAssertions import get_missing_param_assertion, get_empty_param_assertion
 
 class TestSaveGameHandler(unittest.TestCase):
+    """Unit tests for the SaveGameHandler class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         renderer = Mock(TemplateRenderer)
         interactor_factory = Mock(InteractorFactory)
         self.__interactor = Mock(AddGameInteractor)
@@ -23,70 +39,39 @@ class TestSaveGameHandler(unittest.TestCase):
         session = Mock(Session)
         session.get_value = Mock(return_value="1234")
         self.__target.session = session
-        self.__title = "title"
-        self.__num_copies = 1
-        self.__num_boxed = 2
-        self.__num_manuals = 3
-        self.__platform = "platform"
-        self.__notes = "notes"
+        self.__missing_param_returns_empty_string = get_missing_param_assertion(self.__target)
+        self.__empty_param_returns_empty_string = get_empty_param_assertion(self.__target)
+        self.__required_params = ["title", "platform"]
+        self.__get_page = lambda: self.__target.get_page(params=self.__get_args())
+        self.__get_game = lambda: Game.from_dict(self.__get_args())
 
     def test_get_page_executes_interactor(self):
+        """Test that calling SaveGameHandler.get_page causes AddGameInteractor.execute to be called"""
         self.__get_page()
         self.__interactor.execute.assert_called_with(game=self.__get_game(), user_id="1234")
 
-    def __get_game(self):
-        game = Game()
-        game.title = self.__title
-        game.num_copies = self.__num_copies
-        game.num_boxed = self.__num_boxed
-        game.num_manuals = self.__num_manuals
-        game.platform = self.__platform
-        game.notes = self.__notes
-        return game
-
     def test_is_instance_of_authenticated_handler(self):
+        """Test that SaveGameHandler is derived from AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
-    def test_null_title_returns_empty_string(self):
+    def test_empty_required_params_returns_empty_string(self):
+        """Test that calling SaveGameHandler with an empty required parameter causes an empty string to be returned"""
         p = self.__get_args()
-        del p["title"]
-        result = self.__target.get_page(p)
-        self.assertEqual("", result)
+        for r in self.__required_params:
+            self.assertTrue(self.__empty_param_returns_empty_string(r, p))
 
-    def test_empty_title_returns_empty_string(self):
+    def test_missing_required_params_returns_empty_string(self):
+        """Test that calling SaveGameHandler with a missing required parameter causes an empty string to be returned"""
         p = self.__get_args()
-        p["title"] = ""
-        result = self.__target.get_page(p)
-        self.assertEqual("", result)
-        
-    def test_null_platform_returns_empty_string(self):
-        self.__assert_missing_param_returns_empty_string("platform")
-
-    def __assert_missing_param_returns_empty_string(self, param_name):
-        p = self.__get_args()
-        del p[param_name]
-        result = self.__target.get_page(p)
-        self.assertEqual("", result)        
-
-    def test_session_not_set_raises_session_not_set_exception(self):
-        self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__get_page)
-
-    def test_not_logged_in_redirects_to_home_page(self):
-        session = Mock(Session)
-        session.get_value = Mock(return_value="")
-        self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page)
-
-    def __get_page(self):
-        self.__target.get_page(params=self.__get_args())
+        for r in self.__required_params:
+            self.assertTrue(self.__missing_param_returns_empty_string(r, p))
 
     def __get_args(self):
         return {
-            "title": self.__title,
-            "numcopies": self.__num_copies,
-            "numboxed": self.__num_boxed,
-            "nummanuals": self.__num_manuals,
-            "platform": self.__platform,
-            "notes": self.__notes
+            "title": "Title",
+            "numcopies": 1,
+            "numboxed": 2,
+            "nummanuals": 3,
+            "platform": "Platform",
+            "notes": "Notes"
         }

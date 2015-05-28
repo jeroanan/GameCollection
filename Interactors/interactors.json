@@ -1,6 +1,6 @@
 {
 	 "interactors": [
-		  {"AddGameInteractor": "Game.AddGameInteractor",
+		  {"AddGameInteractor": "GameInteractors.AddGameInteractor",
 			"DeleteUserInteractor": "User.DeleteUserInteractor",
 			"GetGamesInteractor": "Game.GetGamesInteractor",
 			"ChangePasswordInteractor": "User.ChangePasswordInteractor",

@@ -1,3 +1,17 @@
+# Copyright (c) 20115 David Wilson
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 class Game(object):
 
     def __init__(self):
@@ -115,4 +129,25 @@ class Game(object):
         g.date_purchased = mongo_result.get("_Game__date_purchased", g.date_purchased)
         g.approximate_date_purchased = mongo_result.get("_Game__approximate_date_purchased", 
                                                         g.approximate_date_purchased)
+        return g
+
+    @staticmethod
+    def from_dict(d):
+        """Initialises an instance of Game from a dictionary.
+        :param d: A dictionary with the following keys:
+                     * title
+                     * num_copies
+                     * num_boxed
+                     * num_manuals
+                     * platform
+                     * notes
+        :returns: An instance of Game with its properties set. Missing keys from d will have their property
+                  set as the default."""
+        g = Game()
+        g.title = d.get("title", g.title)
+        g.num_copies = d.get("numcopies", g.num_copies)
+        g.num_boxed = d.get("numboxed", g.num_boxed)
+        g.num_manuals = d.get("nummanuals", g.num_manuals)
+        g.platform = d.get("platform", g.platform)
+        g.notes = d.get("notes", g.notes)
         return g
