@@ -7,22 +7,22 @@
 			"GetUsersInteractor": "User.GetUsersInteractor",		
 			"AddGenreInteractor": "GenreInteractors.AddGenreInteractor",
 			"UpdateUserInteractor": "User.UpdateUserInteractor",
-			"AddPlatformInteractor": "Platform.AddPlatformInteractor",
+			"AddPlatformInteractor": "PlatformInteractors.AddPlatformInteractor",
 			"AddUserInteractor": "User.AddUserInteractor",
 			"CountGamesInteractor": "GameInteractors.CountGamesInteractor",
 			"CountHardwareInteractor": "HardwareInteractors.CountHardwareInteractor",
 			"DeleteGameInteractor": "GameInteractors.DeleteGameInteractor",
 			"DeleteGenreInteractor": "GenreInteractors.DeleteGenreInteractor",
 			"DeleteHardwareInteractor": "HardwareInteractors.DeleteHardwareInteractor",
-			"DeletePlatformInteractor": "Platform.DeletePlatformInteractor",
+			"DeletePlatformInteractor": "PlatformInteractors.DeletePlatformInteractor",
 			"GetGameInteractor": "GameInteractors.GetGameInteractor",
 			"GetGamesInteractor": "GameInteractors.GetGamesInteractor",
 			"GetGenreInteractor": "GenreInteractors.GetGenreInteractor",
 			"GetGenresInteractor": "GenreInteractors.GetGenresInteractor",
 			"GetHardwareDetailsInteractor": "HardwareInteractors.GetHardwareDetailsInteractor",
 			"GetHardwareListInteractor": "HardwareInteractors.GetHardwareListInteractor",
-			"GetPlatformInteractor": "Platform.GetPlatformInteractor",
-			"GetPlatformsInteractor": "Platform.GetPlatformsInteractor",
+			"GetPlatformInteractor": "PlatformInteractors.GetPlatformInteractor",
+			"GetPlatformsInteractor": "PlatformInteractors.GetPlatformsInteractor",
 			"GetUserInteractor": "User.GetUserInteractor",
 			"LoginInteractor": "User.LoginInteractor",
 			"SaveHardwareInteractor": "HardwareInteractors.SaveHardwareInteractor",
@@ -30,7 +30,7 @@
 			"UpdateGameInteractor": "GameInteractors.UpdateGameInteractor",
 			"UpdateGenreInteractor": "GenreInteractors.UpdateGenreInteractor",
 			"UpdateHardwareInteractor": "HardwareInteractors.UpdateHardwareInteractor",
-			"UpdatePlatformInteractor": "Platform.UpdatePlatformInteractor"
+			"UpdatePlatformInteractor": "PlatformInteractors.UpdatePlatformInteractor"
 		  }
 	 ]
 }

@@ -17,7 +17,7 @@ from unittest.mock import Mock
 
 import cherrypy
 
-from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
+from Interactors.PlatformInteractors import DeletePlatformInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
@@ -28,19 +28,25 @@ from UI.TemplateRenderer import TemplateRenderer
 
 
 class TestDeletePlatformHandler(unittest.TestCase):
+    """Unit test for the DeletePlatformHandler class."""
 
     def setUp(self):
+        """setup function for all unit tests in this class."""
         renderer = Mock(TemplateRenderer)
         self.__interactor = Mock(DeletePlatformInteractor)
         interactor_factory = Mock(InteractorFactory)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = DeletePlatformHandler(interactor_factory, renderer)
         self.__target.session = Mock(Session)
+        self.__get_params = lambda: {"platformid": "id"}
+        self.__get_page = lambda: self.__target.get_page(self.__get_params())
 
     def test_is_instance_of_authenticated_handler(self):
+        """Test that DeletePlatformHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_executes_interactor(self):
+        """Test that calling DeletePlatformHandler.get_page causes DeletePlatformInteractor.execute to be called."""
         self.__get_page()
         self.__interactor.execute.assert_called_with("id")
 
@@ -57,22 +63,3 @@ class TestDeletePlatformHandler(unittest.TestCase):
     def __assert_target_returns_empty_string(self, params):
         result = self.__target.get_page(params)
         self.assertEqual("", result)
-
-    def test_session_not_set_raises_session_not_set_exception(self):
-        self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__get_page)
-
-    def test_not_logged_in_redirects_to_home_page(self):
-        session = Mock(Session)
-        session.get_value = Mock(return_value="")
-        self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page)        
-
-    def __get_page(self):
-        self.__target.get_page(self.__get_params())
-
-    def __get_params(self):
-        return {
-            "platformid": "id"
-        }
-

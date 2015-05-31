@@ -27,12 +27,9 @@ from Interactors.HardwareInteractors import (CountHardwareInteractor, DeleteHard
                                              GetHardwareDetailsInteractor, GetHardwareListInteractor, 
                                              SaveHardwareInteractor, UpdateHardwareInteractor)
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
-from Interactors.Platform.DeletePlatformInteractor import DeletePlatformInteractor
-from Interactors.Platform.GetPlatformInteractor import GetPlatformInteractor
-from Interactors.Platform.GetPlatformsInteractor import GetPlatformsInteractor
-from Interactors.Platform.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
-from Interactors.Platform.UpdatePlatformInteractor import UpdatePlatformInteractor
+from Interactors.PlatformInteractors import (AddPlatformInteractor, DeletePlatformInteractor, GetPlatformInteractor,
+                                             GetPlatformsInteractor, GetSuggestedPlatformsInteractor, 
+                                             UpdatePlatformInteractor)
 from Interactors.Search.SearchInteractor import SearchInteractor
 from Interactors.User.AddUserInteractor import AddUserInteractor
 from Interactors.User.ChangePasswordInteractor import ChangePasswordInteractor

@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 from Game import Game
 from Interactors.GameInteractors import GetGameInteractor
-from Interactors.Platform.GetPlatformsInteractor import GetPlatformsInteractor
+from Interactors.PlatformInteractors import GetPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException

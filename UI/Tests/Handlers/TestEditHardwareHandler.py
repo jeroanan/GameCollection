@@ -19,12 +19,12 @@ from unittest.mock import Mock
 
 from Hardware import Hardware
 from Interactors.HardwareInteractors import GetHardwareDetailsInteractor
-from Interactors.Platform.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
+from Interactors.PlatformInteractors import GetPlatformsInteractor
 from Platform import Platform
+from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 

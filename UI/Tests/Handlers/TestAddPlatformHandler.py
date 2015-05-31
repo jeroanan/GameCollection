@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 import cherrypy
 
-from Interactors.Platform.AddPlatformInteractor import AddPlatformInteractor
+from Interactors.PlatformInteractors import AddPlatformInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler

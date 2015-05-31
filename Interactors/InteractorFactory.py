@@ -17,7 +17,7 @@ import json
 from Data.LoadSuggestedPlatforms import LoadSuggestedPlatforms
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
 from Interactors.LoggingInteractor import LoggingInteractor
-from Interactors.Platform.GetSuggestedPlatformsInteractor import GetSuggestedPlatformsInteractor
+from Interactors.PlatformInteractors import GetSuggestedPlatformsInteractor
 
 
 class InteractorFactory(object):
