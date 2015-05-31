@@ -95,3 +95,24 @@ class Hardware():
         h.num_boxed = mongo_result.get("_Hardware__num_boxed", h.num_boxed)
         h.notes = mongo_result.get("_Hardware__notes", h.notes)
         return h
+
+    @staticmethod
+    def from_dict(d):
+        """Initialises Hardware object from a dictionary.
+        :param d: A dictionary containing the following keys:
+                 * name
+                 * platform
+                 * numcopies
+                 * numboxed
+                 * notes
+        :returns: A Hardware object with its properties properly initialised. Any missing keys from d will cause the 
+                  object to have that properly initialised as its default.
+        """
+        h = Hardware()
+        h.id = d.get("id", h.id)
+        h.name = d.get("name", h.name)
+        h.platform = d.get("platform", h.platform)
+        h.num_owned = d.get("numcopies", h.num_owned)
+        h.num_boxed = d.get("numboxed", h.num_boxed)
+        h.notes = d.get("notes", h.notes)
+        return h

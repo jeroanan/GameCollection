@@ -21,7 +21,7 @@ class TestHardware(unittest.TestCase):
     """Unit tests for the Hardware class"""
 
     def test_from_mongo_result_performs_mapping(self):
-        """Mapping mongo result to Hardware object properly initialises User object."""
+        """Mapping mongo result to Hardware object properly initialises object."""
         hd = {"_id": "id",
               "_Hardware__name": "name",
               "_Hardware__platform": "platform",
@@ -37,3 +37,20 @@ class TestHardware(unittest.TestCase):
         self.assertEqual(hd["_Hardware__num_boxed"], h.num_boxed)
         self.assertEqual(hd["_Hardware__notes"], h.notes)
         
+    def test_from_dict_performs_mappings(self):
+        """Mapping a dictionary to Hardware object properly initialises object"""
+        hd = {
+            "id": "id",
+            "name": "name",
+            "platform": "platform",
+            "numcopies": 1,
+            "numboxed": 2,
+            "notes": "notes"
+        }
+        h = Hardware.from_dict(hd)
+        self.assertEqual(hd["id"], h.id)
+        self.assertEqual(hd["name"], h.name)
+        self.assertEqual(hd["platform"], h.platform)
+        self.assertEqual(hd["numcopies"], h.num_owned)
+        self.assertEqual(hd["numboxed"], h.num_boxed)
+        self.assertEqual(hd["notes"], h.notes)

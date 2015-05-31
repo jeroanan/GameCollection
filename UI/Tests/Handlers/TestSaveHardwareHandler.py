@@ -1,3 +1,17 @@
+# Copyright (c) David Wilson 2015
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 import unittest
 from unittest.mock import Mock
 
@@ -6,16 +20,19 @@ import cherrypy
 from Hardware import Hardware
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from Interactors.Hardware.SaveHardwareInteractor import SaveHardwareInteractor
+from Interactors.HardwareInteractors import SaveHardwareInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.TemplateRenderer import TemplateRenderer
+from UI.Tests.Handlers.HandlerTestAssertions import get_missing_param_assertion, get_empty_param_assertion
 
 
 class TestSaveHardwareHandler(unittest.TestCase):
+    """Unit tests for the SaveHardwareHandler class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         renderer = Mock(TemplateRenderer)
         self.__interactor_factory = Mock(InteractorFactory)
         self.__interactor = Mock(SaveHardwareInteractor)
@@ -24,62 +41,36 @@ class TestSaveHardwareHandler(unittest.TestCase):
         session = Mock(Session)
         session.get_value = Mock(return_value="1234")
         self.__target.session = session
+        self.__empty_param_returns_empty_string = get_empty_param_assertion(self.__target)
+        self.__missing_param_returns_empty_string = get_missing_param_assertion(self.__target)
 
     def test_is_instance_of_authenticated_handler(self):
+        """Test that SaveHardwareHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_get_page_executes_save_hardware_interactor(self):
+        """Test that calling SaveHardwareHandler.execute causes SaveHardwareInteractor.execute to be called"""
         self.__target.get_page(params=self.__get_params())        
         self.__interactor.execute.assert_called_with(hardware=self.__get_hardware(), user_id="1234")
 
     def __get_hardware(self):
-        h = Hardware()
-        h.name = "name"
-        h.platform = "platform"
-        h.num_owned = 1
-        h.num_boxed = 2
-        h.notes = "notes"
-        return h
+        return Hardware.from_dict(self.__get_params())
 
-    def test_null_name_returns_empty_string(self):
-        self.__assert_missing_param_returns_empty_string("name")
-        
-    def test_empty_name_returns_empty_string(self):
-        self.__assert_empty_param_returns_empty_string("name")
+    def test_null_required_param_returns_empty_string(self):
+        """Test that calling SaveHardwareHandler.get_page with a null required parameter causes an empty string to 
+        be returned"""
+        self.__operation_on_required_params(self.__missing_param_returns_empty_string)
 
-    def test_null_platform_returns_empty_string(self):
-        self.__assert_missing_param_returns_empty_string("platform")
+    def test_empty_required_param_returns_empty_string(self):
+        """Test that calling SaveHardwareHandler.get_page with an empty required parameter causes an empty string to 
+        be returned"""
+        self.__operation_on_required_params(self.__empty_param_returns_empty_string)
 
-    def test_empty_platform_returns_empty_string(self):
-        self.__assert_empty_param_returns_empty_string("platform")
-
-    def test_null_number_owned_returns_empty_string(self):
-        self.__assert_missing_param_returns_empty_string("numcopies")
-
-    def test_empty_number_owned_returns_empty_string(self):
-        self.__assert_empty_param_returns_empty_string("numcopies")
-
-    def __assert_missing_param_returns_empty_string(self, param_name):
-        p = self.__get_params()
-        del p[param_name]
-        result = self.__target.get_page(p)
-        self.assertEqual("", result)
-
-    def __assert_empty_param_returns_empty_string(self, param_name):
-        p = self.__get_params()
-        p[param_name] = ""
-        result = self.__target.get_page(p)
-        self.assertEqual("", result)
-
-    def test_session_not_set_raises_session_not_set_exception(self):
-        self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_params())
-
-    def test_not_logged_in_redirects_to_home_page(self):
-        session = Mock(Session)
-        session.get_value = Mock(return_value="")
-        self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__target.get_page, self.__get_params())
+    def __operation_on_required_params(self, func):
+        required_params = ["name", "platform", "numcopies"]
+        params = self.__get_params()
+        for rp in required_params:
+            self.assertTrue(func(rp, params), rp)
 
     def __get_params(self):
         return {

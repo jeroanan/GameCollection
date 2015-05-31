@@ -1,9 +1,24 @@
-import cherrypy
+# Copyright (c) 2015 David Wilson
+# This file is part of Icarus.
+
+# Icarus is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Icarus is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 import unittest
 from unittest.mock import Mock
 
 from Hardware import Hardware
-from Interactors.Hardware.GetHardwareDetailsInteractor import GetHardwareDetailsInteractor
+from Interactors.HardwareInteractors import GetHardwareDetailsInteractor
 from Interactors.Platform.GetPlatformsInteractor import GetPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
@@ -15,10 +30,11 @@ from UI.TemplateRenderer import TemplateRenderer
 
 
 class TestEditHardwareHandler(unittest.TestCase):
+    """Unit tests for the EditHardwareHandler class"""
 
     def setUp(self):
-        def interactors():
-            return [get_hardware_details_interactor, get_platforms_interactor]
+        """setUp function for all unit tests in this class."""
+        interactors = lambda: [get_hardware_details_interactor, get_platforms_interactor]
         self.__hardware = Hardware()
         self.__platforms = [Platform()]
         get_hardware_details_interactor = Mock(GetHardwareDetailsInteractor)
@@ -30,32 +46,18 @@ class TestEditHardwareHandler(unittest.TestCase):
         self.__renderer = Mock(TemplateRenderer)
         self.__target = EditHardwareHandler(interactor_factory, self.__renderer)
         self.__target.session = Mock(Session)
+        args = {"hardwareid": "hardwareid"}
+        self.__get_page = lambda: self.__target.get_page(args)
 
     def test_is_instance_of_authenticated_handler(self):
+        """Test that EditHardwareHandler derives from AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
     def test_calls_renderer(self):
+        """Test that calling EditHardwareHandler.get_page causes renderer.render to be called correctly"""
         self.__get_page()
         self.__renderer.render.assert_called_with("edithardware.html", title="Edit Hardware", hardware=self.__hardware, 
                                                   platforms=self.__platforms, hardware_found=True)
 
-    def test_session_not_set_raises_session_not_set_exception(self):
-        self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__get_page)
-        
-    def test_not_logged_in_redirects_to_home_page(self):
-        session = Mock(Session)
-        session.get_value = Mock(return_value="")
-        self.__target.session = session
-        self.assertRaises(cherrypy.HTTPRedirect, self.__get_page)
 
-    def __get_page(self):
-        self.__target.get_page(self.__get_args())
 
-    def __get_args(self):
-        return {
-            "hardwareid": "hardwareid"
-        }
-
-    def test_get_page_empty_args(self):
-        self.__target.get_page({"": ""})

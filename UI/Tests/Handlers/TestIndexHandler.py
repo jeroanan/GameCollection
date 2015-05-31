@@ -20,7 +20,7 @@ from Data.Config import Config
 from Game import Game
 from Hardware import Hardware
 from Interactors.GameInteractors import CountGamesInteractor, GetGamesInteractor
-from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
+from Interactors.HardwareInteractors import GetHardwareListInteractor
 from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler

@@ -12,23 +12,27 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Hardware.GetHardwareListInteractor import GetHardwareListInteractor
+from Interactors.HardwareInteractors import GetHardwareListInteractor
 from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
 from Interactors.Interactor import Interactor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
 class TestGetHardwareListInteractor(InteractorTestBase):
+    """Unit tests for the GetHardwareListInteractor class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         super().setUp()
         self.__target = GetHardwareListInteractor()
         self.__target.persistence = self.persistence
 
     def test_is_instance_of_interactor(self):
+        """Test that GetHardwareListInteractor is an instance of Interactor"""
         self.assertIsInstance(self.__target, Interactor)
 
     def test_execute_calls_persistence(self):
+        """Test that calling GetHardwareListInteractor.execute causes persistence.get_hardware_list to be called"""
         def get_params():
             p = GetHardwareListInteractorParams()
             p.sort_field = "name"
