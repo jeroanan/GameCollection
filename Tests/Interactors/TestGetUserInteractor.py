@@ -17,7 +17,7 @@ from unittest.mock import Mock
 
 from AbstractPersistence import AbstractPersistence
 from Interactors.Interactor import Interactor
-from Interactors.User.GetUserInteractor import GetUserInteractor
+from Interactors.UserInteractors import GetUserInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 from User import User
         

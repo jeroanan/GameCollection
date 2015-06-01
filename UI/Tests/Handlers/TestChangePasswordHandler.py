@@ -15,52 +15,45 @@
 import unittest
 from unittest.mock import Mock
 
-from Interactors.User.ChangePasswordInteractor import ChangePasswordInteractor
 from Interactors.InteractorFactory import InteractorFactory
+from Interactors.UserInteractors import ChangePasswordInteractor
 from UI.Handlers.ChangePasswordHandler import ChangePasswordHandler
 from UI.Handlers.Handler import Handler
 from User import User        
 
 class TestChangePasswordHandler(unittest.TestCase):
+    """Unit tests for the ChangePasswordHandler class"""
 
     def setUp(self):
-        self.__interactor_factory = Mock(InteractorFactory)
+        """setUp function for all unit tests in this class"""
+        interactor_factory = Mock(InteractorFactory)
         self.__interactor = Mock(ChangePasswordInteractor)
-        self.__interactor_factory.create = Mock(return_value=self.__interactor)
-        self.__target = ChangePasswordHandler(self.__interactor_factory, None)
+        interactor_factory.create = Mock(return_value=self.__interactor)
+        self.__target = ChangePasswordHandler(interactor_factory, None)
     
     def test_is_handler(self):
+        """Test that ChangePasswordHandler is an instance of Handler"""
         self.assertIsInstance(self.__target, Handler)
 
-    def test_get_page_none_params_raises_type_error(self):
-        self.assertRaises(TypeError, self.__target.get_page, None)
+    def test_get_page_missing_required_param_raises_value_error(self):
+        """Test that calling ChangePasswordHandler.get_page with missing required parameters raises a ValueError"""
+        required_params = ["user_id", "password"]
+        for rp in required_params:
+            p = self.__get_params()
+            del p[rp]
+            self.assertRaises(ValueError, self.__target.get_page, p)
 
-    def test_get_page_none_user_id_raises_value_error(self):
-        self.__assert_missing_param_raises_value_error("user_id")
-
-    def test_get_page_empty_user_id_raises_value_error(self):
-        p = self.__get_params()
-        p["user_id"] = ""
-        self.assertRaises(ValueError, self.__target.get_page, p)
-
-    def test_get_page_none_password_raises_value_error(self):
-        self.__assert_missing_param_raises_value_error("password")
-
-    def test_get_page_empty_password_raises_value_error(self):
-        p = self.__get_params()
-        p["password"] = ""
-        self.assertRaises(ValueError, self.__target.get_page, p)
-        
-    def __assert_missing_param_raises_value_error(self, param_key):
-        p = self.__get_params()
-        del p[param_key]
-        self.assertRaises(ValueError, self.__target.get_page, p)
-
-    def test_get_page_creates_interactor(self):
-        self.__target.get_page(self.__get_params())
-        self.__interactor_factory.create.assert_called_with("ChangePasswordInteractor")
+    def test_get_page_empty_required_params_raises_value_error(self):
+        """Test that calling ChangePasswordHandler.get_page with empty required parameters raises a ValueError"""
+        required_params = ["user_id", "password"]
+        for rp in required_params:
+            p = self.__get_params()
+            p[rp] = ""
+            self.assertRaises(ValueError, self.__target.get_page, p)
 
     def test_get_page_executes_interactor(self):
+        """Test that caling ChangePasswordHandler.get_page correctly causes ChangePasswordInteractor.execute to be
+        called"""
         self.__target.get_page(self.__get_params())
         self.__interactor.execute.assert_called_with(self.__get_user())
 

@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
@@ -28,6 +29,12 @@ class AllHardwareHandler(AuthenticatedHandler):
         """
         super().get_page(args)
         interactor = self.interactor_factory.create("GetHardwareListInteractor")
-        hardware = interactor.execute(sort_field="name", sort_direction="asc", user_id=self.session.get_value("user_id"))
+        
+        params = GetHardwareListInteractorParams()
+        params.sort_field = "name"
+        params.sort_direction = "asc"
+        params.user_id = self.session.get_value("user_id")
+
+        hardware = interactor.execute(params)
         return self.renderer.render("allhardware.html", hardware=hardware, title="All Hardware",
                                     hw_sort_field="name", hw_sort_dir="asc")

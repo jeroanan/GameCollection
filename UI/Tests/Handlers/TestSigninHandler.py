@@ -17,8 +17,7 @@ from unittest.mock import Mock
 
 from Cryptography.HashProvider import HashProvider
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.User.GetUserInteractor import GetUserInteractor
-from Interactors.User.LoginInteractor import LoginInteractor
+from Interactors.UserInteractors import GetUserInteractor, LoginInteractor
 from UI.Cookies.Cookies import Cookies
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
@@ -29,13 +28,15 @@ from User import User
 
 
 class TestSigninHandler(unittest.TestCase):
-    
+    """Unit tests for the SigninHandler class"""
+
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         get_user = lambda u: User.from_dict({"id": "1234",
                                              "userid": u.user_id})
-        self.__interactor = Mock(LoginInteractor)
-        self.__interactor_execute = lambda u: u.user_id == "validuser"
-        self.__interactor.execute = Mock(side_effect=self.__interactor_execute)
+        self.__login_interactor = Mock(LoginInteractor)
+        self.__login_interactor_execute = lambda u: u.user_id == "validuser"
+        self.__login_interactor.execute = Mock(side_effect=self.__login_interactor_execute)
         self.__get_user_interactor = Mock(GetUserInteractor)
         self.__get_user_interactor.execute = Mock(side_effect=get_user)
         self.__hash_provider = Mock(HashProvider)
@@ -48,61 +49,64 @@ class TestSigninHandler(unittest.TestCase):
         self.__target.cookies = self.__cookies
 
     def __interactor_factory_create(self, interactor_type):
-        interactors = {"LoginInteractor": self.__interactor,
+        interactors = {"LoginInteractor": self.__login_interactor,
                        "GetUserInteractor": self.__get_user_interactor}
         return interactors.get(interactor_type, None)
 
-    def test_is_session_handler(self):
+    def test_is_handler(self):
+        """Test that SigninHandler is an instance of Handler"""
         self.assertIsInstance(self.__target, Handler)
 
     def test_sets_interactor_hash_provider(self):
+        """Test that calling SigninHandler.get_page causes LoginInteractor.set_hash_provider to be called"""
         self.__target.get_page(self.__get_params())
-        self.assertTrue(self.__interactor.set_hash_provider.called)
+        self.assertTrue(self.__login_interactor.set_hash_provider.called)
     
     def test_executes_interactor(self):
+        """Test that calling SigninHandler.get_page causes LoginInteractor.execute to be called"""
         self.__target.get_page(self.__get_params())
-        self.__interactor.execute.assert_called_with(self.__get_user())
+        self.__login_interactor.execute.assert_called_with(self.__get_user())
 
     def test_login_successful_sets_session(self):
+        """Test that calling SigninHandler.get_page causes session.user_id to be set"""
         user_id = "validuser"
         u = self.__get_user(user_id)
         self.__target.get_page(self.__get_params(user_id))
         self.__session.set_value.assert_called_with("user_id", "1234")
 
-    def test_login_successful_sets_cookie(self):
-        user_id = "validuser"
-        self.__target.get_page(self.__get_params(user_id))
-        self.__cookies.set_cookie.assert_any_call("session_status", "1")
-
-    def test_login_successful_sets_user_id_cookie(self):
-        user_id = "validuser"
-        u = self.__get_user(user_id)
-        self.__target.get_page(self.__get_params(user_id))
-        self.__cookies.set_cookie.assert_any_call("user_id", u.user_id)
+    def test_login_successful_sets_cookies(self):
+        """Test that calling SigninHandler.get_page causes cookies to be set correctly"""
+        u = self.__get_user(user_id="validuser")
+        cookies = {"session_status": "1",
+                   "user_id": u.user_id}
+        self.__target.get_page(self.__get_params(u.user_id))
+        for c in cookies:
+            self.__cookies.set_cookie.assert_any_call(c, cookies[c])
 
     def test_login_successful_excutes_get_user_interactor(self):
+        """Test that calling SigninHandler.get_page causes GetUserInteractor.execute to be called"""
         user_id = "validuser"
         u = self.__get_user(user_id)
         self.__target.get_page(self.__get_params(user_id))
         self.__get_user_interactor.execute.assert_called_with(u)
 
     def test_no_session_set_raises_session_not_set_exception(self):
+        """Test that calling SigninHandler.get_page without setting session raises SessionNotSetException"""
         self.__target.session = None
         self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_params())
         
     def test_no_cookies_set_raises_cookies_not_set_exception(self):
+        """Test that calling SigninHandler.get_page without setting cookies raises CookiesNotSetException"""
         self.__target.cookies = None
         self.assertRaises(CookiesNotSetException, self.__target.get_page, self.__get_params())
 
-    def test_get_page_no_user_id_returns_failed_signin(self):
-        result = self.__target.get_page({})
-        self.assertEqual("False", result)
-
-    def test_get_page_no_password_returns_failed_signin(self):
-        params = self.__get_params()
-        del params["password"]
-        result = self.__target.get_page(params)
-        self.assertEqual("False", result)
+    def test_get_page_missing_required_param_returns_false(self):        
+        """Test that calling SigninHandler.get_page with missing required parameters returns 'False'"""
+        required_params = ["userid", "password"]
+        for rp in required_params:
+            params = self.__get_params()
+            del params[rp]
+            self.assertEqual("False", self.__target.get_page(params))
 
     def __get_params(self, user_id="userid"):
         return {

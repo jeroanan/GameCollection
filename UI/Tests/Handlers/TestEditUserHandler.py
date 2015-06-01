@@ -19,7 +19,7 @@ from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Session.Session import Session
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.User.GetUserInteractor import GetUserInteractor
+from Interactors.UserInteractors import GetUserInteractor
 from UI.TemplateRenderer import TemplateRenderer
 from User import User
 

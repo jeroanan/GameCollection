@@ -31,13 +31,8 @@ from Interactors.PlatformInteractors import (AddPlatformInteractor, DeletePlatfo
                                              GetPlatformsInteractor, GetSuggestedPlatformsInteractor, 
                                              UpdatePlatformInteractor)
 from Interactors.Search.SearchInteractor import SearchInteractor
-from Interactors.User.AddUserInteractor import AddUserInteractor
-from Interactors.User.ChangePasswordInteractor import ChangePasswordInteractor
-from Interactors.User.DeleteUserInteractor import DeleteUserInteractor
-from Interactors.User.GetUserInteractor import GetUserInteractor
-from Interactors.User.GetUsersInteractor import GetUsersInteractor
-from Interactors.User.LoginInteractor import LoginInteractor
-from Interactors.User.UpdateUserInteractor import UpdateUserInteractor
+from Interactors.UserInteractors import (AddUserInteractor, ChangePasswordInteractor, DeleteUserInteractor, 
+                                         GetUserInteractor, GetUsersInteractor, LoginInteractor, UpdateUserInteractor)
 from Persistence.MongoPersistence import MongoPersistence
 
 

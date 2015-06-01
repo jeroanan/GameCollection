@@ -18,13 +18,16 @@ from AbstractPersistence import AbstractPersistence
 from Cryptography.HashProvider import HashProvider
 from Interactors.LoggingInteractor import LoggingInteractor
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
-from Interactors.User.LoginInteractor import LoginInteractor
+from Interactors.UserInteractors import LoginInteractor
 from User import User
 
 
 class TestLoginInteractor(InteractorTestBase):
+    """Unit tests for the LoginInteractor class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
+        self.__get_hash = lambda hash_text: "myhashedhash"
         self.__hash_provider = Mock(HashProvider)
         self.__hash_provider.hash_text = Mock(side_effect=self.__get_hash)
         self.__hash_provider.verify_password = Mock(side_effect=self.__verify_password)
@@ -35,60 +38,48 @@ class TestLoginInteractor(InteractorTestBase):
         self.__target.logger = Mock(Logger)
         self.__target.set_hash_provider(self.__hash_provider)
 
-    def __get_hash(self, hash_text):
-        return "myhashedhash"
-
     def __verify_password(self, entered_password, hashed_password):
         return entered_password == hashed_password
 
     def __get_user_from_persistence(self, user):
-        u = User()
-
         if user.user_id == "correctpass":
-            u.user_id = "correctpass"
-            u.password = "mypassword"
-
+            return User.from_dict({"userid": "correctpass", "password": "mypassword"})        
         if user.user_id == "incorrectpass":
-            u.user_id = "incorrectpass"
-            u.password = "wrongpassword"
+            return User.from_dict({"userid": "incorrectpass", "password": "wrongpassword"})
+        return User()
 
-        return u
-
-    def test_is_interactor(self):
+    def test_is_logging_interactor(self):
+        """Test that LoginInteractor is an instance of LoggingInteractor"""
         self.assertIsInstance(self.__target, LoggingInteractor)
 
     def test_execute_correct_user_password_logs_in(self):
+        """Test that calling LoginInteractor.execute with a correct password returns True"""
         u = self.__get_user("correctpass", "mypassword")
         self.assertTrue(self.__target.execute(u))
 
     def test_execute_incorrect_user_password_does_not_log_in(self):
+        """Test that calling LoginInteractor.execute with an incorrect password returns False"""
         u = self.__get_user("incorrectpass", "somethingsilly")
         self.assertFalse(self.__target.execute(u))
 
     def test_execute_user_does_not_exist_returns_false(self):
+        """Test that calling LoginInteractor.execute for a non-existent user returns False"""
         u = self.__get_user("unknown", "somepass")
         self.assertFalse(self.__target.execute(u))
 
-    def test_execute_user_does_not_exist_does_not_verify_password(self):
-        u = self.__get_user("unknown", "somepass")
-        self.__target.execute(u)
-        self.assertFalse(self.__hash_provider.verify_password.called)
-
     def test_execute_null_user_gives_type_error(self):
+        """Test that calling LoginInteractor.execute with a null user raises TypeError"""
         self.assertRaises(TypeError, self.__target.execute, None)
 
     def test_execute_empty_userid_gives_value_error(self):
+        """Test that calling LoginInteractor.execute with an empty userid raises ValueError"""
         self.assertRaises(ValueError, self.__target.execute, User())
 
     def test_execute_empty_password_gives_value_error(self):
+        """Test that calling LoginInteractor.execute with an empty password raises ValueError"""
         u = self.__get_user("userid", "")
         self.assertRaises(ValueError, self.__target.execute, u)
 
     def __get_user(self, user_id, password):
-        u = User()
-        u.user_id = user_id
-        u.password = password
-        return u
+        return User.from_dict({"userid": user_id, "password": password})
 
-    def test_set_hash_provider_not_hash_provider_gives_value_error(self):
-        self.assertRaises(ValueError, self.__target.set_hash_provider, ())

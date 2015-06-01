@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
@@ -26,9 +27,13 @@ class SortHardwareHandler(AuthenticatedHandler):
         :returns: A rendered page containing the sorted hardware list"""
         super().get_page(args)
         interactor = self.interactor_factory.create("GetHardwareListInteractor")
-
-        hardware = interactor.execute(args.get("field", "name"), args.get("sortdir", ""), 
-                                      self.session.get_value("user_id"))
+        
+        params = GetHardwareListInteractorParams()
+        params.sort_field = args.get("field", "name")
+        params.sort_direction = args.get("sortdir", "")
+        params.user_id = self.session.get_value("user_id")
+        
+        hardware = interactor.execute(params)
 
         return self.renderer.render("hardware.html", hardware=hardware, hw_sort_field=args.get("field", ""),
                                     hw_sort_dir=args.get("sortdir", ""))

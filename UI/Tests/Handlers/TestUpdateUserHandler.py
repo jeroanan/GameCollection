@@ -15,7 +15,7 @@
 import unittest
 from unittest.mock import Mock
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.User.UpdateUserInteractor import UpdateUserInteractor
+from Interactors.UserInteractors import UpdateUserInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UpdateUserHandler import UpdateUserHandler
@@ -23,8 +23,10 @@ from User import User
 
 
 class TestUpdateUserHandler(unittest.TestCase):
-    
+    """Unit tests for the UpdateUserHandler class"""
+
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         self.__interactor = Mock(UpdateUserInteractor)
         interactor_factory = Mock(InteractorFactory)        
         interactor_factory.create = Mock(return_value=self.__interactor)

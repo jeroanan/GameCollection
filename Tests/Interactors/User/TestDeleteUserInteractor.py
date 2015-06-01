@@ -17,7 +17,7 @@ from unittest.mock import Mock
 
 from AbstractPersistence import AbstractPersistence
 from Interactors.Interactor import Interactor
-from Interactors.User.DeleteUserInteractor import DeleteUserInteractor
+from Interactors.UserInteractors import DeleteUserInteractor
 from User import User
 
 

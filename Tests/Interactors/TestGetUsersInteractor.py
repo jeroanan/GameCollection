@@ -17,12 +17,14 @@ from unittest.mock import Mock
 
 from AbstractPersistence import AbstractPersistence
 from Interactors.Interactor import Interactor
-from Interactors.User.GetUsersInteractor import GetUsersInteractor
+from Interactors.UserInteractors import GetUsersInteractor
 
 
 class TestGetUsersInteractor(unittest.TestCase):
+    """Unit tests for the GetUsersInteractor class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         self.__persistence = Mock(AbstractPersistence)
         self.__target = GetUsersInteractor()
         self.__target.persistence = self.__persistence

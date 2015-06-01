@@ -16,9 +16,7 @@ import unittest
 from unittest.mock import Mock
 from Interactors.Exceptions.UserExistsException import UserExistsException
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.User.AddUserInteractor import AddUserInteractor
-from Interactors.User.GetUserInteractor import GetUserInteractor
-from Interactors.User.LoginInteractor import LoginInteractor
+from Interactors.UserInteractors import AddUserInteractor, GetUserInteractor, LoginInteractor
 from UI.Cookies.Cookies import Cookies
 from UI.Handlers.Handler import Handler
 from UI.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
@@ -29,8 +27,10 @@ from User import User
 
 
 class TestSignupHandler(unittest.TestCase):
+    """Unit tests for the SignupHandler class"""
 
     def setUp(self):
+        """setUp function for all unit tests in this class"""
         self.__add_user_interactor = Mock(AddUserInteractor)
         self.__add_user_interactor.execute = Mock(side_effect=self.__interactor_execute)
         self.__login_interactor = Mock(LoginInteractor)
@@ -56,67 +56,70 @@ class TestSignupHandler(unittest.TestCase):
             raise UserExistsException
 
     def test_is_handler(self):
+        """Test that SignupHandler is an instance of Handler"""
         self.assertIsInstance(self.__target, Handler)
 
     def test_successful_signup_sets_hash_provider(self):
+        """Test that calling SignupHandler.get_page with a valid userid/password causes 
+        AddUserInteractor.set_hash_provider to be called"""
         self.__target.get_page(self.__get_params())
         self.assertTrue(self.__add_user_interactor.set_hash_provider.called)
 
     def test_successful_signup_executes_add_user_interactor(self):
+        """Test that calling SignupHandler.get_page with a valid userid/password causes
+        AddUserInteractor.execute to be called"""
         params = self.__get_params()
         user = self.__get_user(params["userid"], params["password"])
         self.__target.get_page(params)
         self.__add_user_interactor.execute.assert_called_with(user)
 
     def test_successful_signup_executes_login_interactor(self):
+        """Test that calling SignupHandler.get_page with a valid userid/password causes
+        LoginInteractor.execute to be called"""
         params = self.__get_params()
         user = self.__get_user(params["userid"], params["password"])
         self.__target.get_page(params)
         self.__login_interactor.execute.assert_called_with(user)
 
-    def test_successful_signup_executes_get_user_interactor(self):
-        params = self.__get_params()
-        user = self.__get_user(params["userid"], params["password"])
-        self.__target.get_page(params)
-        self.__get_user_interactor.execute.assert_called_with(user)
-
     def test_successful_signup_sets_login_session(self):
+        """Test that calling SignupHandler.get_page with a valid userid/password causes
+        session to be set with the userid"""
         params = self.__get_params()                
         user = self.__get_user(params["userid"], params["password"])
         self.__target.get_page(params)
         self.__session.set_value.assert_called_with("user_id", "1234")    
     
     def test_successful_signup_sets_session_status_cookie(self):
+        """Test that calling SignupHandler.get_page with a valid userid/password causes
+        a cookie to be set indicating that the user is currently logged in"""
         params = self.__get_params()
         self.__target.get_page(params)
         self.__cookies.set_cookie.assert_any_call("session_status", "1")
 
     def test_successful_signup_sets_user_id_cookie(self):
+        """Test that calling SignupHandler.get_page with a valid userid/password causes
+        a cookie to be set containing the userid"""
         params = self.__get_params()
         self.__target.get_page(params)
         self.__cookies.set_cookie.assert_any_call("user_id", params["userid"])
 
     def test_user_exists_returns_true(self):
+        """Test that if the given userid already exists, SignupHandler.get_page returns 'True'"""
         result = self.__target.get_page(self.__get_params("alreadyexists"))
         self.assertTrue(result)
 
     def test_user_does_not_exist_returns_true(self):
+        """Test that if the given userid does not exist, SignupHandler.get_page returns 'True'"""
         result = self.__target.get_page(self.__get_params())
         self.assertTrue(result)
 
-    def test_session_not_set_raises_session_not_set_exception(self):
-        self.__target.session = None
-        self.assertRaises(SessionNotSetException, self.__target.get_page, self.__get_params())        
-
-    def test_cookies_not_set_raises_cookies_not_set_exception(self):
-        self.__target.cookies = None
-        self.assertRaises(CookiesNotSetException, self.__target.get_page, self.__get_params())
-
     def test_no_user_id_returns_failed_signup(self):
+        """Test that if no userid is given, SignupHandler.get_page returns 'False'"""
         result = self.__target.get_page({})
         self.assertEqual("False", result)        
 
     def test_no_password_returns_failed_signup(self):
+        """Test that if no password is given, SignupHandler.get_page returns 'False'"""
         params = self.__get_params()
         del params["password"]
         result = self.__target.get_page(params)
