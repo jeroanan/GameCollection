@@ -1,3 +1,42 @@
+************* Module Interactors.UserInteractors
+C: 37, 0: Trailing whitespace (trailing-whitespace)
+C: 50, 0: Trailing whitespace (trailing-whitespace)
+C: 61, 0: Trailing whitespace (trailing-whitespace)
+C: 71, 0: Exactly one space required around assignment
+        db_user.password=self.__hash_provider.hash_text(user.password)
+                        ^ (bad-whitespace)
+C: 92, 0: Trailing whitespace (trailing-whitespace)
+C:104, 0: Line too long (120/100) (line-too-long)
+C:140, 0: Line too long (108/100) (line-too-long)
+C:147, 0: Line too long (113/100) (line-too-long)
+C:  1, 0: Missing module docstring (missing-docstring)
+F: 14, 0: Unable to import 'Cryptography.HashProvider' (import-error)
+W: 24, 4: __init__ method from base class 'LoggingInteractor' is not called (super-init-not-called)
+C: 38, 4: Missing method docstring (missing-docstring)
+C: 44, 4: Missing method docstring (missing-docstring)
+C: 48, 4: Missing method docstring (missing-docstring)
+C: 51, 4: Missing method docstring (missing-docstring)
+C: 74, 4: Missing method docstring (missing-docstring)
+C:107, 8: Missing function docstring (missing-docstring)
+W:137, 8: Unused variable 'hashed_pw' (unused-variable)
+C:150, 4: Missing method docstring (missing-docstring)
+C:156, 4: Missing method docstring (missing-docstring)
+************* Module Interactors.HardwareInteractors
+C: 31, 0: Trailing whitespace (trailing-whitespace)
+C: 48, 0: Trailing whitespace (trailing-whitespace)
+C: 65, 0: Trailing whitespace (trailing-whitespace)
+C: 69, 0: Trailing whitespace (trailing-whitespace)
+C: 71, 0: Trailing whitespace (trailing-whitespace)
+C: 72, 0: Trailing whitespace (trailing-whitespace)
+C: 78, 0: Trailing whitespace (trailing-whitespace)
+C: 82, 0: Line too long (101/100) (line-too-long)
+C:105, 0: Trailing whitespace (trailing-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+C: 40, 4: Missing method docstring (missing-docstring)
+C: 58, 4: Missing method docstring (missing-docstring)
+R: 58, 4: Method could be a function (no-self-use)
+C: 88, 4: Missing method docstring (missing-docstring)
+C:115, 4: Missing method docstring (missing-docstring)
 ************* Module Interactors.LoggingInteractor
 C: 17, 0: Trailing whitespace (trailing-whitespace)
 C: 29, 0: Trailing whitespace (trailing-whitespace)
@@ -5,50 +44,56 @@ C:  1, 0: Missing module docstring (missing-docstring)
 C: 16, 0: Missing class docstring (missing-docstring)
 C: 23, 4: Missing method docstring (missing-docstring)
 C: 27, 4: Missing method docstring (missing-docstring)
+************* Module Interactors.PlatformInteractors
+C: 77, 0: Trailing whitespace (trailing-whitespace)
+C: 85, 0: Line too long (108/100) (line-too-long)
+C: 85, 0: Line too long (108/100) (line-too-long)
+C:  1, 0: Missing module docstring (missing-docstring)
+C: 30, 4: Missing method docstring (missing-docstring)
+C: 48, 4: Missing method docstring (missing-docstring)
+R: 48, 4: Method could be a function (no-self-use)
+C:101, 4: Missing method docstring (missing-docstring)
+************* Module Interactors.GenreInteractors
+C: 53, 0: Trailing whitespace (trailing-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
 ************* Module Interactors.Interactor
-C: 36, 0: Trailing whitespace (trailing-whitespace)
-C: 41, 0: Trailing whitespace (trailing-whitespace)
-C: 44, 0: Line too long (102/100) (line-too-long)
-C: 51, 0: Line too long (102/100) (line-too-long)
+C: 37, 0: Trailing whitespace (trailing-whitespace)
+C: 42, 0: Trailing whitespace (trailing-whitespace)
+C: 45, 0: Line too long (102/100) (line-too-long)
+C: 60, 0: Line too long (102/100) (line-too-long)
 C:  1, 0: Missing module docstring (missing-docstring)
-R: 42, 4: Method could be a function (no-self-use)
-R: 49, 4: Method could be a function (no-self-use)
-************* Module Interactors.InteractorFactory
-C: 17, 0: Line too long (106/100) (line-too-long)
-C: 31, 0: Trailing whitespace (trailing-whitespace)
-C: 35, 0: Line too long (106/100) (line-too-long)
-C: 38, 0: Line too long (113/100) (line-too-long)
+R: 43, 4: Method could be a function (no-self-use)
+R: 58, 4: Method could be a function (no-self-use)
+C: 73, 4: Missing method docstring (missing-docstring)
+C: 74,12: Invalid variable name "v" (invalid-name)
+R: 73, 4: Method could be a function (no-self-use)
+************* Module Interactors.GameInteractors
+C: 56, 0: Trailing whitespace (trailing-whitespace)
+C: 87, 0: Trailing whitespace (trailing-whitespace)
+C: 89, 0: Line too long (120/100) (line-too-long)
+C:103, 0: Trailing whitespace (trailing-whitespace)
 C:  1, 0: Missing module docstring (missing-docstring)
-C: 22, 0: Missing class docstring (missing-docstring)
 C: 29, 4: Missing method docstring (missing-docstring)
-C: 30,53: Invalid variable name "f" (invalid-name)
-R: 29, 4: Method could be a function (no-self-use)
-C: 33, 4: Missing method docstring (missing-docstring)
-C: 42, 4: Missing method docstring (missing-docstring)
-C: 50, 4: Missing method docstring (missing-docstring)
-R: 22, 0: Too few public methods (1/2) (too-few-public-methods)
-************* Module Interactors.Genre.GetGenreInteractor
+C: 39, 4: Missing method docstring (missing-docstring)
+R: 39, 4: Method could be a function (no-self-use)
+C: 66, 4: Missing method docstring (missing-docstring)
+C:116, 4: Missing method docstring (missing-docstring)
+************* Module Interactors.InteractorFactory
+C: 18, 0: Line too long (106/100) (line-too-long)
+C: 32, 0: Trailing whitespace (trailing-whitespace)
+C: 37, 0: Trailing whitespace (trailing-whitespace)
+C: 37, 0: Line too long (112/100) (line-too-long)
+C: 41, 0: Line too long (106/100) (line-too-long)
+C: 44, 0: Line too long (113/100) (line-too-long)
 C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Genre.UpdateGenreInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Genre
-C:  1, 0: Missing module docstring (missing-docstring)
-************* Module Interactors.Genre.DeleteGenreInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Genre.AddGenreInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Genre.GetGenresInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
+C: 23, 0: Missing class docstring (missing-docstring)
+C: 30, 4: Missing method docstring (missing-docstring)
+C: 31,53: Invalid variable name "f" (invalid-name)
+R: 30, 4: Method could be a function (no-self-use)
+C: 48, 4: Missing method docstring (missing-docstring)
+C: 52,12: Invalid variable name "it" (invalid-name)
+C: 60, 4: Missing method docstring (missing-docstring)
+R: 23, 0: Too few public methods (1/2) (too-few-public-methods)
 ************* Module Interactors.Search.SearchInteractor
 C: 11, 0: Trailing whitespace (trailing-whitespace)
 C:  1, 0: Missing module docstring (missing-docstring)
@@ -65,130 +110,10 @@ C: 26, 4: Missing method docstring (missing-docstring)
 C: 30, 4: Missing method docstring (missing-docstring)
 C: 34, 4: Missing method docstring (missing-docstring)
 C: 38, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Platform.GetSuggestedPlatformsInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C: 10, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Platform
-C:  1, 0: Missing module docstring (missing-docstring)
-************* Module Interactors.Platform.GetPlatformsInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Platform.AddPlatformInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-C: 10, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Platform.GetPlatformInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  5, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Platform.DeletePlatformInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-C: 10, 4: Missing method docstring (missing-docstring)
-R: 10, 4: Method could be a function (no-self-use)
-************* Module Interactors.Platform.UpdatePlatformInteractor
-C: 13, 0: Final newline missing (missing-final-newline)
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-C: 10, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.User.GetUserInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  3, 0: Missing class docstring (missing-docstring)
-C:  5, 4: Missing method docstring (missing-docstring)
-C:  9, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.User.LoginInteractor
-C: 29, 0: Line too long (108/100) (line-too-long)
-C: 36, 0: Line too long (113/100) (line-too-long)
-C:  1, 0: Missing module docstring (missing-docstring)
-F: 14, 0: Unable to import 'Cryptography.HashProvider' (import-error)
-C: 18, 0: Missing class docstring (missing-docstring)
-C: 24, 4: Missing method docstring (missing-docstring)
-W: 26, 8: Unused variable 'hashed_pw' (unused-variable)
-C: 39, 4: Missing method docstring (missing-docstring)
-C: 45, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.User
-C:  1, 0: Missing module docstring (missing-docstring)
-************* Module Interactors.User.AddUserInteractor
-C: 29, 0: Trailing whitespace (trailing-whitespace)
-C: 45, 0: Trailing whitespace (trailing-whitespace)
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 18, 0: Missing class docstring (missing-docstring)
-W: 20, 4: __init__ method from base class 'LoggingInteractor' is not called (super-init-not-called)
-C: 23, 4: Missing method docstring (missing-docstring)
-C: 30, 4: Missing method docstring (missing-docstring)
-C: 36, 4: Missing method docstring (missing-docstring)
-C: 40, 4: Missing method docstring (missing-docstring)
-R: 40, 4: Method could be a function (no-self-use)
-C: 43, 4: Missing method docstring (missing-docstring)
-C: 46, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.User.ChangePasswordInteractor
-C: 25, 0: Trailing whitespace (trailing-whitespace)
-C: 35, 0: Exactly one space required around assignment
-        db_user.password=self.__hash_provider.hash_text(user.password)
-                        ^ (bad-whitespace)
-C:  1, 0: Missing module docstring (missing-docstring)
-F: 14, 0: Unable to import 'Cryptography.HashProvider' (import-error)
-C: 38, 4: Missing method docstring (missing-docstring)
-W: 51,13: Attribute '__hash_provider' defined outside __init__ (attribute-defined-outside-init)
-************* Module Interactors.Hardware.GetHardwareDetailsInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 11, 4: Missing method docstring (missing-docstring)
-C: 15, 4: Missing method docstring (missing-docstring)
-R: 15, 4: Method could be a function (no-self-use)
 ************* Module Interactors.Hardware
 C:  1, 0: Missing module docstring (missing-docstring)
-************* Module Interactors.Hardware.GetHardwareListInteractor
-C: 10, 0: Trailing whitespace (trailing-whitespace)
-C: 13, 0: Line too long (120/100) (line-too-long)
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 12, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Hardware.UpdateHardwareInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 11, 4: Missing method docstring (missing-docstring)
-C: 15, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Hardware.CountHardwareInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  5, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Hardware.DeleteHardwareInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 10, 4: Missing method docstring (missing-docstring)
-C: 14, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Hardware.SaveHardwareInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 11, 4: Missing method docstring (missing-docstring)
-C: 15, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Game.GetGameInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 11, 4: Missing method docstring (missing-docstring)
 ************* Module Interactors.Game
 C:  1, 0: Missing module docstring (missing-docstring)
-************* Module Interactors.Game.DeleteGameInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 11, 4: Missing method docstring (missing-docstring)
-C: 15, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Game.GetGamesInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 11, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Game.AddGameInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  4, 0: Missing class docstring (missing-docstring)
-C:  6, 4: Missing method docstring (missing-docstring)
-C: 10, 4: Missing method docstring (missing-docstring)
-C: 20, 4: Missing method docstring (missing-docstring)
-R: 20, 4: Method could be a function (no-self-use)
-************* Module Interactors.Game.CountGamesInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 10, 4: Missing method docstring (missing-docstring)
-************* Module Interactors.Game.UpdateGameInteractor
-C:  1, 0: Missing module docstring (missing-docstring)
-C: 12, 4: Missing method docstring (missing-docstring)
-C: 19, 4: Missing method docstring (missing-docstring)
 ************* Module Interactors.Game.Params.GetGamesInteractorParams
 C:  2, 0: Trailing whitespace (trailing-whitespace)
 C: 16, 0: Exactly one space required around assignment
@@ -238,15 +163,6 @@ R:  1, 0: Similar lines in 2 files
 
     @property (duplicate-code)
 R:  1, 0: Similar lines in 2 files
-==Interactors.User.AddUserInteractor:29
-==Interactors.User.LoginInteractor:38
-    def __validate(self, user):
-        if user is None:
-            raise TypeError
-        self.validate_string_field("user_id", user.user_id)
-        self.validate_string_field("password", user.password)
- (duplicate-code)
-R:  1, 0: Similar lines in 2 files
 ==Interactors.Game.Params.GetGamesInteractorParams:42
 ==Interactors.Search.Params.SearchInteractorParams:33
     def user_id(self):
@@ -268,7 +184,7 @@ R:  1, 0: Similar lines in 2 files
 
 Report
 ======
-403 statements analysed.
+388 statements analysed.
 
 Statistics by type
 ------------------
@@ -276,13 +192,13 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 |type     |number |old number |difference |%documented |%badname |
 +=========+=======+===========+===========+============+=========+
-|module   |47     |47         |=          |8.51        |0.00     |
+|module   |22     |22         |=          |18.18       |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
-|class    |37     |37         |=          |35.14       |0.00     |
+|class    |40     |40         |=          |80.00       |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
-|method   |89     |89         |=          |20.22       |0.00     |
+|method   |93     |93         |=          |53.76       |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
-|function |0      |0          |=          |0           |0        |
+|function |1      |1          |=          |0.00        |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
 
 
@@ -295,13 +211,12 @@ External dependencies
       \-LoadSuggestedPlatforms (Interactors.InteractorFactory)
     Interactors 
       \-Exceptions 
-      | \-InteractorFactoryNotSetException (Interactors.User.ChangePasswordInteractor)
-      | \-PersistenceException (Interactors.Game.UpdateGameInteractor)
+      | \-InteractorFactoryNotSetException (Interactors.UserInteractors)
+      | \-PersistenceException (Interactors.GameInteractors)
       | \-UnrecognisedInteractorTypeException (Interactors.InteractorFactory)
-      \-Interactor (Interactors.LoggingInteractor,Interactors.Genre.AddGenreInteractor,Interactors.Genre.GetGenreInteractor,Interactors.Hardware.DeleteHardwareInteractor,Interactors.Platform.GetPlatformsInteractor,Interactors.Platform.DeletePlatformInteractor,Interactors.Game.UpdateGameInteractor,Interactors.Search.SearchInteractor,Interactors.Hardware.GetHardwareListInteractor,Interactors.Platform.GetPlatformInteractor,Interactors.Genre.GetGenresInteractor,Interactors.Platform.UpdatePlatformInteractor,Interactors.Game.GetGameInteractor,Interactors.Hardware.UpdateHardwareInteractor,Interactors.Game.AddGameInteractor,Interactors.Platform.AddPlatformInteractor,Interactors.Platform.GetSuggestedPlatformsInteractor,Interactors.Genre.DeleteGenreInteractor,Interactors.Hardware.GetHardwareDetailsInteractor,Interactors.Hardware.SaveHardwareInteractor,Interactors.Game.CountGamesInteractor,Interactors.Genre.UpdateGenreInteractor,Interactors.Hardware.CountHardwareInteractor,Interactors.User.GetUserInteractor,Interactors.Game.GetGamesInteractor,Interactors.Game.DeleteGameInteractor)
-      \-LoggingInteractor (Interactors.InteractorFactory,Interactors.User.LoginInteractor,Interactors.User.AddUserInteractor,Interactors.User.ChangePasswordInteractor)
-      \-Platform 
-        \-GetSuggestedPlatformsInteractor (Interactors.InteractorFactory)
+      \-Interactor (Interactors.UserInteractors,Interactors.GenreInteractors,Interactors.GameInteractors,Interactors.LoggingInteractor,Interactors.Search.SearchInteractor,Interactors.PlatformInteractors,Interactors.HardwareInteractors)
+      \-LoggingInteractor (Interactors.UserInteractors,Interactors.InteractorFactory)
+      \-PlatformInteractors (Interactors.InteractorFactory)
 
 
 
@@ -311,13 +226,13 @@ Raw metrics
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |511    |71.77 |511      |=          |
+|code      |452    |56.01 |452      |=          |
 +----------+-------+------+---------+-----------+
-|docstring |71     |9.97  |71       |=          |
+|docstring |165    |20.45 |165      |=          |
 +----------+-------+------+---------+-----------+
-|comment   |60     |8.43  |60       |=          |
+|comment   |88     |10.90 |88       |=          |
 +----------+-------+------+---------+-----------+
-|empty     |70     |9.83  |70       |=          |
+|empty     |102    |12.64 |102      |=          |
 +----------+-------+------+---------+-----------+
 
 
@@ -328,9 +243,9 @@ Duplication
 +-------------------------+------+---------+-----------+
 |                         |now   |previous |difference |
 +=========================+======+=========+===========+
-|nb duplicated lines      |27    |27       |=          |
+|nb duplicated lines      |21    |21       |=          |
 +-------------------------+------+---------+-----------+
-|percent duplicated lines |3.649 |3.649    |=          |
+|percent duplicated lines |2.425 |2.425    |=          |
 +-------------------------+------+---------+-----------+
 
 
@@ -341,11 +256,11 @@ Messages by category
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |167    |167      |=          |
+|convention |119    |119      |=          |
 +-----------+-------+---------+-----------+
-|refactor   |12     |12       |=          |
+|refactor   |11     |11       |=          |
 +-----------+-------+---------+-----------+
-|warning    |3      |3        |=          |
+|warning    |2      |2        |=          |
 +-----------+-------+---------+-----------+
 |error      |0      |0        |=          |
 +-----------+-------+---------+-----------+
@@ -358,91 +273,41 @@ Messages by category
 +-----------------------------------------------------------+------+--------+---------+-----------+
 |module                                                     |error |warning |refactor |convention |
 +===========================================================+======+========+=========+===========+
-|Interactors.User.AddUserInteractor                         |0.00  |33.33   |8.33     |5.99       |
+|Interactors.UserInteractors                                |0.00  |100.00  |0.00     |14.29      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.User.LoginInteractor                           |0.00  |33.33   |0.00     |4.19       |
+|Interactors.Interactor                                     |0.00  |0.00    |27.27    |5.88       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.User.ChangePasswordInteractor                  |0.00  |33.33   |0.00     |2.40       |
+|Interactors.Exceptions.UserExistsException                 |0.00  |0.00    |27.27    |2.52       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.UserExistsException                 |0.00  |0.00    |33.33    |1.80       |
+|Interactors.InteractorFactory                              |0.00  |0.00    |18.18    |10.92      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.InteractorFactory                              |0.00  |0.00    |16.67    |6.59       |
+|Interactors.HardwareInteractors                            |0.00  |0.00    |9.09     |11.76      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Interactor                                     |0.00  |0.00    |16.67    |2.99       |
+|Interactors.GameInteractors                                |0.00  |0.00    |9.09     |7.56       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.AddGameInteractor                         |0.00  |0.00    |8.33     |2.99       |
+|Interactors.PlatformInteractors                            |0.00  |0.00    |9.09     |5.88       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Platform.DeletePlatformInteractor              |0.00  |0.00    |8.33     |2.40       |
+|Interactors.Game.Params.GetGamesInteractorParams           |0.00  |0.00    |0.00     |15.13      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.GetHardwareDetailsInteractor          |0.00  |0.00    |8.33     |1.80       |
+|Interactors.Search.Params.SearchInteractorParams           |0.00  |0.00    |0.00     |9.24       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.Params.GetGamesInteractorParams           |0.00  |0.00    |0.00     |10.78      |
+|Interactors.LoggingInteractor                              |0.00  |0.00    |0.00     |5.04       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Search.Params.SearchInteractorParams           |0.00  |0.00    |0.00     |6.59       |
+|Interactors.Search.SearchInteractor                        |0.00  |0.00    |0.00     |2.52       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.LoggingInteractor                              |0.00  |0.00    |0.00     |3.59       |
+|Interactors.GenreInteractors                               |0.00  |0.00    |0.00     |1.68       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Platform.UpdatePlatformInteractor              |0.00  |0.00    |0.00     |2.99       |
+|Interactors.Exceptions.UnrecognisedInteractorTypeException |0.00  |0.00    |0.00     |1.68       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.User.GetUserInteractor                         |0.00  |0.00    |0.00     |2.40       |
+|Interactors.Exceptions.PersistenceException                |0.00  |0.00    |0.00     |1.68       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Platform.AddPlatformInteractor                 |0.00  |0.00    |0.00     |2.40       |
+|Interactors.Exceptions.InteractorFactoryNotSetException    |0.00  |0.00    |0.00     |1.68       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.GetHardwareListInteractor             |0.00  |0.00    |0.00     |2.40       |
+|Interactors.Hardware.__init__                              |0.00  |0.00    |0.00     |0.84       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Search.SearchInteractor                        |0.00  |0.00    |0.00     |1.80       |
+|Interactors.Game.__init__                                  |0.00  |0.00    |0.00     |0.84       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Platform.GetSuggestedPlatformsInteractor       |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Platform.GetPlatformsInteractor                |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Platform.GetPlatformInteractor                 |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.UpdateHardwareInteractor              |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.SaveHardwareInteractor                |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.DeleteHardwareInteractor              |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.CountHardwareInteractor               |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Genre.UpdateGenreInteractor                    |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Genre.GetGenresInteractor                      |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Genre.GetGenreInteractor                       |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Genre.DeleteGenreInteractor                    |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Genre.AddGenreInteractor                       |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.UpdateGameInteractor                      |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.DeleteGameInteractor                      |0.00  |0.00    |0.00     |1.80       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.GetGamesInteractor                        |0.00  |0.00    |0.00     |1.20       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.GetGameInteractor                         |0.00  |0.00    |0.00     |1.20       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.CountGamesInteractor                      |0.00  |0.00    |0.00     |1.20       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.UnrecognisedInteractorTypeException |0.00  |0.00    |0.00     |1.20       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.PersistenceException                |0.00  |0.00    |0.00     |1.20       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.InteractorFactoryNotSetException    |0.00  |0.00    |0.00     |1.20       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.User.__init__                                  |0.00  |0.00    |0.00     |0.60       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Platform.__init__                              |0.00  |0.00    |0.00     |0.60       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.__init__                              |0.00  |0.00    |0.00     |0.60       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Genre.__init__                                 |0.00  |0.00    |0.00     |0.60       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.__init__                                  |0.00  |0.00    |0.00     |0.60       |
-+-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.__init__                            |0.00  |0.00    |0.00     |0.60       |
+|Interactors.Exceptions.__init__                            |0.00  |0.00    |0.00     |0.84       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
 
 
@@ -450,39 +315,37 @@ Messages by category
 Messages
 --------
 
-+-------------------------------+------------+
-|message id                     |occurrences |
-+===============================+============+
-|missing-docstring              |138         |
-+-------------------------------+------------+
-|trailing-whitespace            |16          |
-+-------------------------------+------------+
-|line-too-long                  |8           |
-+-------------------------------+------------+
-|no-self-use                    |7           |
-+-------------------------------+------------+
-|duplicate-code                 |4           |
-+-------------------------------+------------+
-|missing-final-newline          |2           |
-+-------------------------------+------------+
-|import-error                   |2           |
-+-------------------------------+------------+
-|bad-whitespace                 |2           |
-+-------------------------------+------------+
-|unused-variable                |1           |
-+-------------------------------+------------+
-|too-few-public-methods         |1           |
-+-------------------------------+------------+
-|super-init-not-called          |1           |
-+-------------------------------+------------+
-|invalid-name                   |1           |
-+-------------------------------+------------+
-|attribute-defined-outside-init |1           |
-+-------------------------------+------------+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|missing-docstring      |70          |
++-----------------------+------------+
+|trailing-whitespace    |30          |
++-----------------------+------------+
+|line-too-long          |13          |
++-----------------------+------------+
+|no-self-use            |7           |
++-----------------------+------------+
+|invalid-name           |3           |
++-----------------------+------------+
+|duplicate-code         |3           |
++-----------------------+------------+
+|bad-whitespace         |2           |
++-----------------------+------------+
+|unused-variable        |1           |
++-----------------------+------------+
+|too-few-public-methods |1           |
++-----------------------+------------+
+|super-init-not-called  |1           |
++-----------------------+------------+
+|missing-final-newline  |1           |
++-----------------------+------------+
+|import-error           |1           |
++-----------------------+------------+
 
 
 
 Global evaluation
 -----------------
-Your code has been rated at 5.48/10 (previous run: 5.48/10, +0.00)
+Your code has been rated at 6.60/10 (previous run: 6.60/10, +0.00)
 

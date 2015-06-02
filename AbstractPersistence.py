@@ -11,9 +11,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-# Provides a list of methods for persistence objects to implement.
-class AbstractPersistence(object):
 
+class AbstractPersistence(object):
+    """Provides a list of methods for persistence objects to implement."""
     
     def add_game(self, game, user_id):
         """Add a single game.
@@ -44,8 +44,9 @@ class AbstractPersistence(object):
         """
         pass
 
-    def count_hardware(self):
-        """Counts the items of hardware
+    def count_hardware(self, user_id):
+        """Counts the items of hardware in the user's collection
+        :param user_id: The uuid of the current user.
         :returns: The number of items of hardware
         """
         pass

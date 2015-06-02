@@ -38,5 +38,6 @@ class TestCountHardwareInteractor(InteractorTestBase):
 
     def test_execute_calls_persistence_method(self):
         """Test that calling CountHardwareInteractor.execute causes persistence.count_hardware to be called"""
-        self.__target.execute()
-        self.__persistence.count_hardware.assert_called_with()
+        user_id = "user_id"
+        self.__target.execute(user_id)
+        self.__persistence.count_hardware.assert_called_with(user_id)

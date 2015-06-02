@@ -14,17 +14,21 @@
 
 
 class Hardware():
+    """An item of hardware"""
 
     def __init__(self):
+        """Initialise field values"""
         self.__id = ""
         self.__name = ""
         self.__platform = ""
         self.__num_owned = ""
         self.__num_boxed = ""
         self.__notes = ""
+        self.__user_id = ""
 
     @property
     def id(self):
+        """The unique identifier of the hardware item"""
         return self.__id
 
     @id.setter
@@ -33,6 +37,7 @@ class Hardware():
 
     @property
     def name(self):
+        """The name of the hardware item"""
         return self.__name
 
     @name.setter
@@ -41,6 +46,7 @@ class Hardware():
 
     @property
     def platform(self):
+        """The platform of the hardware item"""
         return self.__platform
 
     @platform.setter
@@ -49,6 +55,7 @@ class Hardware():
 
     @property
     def num_owned(self):
+        """The number of pieces of this hardware item owned"""
         return self.__num_owned
 
     @num_owned.setter
@@ -57,6 +64,7 @@ class Hardware():
 
     @property
     def num_boxed(self):
+        """The number of pieces of this hardware item boxed"""
         return self.__num_boxed
 
     @num_boxed.setter
@@ -65,15 +73,36 @@ class Hardware():
 
     @property
     def notes(self):
+        """Notes for this hardware item"""
         return self.__notes
 
     @notes.setter
     def notes(self, value):
         self.__notes = value
 
+    @property 
+    def user_id(self):
+        """The user_id against this hardware item"""
+        return self.__user_id 
+
+    @user_id.setter
+    def user_id(self, value):
+        self.__user_id = value
+
     def __eq__(self, other):
+        """Is this instance of Hardware equal to another instance of hardware?
+        The following fields are checked for equality:
+           * id
+           * name
+           * num_owned
+           * num_boxed
+           * notes
+           * user_id
+        :param other: An instance of Hardware. The object to compare the current one against
+        :returns: True if this object is equal to other. Otherwise False
+        """
         return (self.id == other.id and self.name == other.name and self.num_owned == other.num_owned and
-                self.num_boxed == other.num_boxed and self.notes == other.notes)
+                self.num_boxed == other.num_boxed and self.notes == other.notes and self.user_id == other.user_id)
 
     @staticmethod
     def from_mongo_result(mongo_result):
@@ -115,4 +144,5 @@ class Hardware():
         h.num_owned = d.get("numcopies", h.num_owned)
         h.num_boxed = d.get("numboxed", h.num_boxed)
         h.notes = d.get("notes", h.notes)
+        h.user_id = d.get("userid", h.user_id)
         return h

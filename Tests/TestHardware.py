@@ -45,7 +45,8 @@ class TestHardware(unittest.TestCase):
             "platform": "platform",
             "numcopies": 1,
             "numboxed": 2,
-            "notes": "notes"
+            "notes": "notes",
+            "userid": "userid"
         }
         h = Hardware.from_dict(hd)
         self.assertEqual(hd["id"], h.id)
@@ -54,3 +55,4 @@ class TestHardware(unittest.TestCase):
         self.assertEqual(hd["numcopies"], h.num_owned)
         self.assertEqual(hd["numboxed"], h.num_boxed)
         self.assertEqual(hd["notes"], h.notes)
+        self.assertEqual(hd["userid"], h.user_id)

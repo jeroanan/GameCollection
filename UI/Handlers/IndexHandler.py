@@ -19,7 +19,7 @@ from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class IndexHandler(AuthenticatedHandler):
-    # Handles requests for the index page
+    """Handles requests for the index page"""
 
     def __init__(self, interactor_factory, renderer, config):
         """Constructor
@@ -59,8 +59,8 @@ class IndexHandler(AuthenticatedHandler):
         return self.renderer.render("index.html", games=games, hardware=hardware,
                                     title="Games Collection", game_sort_field=self.__game_sort,
                                     game_sort_dir=self.__game_sort_dir, hw_sort_field=self.__hardware_sort,
-                                    number_of_games=(self.__count_games()),
-                                    hw_sort_dir=self.__hardware_sort_dir)
+                                    number_of_games=(self.__count_games()), 
+                                    number_of_hardware=(self.__count_hardware()), hw_sort_dir=self.__hardware_sort_dir)
 
     def __init_sorting(self, args):
         self.__init_game_sorting(args)
@@ -117,6 +117,13 @@ class IndexHandler(AuthenticatedHandler):
 
 
     def __count_games(self):
-        count_games_interactor = self.interactor_factory.create("CountGamesInteractor")
-        number_of_games = count_games_interactor.execute(self.session.get_value("user_id"))
-        return number_of_games
+        return self.__count_items("CountGamesInteractor")
+
+    def __count_hardware(self):
+        return self.__count_items("CountHardwareInteractor")
+
+    def __count_items(self, interactor_type_string):
+        interactor = self.interactor_factory.create(interactor_type_string)
+        return interactor.execute(self.session.get_value("user_id"))
+        
+

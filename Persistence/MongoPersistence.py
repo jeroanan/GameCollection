@@ -32,15 +32,16 @@ from Platform import Platform
 from User import User
 
 class MongoPersistence(AbstractPersistence):
-    # Provide persistence using MongoDB
+    """Provide persistence using MongoDB"""
 
     def __init__(self):
+        """Initialise object state"""
         self.__client = None
         self.__init_mongo_client()
         self.__db = self.__client.GamesCollection
 
     def __init_mongo_client(self):
-        # Initialise the database connection.
+        """Initialise the database connection."""
         try:
             self.__client = MongoClient()
         except ConnectionFailure:
@@ -48,7 +49,7 @@ class MongoPersistence(AbstractPersistence):
             sys.exit(-1)
 
     def __del__(self):
-        # Destructor. Make sure the connection to MongoDB is closed.
+        """Destructor. Make sure the connection to MongoDB is closed."""
         if self.__client is not None:
             self.__client.close()
     
@@ -92,9 +93,10 @@ class MongoPersistence(AbstractPersistence):
     
     def count_hardware(self):
         """Counts the items of hardware
+        :param user_id: The uuid of the current user.
         :returns: The number of items of hardware
         """
-        return self.__db.hardware.count()        
+        return self.__db.hardware.find({"user_id": str(user_id)}).count()        
     
     def get_game(self, game_id, user_id):
         """Gets a specific game if it matches the given user.

@@ -20,10 +20,10 @@ from Interactors.Interactor import Interactor
 class CountHardwareInteractor(Interactor):
     """Count the items of hardware in the system"""
 
-    def execute(self):
+    def execute(self, user_id):
         """Count the items of hardware in the system
         :returns: The number of items of hardware in the system"""
-        return self.persistence.count_hardware()
+        return self.persistence.count_hardware(user_id)
 
 
 class DeleteHardwareInteractor(Interactor):
