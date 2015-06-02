@@ -13,40 +13,56 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 class Platform(object):
+    """Represents a platform"""
+
     def __init__(self):
+        """Initialise object state"""
         self.__id = ""
         self.__name = ""
         self.__description = ""
 
     @property
     def id(self):
+        """Get the platform id"""
         return self.__id
 
     @id.setter
     def id(self, value):
+        """Set the platform id"""
         self.__id = value
 
     @property
     def name(self):
+        """Get the platform name"""
         return self.__name
 
     @name.setter
     def name(self, value):
+        """Set the platform name"""
         self.__name = value
 
     @property
     def description(self):
+        """Get the platform description"""
         return self.__description
 
     @description.setter
     def description(self, value):
+        """Set the platform description"""
         self.__description = value
 
     def __eq__(self, other):
+        """Test that this instance of Platform is equal to another.
+        This happens by comparing the following properties:
+           * name
+           * description
+        :param other: Another instance of Platform
+        :returns: True if the two instances of Platform, otherwise False
+        """
         return self.name == other.name and self.description == other.description
-        
+
     @staticmethod
-    def from_dict(d):
+    def from_dict(dictionary):
         """Initialises an instance of Platform from a dictionary.
         :param d: A dictionary containing the following keys:
            * name
@@ -54,10 +70,10 @@ class Platform(object):
         :returns: An instance of Platform with its properties set. Keys missing from d
                   will be initialised to their default values.
         """
-        p = Platform()
-        p.name = d.get("name", p.name)
-        p.description = d.get("description", p.description)
-        return p
+        platform = Platform()
+        platform.name = dictionary.get("name", platform.name)
+        platform.description = dictionary.get("description", platform.description)
+        return platform
 
     @staticmethod
     def from_mongo_result(mongo_result):
@@ -69,8 +85,8 @@ class Platform(object):
         :returns: An instance of Platform with its properties set. Keys missing from mongo_result
                   will be initialised to their default values.
         """
-        p =  Platform()
-        p.id = mongo_result["_id"]
-        p.name = mongo_result["_Platform__name"]
-        p.description = mongo_result["_Platform__description"]
-        return p
+        platform = Platform()
+        platform.id = mongo_result["_id"]
+        platform.name = mongo_result["_Platform__name"]
+        platform.description = mongo_result["_Platform__description"]
+        return platform

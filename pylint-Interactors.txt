@@ -1,26 +1,15 @@
 ************* Module Interactors.UserInteractors
-C: 37, 0: Trailing whitespace (trailing-whitespace)
-C: 50, 0: Trailing whitespace (trailing-whitespace)
-C: 61, 0: Trailing whitespace (trailing-whitespace)
-C: 71, 0: Exactly one space required around assignment
-        db_user.password=self.__hash_provider.hash_text(user.password)
-                        ^ (bad-whitespace)
-C: 92, 0: Trailing whitespace (trailing-whitespace)
-C:104, 0: Line too long (120/100) (line-too-long)
-C:140, 0: Line too long (108/100) (line-too-long)
-C:147, 0: Line too long (113/100) (line-too-long)
-C:  1, 0: Missing module docstring (missing-docstring)
-F: 14, 0: Unable to import 'Cryptography.HashProvider' (import-error)
-W: 24, 4: __init__ method from base class 'LoggingInteractor' is not called (super-init-not-called)
-C: 38, 4: Missing method docstring (missing-docstring)
-C: 44, 4: Missing method docstring (missing-docstring)
-C: 48, 4: Missing method docstring (missing-docstring)
-C: 51, 4: Missing method docstring (missing-docstring)
-C: 74, 4: Missing method docstring (missing-docstring)
-C:107, 8: Missing function docstring (missing-docstring)
-W:137, 8: Unused variable 'hashed_pw' (unused-variable)
-C:150, 4: Missing method docstring (missing-docstring)
+F: 16, 0: Unable to import 'Cryptography.HashProvider' (import-error)
+W: 26, 4: __init__ method from base class 'LoggingInteractor' is not called (super-init-not-called)
+C: 40, 4: Missing method docstring (missing-docstring)
+C: 46, 4: Missing method docstring (missing-docstring)
+C: 50, 4: Missing method docstring (missing-docstring)
+C: 53, 4: Missing method docstring (missing-docstring)
+C: 77, 4: Missing method docstring (missing-docstring)
+C:111, 8: Missing function docstring (missing-docstring)
+W:141, 8: Unused variable 'hashed_pw' (unused-variable)
 C:156, 4: Missing method docstring (missing-docstring)
+C:162, 4: Missing method docstring (missing-docstring)
 ************* Module Interactors.HardwareInteractors
 C: 31, 0: Trailing whitespace (trailing-whitespace)
 C: 48, 0: Trailing whitespace (trailing-whitespace)
@@ -192,7 +181,7 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 |type     |number |old number |difference |%documented |%badname |
 +=========+=======+===========+===========+============+=========+
-|module   |22     |22         |=          |18.18       |0.00     |
+|module   |22     |22         |=          |22.73       |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
 |class    |40     |40         |=          |80.00       |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
@@ -214,7 +203,7 @@ External dependencies
       | \-InteractorFactoryNotSetException (Interactors.UserInteractors)
       | \-PersistenceException (Interactors.GameInteractors)
       | \-UnrecognisedInteractorTypeException (Interactors.InteractorFactory)
-      \-Interactor (Interactors.UserInteractors,Interactors.GenreInteractors,Interactors.GameInteractors,Interactors.LoggingInteractor,Interactors.Search.SearchInteractor,Interactors.PlatformInteractors,Interactors.HardwareInteractors)
+      \-Interactor (Interactors.Search.SearchInteractor,Interactors.GenreInteractors,Interactors.PlatformInteractors,Interactors.GameInteractors,Interactors.UserInteractors,Interactors.HardwareInteractors,Interactors.LoggingInteractor)
       \-LoggingInteractor (Interactors.UserInteractors,Interactors.InteractorFactory)
       \-PlatformInteractors (Interactors.InteractorFactory)
 
@@ -226,13 +215,13 @@ Raw metrics
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |452    |56.01 |452      |=          |
+|code      |454    |55.98 |453      |+1.00      |
 +----------+-------+------+---------+-----------+
-|docstring |165    |20.45 |165      |=          |
+|docstring |167    |20.59 |167      |=          |
 +----------+-------+------+---------+-----------+
-|comment   |88     |10.90 |88       |=          |
+|comment   |88     |10.85 |88       |=          |
 +----------+-------+------+---------+-----------+
-|empty     |102    |12.64 |102      |=          |
+|empty     |102    |12.58 |102      |=          |
 +----------+-------+------+---------+-----------+
 
 
@@ -245,7 +234,7 @@ Duplication
 +=========================+======+=========+===========+
 |nb duplicated lines      |21    |21       |=          |
 +-------------------------+------+---------+-----------+
-|percent duplicated lines |2.425 |2.425    |=          |
+|percent duplicated lines |2.408 |2.411    |-0.00      |
 +-------------------------+------+---------+-----------+
 
 
@@ -256,7 +245,7 @@ Messages by category
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |119    |119      |=          |
+|convention |110    |111      |-1.00      |
 +-----------+-------+---------+-----------+
 |refactor   |11     |11       |=          |
 +-----------+-------+---------+-----------+
@@ -273,41 +262,41 @@ Messages by category
 +-----------------------------------------------------------+------+--------+---------+-----------+
 |module                                                     |error |warning |refactor |convention |
 +===========================================================+======+========+=========+===========+
-|Interactors.UserInteractors                                |0.00  |100.00  |0.00     |14.29      |
+|Interactors.UserInteractors                                |0.00  |100.00  |0.00     |7.27       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Interactor                                     |0.00  |0.00    |27.27    |5.88       |
+|Interactors.Interactor                                     |0.00  |0.00    |27.27    |6.36       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.UserExistsException                 |0.00  |0.00    |27.27    |2.52       |
+|Interactors.Exceptions.UserExistsException                 |0.00  |0.00    |27.27    |2.73       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.InteractorFactory                              |0.00  |0.00    |18.18    |10.92      |
+|Interactors.InteractorFactory                              |0.00  |0.00    |18.18    |11.82      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.HardwareInteractors                            |0.00  |0.00    |9.09     |11.76      |
+|Interactors.HardwareInteractors                            |0.00  |0.00    |9.09     |12.73      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.GameInteractors                                |0.00  |0.00    |9.09     |7.56       |
+|Interactors.GameInteractors                                |0.00  |0.00    |9.09     |8.18       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.PlatformInteractors                            |0.00  |0.00    |9.09     |5.88       |
+|Interactors.PlatformInteractors                            |0.00  |0.00    |9.09     |6.36       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.Params.GetGamesInteractorParams           |0.00  |0.00    |0.00     |15.13      |
+|Interactors.Game.Params.GetGamesInteractorParams           |0.00  |0.00    |0.00     |16.36      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Search.Params.SearchInteractorParams           |0.00  |0.00    |0.00     |9.24       |
+|Interactors.Search.Params.SearchInteractorParams           |0.00  |0.00    |0.00     |10.00      |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.LoggingInteractor                              |0.00  |0.00    |0.00     |5.04       |
+|Interactors.LoggingInteractor                              |0.00  |0.00    |0.00     |5.45       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Search.SearchInteractor                        |0.00  |0.00    |0.00     |2.52       |
+|Interactors.Search.SearchInteractor                        |0.00  |0.00    |0.00     |2.73       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.GenreInteractors                               |0.00  |0.00    |0.00     |1.68       |
+|Interactors.GenreInteractors                               |0.00  |0.00    |0.00     |1.82       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.UnrecognisedInteractorTypeException |0.00  |0.00    |0.00     |1.68       |
+|Interactors.Exceptions.UnrecognisedInteractorTypeException |0.00  |0.00    |0.00     |1.82       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.PersistenceException                |0.00  |0.00    |0.00     |1.68       |
+|Interactors.Exceptions.PersistenceException                |0.00  |0.00    |0.00     |1.82       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.InteractorFactoryNotSetException    |0.00  |0.00    |0.00     |1.68       |
+|Interactors.Exceptions.InteractorFactoryNotSetException    |0.00  |0.00    |0.00     |1.82       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Hardware.__init__                              |0.00  |0.00    |0.00     |0.84       |
+|Interactors.Hardware.__init__                              |0.00  |0.00    |0.00     |0.91       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Game.__init__                                  |0.00  |0.00    |0.00     |0.84       |
+|Interactors.Game.__init__                                  |0.00  |0.00    |0.00     |0.91       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
-|Interactors.Exceptions.__init__                            |0.00  |0.00    |0.00     |0.84       |
+|Interactors.Exceptions.__init__                            |0.00  |0.00    |0.00     |0.91       |
 +-----------------------------------------------------------+------+--------+---------+-----------+
 
 
@@ -318,19 +307,17 @@ Messages
 +-----------------------+------------+
 |message id             |occurrences |
 +=======================+============+
-|missing-docstring      |70          |
+|missing-docstring      |69          |
 +-----------------------+------------+
-|trailing-whitespace    |30          |
+|trailing-whitespace    |26          |
 +-----------------------+------------+
-|line-too-long          |13          |
+|line-too-long          |10          |
 +-----------------------+------------+
 |no-self-use            |7           |
 +-----------------------+------------+
 |invalid-name           |3           |
 +-----------------------+------------+
 |duplicate-code         |3           |
-+-----------------------+------------+
-|bad-whitespace         |2           |
 +-----------------------+------------+
 |unused-variable        |1           |
 +-----------------------+------------+
@@ -342,10 +329,12 @@ Messages
 +-----------------------+------------+
 |import-error           |1           |
 +-----------------------+------------+
+|bad-whitespace         |1           |
++-----------------------+------------+
 
 
 
 Global evaluation
 -----------------
-Your code has been rated at 6.60/10 (previous run: 6.60/10, +0.00)
+Your code has been rated at 6.83/10 (previous run: 6.80/10, +0.03)
 

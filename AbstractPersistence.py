@@ -1,3 +1,5 @@
+"""Methods for Persistence classes to implement"""
+
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +16,7 @@
 
 class AbstractPersistence(object):
     """Provides a list of methods for persistence objects to implement."""
-    
+
     def add_game(self, game, user_id):
         """Add a single game.
         :param params: An object of type Game
@@ -22,20 +24,20 @@ class AbstractPersistence(object):
         :returns: None
         """
         pass
-    
+
     def get_all_games(self, params):
         """Gets a list of games.
         :param params: An object of type GetGamesInteractorParams
         :returns: A list of Game
         """
         pass
-    
+
     def get_all_games_for_platform(self, params):
         """Gets a list of games for a platform.
         :param params: An object of type GetGamesInteractorParams
         :returns: A list of Game
         """
-        pass    
+        pass
 
     def count_games(self, user_id):
         """Counts the games in the user's collection.
@@ -111,7 +113,7 @@ class AbstractPersistence(object):
         param sort_field: The field to sort the hardware on
         param sort_direction: The order to sort the hardware in
         param user_id: The uuid of the user
-        returns: A list of instances of Hardware 
+        returns: A list of instances of Hardware
         """
         pass
 
@@ -126,7 +128,8 @@ class AbstractPersistence(object):
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
         param hardware: An instance of Hardware. The item of hardware to be saved.
-        param user_id: The uuid of the user whose collection the item of hardware should be added to.
+        param user_id: The uuid of the user whose collection the item of hardware should be added
+                       to.
         returns: None
         """
         pass
@@ -209,8 +212,8 @@ class AbstractPersistence(object):
 
     def update_user(self, user):
         """Update the details of a user
-        :param user: An object of type User. The id field is set to the id of the user to update. The rest of the 
-                     fields contain the new values.
+        :param user: An object of type User. The id field is set to the id of the user to update.
+                     The rest of the fields contain the new values.
         """
         pass
 
@@ -222,7 +225,7 @@ class AbstractPersistence(object):
 
     def change_password(self, user):
         """Change a user's password
-        :param user: An object of type user. The user whose password is to be changed. 
+        :param user: An object of type user. The user whose password is to be changed.
         The password property is the new password.
         """
         pass

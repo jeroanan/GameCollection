@@ -14,52 +14,65 @@
 
 
 class User(object):
+    """Represents a User"""
 
     def __init__(self):
+        """Initialise class state"""
         self.__id = ""
         self.__user_id = ""
         self.__password = ""
 
     @property
     def user_id(self):
+        """Get the user's user_id"""
         return self.__user_id
 
     @user_id.setter
     def user_id(self, val):
+        """Set the user's user_id"""
         self.__user_id = val
 
     @property
     def password(self):
+        """Get the user's password"""
         return self.__password
 
     @password.setter
     def password(self, val):
+        """Set the user's password"""
         self.__password = val
 
     @property
     def id(self):
+        """Get the user's uuid"""
         return self.__id
-        
+
     @id.setter
     def id(self, val):
-        self.__id = val        
+        """Set the user's uuid"""
+        self.__id = val
 
     def __eq__(self, other):
-        return self.user_id==other.user_id
+        """Test whether this instance of User is equal to another.
+        Currently this tests both object's user_id property
+        :param other: Another instance of User
+        :returns: True if this instance of User is equal to other. False otherwise."""
+        return self.user_id == other.user_id
 
     @staticmethod
-    def from_dict(d):
+    def from_dict(dictionary):
         """Initialises a User object from a dictionary
         :param d: A dictionary with the following keys:
            * userid
            * password
-        :returns: A populated User object. Any keys missing from d will have their values left as default.
+        :returns: A populated User object.
+                  Any keys missing from d will have their values left as default.
         """
-        u = User()
-        u.user_id = d.get("userid", u.user_id)
-        u.password = d.get("password", u.password)
-        u.id = d.get("id", u.id)
-        return u
+        user = User()
+        user.user_id = dictionary.get("userid", user.user_id)
+        user.password = dictionary.get("password", user.password)
+        user.id = dictionary.get("id", user.id)
+        return user
 
     @staticmethod
     def from_mongo_result(mongo_result):
@@ -68,10 +81,11 @@ class User(object):
            * _id
            * _User__user_id
            * _User__password
-        :returns: A populated User object. Any keys missing from mongo_result will have their values left as default.
+        :returns: A populated User object.
+                 Any keys missing from mongo_result will have their values left as default.
         """
-        u = User()
-        u.id = mongo_result.get("_id", u.id)
-        u.user_id = mongo_result.get("_User__user_id", u.user_id)
-        u.password = mongo_result.get("_User__password", u.password)
-        return u
+        user = User()
+        user.id = mongo_result.get("_id", user.id)
+        user.user_id = mongo_result.get("_User__user_id", user.user_id)
+        user.password = mongo_result.get("_User__password", user.password)
+        return user

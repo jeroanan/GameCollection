@@ -1,3 +1,5 @@
+"""Interactors for User functionality"""
+
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -34,7 +36,7 @@ class AddUserInteractor(LoggingInteractor):
         user.password = self.__hash_provider.hash_text(user.password)
         self.persistence.add_user(user)
         self.logger.info("New user: {user_id}".format(user_id=user.user_id))
-        
+
     def __validate(self, user):
         if user is None:
             raise TypeError
@@ -47,7 +49,7 @@ class AddUserInteractor(LoggingInteractor):
 
     def set_hash_provider(self, hash_provider):
         self.__hash_provider = hash_provider
-    
+
     def get_hash_provider(self):
         return self.__hash_provider
 
@@ -58,7 +60,7 @@ class ChangePasswordInteractor(LoggingInteractor):
     def __init__(self):
         super().__init__()
         self.__hash_provider = HashProvider()
-    
+
     def execute(self, user):
         """Use persistence to change a user's password.
         :param user: An object of type User. The user_id and password fields are mandatory.
@@ -66,9 +68,10 @@ class ChangePasswordInteractor(LoggingInteractor):
         """
         self.__validate(user)
         get_user_interactor = self.interactor_factory.create("GetUserInteractor")
-        db_user = get_user_interactor.execute(user)
 
-        db_user.password=self.__hash_provider.hash_text(user.password)
+        db_user = get_user_interactor.execute(user)
+        db_user.password = self.__hash_provider.hash_text(user.password)
+
         self.persistence.change_password(db_user)
 
     def __validate(self, user):
@@ -89,7 +92,7 @@ class ChangePasswordInteractor(LoggingInteractor):
 
 class DeleteUserInteractor(Interactor):
     """Use persistence to delete a user"""
-    
+
     def execute(self, user):
         """Delete a user.
         :param user: The user to delete. The id property contains the id of the user to delete."""
@@ -101,7 +104,8 @@ class GetUserInteractor(Interactor):
 
     def execute(self, user):
         """Get a user from persistence
-        :param user: An object of type user containing the id or user_id of the user to get. The id will take precdence.
+        :param user: An object of type user containing the id or user_id of the user to get.
+                     The id will take precdence.
         :returns: An object of type User. The retrieved user record.
         """
         def validate(user):
@@ -137,14 +141,16 @@ class LoginInteractor(LoggingInteractor):
         hashed_pw = self.__hash_provider.hash_text(user.password)
         db_user = self.persistence.get_user(user)
         if db_user.user_id == "":
-            self.logger.info("Failed login attempt: unknown user id {user_id}".format(user_id=user.user_id))
+            self.logger.info("Failed login attempt: unknown user id {user_id}"
+                             .format(user_id=user.user_id))
             return False
         correct_pw = self.__hash_provider.verify_password(user.password, db_user.password)
 
         if correct_pw:
             self.logger.info("Successful login: {user_id}".format(user_id=user.user_id))
         else:
-            self.logger.info("Failed login attempt: invalid password for {user_id}".format(user_id=user.user_id))
+            self.logger.info("Failed login attempt: invalid password for {user_id}"
+                             .format(user_id=user.user_id))
         return correct_pw
 
     def __validate(self, user):

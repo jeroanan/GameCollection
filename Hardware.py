@@ -14,10 +14,10 @@
 
 
 class Hardware():
-    """An item of hardware"""
+    """Represents an item of hardware"""
 
     def __init__(self):
-        """Initialise field values"""
+        """Initialise object state"""
         self.__id = ""
         self.__name = ""
         self.__platform = ""
@@ -28,65 +28,72 @@ class Hardware():
 
     @property
     def id(self):
-        """The unique identifier of the hardware item"""
+        """Get the unique identifier of the hardware item"""
         return self.__id
 
     @id.setter
     def id(self, value):
+        """Set the unique identifier of the hardware item"""
         self.__id = value
 
     @property
     def name(self):
-        """The name of the hardware item"""
+        """Get the name of the hardware item"""
         return self.__name
 
     @name.setter
     def name(self, value):
+        """Set the name of the hardware item"""
         self.__name = value
 
     @property
     def platform(self):
-        """The platform of the hardware item"""
+        """Get the platform of the hardware item"""
         return self.__platform
 
     @platform.setter
     def platform(self, value):
+        """Set the platform of the hardware item"""
         self.__platform = value
 
     @property
     def num_owned(self):
-        """The number of pieces of this hardware item owned"""
+        """Get the number of pieces of this hardware item owned"""
         return self.__num_owned
 
     @num_owned.setter
     def num_owned(self, value):
+        """Set the number of pieces of this hardware item owned"""
         self.__num_owned = value
 
     @property
     def num_boxed(self):
-        """The number of pieces of this hardware item boxed"""
+        """Get the number of pieces of this hardware item boxed"""
         return self.__num_boxed
 
     @num_boxed.setter
     def num_boxed(self, value):
+        """Set the number of pieces of this hardware item boxed"""
         self.__num_boxed = value
 
     @property
     def notes(self):
-        """Notes for this hardware item"""
+        """Get notes for this hardware item"""
         return self.__notes
 
     @notes.setter
     def notes(self, value):
+        """Set notes for this hardware item"""
         self.__notes = value
 
-    @property 
+    @property
     def user_id(self):
-        """The user_id against this hardware item"""
-        return self.__user_id 
+        """Get the user_id against this hardware item"""
+        return self.__user_id
 
     @user_id.setter
     def user_id(self, value):
+        """Set the user_id against this hardware item"""
         self.__user_id = value
 
     def __eq__(self, other):
@@ -101,8 +108,9 @@ class Hardware():
         :param other: An instance of Hardware. The object to compare the current one against
         :returns: True if this object is equal to other. Otherwise False
         """
-        return (self.id == other.id and self.name == other.name and self.num_owned == other.num_owned and
-                self.num_boxed == other.num_boxed and self.notes == other.notes and self.user_id == other.user_id)
+        return (self.id == other.id and self.name == other.name and 
+                self.num_owned == other.num_owned and self.num_boxed == other.num_boxed and 
+                self.notes == other.notes and self.user_id == other.user_id)
 
     @staticmethod
     def from_mongo_result(mongo_result):
@@ -113,17 +121,18 @@ class Hardware():
                              * _Hardware__num_owned
                              * _Hardware__num_boxed
                              * _Hardware__notes
-        :returns: A Hardware object with its properties properly initialised. Any missing keys from mongo_db will cause 
-                  the object to have that property initialised as its default.
+        :returns: A Hardware object with its properties properly initialised. 
+                  Any missing keys from mongo_db will cause the object to have that property 
+                  initialised as its default.
         """
-        h = Hardware()
-        h.id = mongo_result.get("_id", h.id)
-        h.name = mongo_result.get("_Hardware__name", h.name)
-        h.platform = mongo_result.get("_Hardware__platform", h.platform)
-        h.num_owned = mongo_result.get("_Hardware__num_owned", h.num_owned)
-        h.num_boxed = mongo_result.get("_Hardware__num_boxed", h.num_boxed)
-        h.notes = mongo_result.get("_Hardware__notes", h.notes)
-        return h
+        hardware = Hardware()
+        hardware.id = mongo_result.get("_id", hardware.id)
+        hardware.name = mongo_result.get("_Hardware__name", hardware.name)
+        hardware.platform = mongo_result.get("_Hardware__platform", hardware.platform)
+        hardware.num_owned = mongo_result.get("_Hardware__num_owned", hardware.num_owned)
+        hardware.num_boxed = mongo_result.get("_Hardware__num_boxed", hardware.num_boxed)
+        hardware.notes = mongo_result.get("_Hardware__notes", hardware.notes)
+        return hardware
 
     @staticmethod
     def from_dict(d):
@@ -134,15 +143,15 @@ class Hardware():
                  * numcopies
                  * numboxed
                  * notes
-        :returns: A Hardware object with its properties properly initialised. Any missing keys from d will cause the 
+        :returns: A Hardware object with its properties properly initialised. Any missing keys from d will cause the
                   object to have that properly initialised as its default.
         """
-        h = Hardware()
-        h.id = d.get("id", h.id)
-        h.name = d.get("name", h.name)
-        h.platform = d.get("platform", h.platform)
-        h.num_owned = d.get("numcopies", h.num_owned)
-        h.num_boxed = d.get("numboxed", h.num_boxed)
-        h.notes = d.get("notes", h.notes)
-        h.user_id = d.get("userid", h.user_id)
-        return h
+        hardware = Hardware()
+        hardware.id = d.get("id", hardware.id)
+        hardware.name = d.get("name", hardware.name)
+        hardware.platform = d.get("platform", hardware.platform)
+        hardware.num_owned = d.get("numcopies", hardware.num_owned)
+        hardware.num_boxed = d.get("numboxed", hardware.num_boxed)
+        hardware.notes = d.get("notes", hardware.notes)
+        hardware.user_id = d.get("userid", hardware.user_id)
+        return hardware

@@ -19,7 +19,7 @@ from Game import Game
 
 class TestGame(unittest.TestCase):
     """Unit tests for the Game class"""
-    
+
     def test_from_mongo_result_performs_mapping(self):
         """Test that mapping a Game object from a MonoDB result is correct"""
         gd = {"_id": "id",
@@ -60,4 +60,3 @@ class TestGame(unittest.TestCase):
         self.assertEqual(gd["nummanuals"], g.num_manuals)
         self.assertEqual(gd["platform"], g.platform)
         self.assertEqual(gd["notes"], g.notes)
-        

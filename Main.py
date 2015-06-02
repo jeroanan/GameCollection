@@ -28,17 +28,17 @@ WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
 def init_logger():
     logger = logging.getLogger("Icarus")
     logger.setLevel(logging.INFO)
-    fh = logging.FileHandler("main.log")
+    file_handler = logging.FileHandler("main.log")
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    fh.setFormatter(formatter)
-    fh.setLevel(logging.INFO)
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.INFO)
     logger.addHandler(fh)
     return logger
 
 if __name__ == "__main__":
     logger = init_logger()
     logger.info("Starting up...")
-    
+
     persistence = MongoPersistence()
     config = Config()
     interactor_factory = InteractorFactory(persistence, logger)
