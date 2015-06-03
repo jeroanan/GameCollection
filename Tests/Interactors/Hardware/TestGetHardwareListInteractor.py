@@ -33,12 +33,9 @@ class TestGetHardwareListInteractor(InteractorTestBase):
 
     def test_execute_calls_persistence(self):
         """Test that calling GetHardwareListInteractor.execute causes persistence.get_hardware_list to be called"""
-        def get_params():
-            p = GetHardwareListInteractorParams()
-            p.sort_field = "name"
-            p.sort_direction = "asc"
-            p.user_id = "userid"
-            return p
 
-        self.__target.execute(get_params())
-        self.persistence.get_hardware_list.assert_called_with(sort_field="name", sort_direction="asc", user_id="userid")
+        p = GetHardwareListInteractorParams.from_dict({"sort_field": "name",
+                                                       "sort_direction": "asc",
+                                                       "user_id": "userid"})
+        self.__target.execute(p)
+        self.persistence.get_hardware_list.assert_called_with(p)

@@ -62,15 +62,6 @@ class TestIndexHandler(unittest.TestCase):
         self.__target.session = Mock(Session)
         self.__get_page = lambda args: self.__target.get_page(args)
 
-    def test_gets_config_settings(self):
-        """Test that IndexHandler.get_page reads configuration settings"""
-        self.__get_page(self.__get_args())
-        settings = ["front-page-games",
-                    "front-page-hardware"]
-        
-        for s in settings:
-            self.__config.get.assert_any_call(s)
-
     def test_uses_default_sort_options_for_games(self):        
         """Test that when sort options are not given, the correct default sort options are used."""
         args = self.__get_args(game_sort=None, game_sort_direction=None, hardware_sort=None, 

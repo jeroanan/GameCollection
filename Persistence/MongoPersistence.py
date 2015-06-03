@@ -247,16 +247,16 @@ class MongoPersistence(AbstractPersistence):
             "user_id": str(user_id)
         })
     
-    def get_hardware_list(self, sort_field, sort_direction, user_id):
+    def get_hardware_list(self, params):
         """Get a list of all hardware in the user's collection
-        :param sort_field: The field to sort the hardware on
-        :param sort_direction: The order to sort the hardware in
-        :param user_id: The uuid of the user
+        :param params: An instance of GetHardwareListInteractorParams
         :returns: A list of instances of Hardware 
         """    
-        sorder = MongoSortDirectionMapper().map(sort_direction)
-        mapped_sort_field = HardwareSortFieldMapper().map(sort_field)
-        result = self.__db.hardware.find({"user_id": str(user_id)}).sort(mapped_sort_field, sorder)
+        sorder = MongoSortDirectionMapper().map(params.sort_direction)
+        mapped_sort_field = HardwareSortFieldMapper().map(params.sort_field)
+        result = self.__db.hardware.find({"user_id": str(params.user_id)}, limit=params.number_of_items).sort(
+            mapped_sort_field, sorder)
+
         return list(map(lambda p: Hardware.from_mongo_result(p), result))
     
     def save_hardware(self, hardware, user_id):

@@ -33,7 +33,7 @@ class IndexHandler(AuthenticatedHandler):
         self.__game_sort_dir = None
         self.__hardware_sort = None
         self.__hardware_sort_dir = None
-    
+
     def get_page(self, args):
         """The index page.
         Currently the index page displays a summary of the user's games and hardware. It also displays a games count.
@@ -42,7 +42,7 @@ class IndexHandler(AuthenticatedHandler):
           + gamesortdir -- a string containing the direction the games should be sorted in.
           + hardwaresort -- a string containing the name of the column to sort the list of hardware by.
           + hardwaresortdir -- a string containing the direction that the hardware should be sorted in.
-        returns: The rendered index page. If one of the sort fields is not recognised then redirect to self 
+        returns: The rendered index page. If one of the sort fields is not recognised then redirect to self
         without querystring.
         """
         self.check_session()
@@ -59,7 +59,7 @@ class IndexHandler(AuthenticatedHandler):
         return self.renderer.render("index.html", games=games, hardware=hardware,
                                     title="Games Collection", game_sort_field=self.__game_sort,
                                     game_sort_dir=self.__game_sort_dir, hw_sort_field=self.__hardware_sort,
-                                    number_of_games=(self.__count_games()), 
+                                    number_of_games=(self.__count_games()),
                                     number_of_hardware=(self.__count_hardware()), hw_sort_dir=self.__hardware_sort_dir)
 
     def __init_sorting(self, args):
@@ -74,7 +74,7 @@ class IndexHandler(AuthenticatedHandler):
                                                 default_sort_direction)
 
     def __init_hardware_sorting(self, args):
-        
+
         def if_null(arg_name, default_value):
             return self.set_if_null(args.get(arg_name, default_value), default_value)
 
@@ -84,36 +84,31 @@ class IndexHandler(AuthenticatedHandler):
         self.__hardware_sort = if_null("hardwaresort", default_sort_field)
         self. __hardware_sort_dir = if_null("hardwaresortdir", default_sort_direction)
 
-    def __get_games(self):        
+    def __get_games(self):
         get_games_interactor = self.interactor_factory.create("GetGamesInteractor")
 
-        def get_interactor_params():
-            p = GetGamesInteractorParams()
-            p.number_of_games = self.__config.get("front-page-games")
-            p.sort_field = self.__game_sort
-            p.sort_direction = self.__game_sort_dir
-            p.user_id = self.session.get_value("user_id")
-            p.platform = None
-            return p
-        
-        p = get_interactor_params()
+        p = GetGamesInteractorParams.from_dict({
+                "number_of_games": self.__config.get("front-page-games"""),
+                "sort_field": self.__game_sort,
+                "sort_direction": self.__game_sort_dir,
+                "user_id": self.session.get_value("user_id")})
+
         try:
             games = get_games_interactor.execute(p)
         except UnrecognisedFieldNameException:
             raise cherrypy.HTTPRedirect("/")
         return games
 
-    def __get_hardware(self):       
-        def get_interactor_params():
-            p = GetHardwareListInteractorParams()
-            p.sort_field = self.__hardware_sort
-            p.sort_dir = self.__hardware_sort_dir
-            p.user_id = self.session.get_value("user_id")
-            p.number_of_items = self.__config.get("front-page-hardware")
-            return p
+    def __get_hardware(self):
 
-        get_hardware_list_interactor = self.interactor_factory.create("GetHardwareListInteractor")        
-        return get_hardware_list_interactor.execute(get_interactor_params())
+        p = GetHardwareListInteractorParams.from_dict({
+            "sort_field": self.__hardware_sort,
+            "sort_direction": self.__hardware_sort_dir,
+            "user_id": self.session.get_value("user_id"),
+            "number_of_items": self.__config.get("front-page-hardware")})
+
+        get_hardware_list_interactor = self.interactor_factory.create("GetHardwareListInteractor")
+        return get_hardware_list_interactor.execute(p)
 
 
     def __count_games(self):
@@ -125,5 +120,3 @@ class IndexHandler(AuthenticatedHandler):
     def __count_items(self, interactor_type_string):
         interactor = self.interactor_factory.create(interactor_type_string)
         return interactor.execute(self.session.get_value("user_id"))
-        
-

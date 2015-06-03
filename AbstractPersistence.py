@@ -108,11 +108,9 @@ class AbstractPersistence(object):
         """
         pass
 
-    def get_hardware_list(self, sort_field, sort_direction, user_id):
+    def get_hardware_list(self, params):
         """Get a list of all hardware in the user's collection
-        param sort_field: The field to sort the hardware on
-        param sort_direction: The order to sort the hardware in
-        param user_id: The uuid of the user
+        param params: An instance of GetHardwareListInteractorParams
         returns: A list of instances of Hardware
         """
         pass

@@ -31,7 +31,7 @@ class TestGetGamesInteractor(InteractorTestBase):
         self.__execute = self.__target.execute(self.__get_params())
 
     def test_is_instance_of_interactor(self):
-        """Tes tthat GetGamesInteractor derives from Interactor"""
+        """Test tthat GetGamesInteractor derives from Interactor"""
         self.assertIsInstance(self.__target, Interactor)
 
     def test_calls_persistence_method(self):

@@ -51,3 +51,21 @@ class GetHardwareListInteractorParams(object):
     @number_of_items.setter
     def number_of_items(self, val):
         self.__number_of_items = val
+
+    @staticmethod
+    def from_dict(dictionary):
+        """Initialises an instance of GetHardwareListInteractorParams from a dictionary.
+        :param dictionary: A dictionary containing the following keys:
+           * sort_field
+           * sort_direction
+           * user_id
+           * number_of_items
+        :returns: An instance of GetHardwareListInteractorParams with its properties set. 
+        Where a key from dictionary is missing, the default value is used.
+        """
+        p = GetHardwareListInteractorParams()
+        p.sort_field = dictionary.get("sort_field", p.sort_field)
+        p.sort_direction = dictionary.get("sort_direction", p.sort_direction)
+        p.user_id = dictionary.get("user_id", p.user_id)
+        p.number_of_items = dictionary.get("number_of_items", p.number_of_items)
+        return p
