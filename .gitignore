@@ -62,3 +62,4 @@ UI/__pycache__/WebServer.cpython-34.pyc
 Tests/__pycache__/TestGamesInteractor.cpython-34.pyc
 sessions/*
 *.log
+env/*

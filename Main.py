@@ -32,7 +32,7 @@ def init_logger():
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
-    logger.addHandler(fh)
+    logger.addHandler(file_handler)
     return logger
 
 if __name__ == "__main__":

@@ -91,7 +91,7 @@ class MongoPersistence(AbstractPersistence):
         """
         return self.__db.games.find({"user_id": str(user_id)}).count()
     
-    def count_hardware(self):
+    def count_hardware(self, user_id):
         """Counts the items of hardware
         :param user_id: The uuid of the current user.
         :returns: The number of items of hardware
