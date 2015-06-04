@@ -22,16 +22,18 @@ class TestGetHardwareInteractorParams(unittest.TestCase):
     def test_from_dict_maps_correctly(self):
         """Test that an instance of GetHardwareListInteractorParams can be initialised correctly
        from a dictionary"""
-        dictionary = {"sort_field": "description",
+        dictionary = {"number_of_items": 1337,
+                      "platform": "platform",
+                      "sort_field": "description",
                       "sort_direction": "backwards",
-                      "user_id": "userid",
-                      "number_of_items": 1337}
+                      "user_id": "userid"}
 
         p = GetHardwareListInteractorParams.from_dict(dictionary)
 
-        mappings = {"sort_field": p.sort_field,
+        mappings = {"number_of_items": p.number_of_items,
+                    "platform": p.platform,
+                    "sort_field": p.sort_field,
                     "sort_direction": p.sort_direction,
-                    "user_id": p.user_id,
-                    "number_of_items": p.number_of_items}
+                    "user_id": p.user_id,}
 
         list(map(lambda m: self.assertEqual(dictionary[m], mappings[m]), mappings))

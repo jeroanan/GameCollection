@@ -19,8 +19,8 @@ from unittest.mock import Mock
 from Data.Config import Config
 from Game import Game
 from Hardware import Hardware
-from Interactors.GameInteractors import CountGamesInteractor, GetGamesInteractor
-from Interactors.HardwareInteractors import CountHardwareInteractor, GetHardwareListInteractor
+import Interactors.GameInteractors as game_interactors
+import Interactors.HardwareInteractors as hardware_interactors
 from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
@@ -37,10 +37,10 @@ class TestIndexHandler(unittest.TestCase):
         """setUp function for all unit tests in this class"""
         
         def get_interactor(interactor_type):
-            interactors = {GetGamesInteractor: self.__games,
-                           CountGamesInteractor: 0,
-                           GetHardwareListInteractor: self.__hardware,
-                           CountHardwareInteractor: 2
+            interactors = {game_interactors.GetGamesInteractor: self.__games,
+                           game_interactors.CountGamesInteractor: 0,
+                           hardware_interactors.GetHardwareListInteractor: self.__hardware,
+                           hardware_interactors.CountHardwareInteractor: 2
             }
             
             if interactor_type in interactors:
@@ -52,8 +52,12 @@ class TestIndexHandler(unittest.TestCase):
         self.__games = [Game()]
         self.__hardware = [Hardware()]
         self.__renderer = Mock(TemplateRenderer)
-        get_interactors = lambda: [get_interactor(GetGamesInteractor), get_interactor(GetHardwareListInteractor), 
-                                   get_interactor(CountGamesInteractor), get_interactor(CountHardwareInteractor)]
+
+        get_interactors = lambda: [get_interactor(game_interactors.GetGamesInteractor), 
+                                   get_interactor(hardware_interactors.GetHardwareListInteractor),
+                                   get_interactor(game_interactors.CountGamesInteractor),
+                                   get_interactor(hardware_interactors.CountHardwareInteractor)]
+
         interactor_factory = Mock(InteractorFactory)
         interactor_factory.create = Mock(side_effect=get_interactors())
         self.__config = Mock(Config)
@@ -67,10 +71,11 @@ class TestIndexHandler(unittest.TestCase):
         args = self.__get_args(game_sort=None, game_sort_direction=None, hardware_sort=None, 
                                hardware_sort_direction=None)
         self.__get_page(args)
-        self.__renderer.render.assert_called_with("index.html", games=self.__games, hardware=self.__hardware,
-                                                  title="Games Collection", game_sort_field="title", 
-                                                  game_sort_dir="asc", hw_sort_field="name", 
-                                                  number_of_games=0, hw_sort_dir="asc", number_of_hardware=2)
+        self.__renderer.render.assert_called_with("index.html", games=self.__games, 
+                                                  hardware=self.__hardware, title="Games Collection",
+                                                  game_sort_field="title", game_sort_dir="asc",
+                                                  hw_sort_field="name", number_of_games=0,
+                                                  hw_sort_dir="asc", number_of_hardware=2)
 
     def __get_args(self, game_sort="title", game_sort_direction="asc", hardware_sort="name",
                    hardware_sort_direction="asc"):

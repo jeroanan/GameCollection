@@ -15,7 +15,7 @@
 from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
 from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
 from Persistence.Exceptions.UnrecognisedFieldNameException import UnrecognisedFieldNameException
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from  UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class IndexHandler(AuthenticatedHandler):
@@ -36,14 +36,16 @@ class IndexHandler(AuthenticatedHandler):
 
     def get_page(self, args):
         """The index page.
-        Currently the index page displays a summary of the user's games and hardware. It also displays a games count.
+        Currently the index page displays a summary of the user's games and hardware.
+        It also displays a games count.
         param args: A dictionary that is comprised of the following keys:
-          + gamesort -- a string containing the name of the column to sort the list of games by.
-          + gamesortdir -- a string containing the direction the games should be sorted in.
-          + hardwaresort -- a string containing the name of the column to sort the list of hardware by.
-          + hardwaresortdir -- a string containing the direction that the hardware should be sorted in.
-        returns: The rendered index page. If one of the sort fields is not recognised then redirect to self
-        without querystring.
+          + gamesort -- The name of the column to sort the list of games by.
+          + gamesortdir -- The direction the games should be sorted in.
+          + hardwaresort -- The name of the column to sort the list of hardware by.
+          + hardwaresortdir -- The direction that the hardware should be sorted in.
+        returns: The rendered index page.
+                 If one of the sort fields is not recognised then redirect to self without
+                 querystring.
         """
         self.check_session()
         self.redirect_if_not_logged_in()

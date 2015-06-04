@@ -24,16 +24,17 @@ class AllHardwareHandler(AuthenticatedHandler):
     def get_page(self, args):
         """The All Hardware page
         Shows a list of all the hardware that the current user has in their collection.
-        param args: Seems not to be currently used. TODO: why not?
+        param args: Seems not to be currently used.
         returns: The rendered all hardware page
         """
         super().get_page(args)
         interactor = self.interactor_factory.create("GetHardwareListInteractor")
-        
-        params = GetHardwareListInteractorParams()
-        params.sort_field = "name"
-        params.sort_direction = "asc"
-        params.user_id = self.session.get_value("user_id")
+
+        params = GetHardwareListInteractorParams.from_dict({
+            "platform": args.get("platform", ""),
+            "sort_field": "name",
+            "sort_direction": "asc",
+            "user_id": self.session.get_value("user_id")})
 
         hardware = interactor.execute(params)
         return self.renderer.render("allhardware.html", hardware=hardware, title="All Hardware",

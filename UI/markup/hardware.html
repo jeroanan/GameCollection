@@ -10,10 +10,14 @@
     <tbody>
         {% for h in hardware %}
         <tr>
-            <td><a title="Edit {{h.name}}" onclick="editHardware('{{h.id}}')" class="linkbutton">{{h.name}}</a></td>
-            <td><a title="See all hardware for {{h.platform}}" class="linkbutton">{{h.platform}}</a></td>
-            <td>{{h.num_owned}}</td>
-            <td>{{h.num_boxed}}</td>
+          <td><a title="Edit {{h.name}}" onclick="editHardware('{{h.id}}')" class="linkbutton">{{h.name}}</a></td>
+          <td>
+				<a title="See all hardware for {{h.platform}}" href="/allhardware?platform={{h.platform}}" class="linkbutton">
+				  {{h.platform}}
+				</a>
+			 </td>
+          <td>{{h.num_owned}}</td>
+          <td>{{h.num_boxed}}</td>
         </tr>
         {% endfor %}
     </tbody>
