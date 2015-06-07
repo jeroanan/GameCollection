@@ -13,13 +13,8 @@ requirejs.config({
 		  jquerycookie: ['jquery'],
 		  bootstrap: ['jquery'],
 		  'script.min': ['jqueryui', 'jquerycookie'],
-		  login: ['jquery', 'script.min']
+		  'login.min': ['jquery', 'script.min']
 	 }
 });
 
-require(['bootstrap']);
-require(['script.min']);
-
-
-
-
+require(['bootstrap', 'script.min', 'login.min']);
