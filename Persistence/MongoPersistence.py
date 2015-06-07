@@ -259,6 +259,17 @@ class MongoPersistence(AbstractPersistence):
 
         return list(map(lambda p: Hardware.from_mongo_result(p), result))
     
+    def get_hardware_list_for_platform(self, params):
+        """Get a list of all hardware for a platform in the user's collection
+        param params: An instance of GetHardwareListInteractorParams
+        returns: A list of instances of Hardware
+        """
+        sorder = MongoSortDirectionMapper().map(params.sort_direction)
+        mapped_sort_field = HardwareSortFieldMapper().map(params.sort_field)
+        hardware = self.__db.hardware.find({"_Hardware__platform": params.platform, "user_id": str(params.user_id)}, 
+                                           limit=params.number_of_items)
+        return list(map(lambda p: Hardware.from_mongo_result(p), hardware))
+
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
         :param hardware: An instance of Hardware. The item of hardware to be saved.

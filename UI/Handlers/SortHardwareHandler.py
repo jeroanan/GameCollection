@@ -27,12 +27,13 @@ class SortHardwareHandler(AuthenticatedHandler):
         :returns: A rendered page containing the sorted hardware list"""
         super().get_page(args)
         interactor = self.interactor_factory.create("GetHardwareListInteractor")
-        
-        params = GetHardwareListInteractorParams()
-        params.sort_field = args.get("field", "name")
-        params.sort_direction = args.get("sortdir", "")
-        params.user_id = self.session.get_value("user_id")
-        
+
+        params = GetHardwareListInteractorParams.from_dict({
+            "platform": args.get("platform", ""),
+            "sort_field": args.get("field", "name"),
+            "sort_direction": args.get("sortdir", ""),
+            "user_id": self.session.get_value("user_id")})
+
         hardware = interactor.execute(params)
 
         return self.renderer.render("hardware.html", hardware=hardware, hw_sort_field=args.get("field", ""),

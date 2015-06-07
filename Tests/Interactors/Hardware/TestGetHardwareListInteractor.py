@@ -31,11 +31,22 @@ class TestGetHardwareListInteractor(InteractorTestBase):
         """Test that GetHardwareListInteractor is an instance of Interactor"""
         self.assertIsInstance(self.__target, Interactor)
 
-    def test_execute_calls_persistence(self):
+    def test_execute_with_no_platform_calls_get_hardware_list_persistence_method(self):
         """Test that calling GetHardwareListInteractor.execute causes persistence.get_hardware_list to be called"""
-
-        p = GetHardwareListInteractorParams.from_dict({"sort_field": "name",
-                                                       "sort_direction": "asc",
-                                                       "user_id": "userid"})
+        p = self.__get_params()
+        p.platform = ""
         self.__target.execute(p)
         self.persistence.get_hardware_list.assert_called_with(p)
+
+    def test_execute_with_platform_calls_get_hardware_list_for_platform_persistence_method(self):
+        p = self.__get_params()
+        self.__target.execute(p)
+        self.persistence.get_hardware_list_for_platform.assert_called_with(p)
+
+
+    def __get_params(self):
+        return GetHardwareListInteractorParams.from_dict({
+            "platform": "p",
+            "sort_field": "name",
+            "sort_direction": "asc",
+            "user_id": "userid"})

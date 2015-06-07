@@ -68,7 +68,9 @@ class GetHardwareListInteractor(Interactor):
         param params: An object of type GetHardwareListInteractorParams
         returns: A list of instances of Hardware 
         """
-        return self.persistence.get_hardware_list(params)
+        if params.platform == "" or params.platform is None:
+            return self.persistence.get_hardware_list(params)
+        return self.persistence.get_hardware_list_for_platform(params)
 
 
 class SaveHardwareInteractor(Interactor):

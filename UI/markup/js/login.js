@@ -1,3 +1,8 @@
+$(function() {
+	 $("#login").on("click", function() {login().done(loginDone);return false;});
+	 $("#newuser").on("click", function() {newUser().done(newUserDone);});
+});
+
 function login() {
     hideValidationMessages();
     return loginPageAjax("/signin");
@@ -47,8 +52,3 @@ function loginPageAjax(url) {
         }
     });
 }
-
-$(function() {
-	 $("#login").on("click", function() {login().done(loginDone);return false;});
-	 $("#newuser").on("click", function() {newUser().done(newUserDone);});
-});

@@ -17,7 +17,9 @@ import unittest
 from unittest.mock import Mock
 
 from Game import Game
+from Genre import Genre
 from Interactors.GameInteractors import GetGameInteractor
+from Interactors.GenreInteractors import GetGenresInteractor
 from Interactors.PlatformInteractors import GetPlatformsInteractor
 from Interactors.InteractorFactory import InteractorFactory
 from Platform import Platform
@@ -44,8 +46,14 @@ class TestEditGameHandler(unittest.TestCase):
             i.execute = Mock(return_value=self.__platforms)
             return i
 
+        def init_genres_interactor():
+            i = Mock(GetGenresInteractor)
+            i.execute = Mock(return_value=self.__genres)
+            return i
+
         def init_interactor_factory():
-            get_interactor = lambda: [get_game_interactor, get_platforms_interactor]
+            get_interactor = lambda: [get_game_interactor, get_platforms_interactor, 
+                                      get_genres_interactor]
             factory = Mock(InteractorFactory)
             factory.create = Mock(side_effect=get_interactor())
             return factory
@@ -57,10 +65,12 @@ class TestEditGameHandler(unittest.TestCase):
             return target
             
         self.__game = Game.from_dict({"title": "Game", "platform": "Platform"})
-        self.__platforms = [Platform]
+        self.__platforms = [Platform()]
+        self.__genres = [Genre()]
         self.__renderer = Mock(TemplateRenderer)
         get_game_interactor = init_get_game_interactor()
         get_platforms_interactor = init_get_platforms_interactor()
+        get_genres_interactor = init_genres_interactor()
         interactor_factory = init_interactor_factory()
         self.__target = get_target()
         self.__get_page = lambda: self.__target.get_page({"gameid": "game_id"})
@@ -79,6 +89,6 @@ class TestEditGameHandler(unittest.TestCase):
 
         self.__get_page()
         self.__renderer.render.assert_called_with("editgame.html", game=self.__game, title=make_page_title(), 
-                                                  platforms=self.__platforms, game_found=True)    
+                                                  platforms=self.__platforms, game_found=True, genres=self.__genres)    
 
 

@@ -76,6 +76,20 @@
 					  </div>
              </div>
 
+				 <div class="row">
+					<div class="col-sm-4">
+					  <div class="form-group">
+						 <label for="genre">Genre</label>
+						 <select name="genre" id="genre" required="required" class="form-control">
+							<option value="" />
+							{% for genre in genres %}
+							<option value="{{genre.name}}">{{genre.name}}</option>
+							{% endfor %}
+						 </select>
+					  </div>
+					</div>
+				 </div>
+
              <div class="row">
 					<div class="col-sm-12">
                  <div class="form-group">

@@ -38,8 +38,9 @@ class EditGameHandler(AuthenticatedHandler):
 
         platforms = self.__get_platforms()
 
-        return self.renderer.render("editgame.html",
-                                    game=game, title=page_title, platforms=platforms, game_found=game_found)
+        return self.renderer.render("editgame.html", game=game, title=page_title, 
+                                    platforms=platforms, game_found=game_found, 
+                                    genres=self.__get_genres())
 
     def __get_game(self, game_id):
         get_game_interactor = self.interactor_factory.create("GetGameInteractor")
@@ -48,6 +49,10 @@ class EditGameHandler(AuthenticatedHandler):
     def __get_platforms(self):
         platform_interactor = self.interactor_factory.create("GetPlatformsInteractor")
         return platform_interactor.execute()
+
+    def __get_genres(self):
+        genre_interactor = self.interactor_factory.create("GetGenresInteractor")
+        return genre_interactor.execute()
 
     def __get_page_title(self, game):
         return "{title} ({platform})".format(title=game.title, platform=game.platform)
