@@ -80,10 +80,14 @@
 					<div class="col-sm-4">
 					  <div class="form-group">
 						 <label for="genre">Genre</label>
-						 <select name="genre" id="genre" required="required" class="form-control">
+						 <select name="genre" id="genre" class="form-control">
 							<option value="" />
 							{% for genre in genres %}
+							{% if genre.name == game.genre %}
+							<option value="{{genre.name}}" selected="selected">{{genre.name}}</option>
+							{% else %}
 							<option value="{{genre.name}}">{{genre.name}}</option>
+							{% endif %}
 							{% endfor %}
 						 </select>
 					  </div>
@@ -116,13 +120,6 @@
             <span>Really delete this game?</span>
             <a href="javascript:deleteGame()">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm()">No</a>
         </div>
-        <script type="text/javascript">
-            $(function() {
-                var pickers = $(".picker");
-                pickers.datepicker();
-                pickers.datepicker("option", "dateFormat", "dd/mm/yy");
-                pickers.datepicker("setDate", "{{game.date_purchased}}");
-            })
-        </script>
+
         {%endif%}
         {% endblock %}

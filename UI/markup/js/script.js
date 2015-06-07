@@ -30,9 +30,9 @@ function hideDeleteConfirm() {
 
 function deleteGame() {
     var j = {
-        gameid: $("#id").val()
+        id: $("#id").val()
     };
-
+	 console.log(j.id);
     ajaxDelete("/deletegame", j);
 }
 
@@ -128,6 +128,7 @@ function navigate(url) {
 
 function updateGame() {
     var j = getGameNoId();
+	 console.log(j.genre);
     j.id = $("#id").val();
 
     if (!validateSaveGame(j)) return;
@@ -144,6 +145,7 @@ function saveGame() {
 function getGameNoId() {
     return {
         title: $("#title").val(),
+		  genre: $("#genre").val(),
         platform: $("#platform").val(),
         numcopies: $("#numcopies").val(),
         numboxed: $("#numboxed").val(),

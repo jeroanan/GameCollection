@@ -18,6 +18,7 @@ class Game(object):
     def __init__(self):
         """Initialise object state"""
         self.__id = ""
+        self.__genre = ""
         self.__title = ""
         self.__platform = ""
         self.__num_copies = 0
@@ -36,6 +37,16 @@ class Game(object):
     def id(self, value):
         """Set game id"""
         self.__id = value
+
+    @property
+    def genre(self):
+        """Get game genre"""
+        return self.__genre
+
+    @genre.setter
+    def genre(self, val):
+        """Set game genre"""
+        self.__genre = val
 
     @property
     def title(self):
@@ -149,6 +160,7 @@ class Game(object):
                   Missing keys from mongo_result will have their property set as the default.
         """
         game = Game()
+        game.genre = mongo_result.get("_Game__genre", game.genre)
         game.id = mongo_result.get("_id", game.id)
         game.title = mongo_result.get("_Game__title", game.title)
         game.platform = mongo_result.get("_Game__platform", game.platform)
@@ -176,6 +188,7 @@ class Game(object):
                   property set as the default."""
         game = Game()
         game.id = dictionary.get("id", game.id)
+        game.genre = dictionary.get("genre", game.genre)
         game.title = dictionary.get("title", game.title)
         game.num_copies = dictionary.get("numcopies", game.num_copies)
         game.num_boxed = dictionary.get("numboxed", game.num_boxed)

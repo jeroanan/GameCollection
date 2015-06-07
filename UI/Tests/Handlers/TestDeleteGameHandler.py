@@ -40,7 +40,7 @@ class TestDeleteGameHandler(unittest.TestCase):
         session.get_value = Mock(return_value="1234")
         self.__target.session = session
         self.__get_page = lambda args: self.__target.get_page(args)
-        self.__get_args = lambda id="id": {"gameid": id}
+        self.__get_args = lambda id="id": {"id": id}
         self.__missing_arg_returns_empty_string = get_missing_param_assertion(self.__target)
         self.__empty_arg_returns_empty_string = get_empty_param_assertion(self.__target)
 
@@ -54,12 +54,12 @@ class TestDeleteGameHandler(unittest.TestCase):
         self.__interactor.execute.assert_called_with(Game.from_dict({"id": "id"}), "1234")
 
     def test_no_id_returns_empty_string(self):
-        """Test that calling DeleteGameHandler.get_page with an empty gameid causes an empty string to be returned"""
-        self.__assert_validate_param("gameid", self.__missing_arg_returns_empty_string)
+        """Test that calling DeleteGameHandler.get_page with an empty id causes an empty string to be returned"""
+        self.__assert_validate_param("id", self.__missing_arg_returns_empty_string)
 
     def test_empty_id_returns_empty_string(self):
-        """Test that calling DeleteGameHandler.get_page with a null gameid causes an empty string to be returned"""
-        self.__assert_validate_param("gameid", self.__empty_arg_returns_empty_string)
+        """Test that calling DeleteGameHandler.get_page with a null id causes an empty string to be returned"""
+        self.__assert_validate_param("id", self.__empty_arg_returns_empty_string)
 
     def __assert_validate_param(self, param, validation_func):
         p = self.__get_args()

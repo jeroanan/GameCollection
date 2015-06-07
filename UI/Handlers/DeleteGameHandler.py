@@ -25,7 +25,7 @@ class DeleteGameHandler(AuthenticatedHandler):
         :param renderer: The object to use to render output html
         """
         super().__init__(interactor_factory, renderer)
-        self.__get_game = lambda args: Game.from_dict({"gameid": args.get("gameid", "")})
+        self.__get_game = lambda args: Game.from_dict({"id": args.get("id", "")})
 
     """Handles Game deletion requests.
     This is really intended to be used as an ajax request rather than a webpage, so
@@ -36,7 +36,7 @@ class DeleteGameHandler(AuthenticatedHandler):
     """
     def get_page(self, args):
         super().get_page(args)
-        if not self.validate_params(args, ["gameid"]):
+        if not self.validate_params(args, ["id"]):
             return ""
         self.__execute_interactor(self.__get_game(args))
 

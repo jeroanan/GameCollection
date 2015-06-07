@@ -70,26 +70,36 @@
 			 </div>
         </div>
 
+		  <div class="row">
+			 <div class="col-sm-4">
+				<div class="form-group">
+				  <label for="genre">Genre</label>
+				  <select name="genre" id="genre" class="form-control">
+					 <option value="" />
+					 {% for genre in genres %}
+					 <option value="{{genre.name}}">{{genre.name}}</option>
+					 {% endfor %}
+				  </select>
+				</div>
+			 </div>
+		  </div>
+		  
         <div class="row">
 			 <div class="col-sm-12">
             <div class="form-group">
-                <label for="notes">Notes</label>
-                <textarea id="notes" name="notes" class="form-control" rows="5"></textarea>
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes" class="form-control" rows="5"></textarea>
             </div>
 			 </div>
         </div>
-
+		  
         <div class="row">
-            <div class="form-group col-sm-3">
-                <input type="button" class="btn btn-primary" value="Save" onclick="saveGame();" />
-                  <input type="button" class="btn" value="Cancel" onclick="cancelEdit();" />
-            </div>
+          <div class="form-group col-sm-3">
+            <input type="button" class="btn btn-primary" value="Save" onclick="saveGame();" />
+            <input type="button" class="btn" value="Cancel" onclick="cancelEdit();" />
+          </div>
         </div>
     </form>
-    <script type="text/javascript">
-        $(function() {
-            $(".picker").datepicker();
-            $(".picker").datepicker("option", "dateFormat", "dd/mm/yy");
-        })
-    </script>
-{% endblock %}
+
+	 {% endblock %}
+	 

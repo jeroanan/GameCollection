@@ -17,9 +17,11 @@
 import unittest
 from unittest.mock import Mock
 
+import Genre as g
 from Interactors.InteractorFactory import InteractorFactory
-from Interactors.PlatformInteractors import GetPlatformsInteractor
-from Platform import Platform
+import Interactors.PlatformInteractors as pi
+import Interactors.GenreInteractors as gi
+import Platform as p
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
@@ -32,11 +34,18 @@ class TestAddGameHandler(unittest.TestCase):
 
     def setUp(self):
         """setUp function for all unit tests in this class"""
-        self.__platforms = [Platform()]
+
+        def initialise_interactor(interactor_type, return_value):
+            interactor = Mock(interactor_type)
+            interactor.execute = Mock(return_value=return_value)
+            return interactor
+
+        self.__platforms = [p.Platform()]
+        self.__genres = [g.Genre()]
         interactor_factory = Mock(InteractorFactory)
-        interactor = Mock(GetPlatformsInteractor)
-        interactor.execute = Mock(return_value=self.__platforms)
-        interactor_factory.create = Mock(return_value=interactor)
+        get_platforms_interactor = initialise_interactor(pi.GetPlatformsInteractor, self.__platforms)
+        get_genres_interactor = initialise_interactor(gi.GetGenresInteractor, self.__genres)
+        interactor_factory.create = Mock(return_value=get_platforms_interactor)
         self.__renderer = Mock(TemplateRenderer)
         self.__target = AddGameHandler(interactor_factory, self.__renderer)
         session = Mock(Session)
@@ -49,5 +58,6 @@ class TestAddGameHandler(unittest.TestCase):
     def test_get_page_calls_renderer(self):
         """Test that calling AddGameHandler.get_page causes renderer.render to be called correctly"""
         self.__target.get_page({})
-        self.__renderer.render.assert_called_with("addgame.html", title="Add Game", platforms=self.__platforms)
+        self.__renderer.render.assert_called_with("addgame.html", title="Add Game", 
+                                                  platforms=self.__platforms, genres=self.__genres)
 

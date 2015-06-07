@@ -23,6 +23,7 @@ class TestGame(unittest.TestCase):
     def test_from_mongo_result_performs_mapping(self):
         """Test that mapping a Game object from a MonoDB result is correct"""
         gd = {"_id": "id",
+              "_Game__genre": "genre",
               "_Game__title": "title",
               "_Game__platform": "platform",
               "_Game__num_copies": 1,
@@ -35,6 +36,7 @@ class TestGame(unittest.TestCase):
         g = Game.from_mongo_result(gd)
         self.assertEqual(gd["_id"], g.id)
         self.assertEqual(gd["_Game__title"], g.title)
+        self.assertEqual(gd["_Game__genre"], g.genre)
         self.assertEqual(gd["_Game__platform"], g.platform)
         self.assertEqual(gd["_Game__num_copies"], g.num_copies)
         self.assertEqual(gd["_Game__num_boxed"], g.num_boxed)
@@ -46,6 +48,7 @@ class TestGame(unittest.TestCase):
     def test_from_dict(self):
         """Test that mapping a game object from a dictionary is correct."""
         gd = {"id": "id",
+              "genre": "genre",
               "title": "Title",
               "numcopies": 1,
               "numboxed": 2,
@@ -54,6 +57,7 @@ class TestGame(unittest.TestCase):
               "notes": "Notes"}
         g = Game.from_dict(gd)
         self.assertEqual(gd["id"], g.id)
+        self.assertEqual(gd["genre"], g.genre)
         self.assertEqual(gd["title"], g.title)
         self.assertEqual(gd["numcopies"], g.num_copies)
         self.assertEqual(gd["numboxed"], g.num_boxed)
