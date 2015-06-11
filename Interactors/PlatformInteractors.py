@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Interactor import Interactor
+import Interactors.Interactor as i
 
 
-class AddPlatformInteractor(Interactor):
+class AddPlatformInteractor(i.Interactor):
     """Add a platform"""
 
     def execute(self, platform):
@@ -35,7 +35,7 @@ class AddPlatformInteractor(Interactor):
         self.validate_string_field("Platform name", platform.name)
 
 
-class DeletePlatformInteractor(Interactor):
+class DeletePlatformInteractor(i.Interactor):
     """Delete a platform"""
 
     def execute(self, platform):
@@ -50,7 +50,7 @@ class DeletePlatformInteractor(Interactor):
             raise TypeError("platform")
 
 
-class GetPlatformInteractor(Interactor):
+class GetPlatformInteractor(i.Interactor):
     """Get details of a specific platform"""
 
     def execute(self, platform_id):
@@ -60,7 +60,7 @@ class GetPlatformInteractor(Interactor):
         return self.persistence.get_platform(platform_id)
 
 
-class GetPlatformsInteractor(Interactor):
+class GetPlatformsInteractor(i.Interactor):
     """Get all platforms"""
 
     def execute(self):
@@ -72,7 +72,7 @@ class GetPlatformsInteractor(Interactor):
         return platforms
 
 
-class GetSuggestedPlatformsInteractor(Interactor):
+class GetSuggestedPlatformsInteractor(i.Interactor):
     """Get the list of suggested platforms"""
     
     def __init__(self, suggested_platforms):
@@ -84,12 +84,12 @@ class GetSuggestedPlatformsInteractor(Interactor):
         """Get the list of suggested platforms
         :returns: A list of Platform objects sorted by name containing details of the suggested platforms"""
         platforms = list(self.persistence.get_platforms())
-        suggested_platforms = self.__suggested_platforms.get()
+        suggested_platforms = self.__suggested_platforms()        
         result = [p for p in suggested_platforms if p not in platforms]
         return sorted(result, key=lambda x: x.name)
 
 
-class UpdatePlatformInteractor(Interactor):
+class UpdatePlatformInteractor(i.Interactor):
     """Update the details of a platform"""
 
     def execute(self, platform):

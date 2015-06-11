@@ -14,9 +14,9 @@
 
 from unittest.mock import Mock
 
-from AbstractPersistence import AbstractPersistence
-from Data.LoadSuggestedPlatforms import LoadSuggestedPlatforms
-from Interactors.PlatformInteractors import GetSuggestedPlatformsInteractor
+import AbstractPersistence as abstract_persistence
+import Data.DataLoad 
+import Interactors.PlatformInteractors as platform_interactors
 from Interactors.Interactor import Interactor
 from Platform import Platform
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
@@ -26,9 +26,8 @@ class TestGetSuggestedPlatformsInteractor(InteractorTestBase):
     """Unit tests for the platformshandler class""" 
     def setUp(self):
         super().setUp()
-        self.__suggested_platforms = Mock(LoadSuggestedPlatforms)
-        self.__suggested_platforms.get = self.__get_suggested_platforms
-        self.__target = GetSuggestedPlatformsInteractor(suggested_platforms=self.__suggested_platforms)
+        self.__suggested_platforms = lambda: self.__get_suggested_platforms()
+        self.__target = platform_interactors.GetSuggestedPlatformsInteractor(self.__suggested_platforms)
         self.persistence.get_platforms = Mock(return_value=[])
         self.__target.persistence = self.persistence
 
@@ -43,9 +42,9 @@ class TestGetSuggestedPlatformsInteractor(InteractorTestBase):
 
     def test_execute_returns_suggested_platforms_not_already_stored(self):
         """Test that calling GetSuggestedPlatformsInteractor.execute only returns platforms not already stored in persistence"""
-        persistence = Mock(AbstractPersistence)
+        persistence = Mock(abstract_persistence.AbstractPersistence)
         persistence.get_platforms = self.__get_stored_platforms
-        target = GetSuggestedPlatformsInteractor(self.__suggested_platforms)
+        target = platform_interactors.GetSuggestedPlatformsInteractor(self.__suggested_platforms)
         target.persistence = persistence
         result = target.execute()
         self.assertEqual(1, len(result))

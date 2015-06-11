@@ -12,10 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Interactor import Interactor
+import Interactors.Interactor as i
 
 
-class AddGenreInteractor(Interactor):
+class AddGenreInteractor(i.Interactor):
     """Add a new genre"""
 
     def execute(self, genre):
@@ -28,7 +28,7 @@ class AddGenreInteractor(Interactor):
         return self.persistence.add_genre(genre)
 
 
-class DeleteGenreInteractor(Interactor):
+class DeleteGenreInteractor(i.Interactor):
     """Delete a genre"""
 
     def execute(self, genre):
@@ -37,7 +37,7 @@ class DeleteGenreInteractor(Interactor):
         self.persistence.delete_genre(genre.id)
 
 
-class GetGenreInteractor(Interactor):
+class GetGenreInteractor(i.Interactor):
     """Get a genre"""
 
     def execute(self, genre_id):
@@ -48,7 +48,7 @@ class GetGenreInteractor(Interactor):
         return self.persistence.get_genre_details(genre_id)
 
 
-class GetGenresInteractor(Interactor):
+class GetGenresInteractor(i.Interactor):
     """Get all genres"""
     
     def execute(self):
@@ -57,7 +57,19 @@ class GetGenresInteractor(Interactor):
         return self.persistence.get_genres()
 
 
-class UpdateGenreInteractor(Interactor):
+class GetSuggestedGenresInteractor(i.Interactor):
+    
+    def __init__(self, get_suggested_genres):
+        super().__init__()
+        self.__get_suggested_genres = get_suggested_genres
+
+    def execute(self):
+        genres = self.persistence.get_genres()
+        suggested_genres = self.__get_suggested_genres()
+        return [s for s in suggested_genres if s not in genres]
+
+
+class UpdateGenreInteractor(i.Interactor):
     """Update a genre"""
     def execute(self, genre):
         """Update a genre

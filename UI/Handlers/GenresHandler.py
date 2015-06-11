@@ -12,14 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Genre import Genre
-from Interactors.GenreInteractors import GetGenresInteractor
-from Interactors.InteractorFactory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.TemplateRenderer import TemplateRenderer
+import UI.Handlers.AuthenticatedHandler as ah
 
 
-class GenresHandler(AuthenticatedHandler):
+class GenresHandler(ah.AuthenticatedHandler):
     """Handle requests for the genre management page."""
 
     def __init__(self, interactor_factory, renderer):
@@ -30,6 +26,13 @@ class GenresHandler(AuthenticatedHandler):
         """Get data and render the page for the genre management page.
         :returns: A rendered genre management page."""
         super().get_page(args)
-        interactor = self.interactor_factory.create("GetGenresInteractor")
-        genres = interactor.execute()
-        return self.renderer.render("genres.html", title="Manage Genres", genres=genres)
+        
+        def get_from_interactor(interactor_type):
+            interactor = self.interactor_factory.create(interactor_type)
+            return interactor.execute()
+
+        genres, suggested_genres = (get_from_interactor("GetGenresInteractor"), 
+                                    get_from_interactor("GetSuggestedGenresInteractor"))
+
+        return self.renderer.render("genres.html", title="Manage Genres", genres=genres, 
+                                    suggested_genres=suggested_genres)

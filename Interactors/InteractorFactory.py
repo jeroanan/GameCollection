@@ -14,10 +14,11 @@
 
 import json
 
-from Data.LoadSuggestedPlatforms import LoadSuggestedPlatforms
-from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
-from Interactors.LoggingInteractor import LoggingInteractor
-from Interactors.PlatformInteractors import GetSuggestedPlatformsInteractor
+import Data.DataLoad as dl
+import Interactors.Exceptions.UnrecognisedInteractorTypeException as uite
+import Interactors.LoggingInteractor as li
+import Interactors.GenreInteractors as gi
+import Interactors.PlatformInteractors as pi
 
 
 class InteractorFactory(object):
@@ -37,13 +38,17 @@ class InteractorFactory(object):
         :returns: An interactor of the specified type. If interactor_type does not correspond to a known type of 
                   interactor then an UnrecognisdInteractorTypeException is raised.
         """
-        if interactor_type == "GetSuggestedPlatformsInteractor":
-            return self.__initialise_interactor(GetSuggestedPlatformsInteractor(LoadSuggestedPlatforms()))
+        special_interactors = {
+            "GetSuggestedPlatformsInteractor": (pi.GetSuggestedPlatformsInteractor, dl.load_suggested_platforms),
+            "GetSuggestedGenresInteractor": (gi.GetSuggestedGenresInteractor, dl.load_suggested_genres)}
 
-        if interactor_type in self.__interactors:
+        if interactor_type in special_interactors:
+            interactor, init_value = special_interactors[interactor_type]
+            return self.__initialise_interactor(interactor(init_value))
+        elif interactor_type in self.__interactors:
             return self.__initialise_interactor(self.__string_to_interactor(self.__interactors[interactor_type]))
 
-        raise UnrecognisedInteractorTypeException
+        raise uite.UnrecognisedInteractorTypeException
 
     def __string_to_interactor(self, interactor_type):
         try:
@@ -59,6 +64,6 @@ class InteractorFactory(object):
 
     def __initialise_interactor(self, interactor):
         interactor.persistence = self.__persistence
-        if isinstance(interactor, LoggingInteractor):
+        if isinstance(interactor, li.LoggingInteractor):
             interactor.logger = self.__logger
         return interactor

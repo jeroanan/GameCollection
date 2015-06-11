@@ -19,21 +19,14 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
-from Interactors.GameInteractors import (AddGameInteractor, CountGamesInteractor, DeleteGameInteractor, 
-                                         GetGameInteractor, GetGamesInteractor, UpdateGameInteractor)
-from Interactors.GenreInteractors import (AddGenreInteractor, DeleteGenreInteractor, GetGenresInteractor, 
-                                          GetGenreInteractor, UpdateGenreInteractor, DeleteGenreInteractor)
-from Interactors.HardwareInteractors import (CountHardwareInteractor, DeleteHardwareInteractor, 
-                                             GetHardwareDetailsInteractor, GetHardwareListInteractor, 
-                                             SaveHardwareInteractor, UpdateHardwareInteractor)
-from Interactors.InteractorFactory import InteractorFactory
-from Interactors.PlatformInteractors import (AddPlatformInteractor, DeletePlatformInteractor, GetPlatformInteractor,
-                                             GetPlatformsInteractor, GetSuggestedPlatformsInteractor, 
-                                             UpdatePlatformInteractor)
-from Interactors.Search.SearchInteractor import SearchInteractor
-from Interactors.UserInteractors import (AddUserInteractor, ChangePasswordInteractor, DeleteUserInteractor, 
-                                         GetUserInteractor, GetUsersInteractor, LoginInteractor, UpdateUserInteractor)
-from Persistence.MongoPersistence import MongoPersistence
+import Interactors.GameInteractors as game_interactors
+import Interactors.GenreInteractors as genre_interactors
+import Interactors.HardwareInteractors as hardware_interactors
+import Interactors.InteractorFactory as interactor_factory
+import Interactors.PlatformInteractors as platform_interactors
+import Interactors.Search.SearchInteractor as search_interactor
+import Interactors.UserInteractors as user_interactors
+import AbstractPersistence as abstract_persistence
 
 
 class TestInteractorFactory(unittest.TestCase):
@@ -41,7 +34,9 @@ class TestInteractorFactory(unittest.TestCase):
 
     def setUp(self):
         """setUp function for all unit tests in this class."""
-        self.__target = InteractorFactory(Mock(MongoPersistence), Mock(Logger))
+        persistence = Mock(abstract_persistence.AbstractPersistence)
+        logger = Mock(Logger)
+        self.__target = interactor_factory.InteractorFactory(persistence, logger)
 
     def test_create_unrecognised_type_string_throws_exception(self):
         """Test that calling InteractorFactory.create with an unknown Interactor type raises an 
@@ -50,40 +45,41 @@ class TestInteractorFactory(unittest.TestCase):
 
     def test_create(self):
         """Test that all known types of Interactor can be created with InteractorFactory"""
-        mappings = {"AddGameInteractor": AddGameInteractor,
-                    "GetGamesInteractor": GetGamesInteractor,
-                    "GetPlatformsInteractor": GetPlatformsInteractor,
-                    "AddPlatformInteractor": AddPlatformInteractor,
-                    "GetGameInteractor": GetGameInteractor,
-                    "UpdateGameInteractor": UpdateGameInteractor,
-                    "DeleteGameInteractor": DeleteGameInteractor,
-                    "GetHardwareListInteractor": GetHardwareListInteractor,
-                    "SaveHardwareInteractor": SaveHardwareInteractor,
-                    "GetPlatformInteractor": GetPlatformInteractor,
-                    "UpdatePlatformInteractor": UpdatePlatformInteractor,
-                    "DeletePlatformInteractor": DeletePlatformInteractor,
-                    "GetHardwareDetailsInteractor": GetHardwareDetailsInteractor,
-                    "UpdateHardwareInteractor": UpdateHardwareInteractor,
-                    "DeleteHardwareInteractor": DeleteHardwareInteractor,
-                    "GetHardwareDetailsInteractor": GetHardwareDetailsInteractor,
-                    "UpdateHardwareInteractor": UpdateHardwareInteractor,
-                    "DeleteHardwareInteractor": DeleteHardwareInteractor,
-                    "GetSuggestedPlatformsInteractor": GetSuggestedPlatformsInteractor,
-                    "GetGenresInteractor": GetGenresInteractor,
-                    "AddGenreInteractor": AddGenreInteractor,
-                    "GetGenreInteractor": GetGenreInteractor,
-                    "UpdateGenreInteractor": UpdateGenreInteractor,
-                    "DeleteGenreInteractor": DeleteGenreInteractor,
-                    "CountGamesInteractor": CountGamesInteractor,
-                    "SearchInteractor": SearchInteractor,
-                    "CountHardwareInteractor": CountHardwareInteractor,
-                    "LoginInteractor": LoginInteractor,
-                    "AddUserInteractor": AddUserInteractor,
-                    "GetUserInteractor": GetUserInteractor,
-                    "ChangePasswordInteractor": ChangePasswordInteractor,
-                    "GetUsersInteractor": GetUsersInteractor,
-                    "UpdateUserInteractor": UpdateUserInteractor,
-                    "DeleteUserInteractor": DeleteUserInteractor
+        mappings = {"AddGameInteractor": game_interactors.AddGameInteractor,
+                    "GetGamesInteractor": game_interactors.GetGamesInteractor,
+                    "GetPlatformsInteractor": platform_interactors.GetPlatformsInteractor,
+                    "AddPlatformInteractor": platform_interactors.AddPlatformInteractor,
+                    "GetGameInteractor": game_interactors.GetGameInteractor,
+                    "UpdateGameInteractor": game_interactors.UpdateGameInteractor,
+                    "DeleteGameInteractor": game_interactors.DeleteGameInteractor,
+                    "GetHardwareListInteractor": hardware_interactors.GetHardwareListInteractor,
+                    "SaveHardwareInteractor": hardware_interactors.SaveHardwareInteractor,
+                    "GetPlatformInteractor": platform_interactors.GetPlatformInteractor,
+                    "UpdatePlatformInteractor": platform_interactors.UpdatePlatformInteractor,
+                    "DeletePlatformInteractor": platform_interactors.DeletePlatformInteractor,
+                    "GetHardwareDetailsInteractor": hardware_interactors.GetHardwareDetailsInteractor,
+                    "UpdateHardwareInteractor": hardware_interactors.UpdateHardwareInteractor,
+                    "DeleteHardwareInteractor": hardware_interactors.DeleteHardwareInteractor,
+                    "GetHardwareDetailsInteractor": hardware_interactors.GetHardwareDetailsInteractor,
+                    "UpdateHardwareInteractor": hardware_interactors.UpdateHardwareInteractor,
+                    "DeleteHardwareInteractor": hardware_interactors.DeleteHardwareInteractor,
+                    "GetSuggestedPlatformsInteractor": platform_interactors.GetSuggestedPlatformsInteractor,
+                    "GetGenresInteractor": genre_interactors.GetGenresInteractor,
+                    "AddGenreInteractor": genre_interactors.AddGenreInteractor,
+                    "GetGenreInteractor": genre_interactors.GetGenreInteractor,
+                    "UpdateGenreInteractor": genre_interactors.UpdateGenreInteractor,
+                    "DeleteGenreInteractor": genre_interactors.DeleteGenreInteractor,
+                    "CountGamesInteractor": game_interactors.CountGamesInteractor,
+                    "SearchInteractor": search_interactor.SearchInteractor,
+                    "CountHardwareInteractor": hardware_interactors.CountHardwareInteractor,
+                    "LoginInteractor": user_interactors.LoginInteractor,
+                    "AddUserInteractor": user_interactors.AddUserInteractor,
+                    "GetUserInteractor": user_interactors.GetUserInteractor,
+                    "ChangePasswordInteractor": user_interactors.ChangePasswordInteractor,
+                    "GetUsersInteractor": user_interactors.GetUsersInteractor,
+                    "UpdateUserInteractor": user_interactors.UpdateUserInteractor,
+                    "DeleteUserInteractor": user_interactors.DeleteUserInteractor,
+                    "GetSuggestedGenresInteractor": genre_interactors.GetSuggestedGenresInteractor
                     }
 
         assert_mapping = lambda m: self.assertIsInstance(self.__target.create(m), mappings[m], m)

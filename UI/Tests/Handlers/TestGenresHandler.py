@@ -15,13 +15,13 @@
 import unittest
 from unittest.mock import Mock
 
-from Genre import Genre
-from Interactors.GenreInteractors import GetGenresInteractor
-from Interactors.InteractorFactory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.GenresHandler import GenresHandler
-from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+import Genre as g
+import Interactors.GenreInteractors as gi
+import Interactors.InteractorFactory as ifactory
+import UI.Handlers.AuthenticatedHandler as ah
+import UI.Handlers.GenresHandler as gh
+import UI.Handlers.Session.Session as session
+import UI.TemplateRenderer as tr
 
 
 class TestGenresHandler(unittest.TestCase):
@@ -29,21 +29,38 @@ class TestGenresHandler(unittest.TestCase):
 
     def setUp(self):
         """setUp function for all unit tests in this class"""
-        self.__genres = [Genre()]
-        interactor_factory = Mock(InteractorFactory)        
-        interactor = Mock(GetGenresInteractor)
-        interactor.execute = Mock(return_value=self.__genres)
-        interactor_factory.create = Mock(return_value=interactor)
-        self.__renderer = Mock(TemplateRenderer)
-        self.__target = GenresHandler(interactor_factory, self.__renderer)
-        self.__target.session = Mock(Session)
-        
+
+        def interactor_factory_create(interactor_type):
+
+            def create_get_genres_interactor():
+                get_genres_interactor = Mock(gi.GetGenresInteractor)
+                get_genres_interactor.execute = Mock(return_value=self.__genres)
+                return get_genres_interactor
+
+            def create_get_suggested_genres_interactor():
+                get_genres_interactor = Mock(gi.GetSuggestedGenresInteractor)
+                get_genres_interactor.execute = Mock(return_value=self.__suggested_genres)
+                return get_genres_interactor
+
+            if interactor_type == "GetGenresInteractor":
+                return create_get_genres_interactor()
+            elif interactor_type == "GetSuggestedGenresInteractor":
+                return create_get_suggested_genres_interactor()
+
+        self.__genres = [g.Genre.from_dict({"name": "stored genre"})]
+        self.__suggested_genres = [g.Genre.from_dict({"name": "suggested genre"})]
+        interactor_factory = Mock(ifactory.InteractorFactory)        
+        interactor_factory.create = Mock(side_effect=interactor_factory_create)
+        self.__renderer = Mock(tr.TemplateRenderer)
+        self.__target = gh.GenresHandler(interactor_factory, self.__renderer)
+        self.__target.session = Mock(session.Session)
 
     def test_is_type_of_authenticated_handler(self):
         """Test that GenresHandler is derived from AuthenticatedHandler"""
-        self.assertIsInstance(self.__target, AuthenticatedHandler)
+        self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
     def test_get_page_renders_page(self):
         """Test that calling GenresHandler.get_page causes renderer.render to be called with the correct parameters"""
         self.__target.get_page(None)
-        self.__renderer.render.assert_called_with("genres.html", title="Manage Genres", genres=self.__genres)
+        self.__renderer.render.assert_called_with("genres.html", title="Manage Genres", genres=self.__genres,
+                                                  suggested_genres=self.__suggested_genres)
