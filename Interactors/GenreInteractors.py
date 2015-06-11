@@ -64,9 +64,10 @@ class GetSuggestedGenresInteractor(i.Interactor):
         self.__get_suggested_genres = get_suggested_genres
 
     def execute(self):
-        genres = self.persistence.get_genres()
+        genres = list(self.persistence.get_genres())
         suggested_genres = self.__get_suggested_genres()
-        return [s for s in suggested_genres if s not in genres]
+        result = [s for s in suggested_genres if s not in genres]
+        return sorted(result, key=lambda x: x.name)
 
 
 class UpdateGenreInteractor(i.Interactor):

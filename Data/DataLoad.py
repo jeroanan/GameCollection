@@ -27,7 +27,7 @@ _load_types = {"platform": ("Data/SuggestedPlatforms.json", "platforms", platfor
 
 def _load_data(load_type):
     
-    file_name, root_element, output_type = _types[load_type]
+    file_name, root_element, output_type = _load_types[load_type]
 
     with open(file_name) as f:
         data = json.load(f)

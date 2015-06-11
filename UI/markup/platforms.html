@@ -1,94 +1,92 @@
 {%extends 'master.html'%}
-        {%block content%}
-        <h1 class="page-header">{{title}}</h1>
-		  <h2 class="page-header">My Platforms</h2>        
-		  <div class="row">
-			 <div class="col-sm-12">
-				<table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {%for platform in platforms%}
-                <tr>
-                  <td>
-                    <a title="See all games for {{platform.description}}"
-                       href="/allgames?platform={{platform.name}}">{{platform.name}}</a>
-                  </td>
-                  <td>{{platform.description}}</td>
-                  <td><button class="btn" onclick="editPlatform('{{platform.id}}')">Edit</button></td>
-                </tr>
-                {%endfor%}
-              </tbody>
-				</table>
-			 </div>
-		  </div>
-		  
-		  <h2 class="page-header">Add Platform</h2>
-		  <form action="" method="post" role="form" class="form-horizontal">
-			 <div class="row">
-				
-				<div class="col-sm-5">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required="required" placeholder="Name" 
-							  class="form-control" />
-              </div>
-				</div>
-            <div class="col-sm-2"></div>
-				<div class="col-sm-5">
-				  <div class="form-group">
-					 <label for="description">Description</label>
-					 <input type="text" id="description" name="description" placeholder="Description" 
-							  class="form-control" />
-				  </div>
-				</div>
-			 </div>
-			 
-			 <div class="row">
-				<div class="col-sm-12">
-              <div class="form-group">
-					 <button class="btn btn-primary" onclick="addNewPlatform();return false;">Add</button>
-              </div>
-				</div>
-				
-			 </div>
-		  </form>
-		  
-		  
-        <h2 class="page-header">Suggested Platforms</h2>
-		  <div class="row">
-			 <div class="col-sm-12">
-				<table class="table table-striped">
-				  <thead>
-					 <tr>
-						<th>Name</th>
-						<th>Description</th>
-						<th></th>
-					 </tr>
-				  </thead>
-				  <tbody>
-					 {%for platform in suggested_platforms%}
-					 <tr>
-						<td>{{platform.name}}</td>
-						<td>{{platform.description}}</td>
-						<td>
-						  <button class="btn btn-success"
-									 onclick="addPlatform('{{platform.name}}', '{{platform.description}}');">Add
-						  </button>
-						</td>
-					 </tr>
-					 {%endfor%}
-				  </tbody>
-				</table>
-			 </div>
-		  </div>
-		  
-		  
-        {%endblock%}
-		  
-		  
+{%block content%}
+<h1 class="page-header">{{title}}</h1>
+<h2 class="page-header">My Platforms</h2>        
+<div class="row">
+  <div class="col-sm-12">
+	 <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for platform in platforms%}
+        <tr>
+          <td>
+            <a title="See all games for {{platform.description}}"
+               href="/allgames?platform={{platform.name}}">{{platform.name}}</a>
+          </td>
+          <td>{{platform.description}}</td>
+          <td><button class="btn" onclick="editPlatform('{{platform.id}}')">Edit</button></td>
+        </tr>
+        {%endfor%}
+      </tbody>
+	 </table>
+  </div>
+</div>
+
+<h2 class="page-header">Add Platform</h2>
+<form action="" method="post" role="form" class="form-horizontal">
+  <div class="row">
+	 
+	 <div class="col-sm-5">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required="required" placeholder="Name" 
+					class="form-control" />
+      </div>
+	 </div>
+    <div class="col-sm-2"></div>
+	 <div class="col-sm-5">
+		<div class="form-group">
+		  <label for="description">Description</label>
+		  <input type="text" id="description" name="description" placeholder="Description" 
+					class="form-control" />
+		</div>
+	 </div>
+  </div>
+  
+  <div class="row">
+	 <div class="col-sm-12">
+      <div class="form-group">
+		  <button class="btn btn-primary" onclick="addNewPlatform();return false;">Add</button>
+      </div>
+	 </div>
+	 
+  </div>
+</form>
+
+
+<h2 class="page-header">Suggested Platforms</h2>
+<div class="row">
+  <div class="col-sm-12">
+	 <table class="table table-striped">
+		<thead>
+		  <tr>
+			 <th>Name</th>
+			 <th>Description</th>
+			 <th></th>
+		  </tr>
+		</thead>
+		<tbody>
+		  {%for platform in suggested_platforms%}
+		  <tr>
+			 <td>{{platform.name}}</td>
+			 <td>{{platform.description}}</td>
+			 <td>
+				<button class="btn btn-success"
+						  onclick="addPlatform('{{platform.name}}', '{{platform.description}}');">Add
+				</button>
+			 </td>
+		  </tr>
+		  {%endfor%}
+		</tbody>
+	 </table>
+  </div>
+</div>
+{%endblock%}
+
+

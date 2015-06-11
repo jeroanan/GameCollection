@@ -307,7 +307,7 @@ class MongoPersistence(AbstractPersistence):
         """Get all genres.
         :returns: A list of type Genre that contains all genres in the system.
         """
-        return map(Genre.from_mongo_result, self.__db.genres.find().sort("_Genre__name"))
+        return list(map(Genre.from_mongo_result, self.__db.genres.find().sort("_Genre__name")))
 
     def add_genre(self, genre):
         """Add a genre

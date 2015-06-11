@@ -11,11 +11,11 @@
     },
     {
       "name": "Sports Simulator",
-      "description": ""
+      "description": "Sports Simulator"
     },
     {
       "name": "Action",
-      "description": ""
+      "description": "Action Game"
     },
     {
       "name": "Role Playing Game",
@@ -35,27 +35,27 @@
     },
     {
       "name": "Shoot-em up",
-      "description": ""
+      "description": "Shoot-em up"
     },
     {
       "name": "Side-scrolling shooter",
-      "description": ""
+      "description": "Side-scrolling shooter"
     },
     {
       "name": "Puzzle",
-      "description": ""
+      "description": "Puzzle"
     },
     {
       "name": "Racing",
-      "description": ""
+      "description": "Racing"
     },
     {
       "name": "Collectible Card Game",
-      "description": ""
+      "description": "Collectible Card Game"
     },
     {
-      "name": "Platform",
-      "description": ""
+      "name": "Platformer",
+      "description": "Platforming game"
     },
     {
       "name": "Fitness",
@@ -63,7 +63,7 @@
     },
     {
       "name": "Adventure",
-      "description": ""
+      "description": "Adventure game"
     },
     {
       "name": "Fighting",
@@ -71,27 +71,27 @@
     },
     {
       "name": "Fixed shooter",
-      "description": ""
+      "description": "Fixed (on rails) shooter"
     },
     {
-      "name": "First person shooter",
-      "description": ""
+      "name": "First Person Shooter",
+      "description": "First Person Shooter"
     },
     {
       "name": "Simulation Game",
-      "description": ""
+      "description": "Simulation Game"
     },
     {
       "name": "Farming Simulation",
-      "description": ""
+      "description": "Farming Simulation"
     },
     {
       "name": "Casino Simulation",
-      "description": ""
+      "description": "Casino Simulation"
     },
     {
       "name": "Party Game",
-      "description": ""
+      "description": "Party Game"
     },
     {
       "name": "Compilation",
@@ -99,16 +99,11 @@
     },
     {
       "name": "Run and Gun",
-      "description": ""
+      "description": "Run and Gun"
     },
     {
       "name": "Board Game",
-      "description": ""
-    },
-    {
-      "name": "Rail Shooter",
-      "description": ""
+      "description": "Board Game"
     }
-
   ]
 }

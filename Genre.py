@@ -54,11 +54,10 @@ class Genre(object):
     def __eq__(self, other):
         """Test that this instance of Genre is equal to another.
         This happens by comparing the following properties:
-           * id
            * name
         :returns: True if this instance of Genre matches other, otherwise False
         """
-        return self.id == other.id and self.name == other.name
+        return self.name == other.name
 
     @staticmethod
     def from_dict(dictionary):
