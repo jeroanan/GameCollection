@@ -41,6 +41,10 @@
       "name": "Side-scrolling shooter",
       "description": "Side-scrolling shooter"
     },
+	 {
+		  "name": "Space Combat simulator",
+		  "description": "Space Combat simulator"
+	 },
     {
       "name": "Puzzle",
       "description": "Puzzle"

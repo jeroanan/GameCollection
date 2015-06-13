@@ -12,6 +12,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+import functools as ft
+
+
 class Game(object):
     """Represents a game"""
 
@@ -146,53 +149,54 @@ class Game(object):
     @staticmethod
     def from_mongo_result(mongo_result):
         """Initialises an instance of Game from a MongoDB result.
-        :param mongo_result: A MongoDB result as a dictionary with the following keys:
-           * _id
-           * __Game__title
-           * _Game__platform
-           * _Game__num_copies
-           * _Game__num_boxed
-           * _Game__num_manuals
-           * _Game__notes
-           * _Game__date_purchased
-           * _Game__approximate_date_purchased
+        :param mongo_result: A MongoDB result as a dictionary. 
+                             See mappings below for details on expected keys.
         :returns: An instance of Game with its properties set.
                   Missing keys from mongo_result will have their property set as the default.
         """
-        game = Game()
-        game.genre = mongo_result.get("_Game__genre", game.genre)
-        game.id = mongo_result.get("_id", game.id)
-        game.title = mongo_result.get("_Game__title", game.title)
-        game.platform = mongo_result.get("_Game__platform", game.platform)
-        game.num_copies = mongo_result.get("_Game__num_copies", game.num_copies)
-        game.num_boxed = mongo_result.get("_Game__num_boxed", game.num_boxed)
-        game.num_manuals = mongo_result.get("_Game__num_manuals", game.num_manuals)
-        game.notes = mongo_result.get("_Game__notes", game.notes)
-        game.date_purchased = mongo_result.get("_Game__date_purchased", game.date_purchased)
-        game.approximate_date_purchased = mongo_result.get("_Game__approximate_date_purchased",
-                                                           game.approximate_date_purchased)
-        return game
+
+        # game.attr, mongo_result.key
+        mappings = {"genre": "_Game__genre",
+                    "id": "_id",
+                    "title":"_Game__title",
+                    "platform": "_Game__platform",
+                    "num_copies": "_Game__num_copies",
+                    "num_boxed": "_Game__num_boxed",
+                    "num_manuals": "_Game__num_manuals",
+                    "notes": "_Game__notes",
+                    "date_purchased": "_Game__date_purchased",
+                    "approximate_date_purchased": "_Game__approximate_date_purchased"}
+
+        return Game._from_dict(mongo_result, mappings)    
 
     @staticmethod
     def from_dict(dictionary):
         """Initialises an instance of Game from a dictionary.
-        :param d: A dictionary with the following keys:
-                     * id
-                     * title
-                     * num_copies
-                     * num_boxed
-                     * num_manuals
-                     * platform
-                     * notes
+        
+        :param dictionary: A dictionary.  See mapping below for details on expected keys.
         :returns: An instance of Game with its properties set. Missing keys from d will have their
                   property set as the default."""
+
+        # game.attr, dictionary.key
+        mappings = {"id": "id",
+                    "date_purchased": "datepurchased",
+                    "genre": "genre",
+                    "title": "title",
+                    "num_copies": "numcopies",
+                    "num_boxed": "numboxed",
+                    "num_manuals": "nummanuals",
+                    "platform": "platform",
+                    "notes": "notes"}
+                   
+        return Game._from_dict(dictionary, mappings)
+
+    @staticmethod
+    def _from_dict(dictionary, mappings):
         game = Game()
-        game.id = dictionary.get("id", game.id)
-        game.genre = dictionary.get("genre", game.genre)
-        game.title = dictionary.get("title", game.title)
-        game.num_copies = dictionary.get("numcopies", game.num_copies)
-        game.num_boxed = dictionary.get("numboxed", game.num_boxed)
-        game.num_manuals = dictionary.get("nummanuals", game.num_manuals)
-        game.platform = dictionary.get("platform", game.platform)
-        game.notes = dictionary.get("notes", game.notes)
+
+        set_attr = ft.partial(setattr, game)
+        get_attr = ft.partial(getattr, game)
+        dict_get = lambda x: dictionary.get(x[0], get_attr(x[1]))
+
+        list(map(lambda m: set_attr(m, dict_get((mappings[m], m))), mappings))
         return game

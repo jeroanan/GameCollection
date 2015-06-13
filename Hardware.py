@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+import functools as ft
+
 
 class Hardware():
     """Represents an item of hardware"""
@@ -125,17 +127,18 @@ class Hardware():
                   Any missing keys from mongo_db will cause the object to have that property 
                   initialised as its default.
         """
-        hardware = Hardware()
-        hardware.id = mongo_result.get("_id", hardware.id)
-        hardware.name = mongo_result.get("_Hardware__name", hardware.name)
-        hardware.platform = mongo_result.get("_Hardware__platform", hardware.platform)
-        hardware.num_owned = mongo_result.get("_Hardware__num_owned", hardware.num_owned)
-        hardware.num_boxed = mongo_result.get("_Hardware__num_boxed", hardware.num_boxed)
-        hardware.notes = mongo_result.get("_Hardware__notes", hardware.notes)
-        return hardware
+        # hardware.attr, mongo_result.key
+        mappings = {"id": "_id",
+                    "name": "_Hardware__name",
+                    "platform": "_Hardware__platform",
+                    "num_owned": "_Hardware__num_owned",
+                    "num_boxed": "_Hardware__num_boxed",
+                    "notes": "_Hardware__notes"}
+
+        return Hardware._from_dict(mongo_result, mappings)
 
     @staticmethod
-    def from_dict(d):
+    def from_dict(dictionary):
         """Initialises Hardware object from a dictionary.
         :param d: A dictionary containing the following keys:
                  * name
@@ -146,12 +149,26 @@ class Hardware():
         :returns: A Hardware object with its properties properly initialised. Any missing keys from d will cause the
                   object to have that properly initialised as its default.
         """
+
+        # hardware.attr, d.key
+        mappings = {"id": "id",
+                    "name": "name",
+                    "platform": "platform",
+                    "num_owned": "numcopies",
+                    "num_boxed": "numboxed",
+                    "notes": "notes",
+                    "user_id": "userid"}
+
+        return Hardware._from_dict(dictionary, mappings)
+
+    @staticmethod
+    def _from_dict(dictionary, mappings):
         hardware = Hardware()
-        hardware.id = d.get("id", hardware.id)
-        hardware.name = d.get("name", hardware.name)
-        hardware.platform = d.get("platform", hardware.platform)
-        hardware.num_owned = d.get("numcopies", hardware.num_owned)
-        hardware.num_boxed = d.get("numboxed", hardware.num_boxed)
-        hardware.notes = d.get("notes", hardware.notes)
-        hardware.user_id = d.get("userid", hardware.user_id)
+
+        set_attr = ft.partial(setattr, hardware)
+        get_attr = ft.partial(getattr, hardware)
+        dict_get = lambda x: dictionary.get(x[0], get_attr(x[1]))
+
+        list(map(lambda m: set_attr(m, dict_get((mappings[m],m))), mappings))
         return hardware
+        
