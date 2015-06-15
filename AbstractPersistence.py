@@ -108,6 +108,12 @@ class AbstractPersistence(object):
 
     #Hardware
 
+    def add_hardware_type(self, hardware_type):
+        """Add a hardware type.
+        :param hardware_type: An object of type HardwareType. The hardware type to add.
+        """
+        pass
+
     def count_hardware(self, user_id):
         """Counts the items of hardware in the user's collection
         :param user_id: The uuid of the current user.

@@ -63,3 +63,4 @@ Tests/__pycache__/TestGamesInteractor.cpython-34.pyc
 sessions/*
 *.log
 env/*
+.coverage
