@@ -79,7 +79,9 @@ class TestInteractorFactory(unittest.TestCase):
                     "GetUsersInteractor": user_interactors.GetUsersInteractor,
                     "UpdateUserInteractor": user_interactors.UpdateUserInteractor,
                     "DeleteUserInteractor": user_interactors.DeleteUserInteractor,
-                    "GetSuggestedGenresInteractor": genre_interactors.GetSuggestedGenresInteractor
+                    "GetSuggestedGenresInteractor": genre_interactors.GetSuggestedGenresInteractor,
+                    "GetSuggestedHardwareTypesInteractor": hardware_interactors.GetSuggestedHardwareTypesInteractor,
+                    "GetHardwareTypeListInteractor": hardware_interactors.GetHardwareTypeListInteractor
                     }
 
         assert_mapping = lambda m: self.assertIsInstance(self.__target.create(m), mappings[m], m)

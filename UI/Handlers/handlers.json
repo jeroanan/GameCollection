@@ -13,6 +13,7 @@
             "updateplatform": "UpdatePlatformHandler",
             "deleteplatform": "DeletePlatformHandler",
             "edithardware": "EditHardwareHandler",
+				"hardwaretypes": "HardwareTypesHandler",
             "updatehardware": "UpdateHardwareHandler",
             "deletehardware": "DeleteHardwareHandler",
             "allgames": "AllGamesHandler",

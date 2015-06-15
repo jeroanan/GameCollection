@@ -17,12 +17,14 @@
 import json
 
 import Genre as genre
+import HardwareType as hardware
 import Platform as platform
 
 
 #                          (filename, root_element, output_type)xc
 _load_types = {"platform": ("Data/SuggestedPlatforms.json", "platforms", platform.Platform),
-               "genre": ("Data/Genres.json", "genres", genre.Genre)
+               "genre": ("Data/Genres.json", "genres", genre.Genre),
+               "hardwaretypes": ("Data/HardwareTypes.json", "hardware_types", hardware.HardwareType)
 }
 
 def _load_data(load_type):
@@ -38,3 +40,6 @@ def load_suggested_platforms():
 
 def load_suggested_genres():
     return _load_data("genre")
+
+def load_suggested_hardware_types():
+    return _load_data("hardwaretypes")

@@ -1,0 +1,93 @@
+{% extends 'master.html' %}
+
+{% block content %}
+
+<h1>{{title}}</h1>
+
+<h2>My Hardware Types</h2>
+<div class="row">
+  <div class="col-xs-12">
+	 <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+		  {% for ht in hardware_types %}
+		  <td>ht.name</td>
+		  <td>ht.description</td>
+		  <td><button class="btn" onclick="editHardwareType('{{ht.id}}')">Edit</button></td>
+		  {% else %}
+		  <td></td>
+		  <td><strong>You have no saved hardware types</strong></td>
+		  <td></td>
+		  {% endfor %}
+		</tbody>
+	 </table>
+  </div>
+</div>
+
+<h2>Add Hardware Type</h2>
+
+<form action="" method="post" role="form" class="form-horizontal">
+  <div class="row">
+	 
+	 <div class="col-xs-5">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required="required" placeholder="Name" 
+					class="form-control" />
+      </div>
+	 </div>
+    <div class="col-xs-2"></div>
+	 <div class="col-xs-5">
+		<div class="form-group">
+		  <label for="description">Description</label>
+		  <input type="text" id="description" name="description" placeholder="Description" 
+					class="form-control" />
+		</div>
+	 </div>
+  </div>
+  
+  <div class="row">
+	 <div class="col-xs-12">
+      <div class="form-group">
+		  <button class="btn btn-primary" onclick="addNewHardwareType();return false;">Add</button>
+      </div>
+	 </div>
+	 
+  </div>
+</form>
+
+<h2>Suggested Hardware Types</h2>
+<div class="row">
+  <div class="col-xs-12">
+	 <table class="table table-striped">
+		<thead>
+		  <tr>
+			 <th>Name</th>
+			 <th>Description</th>
+			 <th></th>
+		  </tr>
+		</thead>
+		<tbody>
+		  {% for sht in suggested_hardware_types %}
+		  <tr>
+			 <td>{{sht.name}}</td>
+			 <td>{{sht.description}}</td>
+			 <td>
+				<button class="btn btn-success"
+						  onclick="addHardwareType('{{sht.name}}', '{{sht.description}}');return false;">Add
+				</button>
+			 </td>
+		  </tr>
+		  {%endfor%}
+		</tbody>
+	 </table>
+  </div>
+</div>
+
+{% endblock %}

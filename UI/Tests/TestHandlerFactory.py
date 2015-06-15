@@ -38,6 +38,7 @@ from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from UI.Handlers.GenresHandler import GenresHandler
 from UI.Handlers.HandlerFactory import HandlerFactory
+from UI.Handlers.HardwareTypesHandler import HardwareTypesHandler
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.LoginHandler import LoginHandler
 from UI.Handlers.LogoutHandler import LogoutHandler
@@ -75,39 +76,42 @@ class TestHandlerFactory(unittest.TestCase):
 
     def test_handler_creation(self):
         """Calling HandlerFactory.Create with a recgonised handler type creates the correct ttype of Handler."""
-        mappings = {"index": IndexHandler,
-                    "savegame": SaveGameHandler,
-                    "addgame": AddGameHandler,
-                    "addhardware": AddHardwareHandler,
-                    "platforms": PlatformsHandler,
-                    "addplatform": AddPlatformHandler,
-                    "editgame": EditGameHandler,
-                    "updategame": UpdateGameHandler,
-                    "deletegame": DeleteGameHandler,
-                    "savehardware": SaveHardwareHandler,
-                    "editplatform": EditPlatformHandler,
-                    "updateplatform": UpdatePlatformHandler,
-                    "deleteplatform": DeletePlatformHandler,
-                    "edithardware": EditHardwareHandler,
-                    "updatehardware": UpdateHardwareHandler,
-                    "deletehardware": DeleteHardwareHandler,
-                    "allgames": AllGamesHandler,
-                    "search": SearchHandler,
-                    "allhardware": AllHardwareHandler,
-                    "sortgames": SortGamesHandler,
-                    "sorthardware": SortHardwareHandler,
-                    "login": LoginHandler,
-                    "signup": SignupHandler,
-                    "signin": SigninHandler,
-                    "logout": LogoutHandler,
-                    "genres": GenresHandler,
-                    "addgenre": AddGenreHandler,
-                    "editgenre": EditGenreHandler,
-                    "updategenre": UpdateGenreHandler,
-                    "deletegenre": DeleteGenreHandler,
-                    "users": UsersHandler,
-                    "edituser": EditUserHandler,
-                    "updateuser": UpdateUserHandler,
-                    "deleteuser": DeleteUserHandler}
+        mappings = {
+            "addgame": AddGameHandler,            
+            "addgenre": AddGenreHandler,
+            "addhardware": AddHardwareHandler,
+            "addplatform": AddPlatformHandler,
+            "allgames": AllGamesHandler,
+            "allhardware": AllHardwareHandler,
+            "deletegame": DeleteGameHandler,
+            "deletegenre": DeleteGenreHandler,
+            "deletehardware": DeleteHardwareHandler,
+            "deleteplatform": DeletePlatformHandler,
+            "deleteuser": DeleteUserHandler,
+            "editgame": EditGameHandler,
+            "editgenre": EditGenreHandler,            
+            "edithardware": EditHardwareHandler,
+            "editplatform": EditPlatformHandler,
+            "edituser": EditUserHandler,
+            "genres": GenresHandler,
+            "hardwaretypes": HardwareTypesHandler,
+            "index": IndexHandler,
+            "login": LoginHandler,
+            "logout": LogoutHandler,
+            "platforms": PlatformsHandler,
+            "savegame": SaveGameHandler,
+            "savehardware": SaveHardwareHandler,
+            "search": SearchHandler,
+            "signin": SigninHandler,
+            "signup": SignupHandler,
+            "sortgames": SortGamesHandler,
+            "sorthardware": SortHardwareHandler,
+            "updategame": UpdateGameHandler,
+            "updategenre": UpdateGenreHandler,
+            "updatehardware": UpdateHardwareHandler,
+            "updateplatform": UpdatePlatformHandler,
+            "updateuser": UpdateUserHandler,
+            "users": UsersHandler
+        }
 
         list(map(lambda m: self.assertIsInstance(self.__target.create(m), mappings[m]), mappings))

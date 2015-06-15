@@ -18,6 +18,7 @@ import Data.DataLoad as dl
 import Interactors.Exceptions.UnrecognisedInteractorTypeException as uite
 import Interactors.LoggingInteractor as li
 import Interactors.GenreInteractors as gi
+import Interactors.HardwareInteractors as hi
 import Interactors.PlatformInteractors as pi
 
 
@@ -40,7 +41,10 @@ class InteractorFactory(object):
         """
         special_interactors = {
             "GetSuggestedPlatformsInteractor": (pi.GetSuggestedPlatformsInteractor, dl.load_suggested_platforms),
-            "GetSuggestedGenresInteractor": (gi.GetSuggestedGenresInteractor, dl.load_suggested_genres)}
+            "GetSuggestedGenresInteractor": (gi.GetSuggestedGenresInteractor, dl.load_suggested_genres),
+            "GetSuggestedHardwareTypesInteractor": (hi.GetSuggestedHardwareTypesInteractor, 
+                                                    dl.load_suggested_hardware_types)            
+        }
 
         if interactor_type in special_interactors:
             interactor, init_value = special_interactors[interactor_type]

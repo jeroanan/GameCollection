@@ -130,6 +130,12 @@ class AbstractPersistence(object):
         """
         pass
 
+    def get_hardware_types_list(self):
+        """Gets the list of hardware types
+        :returns: A list of objects of type HardwareType containing the list of hardware.
+        """
+        pass
+
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
         param hardware: An instance of Hardware. The item of hardware to be saved.

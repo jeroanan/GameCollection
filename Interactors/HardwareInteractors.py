@@ -73,6 +73,23 @@ class GetHardwareListInteractor(Interactor):
         return self.persistence.get_hardware_list_for_platform(params)
 
 
+class GetHardwareTypeListInteractor(Interactor):
+    
+    def execute(self):
+        return self.persistence.get_hardware_types_list()
+
+
+class GetSuggestedHardwareTypesInteractor(Interactor):
+    
+    def __init__(self, suggested_hardware_types):
+        self.__suggested_hardware_types = suggested_hardware_types
+
+    def execute(self):
+        suggested_hardware_types = self.__suggested_hardware_types()
+        hardware_types = self.persistence.get_hardware_types_list()
+        return [s for s in suggested_hardware_types if s not in hardware_types]
+
+
 class SaveHardwareInteractor(Interactor):
     """Logic for saving hardware"""
     

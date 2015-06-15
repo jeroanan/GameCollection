@@ -30,7 +30,8 @@
 			"UpdateGameInteractor": "GameInteractors.UpdateGameInteractor",
 			"UpdateGenreInteractor": "GenreInteractors.UpdateGenreInteractor",
 			"UpdateHardwareInteractor": "HardwareInteractors.UpdateHardwareInteractor",
-			"UpdatePlatformInteractor": "PlatformInteractors.UpdatePlatformInteractor"
+			"UpdatePlatformInteractor": "PlatformInteractors.UpdatePlatformInteractor",
+			"GetHardwareTypeListInteractor": "HardwareInteractors.GetHardwareTypeListInteractor"
 		  }
 	 ]
 }

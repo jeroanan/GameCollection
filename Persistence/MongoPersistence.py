@@ -28,6 +28,7 @@ from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMappe
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 from Game import Game
 from Hardware import Hardware
+import HardwareType as ht
 from Platform import Platform
 from User import User
 
@@ -188,6 +189,14 @@ class MongoPersistence(AbstractPersistence):
             raise HardwareNotFoundException()
         return Hardware.from_mongo_result(h)
     
+    def get_hardware_types_list(self):
+        """Gets the list of hardware types
+        :returns: A list of objects of type HardwareType containing the list of hardware.
+        """
+        #map(User.from_mongo_result, self.__db.users.find().sort("_User__user_id"))
+        #self.__db.hardware_types.find()
+        return []
+
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
         :param hardware: An instance of Hardware. The item of hardware to be saved.

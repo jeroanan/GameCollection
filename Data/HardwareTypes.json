@@ -1,0 +1,13 @@
+{
+	 "hardware_types":
+	 [
+		  {
+				"name": "Console",
+				"description": "Games Console"
+		  },
+		  {
+				"name": "Controller",
+				"description": "Game Controller"
+		  }
+	 ]
+}
