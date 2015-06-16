@@ -17,6 +17,11 @@
 from Interactors.Interactor import Interactor
 
 
+class AddHardwareTypeInteractor(Interactor):
+    
+    def execute(self, hardware_type):
+        self.persistence.add_hardware_type(hardware_type)
+
 class CountHardwareInteractor(Interactor):
     """Count the items of hardware in the system"""
 
@@ -74,17 +79,28 @@ class GetHardwareListInteractor(Interactor):
 
 
 class GetHardwareTypeListInteractor(Interactor):
-    
+    """Get a list of all hardware types stored in the system"""
+
     def execute(self):
-        return self.persistence.get_hardware_types_list()
+         """Get a list of all hardware types stored in the system
+         :returns: A list of HardwareType objects. All hardware types stored in the system.
+         """
+         return self.persistence.get_hardware_types_list()
 
 
 class GetSuggestedHardwareTypesInteractor(Interactor):
+    """Get suggested hardware types"""
     
     def __init__(self, suggested_hardware_types):
+        """Initialise object state.
+        :param suggested_hardware_types: A function to get the list of suggested hardware types.
+        """
         self.__suggested_hardware_types = suggested_hardware_types
 
     def execute(self):
+        """Get suggested hardware types.
+        :returns: A list of HardwareType objects. The suggested hardware types not already stored in the system.
+        """
         suggested_hardware_types = self.__suggested_hardware_types()
         hardware_types = self.persistence.get_hardware_types_list()
         return [s for s in suggested_hardware_types if s not in hardware_types]

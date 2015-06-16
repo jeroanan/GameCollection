@@ -256,6 +256,12 @@ class MongoPersistence(AbstractPersistence):
             "user_id": str(user_id)
         })
     
+    def add_hardware_type(self, hardware_type):
+        """Add a hardware type.
+        :param hardware_type: An object of type HardwareType. The hardware type to add.
+        """
+        pass
+
     def get_hardware_list(self, params):
         """Get a list of all hardware in the user's collection
         :param params: An instance of GetHardwareListInteractorParams
