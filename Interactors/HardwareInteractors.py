@@ -18,7 +18,9 @@ from Interactors.Interactor import Interactor
 
 
 class AddHardwareTypeInteractor(Interactor):
-    
+    """Add a hardware type.
+    :param hardware_type: An object of type HardwareType. The hardware type to add.
+    """
     def execute(self, hardware_type):
         self.persistence.add_hardware_type(hardware_type)
 

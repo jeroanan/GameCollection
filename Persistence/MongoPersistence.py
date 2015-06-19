@@ -260,7 +260,7 @@ class MongoPersistence(AbstractPersistence):
         """Add a hardware type.
         :param hardware_type: An object of type HardwareType. The hardware type to add.
         """
-        pass
+        self.__db.hardware_type.insert(hardware_type.__dict__)
 
     def get_hardware_list(self, params):
         """Get a list of all hardware in the user's collection

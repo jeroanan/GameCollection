@@ -22,6 +22,7 @@ from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddGenreHandler import AddGenreHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
+from UI.Handlers.AddHardwareTypeHandler import AddHardwareTypeHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
@@ -80,6 +81,7 @@ class TestHandlerFactory(unittest.TestCase):
             "addgame": AddGameHandler,            
             "addgenre": AddGenreHandler,
             "addhardware": AddHardwareHandler,
+            "addhardwaretype": AddHardwareTypeHandler,
             "addplatform": AddPlatformHandler,
             "allgames": AllGamesHandler,
             "allhardware": AllHardwareHandler,

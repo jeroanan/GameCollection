@@ -3,6 +3,7 @@
 		      {"savegame": "SaveGameHandler",
             "addgame": "AddGameHandler",
             "addhardware": "AddHardwareHandler",
+				"addhardwaretype": "AddHardwareTypeHandler",
             "platforms": "PlatformsHandler",
             "addplatform": "AddPlatformHandler",
             "editgame": "EditGameHandler",
