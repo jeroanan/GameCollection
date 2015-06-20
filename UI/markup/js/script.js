@@ -96,6 +96,10 @@ function addHardwareType(name, description) {
 	 addNameDescription("/addhardwaretype", name, description);
 }
 
+function addNewHardwareType() {
+	 addNewNameDescription(addHardwareType);
+}
+
 function addGenre(name, description) {
 	 addNameDescription("/addgenre", name, description);
 }

@@ -56,14 +56,27 @@ class HardwareType(object):
 
     @staticmethod
     def from_dict(dictionary):
-        mappings = ["id", "name", "description"]
+        mappings = {"id": "id",
+                    "name": "name",
+                    "description": "description"}
+        return HardwareType._map_from_dict(dictionary, mappings)
+        
+    @staticmethod
+    def from_mongo_result(dictionary):
+        mappings = {"_id": "id",
+                    "_HardwareType__name": "name",
+                    "_HardwareType__description": "description"}
+        return HardwareType._map_from_dict(dictionary, mappings)       
+
+    @staticmethod
+    def _map_from_dict(dictionary, mappings):
         hardware_type = HardwareType()
 
         set_attr = ft.partial(setattr, hardware_type)
         get_attr = ft.partial(getattr, hardware_type)
 
-        list(map(lambda m: set_attr(m, dictionary.get(m, get_attr(m))), mappings))
+        list(map(lambda m: set_attr(mappings[m], dictionary.get(m, get_attr(mappings[m]))), mappings))
         return hardware_type
-        
+
     def __eq__(self, other):
         return self.name == other.name

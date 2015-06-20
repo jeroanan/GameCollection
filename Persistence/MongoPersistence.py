@@ -193,9 +193,8 @@ class MongoPersistence(AbstractPersistence):
         """Gets the list of hardware types
         :returns: A list of objects of type HardwareType containing the list of hardware.
         """
-        #map(User.from_mongo_result, self.__db.users.find().sort("_User__user_id"))
-        #self.__db.hardware_types.find()
-        return []
+        return list(map(ht.HardwareType.from_mongo_result, self.__db.hardware_types.find()))
+        
 
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
@@ -260,7 +259,7 @@ class MongoPersistence(AbstractPersistence):
         """Add a hardware type.
         :param hardware_type: An object of type HardwareType. The hardware type to add.
         """
-        self.__db.hardware_type.insert(hardware_type.__dict__)
+        self.__db.hardware_types.insert(hardware_types.__dict__)
 
     def get_hardware_list(self, params):
         """Get a list of all hardware in the user's collection

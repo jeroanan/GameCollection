@@ -17,9 +17,11 @@
       </thead>
       <tbody>
 		  {% for ht in hardware_types %}
-		  <td>ht.name</td>
-		  <td>ht.description</td>
-		  <td><button class="btn" onclick="editHardwareType('{{ht.id}}')">Edit</button></td>
+		  <tr>
+			 <td>{{ht.name}}</td>
+			 <td>{{ht.description}}</td>
+			 <td><button class="btn" onclick="editHardwareType('{{ht.id}}')">Edit</button></td>
+		  </tr>
 		  {% else %}
 		  <td></td>
 		  <td><strong>You have no saved hardware types</strong></td>
