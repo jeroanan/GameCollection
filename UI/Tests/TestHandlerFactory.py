@@ -34,6 +34,7 @@ from UI.Handlers.DeleteUserHandler import DeleteUserHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
+from UI.Handlers.EditHardwareTypeHandler import EditHardwareTypeHandler
 from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
@@ -93,6 +94,7 @@ class TestHandlerFactory(unittest.TestCase):
             "editgame": EditGameHandler,
             "editgenre": EditGenreHandler,            
             "edithardware": EditHardwareHandler,
+            "edithardwaretype": EditHardwareTypeHandler,
             "editplatform": EditPlatformHandler,
             "edituser": EditUserHandler,
             "genres": GenresHandler,

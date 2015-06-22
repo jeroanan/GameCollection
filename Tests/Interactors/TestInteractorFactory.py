@@ -64,6 +64,7 @@ class TestInteractorFactory(unittest.TestCase):
                     "GetGenresInteractor": genre_interactors.GetGenresInteractor,
                     "GetHardwareDetailsInteractor": hardware_interactors.GetHardwareDetailsInteractor,
                     "GetHardwareListInteractor": hardware_interactors.GetHardwareListInteractor,
+                    "GetHardwareTypeInteractor": hardware_interactors.GetHardwareTypeInteractor,
                     "GetHardwareTypeListInteractor": hardware_interactors.GetHardwareTypeListInteractor,
                     "GetPlatformInteractor": platform_interactors.GetPlatformInteractor,
                     "GetPlatformsInteractor": platform_interactors.GetPlatformsInteractor,

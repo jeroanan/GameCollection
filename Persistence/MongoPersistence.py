@@ -284,6 +284,13 @@ class MongoPersistence(AbstractPersistence):
                                            limit=params.number_of_items)
         return list(map(lambda p: Hardware.from_mongo_result(p), hardware))
 
+    def get_hardware_type(self, hardware_type):
+        """Get a specific hardware type record.
+        :param hardware_type: An instance of HardwareType. The hardware type to get.
+        :return: An instance of HardwareType. The requested hardware type.
+        """
+        pass
+
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
         :param hardware: An instance of Hardware. The item of hardware to be saved.

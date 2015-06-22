@@ -100,6 +100,10 @@ function addNewHardwareType() {
 	 addNewNameDescription(addHardwareType);
 }
 
+function editHardwareType(id) {
+	 navigate("/edithardwaretype?id=" + id);
+}
+
 function addGenre(name, description) {
 	 addNameDescription("/addgenre", name, description);
 }

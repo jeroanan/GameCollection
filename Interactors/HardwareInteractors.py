@@ -80,6 +80,12 @@ class GetHardwareListInteractor(Interactor):
         return self.persistence.get_hardware_list_for_platform(params)
 
 
+class GetHardwareTypeInteractor(Interactor):
+    
+    def execute(self, hardware_type):
+        return self.persistence.get_hardware_type(hardware_type)
+
+
 class GetHardwareTypeListInteractor(Interactor):
     """Get a list of all hardware types stored in the system"""
 

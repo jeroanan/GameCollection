@@ -127,6 +127,9 @@ class AbstractPersistence(object):
         param user_id: The uuid of the current user
         """
         pass
+    
+    def update_hardware_type(self, hardware_type):
+        pass
 
     def get_hardware_details(self, platform_id, user_id):
         """Gets the details of a specific item of hardware.
@@ -148,7 +151,14 @@ class AbstractPersistence(object):
         param params: An instance of GetHardwareListInteractorParams
         returns: A list of instances of Hardware
         """
-        pass    
+        pass  
+
+    def get_hardware_type(self, hardware_type):
+        """Get a specific hardware type record.
+        :param hardware_type: An instance of HardwareType. The hardware type to get.
+        :return: An instance of HardwareType. The requested hardware type.
+        """
+        pass
 
     def get_hardware_types_list(self):
         """Gets the list of hardware types

@@ -9,6 +9,7 @@
             "editgame": "EditGameHandler",
             "updategame": "UpdateGameHandler",
             "deletegame": "DeleteGameHandler",
+				"edithardwaretype": "EditHardwareTypeHandler",
             "savehardware": "SaveHardwareHandler",
             "editplatform": "EditPlatformHandler",
             "updateplatform": "UpdatePlatformHandler",
