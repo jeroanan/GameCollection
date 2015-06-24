@@ -79,6 +79,7 @@ class TestInteractorFactory(unittest.TestCase):
                     "UpdateGameInteractor": game_interactors.UpdateGameInteractor,
                     "UpdateGenreInteractor": genre_interactors.UpdateGenreInteractor,
                     "UpdateHardwareInteractor": hardware_interactors.UpdateHardwareInteractor,
+                    "UpdateHardwareTypeInteractor": hardware_interactors.UpdateHardwareTypeInteractor,
                     "UpdatePlatformInteractor": platform_interactors.UpdatePlatformInteractor,
                     "UpdateUserInteractor": user_interactors.UpdateUserInteractor
                     }

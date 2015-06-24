@@ -86,6 +86,16 @@ class GetHardwareTypeInteractor(Interactor):
         return self.persistence.get_hardware_type(hardware_type)
 
 
+class UpdateHardwareTypeInteractor(Interactor):
+    """Update a hardware type"""
+    
+    def execute(self, hardware_type):
+        """Update a hardware type
+        :param hardware_type: The hardware type to update
+        """
+        self.persistence.update_hardware_type(hardware_type)
+
+
 class GetHardwareTypeListInteractor(Interactor):
     """Get a list of all hardware types stored in the system"""
 

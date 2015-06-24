@@ -218,6 +218,12 @@ class MongoPersistence(AbstractPersistence):
             "_id": ObjectId(hardware.id),
             "user_id": str(user_id)
         }, {"$set": hd}, upsert=False)
+
+    def update_hardware_type(self, hardware_type):
+        """Update the given hardware type
+        :param hardware_type: The hardware type to be updated
+        """
+        pass
     
     def delete_hardware(self, hardware_id, user_id):
         """Delete the given item of hardware.
@@ -289,7 +295,8 @@ class MongoPersistence(AbstractPersistence):
         :param hardware_type: An instance of HardwareType. The hardware type to get.
         :return: An instance of HardwareType. The requested hardware type.
         """
-        pass
+        h = self.__db.hardware_types.find_one({"_id": ObjectId(hardware_type.id)})
+        return ht.HardwareType.from_mongo_result(h)
 
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.

@@ -1,0 +1,46 @@
+{% extends 'master.html' %}
+{% block content %}
+<h1 class="page-header">{{title}}</h1>
+
+<form class="form-vertical" method="post" action="" role="form">
+  <div class="row">
+	 <div class="col-sm-5">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{hardware_type.name}}" class="form-control"
+               required="required" autofocus="autofocus" />
+      </div>
+	 </div>
+	 
+	 <div class="col-sm-2"></div>
+	 
+	 <div class="col-sm-5">
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" class="form-control"
+               value="{{hardware_type.description}}" />
+        <input type="hidden" id="id" name="id" value="{{hardware_type.id}}" />
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+	 <div class="col-sm-1">
+      <input type="button" class="btn btn-primary" value="Save" onclick="updateHardwareType();" />
+	 </div>
+	 <div class="col-sm-1">
+      <input type="button" class="btn" value="Cancel" onclick="cancelEditHardwareType()" />
+	 </div>
+	 <div class="col-sm-9"></div>
+	 <div class="col-sm-1">
+      <input type="button" class="btn btn-danger" value="Delete" onclick="showDeleteConfirm()"/>
+	 </div>
+	 
+  </div>
+</form>
+<div id="deleteConfirm" style="display: none;" class="text-danger">
+  Really delete this hardware type?
+  <a href="javascript:deleteHardwareType();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+</div>
+
+{% endblock %}

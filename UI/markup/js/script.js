@@ -232,6 +232,10 @@ function updateGenre() {
 	 updateNameDescription("/updategenre");
 }
 
+function updateHardwareType() {
+	 updateNameDescription("/updatehardwaretype");
+}
+
 function updateNameDescription(updateUri) {
 	 var j = getIdNameDescriptionJson();
     if (!validateSaveNameDescriptionJson(j)) return;

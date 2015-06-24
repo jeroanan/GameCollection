@@ -33,6 +33,7 @@
 				"UpdateGameInteractor": "GameInteractors.UpdateGameInteractor",
 				"UpdateGenreInteractor": "GenreInteractors.UpdateGenreInteractor",
 				"UpdateHardwareInteractor": "HardwareInteractors.UpdateHardwareInteractor",
+				"UpdateHardwareTypeInteractor": "HardwareInteractors.UpdateHardwareTypeInteractor",
 				"UpdatePlatformInteractor": "PlatformInteractors.UpdatePlatformInteractor",
 				"UpdateUserInteractor": "UserInteractors.UpdateUserInteractor"
 		  }

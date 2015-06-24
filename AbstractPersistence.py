@@ -123,14 +123,11 @@ class AbstractPersistence(object):
 
     def delete_hardware(self, hardware_id, user_id):
         """Delete the given item of hardware.
-        param hardware_id: The uuid of the item of hardware to be deleted
-        param user_id: The uuid of the current user
+        :param hardware_id: The uuid of the item of hardware to be deleted
+        :param user_id: The uuid of the current user
         """
         pass
     
-    def update_hardware_type(self, hardware_type):
-        pass
-
     def get_hardware_details(self, platform_id, user_id):
         """Gets the details of a specific item of hardware.
         param hardware_id: The uuid of the item of hardware to retrieve.
@@ -148,8 +145,8 @@ class AbstractPersistence(object):
 
     def get_hardware_list_for_platform(self, params):
         """Get a list of all hardware for a platform in the user's collection
-        param params: An instance of GetHardwareListInteractorParams
-        returns: A list of instances of Hardware
+        :param params: An instance of GetHardwareListInteractorParams
+        :returns: A list of instances of Hardware
         """
         pass  
 
@@ -168,18 +165,24 @@ class AbstractPersistence(object):
 
     def save_hardware(self, hardware, user_id):
         """Save an item of hardware.
-        param hardware: An instance of Hardware. The item of hardware to be saved.
-        param user_id: The uuid of the user whose collection the item of hardware should be added
-                       to.
-        returns: None
+        :param hardware: An instance of Hardware. The item of hardware to be saved.
+        :param user_id: The uuid of the user whose collection the item of hardware should be added
+                        to.
+        :returns: None
         """
         pass
 
     def update_hardware(self, hardware, user_idx):
         """Update the given item of hardware
-        param hardware: An instance of Hardware. The item of hardware to be updated.
-        param user_id: The uuid of the current user.
-        returns: None
+        :param hardware: An instance of Hardware. The item of hardware to be updated.
+        :param user_id: The uuid of the current user.
+        :returns: None
+        """
+        pass
+
+    def update_hardware_type(self, hardware_type):
+        """Update the given hardware type
+        :param hardware_type: The hardware type to be updated
         """
         pass
 
@@ -220,11 +223,11 @@ class AbstractPersistence(object):
 
     def search(self, search_term, sort_field, sort_dir, user_id):
         """Search the games collection
-        param search_term: The term to do the search upon
-        param sort_field: The field to sort results by
-        param sort_dir: The direction to sort results in
-        param user_id: The uuid of the current user
-        returns: the search results
+        :param search_term: The term to do the search upon
+        :param sort_field: The field to sort results by
+        :param sort_dir: The direction to sort results in
+        :param user_id: The uuid of the current user
+        :returns: the search results
         """
         pass
 
