@@ -28,21 +28,14 @@ import UI.Handlers.UpdateHardwareTypeHandler as handler
 class TestUpdateHardwareTypeHandler(unittest.TestCase):
 
     def setUp(self):
-        self.__interactor_factory = Mock(factory.InteractorFactory)
+        interactor_factory = Mock(factory.InteractorFactory)
         self.__interactor = Mock(hi.UpdateHardwareTypeInteractor)
-        self.__interactor_factory.create = Mock(return_value=self.__interactor)
-        self.__target = handler.UpdateHardwareTypeHandler(self.__interactor_factory, None)
+        interactor_factory.create = Mock(return_value=self.__interactor)
+        self.__target = handler.UpdateHardwareTypeHandler(interactor_factory, None)
         self.__target.session = Mock(session.Session)
     
     def test_is_instance_of_authenticated_handler(self):
         self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
-
-    def test_get_page(self):
-        self.__target.get_page({"":""})
-
-    def test_get_page_creates_update_hardware_type_interactor(self):
-        self.__target.get_page({"":""})
-        self.__interactor_factory.create.assert_called_with("UpdateHardwareTypeInteractor")
 
     def test_get_page_executes_update_hardware_type_interactor(self):
         params = {"name": "n", "description": "d"}
