@@ -5,15 +5,20 @@
 <h2>Games</h2>
 <div class="row">
   <a class="pull-right" href="/allgames">Show all {{number_of_games}} games...</a>
+</div>
+<div class="row">
   <div id="games">
     {% include "games.html" %}
   </div>
   <input type="hidden" id="gamerows" value="10" />
   <a class="pull-right" href="/allgames">Show all {{number_of_games}} games...</a>
 </div>
+<h2>Hardware</h2>
+
 <div class="row">
-  <h2>Hardware</h2>
   <a class="pull-right" href="/allhardware">Show all {{number_of_hardware}} items of hardware...</a>
+</div>
+<div class="row">
   <div id="hardware">
     {% include "hardware.html" %}
   </div>

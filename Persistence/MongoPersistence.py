@@ -193,7 +193,7 @@ class MongoPersistence(AbstractPersistence):
         """Gets the list of hardware types
         :returns: A list of objects of type HardwareType containing the list of hardware.
         """
-        return list(map(ht.HardwareType.from_mongo_result, self.__db.hardware_types.find()))
+        return list(map(ht.HardwareType.from_mongo_result, self.__db.hardware_types.find().sort("_HardwareType__name")))
         
 
     def save_hardware(self, hardware, user_id):
@@ -223,7 +223,8 @@ class MongoPersistence(AbstractPersistence):
         """Update the given hardware type
         :param hardware_type: The hardware type to be updated
         """
-        pass
+        self.__db.hardware_types.update({"_id": ObjectId(hardware_type.id)}, 
+                                        {"$set": hardware_type.__dict__}, upsert=False)
     
     def delete_hardware(self, hardware_id, user_id):
         """Delete the given item of hardware.
@@ -234,6 +235,12 @@ class MongoPersistence(AbstractPersistence):
             "_id": ObjectId(hardware_id),
             "user_id": str(user_id)
         })
+        
+    def delete_hardware_type(self, hardware_type):
+        """Delete the given hardware type.
+        :param hardware_type: The hardware type to be deleted
+        """
+        pass
 
     def add_genre(self, genre):
         self.__db.genres.insert(genre.__dict__)

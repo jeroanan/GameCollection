@@ -20,6 +20,10 @@ function cancelEditPlatform() {
     navigate("/platforms");
 }
 
+function cancelEditHardwareType() {
+	 navigate("/hardwaretypes");
+} 
+
 function showDeleteConfirm() {
     $("#deleteConfirm").fadeIn();
 }
@@ -28,11 +32,17 @@ function hideDeleteConfirm() {
     $("#deleteConfirm").fadeOut();
 }
 
+function deleteHardwareType() {
+	 var j = {
+		  id: $("#id").val()
+	 };
+	 ajaxDelete("/deletehardwaretype", j);
+}
+
 function deleteGame() {
     var j = {
         id: $("#id").val()
     };
-	 console.log(j.id);
     ajaxDelete("/deletegame", j);
 }
 
@@ -151,7 +161,6 @@ function saveGame() {
     var j = getGameNoId();
     if (!validateSaveGame(j)) return;
     ajaxSave("/savegame", j);
-	 window.history.back();
 }
 
 function getGameNoId() {
@@ -271,6 +280,7 @@ function validateSaveNameDescriptionJson(j) {
 
 function ajaxSave(url, data) {
     $.ajax({
+		  type: 'post',
         url: url,
         data: data,
         success: saveSuccess,

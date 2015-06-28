@@ -32,8 +32,11 @@ class AddGenreHandler(AuthenticatedHandler):
                           * name
                           * description
         """
+        print("$$$$")
         super().get_page(params)
         if not self.validate_params(params, ["name", "description"]):
+            print("fail")
             return ""
+        print("Doing it")
         interactor = self.interactor_factory.create("AddGenreInteractor")
         interactor.execute(Genre.from_dict(params))

@@ -17,6 +17,7 @@
             "edithardware": "EditHardwareHandler",
 				"hardwaretypes": "HardwareTypesHandler",
             "updatehardware": "UpdateHardwareHandler",
+				"updatehardwaretype": "UpdateHardwareTypeHandler",
             "deletehardware": "DeleteHardwareHandler",
             "allgames": "AllGamesHandler",
             "search": "SearchHandler",

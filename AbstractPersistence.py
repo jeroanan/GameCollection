@@ -128,6 +128,12 @@ class AbstractPersistence(object):
         """
         pass
     
+    def delete_hardware_type(self, hardware_type):
+        """Delete the given hardware type.
+        :param hardware_type: The hardware type to be deleted
+        """
+        pass
+
     def get_hardware_details(self, platform_id, user_id):
         """Gets the details of a specific item of hardware.
         param hardware_id: The uuid of the item of hardware to retrieve.

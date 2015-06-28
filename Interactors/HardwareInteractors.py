@@ -50,6 +50,12 @@ class DeleteHardwareInteractor(Interactor):
         self.validate_string_field("Hardware id", hardware_id)
 
 
+class DeleteHardwareTypeInteractor(Interactor):
+    
+    def execute(self, hardware_type):
+        self.persistence.delete_hardware_type(hardware_type)
+
+
 class GetHardwareDetailsInteractor(Interactor):
     """Get details of a specific item of hardware"""
     

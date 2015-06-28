@@ -56,6 +56,7 @@ from UI.Handlers.SortHardwareHandler import SortHardwareHandler
 from UI.Handlers.UpdateGameHandler import UpdateGameHandler
 from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
+from UI.Handlers.UpdateHardwareTypeHandler import UpdateHardwareTypeHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.Handlers.UpdateUserHandler import UpdateUserHandler
 from UI.Handlers.UsersHandler import UsersHandler
@@ -113,6 +114,7 @@ class TestHandlerFactory(unittest.TestCase):
             "updategame": UpdateGameHandler,
             "updategenre": UpdateGenreHandler,
             "updatehardware": UpdateHardwareHandler,
+            "updatehardwaretype": UpdateHardwareTypeHandler,
             "updateplatform": UpdatePlatformHandler,
             "updateuser": UpdateUserHandler,
             "users": UsersHandler
