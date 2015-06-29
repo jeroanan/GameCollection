@@ -12,6 +12,7 @@
 				"DeleteGameInteractor": "GameInteractors.DeleteGameInteractor",
 				"DeleteGenreInteractor": "GenreInteractors.DeleteGenreInteractor",
 				"DeleteHardwareInteractor": "HardwareInteractors.DeleteHardwareInteractor",
+				"DeleteHardwareTypeInteractor": "HardwareInteractors.DeleteHardwareTypeInteractor",
 				"DeletePlatformInteractor": "PlatformInteractors.DeletePlatformInteractor",
 				"DeleteUserInteractor": "UserInteractors.DeleteUserInteractor",
 				"GetGameInteractor": "GameInteractors.GetGameInteractor",

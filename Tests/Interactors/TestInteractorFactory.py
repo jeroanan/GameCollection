@@ -56,6 +56,7 @@ class TestInteractorFactory(unittest.TestCase):
                     "DeleteGameInteractor": game_interactors.DeleteGameInteractor,
                     "DeleteGenreInteractor": genre_interactors.DeleteGenreInteractor,
                     "DeleteHardwareInteractor": hardware_interactors.DeleteHardwareInteractor,
+                    "DeleteHardwareTypeInteractor": hardware_interactors.DeleteHardwareTypeInteractor,
                     "DeletePlatformInteractor": platform_interactors.DeletePlatformInteractor,
                     "DeleteUserInteractor": user_interactors.DeleteUserInteractor,
                     "GetGameInteractor": game_interactors.GetGameInteractor,
