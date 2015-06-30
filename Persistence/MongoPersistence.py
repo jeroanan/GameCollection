@@ -240,7 +240,7 @@ class MongoPersistence(AbstractPersistence):
         """Delete the given hardware type.
         :param hardware_type: The hardware type to be deleted
         """
-        pass
+        self.__db.hardware_types.remove({"_id": ObjectId(hardware_type.id)})
 
     def add_genre(self, genre):
         self.__db.genres.insert(genre.__dict__)
@@ -272,7 +272,7 @@ class MongoPersistence(AbstractPersistence):
         """Add a hardware type.
         :param hardware_type: An object of type HardwareType. The hardware type to add.
         """
-        self.__db.hardware_types.insert(hardware_types.__dict__)
+        self.__db.hardware_types.insert(hardware_type.__dict__)
 
     def get_hardware_list(self, params):
         """Get a list of all hardware in the user's collection

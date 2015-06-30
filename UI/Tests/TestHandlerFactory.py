@@ -29,6 +29,7 @@ from UI.Handlers.AllHardwareHandler import AllHardwareHandler
 from UI.Handlers.DeleteGameHandler import DeleteGameHandler
 from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
+from UI.Handlers.DeleteHardwareTypeHandler import DeleteHardwareTypeHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.DeleteUserHandler import DeleteUserHandler
 from UI.Handlers.EditGameHandler import EditGameHandler
@@ -90,6 +91,7 @@ class TestHandlerFactory(unittest.TestCase):
             "deletegame": DeleteGameHandler,
             "deletegenre": DeleteGenreHandler,
             "deletehardware": DeleteHardwareHandler,
+            "deletehardwaretype": DeleteHardwareTypeHandler,
             "deleteplatform": DeletePlatformHandler,
             "deleteuser": DeleteUserHandler,
             "editgame": EditGameHandler,

@@ -36,7 +36,7 @@ function deleteHardwareType() {
 	 var j = {
 		  id: $("#id").val()
 	 };
-	 ajaxDelete("/deletehardwaretype", j);
+	 ajaxDelete("/deletehardwaretype", j, "/hardwaretypes");
 }
 
 function deleteGame() {
@@ -54,7 +54,20 @@ function deletePlatform() {
     ajaxDelete("/deleteplatform", j);
 }
 
-function ajaxDelete(url, data) {
+function ajaxDelete(url, data, successUri) {
+
+	 function deletionSuccessful() {
+		  showValidationSuccess("Deletion successful");
+		  setTimeout(function() {
+				hideValidationSuccess();				
+				if (successUri) navigate(successUri);
+		  }, 3000)
+	 }
+
+	 function deletionFailed() {
+		  showValidationFailure("Deletion failed");
+	 }
+	 
     $.ajax({
         url: url,
         data: data,
@@ -63,17 +76,6 @@ function ajaxDelete(url, data) {
     })
 }
 
-function deletionSuccessful() {
-    showValidationSuccess("Deletion successful");
-    setTimeout(function() {
-        hideValidationSuccess();
-        navigate(document.referrer);
-    }, 3000)
-}
-
-function deletionFailed() {
-    showValidationFailure("Deletion failed");
-}
 function deleteHardware() {
     navigate("/deletehardware?hardwareid=" + $("#id").val());
 }
@@ -242,13 +244,13 @@ function updateGenre() {
 }
 
 function updateHardwareType() {
-	 updateNameDescription("/updatehardwaretype");
+	 updateNameDescription("/updatehardwaretype", "/hardwaretypes");
 }
 
-function updateNameDescription(updateUri) {
+function updateNameDescription(updateUri, successUri) {
 	 var j = getIdNameDescriptionJson();
     if (!validateSaveNameDescriptionJson(j)) return;
-    ajaxSave(updateUri, j);
+    ajaxSave(updateUri, j, successUri);
 }
 
 function updateUser(id) {
@@ -278,7 +280,19 @@ function validateSaveNameDescriptionJson(j) {
     return validationSuccessful;
 }
 
-function ajaxSave(url, data) {
+function ajaxSave(url, data, successUri) {
+	 function saveSuccess() {
+		  showValidationSuccess("Save Successful");
+		  setTimeout(function() {
+				hideValidationSuccess();
+				if (successUri) navigate(successUri);
+		  }, 3000)
+	 }
+
+	 function saveError() {
+		  showValidationFailure("Save Failed!");
+	 }
+
     $.ajax({
 		  type: 'post',
         url: url,
@@ -286,17 +300,6 @@ function ajaxSave(url, data) {
         success: saveSuccess,
         error: saveError
     });
-}
-
-function saveSuccess() {
-    showValidationSuccess("Save Successful");
-    setTimeout(function() {
-        hideValidationSuccess();
-    }, 3000)
-}
-
-function saveError() {
-    showValidationFailure("Save Failed!");
 }
 
 function sortGames(field) {
