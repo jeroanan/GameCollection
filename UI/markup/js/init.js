@@ -1,5 +1,5 @@
 requirejs.config({
-	 urlArgs: "bust=v17",
+	 urlArgs: "bust=v21",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: 'jquery-2.1.4.min',

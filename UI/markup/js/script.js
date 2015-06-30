@@ -236,11 +236,11 @@ function validateSaveHardware(j) {
 }
 
 function updatePlatform() {
-	 updateNameDescription("/updateplatform");
+	 updateNameDescription("/updateplatform", "/platforms");
 }
 
 function updateGenre() {
-	 updateNameDescription("/updategenre");
+	 updateNameDescription("/updategenre", "/genres");
 }
 
 function updateHardwareType() {
@@ -258,7 +258,7 @@ function updateUser(id) {
 		  "id": id,
 		  "userid": $('#userid').val() 
 	 };
-	 ajaxSave("/updateuser", j);
+	 ajaxSave("/updateuser", j, "/users");
 }
 
 function getIdNameDescriptionJson() {
