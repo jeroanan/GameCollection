@@ -1,4 +1,0 @@
-uglifyjs -o ./UI/markup/js/script.min.js ./UI/markup/js/validation.js ./UI/markup/js/script.js 
-uglifyjs -o ./UI/markup/js/login.min.js ./UI/markup/js/login.js
-uglifyjs -o ./UI/markup/js/editgame.min.js ./UI/markup/js/editgame.js
-

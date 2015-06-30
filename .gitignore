@@ -64,3 +64,4 @@ sessions/*
 *.log
 env/*
 .coverage
+node_modules

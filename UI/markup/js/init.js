@@ -1,5 +1,5 @@
 requirejs.config({
-	 urlArgs: "bust=v21",
+	 urlArgs: "bust=v30",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: 'jquery-2.1.4.min',
@@ -11,8 +11,6 @@ requirejs.config({
 
 require(['jquery'], function () {
 	 require(['jqueryui', 'jquerycookie', 'bootstrap.min'], function () {
-		  require(['script.min'], function () {
-				require(['login.min', 'editgame.min']);
-		  });
+		  require(['script.min']);
 	 });
 });
