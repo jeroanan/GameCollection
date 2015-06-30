@@ -39,10 +39,15 @@
 	 </div>
 	 
   </div>
+  <div class="row">
+	 <div class="form-group">
+		<div id="deleteConfirm" style="display: none;" class="text-danger">
+		  Really delete this hardware type?
+		  <a href="javascript:deleteHardwareType();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+		</div>
+	 </div>
+  </div>
 </form>
-<div id="deleteConfirm" style="display: none;" class="text-danger">
-  Really delete this hardware type?
-  <a href="javascript:deleteHardwareType();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
-</div>
+
 
 {% endblock %}

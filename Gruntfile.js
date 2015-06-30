@@ -15,13 +15,22 @@ module.exports = function(grunt) {
 															'UI/markup/js/login.js', 'UI/markup/js/editgame.js']
 				}
 		  }
-    }
+    },
+	 cssmin: {
+		  target: {
+				files: [{
+					 src: 'UI/markup/css/style.css',
+					 dest: 'UI/markup/css/style.min.css'
+				}]
+		  }
+	 }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['uglify', 'cssmin']);
 
 };
