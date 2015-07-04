@@ -40,6 +40,5 @@ class UpdateHardwareHandler(AuthenticatedHandler):
         super().get_page(params)
         if not self.validate_params(params, ["name", "platform"]):
             return ""
-        print(params)
         interactor = self.interactor_factory.create("UpdateHardwareInteractor")
         interactor.execute(Hardware.from_dict(params), self.session.get_value("user_id"))
