@@ -34,10 +34,12 @@ class UpdateHardwareHandler(AuthenticatedHandler):
         + numcopies -- The number of copies owned of the item of hardware.
         + numboxed -- The number of boxed copies owned of the item of hardware.
         + notes -- Miscellaneous notes added by the user.
+        + hardwaretype -- The type of hardware
         returns: If one of the mandatory args keys is omitted then an empty string. Else None.
         """
         super().get_page(params)
         if not self.validate_params(params, ["name", "platform"]):
             return ""
+        print(params)
         interactor = self.interactor_factory.create("UpdateHardwareInteractor")
         interactor.execute(Hardware.from_dict(params), self.session.get_value("user_id"))

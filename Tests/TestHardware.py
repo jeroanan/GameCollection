@@ -14,7 +14,7 @@
 
 import unittest
 
-from Hardware import Hardware
+import Hardware as hw
 
 
 class TestHardware(unittest.TestCase):
@@ -27,15 +27,18 @@ class TestHardware(unittest.TestCase):
               "_Hardware__platform": "platform",
               "_Hardware__num_owned": 1,
               "_Hardware__num_boxed": 2,
-              "_Hardware__notes": "notes"}
+              "_Hardware__notes": "notes",
+              "_Hardware__hardware_type": "ht"}
+
     
-        h = Hardware.from_mongo_result(hd)
+        h = hw.Hardware.from_mongo_result(hd)
         self.assertEqual(hd["_id"], h.id)
         self.assertEqual(hd["_Hardware__name"], h.name)
         self.assertEqual(hd["_Hardware__platform"], h.platform)
         self.assertEqual(hd["_Hardware__num_owned"], h.num_owned)
         self.assertEqual(hd["_Hardware__num_boxed"], h.num_boxed)
         self.assertEqual(hd["_Hardware__notes"], h.notes)
+        self.assertEqual(hd["_Hardware__hardware_type"], h.hardware_type)
         
     def test_from_dict_performs_mappings(self):
         """Mapping a dictionary to Hardware object properly initialises object"""
@@ -46,9 +49,10 @@ class TestHardware(unittest.TestCase):
             "numcopies": 1,
             "numboxed": 2,
             "notes": "notes",
-            "userid": "userid"
+            "userid": "userid",
+            "hardwaretype": "ht"
         }
-        h = Hardware.from_dict(hd)
+        h = hw.Hardware.from_dict(hd)
         self.assertEqual(hd["id"], h.id)
         self.assertEqual(hd["name"], h.name)
         self.assertEqual(hd["platform"], h.platform)
@@ -56,3 +60,4 @@ class TestHardware(unittest.TestCase):
         self.assertEqual(hd["numboxed"], h.num_boxed)
         self.assertEqual(hd["notes"], h.notes)
         self.assertEqual(hd["userid"], h.user_id)
+        self.assertEqual(hd["hardwaretype"], h.hardware_type)

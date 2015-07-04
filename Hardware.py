@@ -21,6 +21,7 @@ class Hardware():
     def __init__(self):
         """Initialise object state"""
         self.__id = ""
+        self.__hardware_type = ""
         self.__name = ""
         self.__platform = ""
         self.__num_owned = ""
@@ -37,6 +38,16 @@ class Hardware():
     def id(self, value):
         """Set the unique identifier of the hardware item"""
         self.__id = value
+
+    @property
+    def hardware_type(self):
+        """Get the hardware type of the hardware item"""
+        return self.__hardware_type
+
+    @hardware_type.setter
+    def hardware_type(self, val):
+        """Set the hardware type of the hardware item"""
+        self.__hardware_type = val
 
     @property
     def name(self):
@@ -123,6 +134,7 @@ class Hardware():
                              * _Hardware__num_owned
                              * _Hardware__num_boxed
                              * _Hardware__notes
+                             * _Hardware__hardware_type
         :returns: A Hardware object with its properties properly initialised. 
                   Any missing keys from mongo_db will cause the object to have that property 
                   initialised as its default.
@@ -133,7 +145,8 @@ class Hardware():
                     "platform": "_Hardware__platform",
                     "num_owned": "_Hardware__num_owned",
                     "num_boxed": "_Hardware__num_boxed",
-                    "notes": "_Hardware__notes"}
+                    "notes": "_Hardware__notes",
+                    "hardware_type": "_Hardware__hardware_type"}
 
         return Hardware._from_dict(mongo_result, mappings)
 
@@ -146,6 +159,7 @@ class Hardware():
                  * numcopies
                  * numboxed
                  * notes
+                 * hardware_type
         :returns: A Hardware object with its properties properly initialised. Any missing keys from d will cause the
                   object to have that properly initialised as its default.
         """
@@ -157,7 +171,8 @@ class Hardware():
                     "num_owned": "numcopies",
                     "num_boxed": "numboxed",
                     "notes": "notes",
-                    "user_id": "userid"}
+                    "user_id": "userid",
+                    "hardware_type": "hardwaretype"}
 
         return Hardware._from_dict(dictionary, mappings)
 

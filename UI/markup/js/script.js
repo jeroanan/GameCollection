@@ -207,18 +207,20 @@ function appendText(t, a) {
 
 function updateHardware() {
     var j = getHardwareNoId();
-    j.id = $("#id").val();
+	 j.id = $("#id").val();
     if (!validateSaveHardware(j)) return;
     ajaxSave("/updatehardware", j);
 }
 
-function getHardwareNoId() {
+function getHardwareNoId() 
+{
     return {
         name: $("#name").val(),
         platform: $("#platform").val(),
         numcopies: $("#numcopies").val(),
         numboxed: $("#numboxed").val(),
-        notes: $("#notes").val()
+        notes: $("#notes").val(),
+		  hardwaretype: $("#hardwaretype").val()		  
     };
 }
 

@@ -1,8 +1,8 @@
 requirejs.config({
-	 urlArgs: "bust=v30",
+	 urlArgs: "bust=v41",
 	 baseUrl: '/static/js',
 	 paths: {
-		  jquery: 'jquery-2.1.4.min',
+		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
 		  jqueryui: 'jquery-ui.min',
 		  jquerycookie: 'jquery.cookie-1.4.1.min',
 		  'bootstrap.min': 'bootstrap.min'
