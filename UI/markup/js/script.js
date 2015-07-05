@@ -28,14 +28,6 @@ function getIdJson() {
 	 return { id: $("#id").val() };
 }
 
-function deleteHardwareType() {
-	 ajaxDelete(urls.deletehardwaretype, getIdJson(), urls.hardwaretypes);
-}
-
-function deleteGame() {
-    ajaxDelete(urls.deletegame, getIdJson(), urls.allgames);
-}
-
 function ajaxDelete(url, data, successUri) {
 
 	 function deletionSuccessful() {
@@ -58,26 +50,6 @@ function ajaxDelete(url, data, successUri) {
     });
 }
 
-function deleteHardware() {
-	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
-}
-
-function addNewGenre() {
-	 addNewNameDescription(addGenre);
-}
-
-function addHardwareType(name, description) {
-	 addNameDescription(urls.addhardwaretype, name, description);
-}
-
-function addNewHardwareType() {
-	 addNewNameDescription(addHardwareType);
-}
-
-function addGenre(name, description) {
-	 addNameDescription(urls.addgenre, name, description);
-}
-
 function addNewNameDescription(f) {
 	 f($("#name").val(), $("#description").val());
 }
@@ -90,18 +62,111 @@ function addNameDescription(url, name, description) {
 		  .always(function() { document.location.reload(); });
 }
 
+function navigate(url) {
+    window.location = url;
+}
+
+function appendText(t, a) {
+    if (t !== "") t += "<br />";
+    return t + a;
+}
+
+function updateNameDescription(updateUri, successUri) {
+	 var j = getIdNameDescriptionJson();
+    if (!validateSaveNameDescriptionJson(j)) return;
+    ajaxSave(updateUri, j, successUri);
+}
+
+function getIdNameDescriptionJson() {
+	 return {
+        id: getIdJson().id,
+        name: $("#name").val(),
+        description: $("#description").val()
+    };
+}
+
+function validateSaveNameDescriptionJson(j) {
+    hideValidationFailure();
+    var failureText = "";
+    if (j.name === "") failureText = "Please enter a name";
+    if (j.description === "") failureText = appendText(failureText, "Please enter a description");
+
+    var validationSuccessful = failureText === "";
+    if (!validationSuccessful) showValidationFailure(failureText);
+    return validationSuccessful;
+}
+
+function ajaxSave(url, data, successUri) {
+	 function saveSuccess() {
+		  showValidationSuccess("Save Successful");
+		  setTimeout(function() {
+				hideValidationSuccess();
+				if (successUri) navigate(successUri);
+		  }, 3000);
+	 }
+
+	 function saveError() {
+		  showValidationFailure("Save Failed!");
+	 }
+
+    $.ajax({
+		  type: 'post',
+        url: url,
+        data: data,
+        success: saveSuccess,
+        error: saveError
+    });
+}
+
+function toggleSortDirection(oldSortDir) {
+    return oldSortDir == "asc" ? "desc": "asc";
+}
+
+$(function() {
+	 var sessionStatus = $.cookie("session_status");
+	 if (sessionStatus == "1") {
+		  setLoginText();
+	 } else {
+		  $(".authenticated-header").hide();
+	 }
+});
+
+function setLoginText() 
+{
+	 var userid = $.cookie("user_id");
+	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");	 
+}
+
+//end generic functions
+
+function deleteGame() {
+    ajaxDelete(urls.deletegame, getIdJson(), urls.allgames);
+}
+
+function deleteHardware() {
+	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
+}
+
+function addNewGenre() {
+	 addNewNameDescription(addGenre);
+}
+
+function addGenre(name, description) {
+	 addNameDescription(urls.addgenre, name, description);
+}
+
 //todo: id param unneeded
 function deleteGenre(id) {
 	 ajaxDelete(urls.deletegenre, getIdJson(), urls.genres);
 }
 
+function updateGenre() {
+	 updateNameDescription(urls.updategenre, urls.genres);
+}
+
 function deleteUser(id) {
 	 j = {"id": id};
 	 ajaxDelete(urls.deleteuser, j, urls.users);
-}
-
-function navigate(url) {
-    window.location = url;
 }
 
 function updateGame() {
@@ -153,11 +218,6 @@ function addHardware() {
     ajaxSave(urls.savehardware, j);
 }
 
-function appendText(t, a) {
-    if (t !== "") t += "<br />";
-    return t + a;
-}
-
 function updateHardware() {
     var j = getHardwareNoId();
 	 j.id = getIdJson().id;
@@ -191,67 +251,12 @@ function validateSaveHardware(j) {
 }
 
 
-function updateGenre() {
-	 updateNameDescription(urls.updategenre, urls.genres);
-}
-
-function updateHardwareType() {
-	 updateNameDescription(urls.updatehardwaretype, urls.hardwaretypes);
-}
-
-function updateNameDescription(updateUri, successUri) {
-	 var j = getIdNameDescriptionJson();
-    if (!validateSaveNameDescriptionJson(j)) return;
-    ajaxSave(updateUri, j, successUri);
-}
-
 function updateUser(id) {
 	 j  = {
 		  "id": id,
 		  "userid": $('#userid').val() 
 	 };
 	 ajaxSave(urls.updateuser, j, urls.users);
-}
-
-function getIdNameDescriptionJson() {
-	 return {
-        id: getIdJson().id,
-        name: $("#name").val(),
-        description: $("#description").val()
-    };
-}
-
-function validateSaveNameDescriptionJson(j) {
-    hideValidationFailure();
-    var failureText = "";
-    if (j.name === "") failureText = "Please enter a name";
-    if (j.description === "") failureText = appendText(failureText, "Please enter a description");
-
-    var validationSuccessful = failureText === "";
-    if (!validationSuccessful) showValidationFailure(failureText);
-    return validationSuccessful;
-}
-
-function ajaxSave(url, data, successUri) {
-	 function saveSuccess() {
-		  showValidationSuccess("Save Successful");
-		  setTimeout(function() {
-				hideValidationSuccess();
-				if (successUri) navigate(successUri);
-		  }, 3000);
-	 }
-
-	 function saveError() {
-		  showValidationFailure("Save Failed!");
-	 }
-
-    $.ajax({
-		  type: 'post',
-        url: url,
-        data: data,
-        success: saveSuccess,
-        error: saveError
-    });
 }
 
 function sortGames(field) {
@@ -295,23 +300,4 @@ function sortHardware(field) {
         sortdir: newSortDir,
         numrows: numRows
     });
-}
-
-function toggleSortDirection(oldSortDir) {
-    return oldSortDir == "asc" ? "desc": "asc";
-}
-
-$(function() {
-	 var sessionStatus = $.cookie("session_status");
-	 if (sessionStatus == "1") {
-		  setLoginText();
-	 } else {
-		  $(".authenticated-header").hide();
-	 }
-});
-
-function setLoginText() 
-{
-	 var userid = $.cookie("user_id");
-	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");	 
 }
