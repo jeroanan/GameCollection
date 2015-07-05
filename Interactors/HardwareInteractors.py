@@ -51,8 +51,12 @@ class DeleteHardwareInteractor(Interactor):
 
 
 class DeleteHardwareTypeInteractor(Interactor):
-    
+    """Delete a hardware type"""
+
     def execute(self, hardware_type):
+        """Delete a hardware type.
+        :param hardware_type: The hardware type to be deleted
+        """
         self.persistence.delete_hardware_type(hardware_type)
 
 

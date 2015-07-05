@@ -17,47 +17,42 @@
 import unittest
 from unittest.mock import Mock
 
-import cherrypy
-
-from Interactors.HardwareInteractors import DeleteHardwareInteractor
-from Interactors.InteractorFactory import InteractorFactory
-from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
-from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
-from UI.Tests.Handlers.HandlerTestAssertions import get_missing_param_assertion, get_empty_param_assertion
+import Interactors.HardwareInteractors as hi
+import Interactors.InteractorFactory as factory
+import UI.Handlers.DeleteHardwareHandler as dhh
+import UI.Handlers.AuthenticatedHandler as ah
+import UI.Handlers.Session.Session as sess
+import UI.Tests.Handlers.HandlerTestAssertions as hta
 
 class TestDeleteHardwareHandler(unittest.TestCase):
     """Unit tests for the DeleteHardwareHandler class"""
 
     def setUp(self):
         """setUp function for all unit tests in this class"""
-        renderer = Mock(TemplateRenderer)
-        self.__interactor = Mock(DeleteHardwareInteractor)
-        interactor_factory = Mock(InteractorFactory)
+        self.__interactor = Mock(hi.DeleteHardwareInteractor)
+        interactor_factory = Mock(factory.InteractorFactory)
         interactor_factory.create = Mock(return_value=self.__interactor)
-        self.__target = DeleteHardwareHandler(interactor_factory, renderer)
-        self.__target.session = Mock(Session)
-        self.__get_args = lambda: {"hardwareid": "hardwareid"}
-        self.__missing_param_returns_empty_string = get_missing_param_assertion(self.__target)
-        self.__empty_param_returns_empty_string = get_empty_param_assertion(self.__target)
+        self.__target = dhh.DeleteHardwareHandler(interactor_factory, None)
+        self.__target.session = Mock(sess.Session)
+        self.__get_args = lambda: {"id": "hardwareid"}
+        self.__missing_param_returns_empty_string = hta.get_missing_param_assertion(self.__target)
+        self.__empty_param_returns_empty_string = hta.get_empty_param_assertion(self.__target)
 
     def test_is_instance_of_authenticated_handler(self):
         """Test that DeleteHardwareHandler derives from AuthenticatedHandler"""
-        self.assertIsInstance(self.__target, AuthenticatedHandler)
+        self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
-    def test_null_hardwareid_returns_empty_string(self):
-        """Test that calling DeleteHardwareHandler.get_page without a hardwareid 
+    def test_null_id_returns_empty_string(self):
+        """Test that calling DeleteHardwareHandler.get_page without a id
         causes an empty string to be returned"""
         self.__assert_operation_on_required_params_returns_empty_string(
-            "hardwareid", self.__missing_param_returns_empty_string)
+            "id", self.__missing_param_returns_empty_string)
 
-    def test_empty_hardwareid_returns_empty_string(self):
-        """Test that calling DeleteHardwareHandler.get_page with an empty hardwareid 
+    def test_empty_id_returns_empty_string(self):
+        """Test that calling DeleteHardwareHandler.get_page with an empty id
         causes an empty string to be returned"""
         self.__assert_operation_on_required_params_returns_empty_string(
-            "hardwareid", self.__empty_param_returns_empty_string)
+            "id", self.__empty_param_returns_empty_string)
 
     def __assert_operation_on_required_params_returns_empty_string(self, param, func):
         self.assertTrue(func(param, self.__get_args()))
@@ -68,12 +63,12 @@ class TestDeleteHardwareHandler(unittest.TestCase):
         def boom(hardware_id, user_id):
             raise Exception("ouch!")
         
-        interactor = Mock(DeleteHardwareInteractor)
+        interactor = Mock(hi.DeleteHardwareInteractor)
         interactor.execute = Mock(side_effect=boom)
-        interactor_factory = Mock(InteractorFactory)
+        interactor_factory = Mock(factory.InteractorFactory)
         interactor_factory.create = Mock(return_value=interactor)
-        self.__target = DeleteHardwareHandler(interactor_factory, None)
-        self.__target.session = Mock(Session)
+        self.__target = dhh.DeleteHardwareHandler(interactor_factory, None)
+        self.__target.session = Mock(sess.Session)
 
         result = self.__target.get_page(self.__get_args())
         self.assertEqual("", result)

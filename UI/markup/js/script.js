@@ -1,27 +1,9 @@
-// Copyright (c) 20115 David Wilson
-// Icarus is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-// Icarus is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-
-// You should have received a copy of the GNU General Public License
-// along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
-
 function cancelEdit() {
     window.history.back();
 }
 
 function cancelEditPlatform() {
-    navigate("/platforms");
-}
-
-function cancelEditHardwareType() {
-	 navigate("/hardwaretypes");
+    navigate(urls.platforms);
 } 
 
 function showDeleteConfirm() {
@@ -32,18 +14,16 @@ function hideDeleteConfirm() {
     $("#deleteConfirm").fadeOut();
 }
 
+function getIdJson() {
+	 return { id: $("#id").val() };
+}
+
 function deleteHardwareType() {
-	 var j = {
-		  id: $("#id").val()
-	 };
-	 ajaxDelete("/deletehardwaretype", j, "/hardwaretypes");
+	 ajaxDelete(urls.deletehardwaretype, getIdJson(), urls.hardwaretypes);
 }
 
 function deleteGame() {
-    var j = {
-        id: $("#id").val()
-    };
-    ajaxDelete("/deletegame", j);
+    ajaxDelete(urls.deletegame, getIdJson(), urls.allgames);
 }
 
 function deletePlatform() {
@@ -51,7 +31,7 @@ function deletePlatform() {
             platformid: $("#id").val()
     };
 
-    ajaxDelete("/deleteplatform", j);
+    ajaxDelete(urls.deleteplatform, j);
 }
 
 function ajaxDelete(url, data, successUri) {
@@ -77,18 +57,21 @@ function ajaxDelete(url, data, successUri) {
 }
 
 function deleteHardware() {
-    navigate("/deletehardware?hardwareid=" + $("#id").val());
+	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
 }
 
 function editGame(id) {
+	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
     navigate("/editgame?gameid=" + id);
 }
 
 function editHardware(id) {
+	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
     navigate("/edithardware?hardwareid=" + id);
 }
 
 function editPlatform(id) {
+	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
     navigate("/editplatform?platformid=" + id);
 }
 
@@ -97,7 +80,7 @@ function addNewPlatform() {
 }
 
 function addPlatform(name, description) {
-	 addNameDescription("/addplatform", name, description);
+	 addNameDescription(urls.addplatform, name, description);
 }
 
 function addNewGenre() {
@@ -105,7 +88,8 @@ function addNewGenre() {
 }
 
 function addHardwareType(name, description) {
-	 addNameDescription("/addhardwaretype", name, description);
+	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
+	 addNameDescription(urls.addhardwaretype, name, description);
 }
 
 function addNewHardwareType() {
@@ -113,11 +97,12 @@ function addNewHardwareType() {
 }
 
 function editHardwareType(id) {
+	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
 	 navigate("/edithardwaretype?id=" + id);
 }
 
 function addGenre(name, description) {
-	 addNameDescription("/addgenre", name, description);
+	 addNameDescription(urls.addgenre, name, description);
 }
 
 function addNewNameDescription(f) {
@@ -133,17 +118,18 @@ function addNameDescription(url, name, description) {
 }
 
 function editGenre(id) {
+	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
 	 navigate("/editgenre?genreid=" + id);
 }
 
 function deleteGenre(id) {
 	 j = {"id": id}
-	 ajaxDelete("/deletegenre", j);
+	 ajaxDelete(urls.deletegenre, j);
 }
 
 function deleteUser(id) {
 	 j = {"id": id}
-	 ajaxDelete("/deleteuser", j);
+	 ajaxDelete(urls.deleteuser, j);
 }
 
 function navigate(url) {
@@ -152,17 +138,16 @@ function navigate(url) {
 
 function updateGame() {
     var j = getGameNoId();
-	 console.log(j.genre);
     j.id = $("#id").val();
 
     if (!validateSaveGame(j)) return;
-    ajaxSave("/updategame", j);
+    ajaxSave(urls.updategame, j);
 }
 
 function saveGame() {
     var j = getGameNoId();
     if (!validateSaveGame(j)) return;
-    ajaxSave("/savegame", j);
+    ajaxSave(urls.savegame, j, urls.allgames);
 }
 
 function getGameNoId() {
@@ -197,7 +182,7 @@ function validateSaveGame(j) {
 function addHardware() {
     var j = getHardwareNoId();
     if (!validateSaveHardware(j)) return;
-    ajaxSave("/savehardware", j);
+    ajaxSave(urls.savehardware, j);
 }
 
 function appendText(t, a) {
@@ -209,7 +194,7 @@ function updateHardware() {
     var j = getHardwareNoId();
 	 j.id = $("#id").val();
     if (!validateSaveHardware(j)) return;
-    ajaxSave("/updatehardware", j);
+    ajaxSave(urls.updatehardware, j);
 }
 
 function getHardwareNoId() 
@@ -238,15 +223,15 @@ function validateSaveHardware(j) {
 }
 
 function updatePlatform() {
-	 updateNameDescription("/updateplatform", "/platforms");
+	 updateNameDescription(urls.updateplatform, urls.platforms);
 }
 
 function updateGenre() {
-	 updateNameDescription("/updategenre", "/genres");
+	 updateNameDescription(urls.updategenre, urls.genres);
 }
 
 function updateHardwareType() {
-	 updateNameDescription("/updatehardwaretype", "/hardwaretypes");
+	 updateNameDescription(urls.updatehardwaretype, urls.hardwaretypes);
 }
 
 function updateNameDescription(updateUri, successUri) {
@@ -260,7 +245,7 @@ function updateUser(id) {
 		  "id": id,
 		  "userid": $('#userid').val() 
 	 };
-	 ajaxSave("/updateuser", j, "/users");
+	 ajaxSave(urls.updateuser, j, urls.users);
 }
 
 function getIdNameDescriptionJson() {
@@ -319,7 +304,7 @@ function sortGames(field) {
     hdnSort.val(field);
     hdnDir.val(newSortDir);
 
-    $("#games").load("/sortgames", {
+    $("#games").load(urls.sortgames, {
         field: field,
         sortdir: newSortDir,
         numrows: numRows
@@ -340,7 +325,7 @@ function sortHardware(field) {
     hdnSort.val(field);
     hdnDir.val(newSortDir);
 
-    $("#hardware").load("/sorthardware", {
+    $("#hardware").load(urls.sorthardware, {
         field: field,
         sortdir: newSortDir,
         numrows: numRows
