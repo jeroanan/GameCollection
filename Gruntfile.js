@@ -28,13 +28,24 @@ module.exports = function(grunt) {
 						  dest: 'UI/markup/css/style.min.css'
 					 }]
 				}
+		  },
+		  replace: {
+				requireJsCacheBuster: {
+					 src: 'UI/markup/js/init.js',
+					 overwrite: true,
+					 replacements: [{
+						  from: /bust=.*\"/g,
+						  to: 'bust=<%= grunt.template.today("yyyymmddHHMMss") %>\"'
+					 }]
+				}
 		  }
 	 });
 	 
 	 grunt.loadNpmTasks('grunt-contrib-uglify');
 	 grunt.loadNpmTasks('grunt-contrib-cssmin');
 	 grunt.loadNpmTasks('grunt-contrib-jshint');
+	 grunt.loadNpmTasks('grunt-text-replace');
 	 
 	 // Default task(s).
-	 grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
+	 grunt.registerTask('default', ['replace', 'jshint', 'uglify', 'cssmin']);
 };
