@@ -1,35 +1,40 @@
 module.exports = function(grunt) {
-
-  // Project configuration.
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-		  script_min : {
-				options: {
-					 sourceMap: true,
-					 sourceMapName: 'UI/markup/js/script.min.js.map'
-				},
-				files: {
-					'UI/markup/js/init.min.js': ['UI/markup/js/init.js'],
-					'UI/markup/js/script.min.js': ['UI/markup/js/script.js', 'UI/markup/js/validation.js',
-															'UI/markup/js/login.js', 'UI/markup/js/editgame.js',
-															'UI/markup/js/urls.js']
+	 
+	 // Project configuration.
+	 grunt.initConfig({
+		  pkg: grunt.file.readJSON('package.json'),
+		  jshint: {
+				all: ['UI/markup/js/script.js', 'UI/markup/js/editgame.js', 'UI/markup/js/init.js',
+						'UI/markup/js/login.js', 'UI/markup/js/require/urls.js',	'UI/markup/js/validation.js']
+		  },
+		  uglify: {
+				script_min : {
+					 options: {
+						  sourceMap: true,
+						  sourceMapName: 'UI/markup/js/script.min.js.map'
+					 },
+					 files: {
+						  'UI/markup/js/init.min.js': ['UI/markup/js/init.js'],
+						  'UI/markup/js/script.min.js': ['UI/markup/js/script.js', 'UI/markup/js/validation.js',
+																	'UI/markup/js/login.js', 'UI/markup/js/editgame.js',
+																	'UI/markup/js/urls.js']
+					 }
+				}
+		  },
+		  cssmin: {
+				target: {
+					 files: [{
+						  src: 'UI/markup/css/style.css',
+						  dest: 'UI/markup/css/style.min.css'
+					 }]
 				}
 		  }
-    },
-	 cssmin: {
-		  target: {
-				files: [{
-					 src: 'UI/markup/css/style.css',
-					 dest: 'UI/markup/css/style.min.css'
-				}]
-		  }
-	 }
-  });
-
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-
-  // Default task(s).
-  grunt.registerTask('default', ['uglify', 'cssmin']);
+	 });
+	 
+	 grunt.loadNpmTasks('grunt-contrib-uglify');
+	 grunt.loadNpmTasks('grunt-contrib-cssmin');
+	 grunt.loadNpmTasks('grunt-contrib-jshint');
+	 
+	 // Default task(s).
+	 grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
 };

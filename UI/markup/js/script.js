@@ -1,3 +1,17 @@
+// Copyright (c) 2015 David Wilson
+// Icarus is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+
+// Icarus is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+
 function cancelEdit() {
     window.history.back();
 }
@@ -37,7 +51,7 @@ function ajaxDelete(url, data, successUri) {
 		  setTimeout(function() {
 				hideValidationSuccess();				
 				if (successUri) navigate(successUri);
-		  }, 3000)
+		  }, 3000);
 	 }
 
 	 function deletionFailed() {
@@ -49,7 +63,7 @@ function ajaxDelete(url, data, successUri) {
         data: data,
         success: deletionSuccessful,
         error: deletionFailed
-    })
+    });
 }
 
 function deleteHardware() {
@@ -125,7 +139,7 @@ function deleteGenre(id) {
 
 
 function deleteUser(id) {
-	 j = {"id": id}
+	 j = {"id": id};
 	 ajaxDelete(urls.deleteuser, j, urls.users);
 }
 
@@ -165,12 +179,12 @@ function validateSaveGame(j) {
     hideValidationFailure();
 
     var failureText = "";
-    if (j.title=="") failureText = "Please enter a title";
-    if (j.numcopies=="") failureText = appendText(failureText, "Please enter a number of copies");
-    if (j.numboxed=="") failureText = appendText(failureText, "Please enter a number of boxes");
-    if (j.nummanuals=="") failureText = appendText(failureText, "Please enter a number of manuals");
+    if (j.title === "") failureText = "Please enter a title";
+    if (j.numcopies === "") failureText = appendText(failureText, "Please enter a number of copies");
+    if (j.numboxed === "") failureText = appendText(failureText, "Please enter a number of boxes");
+    if (j.nummanuals === "") failureText = appendText(failureText, "Please enter a number of manuals");
 
-    var validatedSuccessfully = failureText == "";
+    var validatedSuccessfully = failureText === "";
 
     if (!validatedSuccessfully) showValidationFailure(failureText);
     return validatedSuccessfully;
@@ -183,7 +197,7 @@ function addHardware() {
 }
 
 function appendText(t, a) {
-    if (t!="") t+="<br />";
+    if (t !== "") t += "<br />";
     return t + a;
 }
 
@@ -210,11 +224,11 @@ function validateSaveHardware(j) {
     hideValidationFailure();
 
     var failureText = "";
-    if (j.name == "") failureText = "Please enter a name";
-    if (j.numowned == "") failureText = appendText(failureText, "Please enter number owned");
-    if (j.numboxed == "") failureText = appendText(failureText, "Please enter number boxed");
+    if (j.name === "") failureText = "Please enter a name";
+    if (j.numowned === "") failureText = appendText(failureText, "Please enter number owned");
+    if (j.numboxed === "") failureText = appendText(failureText, "Please enter number boxed");
 
-    var validationSuccessful = failureText == "";
+    var validationSuccessful = failureText === "";
     if (!validationSuccessful) showValidationFailure(failureText);
     return validationSuccessful;
 }
@@ -256,10 +270,10 @@ function getIdNameDescriptionJson() {
 function validateSaveNameDescriptionJson(j) {
     hideValidationFailure();
     var failureText = "";
-    if (j.name == "") failureText = "Please enter a name";
-    if (j.description == "") failureText = appendText(failureText, "Please enter a description")
+    if (j.name === "") failureText = "Please enter a name";
+    if (j.description === "") failureText = appendText(failureText, "Please enter a description");
 
-    var validationSuccessful = failureText == "";
+    var validationSuccessful = failureText === "";
     if (!validationSuccessful) showValidationFailure(failureText);
     return validationSuccessful;
 }
@@ -270,7 +284,7 @@ function ajaxSave(url, data, successUri) {
 		  setTimeout(function() {
 				hideValidationSuccess();
 				if (successUri) navigate(successUri);
-		  }, 3000)
+		  }, 3000);
 	 }
 
 	 function saveError() {
@@ -294,7 +308,7 @@ function sortGames(field) {
     var oldSortDir = hdnDir.val();
     var newSortDir = "asc";
 
-    var numRows = hdnRows.val() == null ? 999999 : hdnRows.val();
+    var numRows = hdnRows.val() === null ? 999999 : hdnRows.val();
 
     if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
 
@@ -315,7 +329,7 @@ function sortHardware(field) {
 
     var oldSortDir = hdnDir.val();
     var newSortDir = "asc";
-    var numRows = hdnRows.val() == null ? 999999 : hdnRows.val();
+    var numRows = hdnRows.val() === null ? 999999 : hdnRows.val();
 
     if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
 
@@ -340,7 +354,7 @@ $(function() {
 	 } else {
 		  $(".authenticated-header").hide();
 	 }
-})
+});
 
 function setLoginText() 
 {
