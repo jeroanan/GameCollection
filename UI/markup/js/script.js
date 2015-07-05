@@ -16,10 +16,6 @@ function cancelEdit() {
     window.history.back();
 }
 
-function cancelEditPlatform() {
-    navigate(urls.platforms);
-} 
-
 function showDeleteConfirm() {
     $("#deleteConfirm").fadeIn();
 }
@@ -38,10 +34,6 @@ function deleteHardwareType() {
 
 function deleteGame() {
     ajaxDelete(urls.deletegame, getIdJson(), urls.allgames);
-}
-
-function deletePlatform() {
-    ajaxDelete(urls.deleteplatform, getIdJson(), urls.platforms);
 }
 
 function ajaxDelete(url, data, successUri) {
@@ -68,14 +60,6 @@ function ajaxDelete(url, data, successUri) {
 
 function deleteHardware() {
 	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
-}
-
-function addNewPlatform() {
-	 addNewNameDescription(addPlatform);
-}
-
-function addPlatform(name, description) {
-	 addNameDescription(urls.addplatform, name, description);
 }
 
 function addNewGenre() {
@@ -110,7 +94,6 @@ function addNameDescription(url, name, description) {
 function deleteGenre(id) {
 	 ajaxDelete(urls.deletegenre, getIdJson(), urls.genres);
 }
-
 
 function deleteUser(id) {
 	 j = {"id": id};
@@ -207,9 +190,6 @@ function validateSaveHardware(j) {
     return validationSuccessful;
 }
 
-function updatePlatform() {
-	 updateNameDescription(urls.updateplatform, urls.platforms);
-}
 
 function updateGenre() {
 	 updateNameDescription(urls.updategenre, urls.genres);
