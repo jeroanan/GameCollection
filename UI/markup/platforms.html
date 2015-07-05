@@ -20,7 +20,7 @@
                href="/allgames?platform={{platform.name}}">{{platform.name}}</a>
           </td>
           <td>{{platform.description}}</td>
-          <td><button class="btn" onclick="editPlatform('{{platform.id}}')">Edit</button></td>
+          <td><a class="btn btn-default" href="/editplatform?platformid={{platform.id}}">Edit</button></td>
         </tr>
         {%endfor%}
       </tbody>

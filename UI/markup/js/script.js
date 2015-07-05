@@ -70,21 +70,6 @@ function deleteHardware() {
 	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
 }
 
-function editGame(id) {
-	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
-    navigate("/editgame?gameid=" + id);
-}
-
-function editHardware(id) {
-	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
-    navigate("/edithardware?hardwareid=" + id);
-}
-
-function editPlatform(id) {
-	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
-    navigate("/editplatform?platformid=" + id);
-}
-
 function addNewPlatform() {
 	 addNewNameDescription(addPlatform);
 }
@@ -98,17 +83,11 @@ function addNewGenre() {
 }
 
 function addHardwareType(name, description) {
-	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
 	 addNameDescription(urls.addhardwaretype, name, description);
 }
 
 function addNewHardwareType() {
 	 addNewNameDescription(addHardwareType);
-}
-
-function editHardwareType(id) {
-	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
-	 navigate("/edithardwaretype?id=" + id);
 }
 
 function addGenre(name, description) {
@@ -125,11 +104,6 @@ function addNameDescription(url, name, description) {
 		  data: {"name": name,
 					"description": description}})
 		  .always(function() { document.location.reload(); });
-}
-
-function editGenre(id) {
-	 //TODO: This should just be a hyperlink. No reason for it to be JavaScript.
-	 navigate("/editgenre?genreid=" + id);
 }
 
 //todo: id param unneeded

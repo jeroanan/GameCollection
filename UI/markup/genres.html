@@ -20,7 +20,7 @@
            href="/allgames?genre={{genre.name}}">{{genre.name}}</a>
       </td>
       <td>{{genre.description}}</td>
-      <td><button class="btn" onclick="editGenre('{{genre.id}}')">Edit</button></td>
+      <td><a class="btn btn-default" href="/editgenre?genreid={{genre.id}}">Edit</button></td>
     </tr>
     {%endfor%}
   </tbody>

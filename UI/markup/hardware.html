@@ -10,7 +10,7 @@
     <tbody>
         {% for h in hardware %}
         <tr>
-          <td><a title="Edit {{h.name}}" onclick="editHardware('{{h.id}}')" class="linkbutton">{{h.name}}</a></td>
+          <td><a title="Edit {{h.name}}" href="edithardware?hardwareid={{h.id}}" class="linkbutton">{{h.name}}</a></td>
           <td>
 				<a title="See all hardware for {{h.platform}}" href="/allhardware?platform={{h.platform}}" class="linkbutton">
 				  {{h.platform}}
