@@ -14,23 +14,22 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
-from Platform import Platform
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+import UI.Handlers.AuthenticatedHandler as ah
 
 
-class DeletePlatformHandler(AuthenticatedHandler):
+class DeletePlatformHandler(ah.AuthenticatedHandler):
     # Handles requests to delete a platform
 
     def get_page(self, params):
         """Handles requests to delete a platform
         :param params: A dictionary. It is expected to contain the following:
-          * platformid -- the id of the platform to be deleted
+                       * id -- the id of the platform to be deleted
         """
         super().get_page(params)
 
-        if not self.validate_params(params, ["platformid"]):
+        if not self.validate_params(params, ["id"]):
             return ""
 
         interactor = self.interactor_factory.create("DeletePlatformInteractor")
-        interactor.execute(params.get("platformid", params.get("id", "")))
+        interactor.execute(params.get("id", params.get("id", "")))
         

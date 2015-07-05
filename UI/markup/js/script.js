@@ -27,11 +27,7 @@ function deleteGame() {
 }
 
 function deletePlatform() {
-    var j = {
-            platformid: $("#id").val()
-    };
-
-    ajaxDelete(urls.deleteplatform, j);
+    ajaxDelete(urls.deleteplatform, getIdJson(), urls.platforms);
 }
 
 function ajaxDelete(url, data, successUri) {
@@ -122,14 +118,15 @@ function editGenre(id) {
 	 navigate("/editgenre?genreid=" + id);
 }
 
+//todo: id param unneeded
 function deleteGenre(id) {
-	 j = {"id": id}
-	 ajaxDelete(urls.deletegenre, j);
+	 ajaxDelete(urls.deletegenre, getIdJson(), urls.genres);
 }
+
 
 function deleteUser(id) {
 	 j = {"id": id}
-	 ajaxDelete(urls.deleteuser, j);
+	 ajaxDelete(urls.deleteuser, j, urls.users);
 }
 
 function navigate(url) {
@@ -138,10 +135,10 @@ function navigate(url) {
 
 function updateGame() {
     var j = getGameNoId();
-    j.id = $("#id").val();
+    j.id = getIdJson().id;
 
     if (!validateSaveGame(j)) return;
-    ajaxSave(urls.updategame, j);
+    ajaxSave(urls.updategame, j, urls.allgames);
 }
 
 function saveGame() {
@@ -192,7 +189,7 @@ function appendText(t, a) {
 
 function updateHardware() {
     var j = getHardwareNoId();
-	 j.id = $("#id").val();
+	 j.id = getIdJson().id;
     if (!validateSaveHardware(j)) return;
     ajaxSave(urls.updatehardware, j);
 }
@@ -250,7 +247,7 @@ function updateUser(id) {
 
 function getIdNameDescriptionJson() {
 	 return {
-        id: $("#id").val(),
+        id: getIdJson().id,
         name: $("#name").val(),
         description: $("#description").val()
     };
@@ -345,8 +342,8 @@ $(function() {
 	 }
 })
 
-function setLoginText() {
+function setLoginText() 
+{
 	 var userid = $.cookie("user_id");
-	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");
-	 
+	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");	 
 }
