@@ -139,10 +139,6 @@ function setLoginText()
 
 //end generic functions
 
-function deleteGame() {
-    ajaxDelete(urls.deletegame, getIdJson(), urls.allgames);
-}
-
 function deleteHardware() {
 	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
 }
@@ -150,49 +146,6 @@ function deleteHardware() {
 function deleteUser(id) {
 	 j = {"id": id};
 	 ajaxDelete(urls.deleteuser, j, urls.users);
-}
-
-function updateGame() {
-    var j = getGameNoId();
-    j.id = getIdJson().id;
-
-    if (!validateSaveGame(j)) return;
-    ajaxSave(urls.updategame, j, urls.allgames);
-}
-
-function saveGame() {
-    var j = getGameNoId();
-    if (!validateSaveGame(j)) return;
-    ajaxSave(urls.savegame, j, urls.allgames);
-}
-
-function getGameNoId() {
-    return {
-        title: $("#title").val(),
-		  genre: $("#genre").val(),
-        platform: $("#platform").val(),
-        numcopies: $("#numcopies").val(),
-        numboxed: $("#numboxed").val(),
-        nummanuals: $("#nummanuals").val(),
-        datepurchased: $("#datepurchased").val(),
-        approximatepurchaseddate: $("#approximatepurchaseddate").is(":checked"),
-        notes: $("#notes").val()
-    };
-}
-
-function validateSaveGame(j) {
-    hideValidationFailure();
-
-    var failureText = "";
-    if (j.title === "") failureText = "Please enter a title";
-    if (j.numcopies === "") failureText = appendText(failureText, "Please enter a number of copies");
-    if (j.numboxed === "") failureText = appendText(failureText, "Please enter a number of boxes");
-    if (j.nummanuals === "") failureText = appendText(failureText, "Please enter a number of manuals");
-
-    var validatedSuccessfully = failureText === "";
-
-    if (!validatedSuccessfully) showValidationFailure(failureText);
-    return validatedSuccessfully;
 }
 
 function addHardware() {
@@ -233,35 +186,12 @@ function validateSaveHardware(j) {
     return validationSuccessful;
 }
 
-
 function updateUser(id) {
 	 j  = {
 		  "id": id,
 		  "userid": $('#userid').val() 
 	 };
 	 ajaxSave(urls.updateuser, j, urls.users);
-}
-
-function sortGames(field) {
-    var hdnSort = $('#gamesortfield');
-    var hdnDir = $('#gamesortdir');
-    var hdnRows = $('#gamerows');
-
-    var oldSortDir = hdnDir.val();
-    var newSortDir = "asc";
-
-    var numRows = hdnRows.val() === null ? 999999 : hdnRows.val();
-
-    if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
-
-    hdnSort.val(field);
-    hdnDir.val(newSortDir);
-
-    $("#games").load(urls.sortgames, {
-        field: field,
-        sortdir: newSortDir,
-        numrows: numRows
-    });
 }
 
 function sortHardware(field) {

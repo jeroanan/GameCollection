@@ -13,7 +13,7 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 requirejs.config({
-	 urlArgs: "bust=20150706202811",
+	 urlArgs: "bust=20150706204833",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
