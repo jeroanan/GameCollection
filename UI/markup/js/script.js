@@ -147,23 +147,6 @@ function deleteHardware() {
 	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
 }
 
-function addNewGenre() {
-	 addNewNameDescription(addGenre);
-}
-
-function addGenre(name, description) {
-	 addNameDescription(urls.addgenre, name, description);
-}
-
-//todo: id param unneeded
-function deleteGenre(id) {
-	 ajaxDelete(urls.deletegenre, getIdJson(), urls.genres);
-}
-
-function updateGenre() {
-	 updateNameDescription(urls.updategenre, urls.genres);
-}
-
 function deleteUser(id) {
 	 j = {"id": id};
 	 ajaxDelete(urls.deleteuser, j, urls.users);
