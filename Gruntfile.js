@@ -9,6 +9,9 @@ module.exports = function(grunt) {
 						'UI/markup/js/platforms.js', 'UI/markup/js/hardwaretypes.js', 'UI/markup/js/genres.js',
 						'UI/markup/js/games.js', 'UI/markup/js/hardware.js', 'UI/markup/js/users.js']
 		  },
+		  qunit: {
+				all: ['UI/markup/tests/**/*.html']
+		  },
 		  uglify: {
 				script_min : {
 					 options: {
@@ -45,12 +48,13 @@ module.exports = function(grunt) {
 				}
 		  }
 	 });
-	 
+
+	 grunt.loadNpmTasks('grunt-contrib-qunit');
+	 grunt.loadNpmTasks('grunt-contrib-jshint');	 
 	 grunt.loadNpmTasks('grunt-contrib-uglify');
 	 grunt.loadNpmTasks('grunt-contrib-cssmin');
-	 grunt.loadNpmTasks('grunt-contrib-jshint');
 	 grunt.loadNpmTasks('grunt-text-replace');
 	 
 	 // Default task(s).
-	 grunt.registerTask('default', ['replace', 'jshint', 'uglify', 'cssmin']);
+	 grunt.registerTask('default', ['qunit', 'jshint',  'uglify', 'replace', 'cssmin']);
 };

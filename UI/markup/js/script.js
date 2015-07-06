@@ -42,7 +42,6 @@ function getIdJson() {
 	 return { id: $("#id").val() };
 }
 
-
 /**
  * Delete an item using Ajax
  *
