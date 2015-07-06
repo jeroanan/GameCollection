@@ -12,19 +12,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-requirejs.config({
-	 urlArgs: "bust=20150706210702",
-	 baseUrl: '/static/js',
-	 paths: {
-		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
-		  jqueryui: 'jquery-ui.min',
-		  jquerycookie: 'jquery.cookie-1.4.1.min',
-		  'bootstrap.min': 'bootstrap.min'
-	 }
-});
+/**
+ * Delete a user
+ *
+ * @param {string} id The uuid of the user to be deleted
+ */
+function deleteUser(id) {
+	 j = {"id": id};
+	 ajaxDelete(urls.deleteuser, j, urls.users);
+}
 
-require(['jquery'], function () {
-	 require(['jqueryui', 'jquerycookie', 'bootstrap.min'], function () {
-		  require(['script.min']);
-	 });
-});
+/**
+ * Update a user
+ * 
+ * @param id The uuid of the user to be updated
+ */
+function updateUser(id) {
+	 j  = {
+		  "id": id,
+		  "userid": $('#userid').val() 
+	 };
+	 ajaxSave(urls.updateuser, j, urls.users);
+}

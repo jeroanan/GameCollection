@@ -136,19 +136,3 @@ function setLoginText()
 	 var userid = $.cookie("user_id");
 	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");	 
 }
-
-//end generic functions
-function deleteUser(id) {
-	 j = {"id": id};
-	 ajaxDelete(urls.deleteuser, j, urls.users);
-}
-
-function updateUser(id) {
-	 j  = {
-		  "id": id,
-		  "userid": $('#userid').val() 
-	 };
-	 ajaxSave(urls.updateuser, j, urls.users);
-}
-
-
