@@ -138,52 +138,9 @@ function setLoginText()
 }
 
 //end generic functions
-
-function deleteHardware() {
-	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
-}
-
 function deleteUser(id) {
 	 j = {"id": id};
 	 ajaxDelete(urls.deleteuser, j, urls.users);
-}
-
-function addHardware() {
-    var j = getHardwareNoId();
-    if (!validateSaveHardware(j)) return;
-    ajaxSave(urls.savehardware, j);
-}
-
-function updateHardware() {
-    var j = getHardwareNoId();
-	 j.id = getIdJson().id;
-    if (!validateSaveHardware(j)) return;
-    ajaxSave(urls.updatehardware, j);
-}
-
-function getHardwareNoId() 
-{
-    return {
-        name: $("#name").val(),
-        platform: $("#platform").val(),
-        numcopies: $("#numcopies").val(),
-        numboxed: $("#numboxed").val(),
-        notes: $("#notes").val(),
-		  hardwaretype: $("#hardwaretype").val()		  
-    };
-}
-
-function validateSaveHardware(j) {
-    hideValidationFailure();
-
-    var failureText = "";
-    if (j.name === "") failureText = "Please enter a name";
-    if (j.numowned === "") failureText = appendText(failureText, "Please enter number owned");
-    if (j.numboxed === "") failureText = appendText(failureText, "Please enter number boxed");
-
-    var validationSuccessful = failureText === "";
-    if (!validationSuccessful) showValidationFailure(failureText);
-    return validationSuccessful;
 }
 
 function updateUser(id) {
@@ -194,23 +151,4 @@ function updateUser(id) {
 	 ajaxSave(urls.updateuser, j, urls.users);
 }
 
-function sortHardware(field) {
-    var hdnSort = $('#hwsortfield');
-    var hdnDir = $('#hwsortdir');
-    var hdnRows = $('#gamerows');
 
-    var oldSortDir = hdnDir.val();
-    var newSortDir = "asc";
-    var numRows = hdnRows.val() === null ? 999999 : hdnRows.val();
-
-    if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
-
-    hdnSort.val(field);
-    hdnDir.val(newSortDir);
-
-    $("#hardware").load(urls.sorthardware, {
-        field: field,
-        sortdir: newSortDir,
-        numrows: numRows
-    });
-}

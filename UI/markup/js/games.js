@@ -13,19 +13,19 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* Delete the game being currenlty viewed. The game is deleted by getting the value of the id control
-* on the page and calling script.js's ajaxDelete() on it. Afterwards the user is redirected to the
-* All Games page.
-*/
+ * Delete the game being currenlty viewed. The game is deleted by getting the value of the id control
+ * on the page and calling script.js's ajaxDelete() on it. Afterwards the user is redirected to the
+ * All Games page.
+ */
 function deleteGame() {
     ajaxDelete(urls.deletegame, getIdJson(), urls.allgames);
 }
 
 /**
-* Update the game being currenlty viewed. It is updated with the details entered by the user
-* into the screen. The game is updated by calling script.js's ajaxSave() and then the user
-* is redirected to the All Games page.
-*/
+ * Update the game being currenlty viewed. It is updated with the details entered by the user
+ * into the screen. The game is updated by calling script.js's ajaxSave() and then the user
+ * is redirected to the All Games page.
+ */
 function updateGame() {
     var j = getGameNoId();
     j.id = getIdJson().id;
@@ -35,9 +35,9 @@ function updateGame() {
 }
 
 /**
-* Save a new game using the details entered into the screen. The game is saved by calling 
-* script.js's ajaxSave(). After saving the user is redirected to the All Games page.
-*/
+ * Save a new game using the details entered into the screen. The game is saved by calling 
+ * script.js's ajaxSave(). After saving the user is redirected to the All Games page.
+ */
 function saveGame() {
     var j = getGameNoId();
     if (!validateSaveGame(j)) return;
@@ -45,10 +45,10 @@ function saveGame() {
 }
 
 /**
-* Get the details of the currently viewed game from the page.
-*
-* @return {object} The details of the game as an object.
-*/
+ * Get the details of the currently viewed game from the page.
+ *
+ * @return {object} The details of the game as an object.
+ */
 function getGameNoId() {
     return {
         title: $("#title").val(),
@@ -64,11 +64,11 @@ function getGameNoId() {
 }
 
 /**
-* Validate that various required fields of the game have been provided.
-*
-* @param {object} An object containing the details of the game from getGameNoId()
-* @return {bool} true if validation passes, otherwise false.
-*/
+ * Validate that various required fields of the game have been provided.
+ *
+ * @param {object} An object containing the details of the game from getGameNoId()
+ * @return {bool} true if validation passes, otherwise false.
+ */
 function validateSaveGame(j) {
     hideValidationFailure();
 
@@ -85,10 +85,10 @@ function validateSaveGame(j) {
 }
 
 /**
-* Sort the list of games on screen.
-*
-* @param {field} The field to sort by
-*/
+ * Sort the list of games on screen.
+ *
+ * @param {field} The field to sort by
+ */
 function sortGames(field) {
     var hdnSort = $('#gamesortfield');
     var hdnDir = $('#gamesortdir');
