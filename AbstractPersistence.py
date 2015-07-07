@@ -119,7 +119,13 @@ class AbstractPersistence(object):
         :param user_id: The uuid of the current user.
         :returns: The number of items of hardware
         """
-        pass    
+        pass
+
+    def count_hardware_types(self):
+        """Counts the number of hardware types in the system
+        :returns: The number of hardware types in the system
+        """
+        pass
 
     def delete_hardware(self, hardware_id, user_id):
         """Delete the given item of hardware.

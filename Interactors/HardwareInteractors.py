@@ -24,6 +24,7 @@ class AddHardwareTypeInteractor(Interactor):
     def execute(self, hardware_type):
         self.persistence.add_hardware_type(hardware_type)
 
+
 class CountHardwareInteractor(Interactor):
     """Count the items of hardware in the system"""
 
@@ -31,6 +32,16 @@ class CountHardwareInteractor(Interactor):
         """Count the items of hardware in the system
         :returns: The number of items of hardware in the system"""
         return self.persistence.count_hardware(user_id)
+
+
+class CountHardwareTypesInteractor(Interactor):
+    """Count the number of hardware types in the system"""
+
+    def execute(self):
+        """Count the number of hardware types in the system
+        :returns: The number of hardware types in the system
+        """
+        return self.persistence.count_hardware_types()
 
 
 class DeleteHardwareInteractor(Interactor):

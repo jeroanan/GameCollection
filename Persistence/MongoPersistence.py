@@ -99,6 +99,12 @@ class MongoPersistence(AbstractPersistence):
         """
         return self.__db.hardware.find({"user_id": str(user_id)}).count()        
     
+    def count_hardware_types(self):
+        """Counts the number of hardware types in the system
+        :returns: The number of hardware types in the system
+        """
+        pass
+
     def get_game(self, game_id, user_id):
         """Gets a specific game if it matches the given user.
         :param game_id: A string containing the uuid of the game
