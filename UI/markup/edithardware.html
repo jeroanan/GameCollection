@@ -81,18 +81,23 @@
              </div>
 
              <div class="row">
-                 <div class="form-group col-sm-3">
+                 <div class="form-group col-sm-1">
                     <input type="hidden" name="id" id="id" value="{{hardware.id}}" />
                     <input type="button" value="Save" class="btn btn-primary" onclick="updateHardware();" />
+					  </div>
+					  <div class="col-sm-1">
                     <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
+					  </div>
+					  <div class="col-sm-9"></div>
+					  <div class="col-sm-1">
                     <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
-                </div>
+					  </div>
              </div>
-            <div id="deleteConfirm" style="display: none;" class="text-danger">
-                Really delete this hardware?
-                <a href="javascript:deleteHardware();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
-            </div>
         </form>
+			<div id="deleteConfirm" style="display: none;" class="text-danger">
+			  Really delete this hardware?
+			  <a href="javascript:deleteHardware();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+			</div>
         {% endif %}
 
 {% endblock %}
