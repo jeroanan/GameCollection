@@ -5,6 +5,7 @@
 <h1>{{title}}</h1>
 
 <h2>My Hardware Types</h2>
+<p>Showing {{hardware_types|length}} hardware types.</p>
 <div class="row">
   <div class="col-xs-12">
 	 <table class="table table-striped">
@@ -65,6 +66,11 @@
 </form>
 
 <h2>Suggested Hardware Types</h2>
+{%if suggested_hardware_types|length == 1 %}
+<p>{{suggested_hardware_types|length}} suggestion</p>
+{%else%}
+<p>{{suggested_hardware_types|length}} suggestion</p>
+{%endif%}
 <div class="row">
   <div class="col-xs-12">
 	 <table class="table table-striped">

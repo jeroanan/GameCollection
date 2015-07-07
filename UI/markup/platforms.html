@@ -1,7 +1,8 @@
 {%extends 'master.html'%}
 {%block content%}
 <h1 class="page-header">{{title}}</h1>
-<h2 class="page-header">My Platforms</h2>        
+<h2 class="page-header">My Platforms</h2>
+<p>Showing {{platforms|length}} platforms.</p>
 <div class="row">
   <div class="col-sm-12">
 	 <table class="table table-striped">
@@ -61,6 +62,11 @@
 
 
 <h2 class="page-header">Suggested Platforms</h2>
+{% if suggested_platforms|length == 1 %}
+<p>1 suggestion</p>
+{% else %}
+<p>{{suggested_platforms|length}} suggestions</p>
+{% endif %}
 <div class="row">
   <div class="col-sm-12">
 	 <table class="table table-striped">

@@ -27,30 +27,28 @@ import UI.TemplateRenderer as tr
 
 
 class TestHardwareTypesHandler(unittest.TestCase):
+    """Unit tests for the HardwareTypesHandler class"""
     
     def setUp(self):
+        """setUp for all unit tests in this class"""
         self.__stored_hardware_types = [ht.HardwareType.from_dict({"name": "type1"})]
         self.__suggested_hardware_types = [ht.HardwareType.from_dict({"name": "type2"})]
 
-        def get_hardware_type_list_interactor():
-            interactor = Mock(hi.GetHardwareTypeListInteractor)
-            interactor.execute = Mock(return_value=self.__stored_hardware_types)
-            return interactor
-
-        def get_suggested_hardware_types_interactor():
-            interactor = Mock(hi.GetSuggestedHardwareTypesInteractor)
-            interactor.execute = Mock(return_value=self.__suggested_hardware_types)
-            return interactor
-
-        get_hardware_type_list_interactor = get_hardware_type_list_interactor()
-        get_suggested_hardware_types_interactor = get_suggested_hardware_types_interactor()
-
         def create_interactor(interactor_type):
+            """Mock for InteractorFactory.create"""
+            interactor = None
+
             interactors = {
-                "GetHardwareTypeListInteractor": get_hardware_type_list_interactor,
-                "GetSuggestedHardwareTypesInteractor": get_suggested_hardware_types_interactor
+                "GetHardwareTypeListInteractor": (hi.GetHardwareTypeListInteractor, self.__stored_hardware_types),
+                "GetSuggestedHardwareTypesInteractor": (hi.GetSuggestedHardwareTypesInteractor, self.__suggested_hardware_types)
             }
-            return interactors[interactor_type]
+
+            if interactor_type in interactors:
+                interactor_type, data = interactors[interactor_type]
+                interactor = Mock(interactor_type)
+                interactor.execute = Mock(return_value=data)
+
+            return interactor
 
         factory = Mock(interactor_factory.InteractorFactory)        
         factory.create = Mock(side_effect=create_interactor)
@@ -60,9 +58,11 @@ class TestHardwareTypesHandler(unittest.TestCase):
         self.__target.session = Mock(session.Session)        
 
     def test_is_instance_of_authenticated_handler(self):
+        """Test that HardwareTypesHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
     def test_get_page_calls_renderer_correctly(self):
+        """Test that calling HardwareTypesHandler.get_page causes TemplateRenderer.render to be called correctly"""    
         self.__target.get_page({"":""})
         self.__renderer.render.assert_called_with("hardwaretypes.html", title="Manage Hardware Types",
                                                   hardware_types=self.__stored_hardware_types, 

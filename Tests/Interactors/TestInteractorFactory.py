@@ -52,6 +52,7 @@ class TestInteractorFactory(unittest.TestCase):
                     "AddUserInteractor": user_interactors.AddUserInteractor,
                     "CountGamesInteractor": game_interactors.CountGamesInteractor,
                     "CountHardwareInteractor": hardware_interactors.CountHardwareInteractor,
+                    "CountHardwareTypesInteractor": hardware_interactors.CountHardwareTypesInteractor,
                     "ChangePasswordInteractor": user_interactors.ChangePasswordInteractor,
                     "DeleteGameInteractor": game_interactors.DeleteGameInteractor,
                     "DeleteGenreInteractor": genre_interactors.DeleteGenreInteractor,

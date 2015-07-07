@@ -25,4 +25,4 @@ class UsersHandler(AuthenticatedHandler):
         super().get_page(params)
         interactor = self.interactor_factory.create("GetUsersInteractor")
         users = interactor.execute()
-        return self.renderer.render("users.html", title="User Management", users=users)
+        return self.renderer.render("users.html", title="User Management", users=list(users))

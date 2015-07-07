@@ -3,7 +3,7 @@
 {% block content %}
 <h2>{{title}}</h2>
 <h3>My Genres</h3>
-
+<p>Showing {{genres|length}} genres.</p>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -54,6 +54,11 @@
 </form>
 
 <h2 class="page-header">Suggested Genres</h2>
+{% if suggested_genres|length == 1 %}
+<p>1 suggestion</p>
+{%else%}
+<p>{{suggested_genres|length}} suggestions</p>
+{%endif%}
 <div class="row">
   <div class="col-sm-12">
 	 <table class="table table-striped">

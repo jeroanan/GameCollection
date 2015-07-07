@@ -103,7 +103,7 @@ class MongoPersistence(AbstractPersistence):
         """Counts the number of hardware types in the system
         :returns: The number of hardware types in the system
         """
-        pass
+        return self.__db.hardware_types.find().count()        
 
     def get_game(self, game_id, user_id):
         """Gets a specific game if it matches the given user.
