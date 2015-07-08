@@ -12,13 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
-from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
-from Persistence.Exceptions.UnrecognisedFieldNameException import UnrecognisedFieldNameException
-from  UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+import Interactors.Game.Params.GetGamesInteractorParams as ggip
+import Interactors.Hardware.Params.GetHardwareListInteractorParams as ghlip
+import Persistence.Exceptions.UnrecognisedFieldNameException as ufen
+import  UI.Handlers.AuthenticatedHandler as ah
 
 
-class IndexHandler(AuthenticatedHandler):
+class IndexHandler(ah.AuthenticatedHandler):
     """Handles requests for the index page"""
 
     def __init__(self, interactor_factory, renderer, config):
@@ -28,6 +28,13 @@ class IndexHandler(AuthenticatedHandler):
         param config: An instance of Data.Config
         """
         super().__init__(interactor_factory, renderer)
+
+        def count_items(interactor_type_string):
+            interactor = self.interactor_factory.create(interactor_type_string)
+            return interactor.execute(self.session.get_value("user_id"))        
+
+        self.__count_games = lambda: count_items("CountGamesInteractor")
+        self.__count_hardware = lambda: count_items("CountHardwareInteractor")
         self.__config = config
         self.__game_sort = None
         self.__game_sort_dir = None
@@ -55,7 +62,7 @@ class IndexHandler(AuthenticatedHandler):
         try:
             games = self.__get_games()
             hardware = self.__get_hardware()
-        except UnrecognisedFieldNameException:
+        except ufen.UnrecognisedFieldNameException:
             raise cherrypy.HTTPRedirect("/")
 
         return self.renderer.render("index.html", games=games, hardware=hardware,
@@ -65,31 +72,32 @@ class IndexHandler(AuthenticatedHandler):
                                     number_of_hardware=(self.__count_hardware()), hw_sort_dir=self.__hardware_sort_dir)
 
     def __init_sorting(self, args):
-        self.__init_game_sorting(args)
-        self.__init_hardware_sorting(args)
 
-    def __init_game_sorting(self, args):
-        default_sort_field = "title"
-        default_sort_direction = "asc"
-        self.__game_sort = self.set_if_null(args.get("gamesort", default_sort_field), default_sort_field)
-        self.__game_sort_dir = self.set_if_null(args.get("gamesortdir", default_sort_direction),
-                                                default_sort_direction)
+        def init_game_sorting():
+            default_sort_field = "title"
+            default_sort_direction = "asc"
+            self.__game_sort = self.set_if_null(args.get("gamesort", default_sort_field), default_sort_field)
+            self.__game_sort_dir = self.set_if_null(args.get("gamesortdir", default_sort_direction),
+                                                    default_sort_direction)
 
-    def __init_hardware_sorting(self, args):
+        def init_hardware_sorting():
 
-        def if_null(arg_name, default_value):
-            return self.set_if_null(args.get(arg_name, default_value), default_value)
+            def if_null(arg_name, default_value):
+                return self.set_if_null(args.get(arg_name, default_value), default_value)
 
-        default_sort_field = "name"
-        default_sort_direction = "asc"
+            default_sort_field = "name"
+            default_sort_direction = "asc"
 
-        self.__hardware_sort = if_null("hardwaresort", default_sort_field)
-        self. __hardware_sort_dir = if_null("hardwaresortdir", default_sort_direction)
+            self.__hardware_sort = if_null("hardwaresort", default_sort_field)
+            self. __hardware_sort_dir = if_null("hardwaresortdir", default_sort_direction)
+
+        init_game_sorting()
+        init_hardware_sorting()
 
     def __get_games(self):
         get_games_interactor = self.interactor_factory.create("GetGamesInteractor")
 
-        p = GetGamesInteractorParams.from_dict({
+        p = ggip.GetGamesInteractorParams.from_dict({
                 "number_of_games": self.__config.get("front-page-games"""),
                 "sort_field": self.__game_sort,
                 "sort_direction": self.__game_sort_dir,
@@ -102,8 +110,7 @@ class IndexHandler(AuthenticatedHandler):
         return games
 
     def __get_hardware(self):
-
-        p = GetHardwareListInteractorParams.from_dict({
+        p = ghlip.GetHardwareListInteractorParams.from_dict({
             "sort_field": self.__hardware_sort,
             "sort_direction": self.__hardware_sort_dir,
             "user_id": self.session.get_value("user_id"),
@@ -112,13 +119,3 @@ class IndexHandler(AuthenticatedHandler):
         get_hardware_list_interactor = self.interactor_factory.create("GetHardwareListInteractor")
         return get_hardware_list_interactor.execute(p)
 
-
-    def __count_games(self):
-        return self.__count_items("CountGamesInteractor")
-
-    def __count_hardware(self):
-        return self.__count_items("CountHardwareInteractor")
-
-    def __count_items(self, interactor_type_string):
-        interactor = self.interactor_factory.create(interactor_type_string)
-        return interactor.execute(self.session.get_value("user_id"))

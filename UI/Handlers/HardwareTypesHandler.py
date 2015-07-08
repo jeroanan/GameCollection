@@ -25,11 +25,13 @@ class HardwareTypesHandler(ah.AuthenticatedHandler):
         :param params: An empty dictionary
         """
         super().get_page(params)
-        get_hardware_type_list = self.interactor_factory.create("GetHardwareTypeListInteractor")        
-        get_suggested_hardware_types = self.interactor_factory.create("GetSuggestedHardwareTypesInteractor")
 
-        hardware_types = get_hardware_type_list.execute()
-        suggested_hardware_types = get_suggested_hardware_types.execute()
+        def interactor_get(interactor_type):
+            interactor = self.interactor_factory.create(interactor_type)
+            return interactor.execute()
+
+        hardware_types = interactor_get("GetHardwareTypeListInteractor")
+        suggested_hardware_types = interactor_get("GetSuggestedHardwareTypesInteractor")
 
         return self.renderer.render("hardwaretypes.html", title="Manage Hardware Types", 
                                     hardware_types=hardware_types, suggested_hardware_types=suggested_hardware_types)

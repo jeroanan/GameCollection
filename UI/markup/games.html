@@ -1,3 +1,20 @@
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
 <table class="table table-striped">
     <thead>
        <tr>
@@ -25,7 +42,13 @@
             <td>{{game.num_boxed}}</td>
             <td>{{game.num_manuals}}</td>
         </tr>
+		  {% else %}
+		  <tr>
+			 <td colspan="5"><p class="text-center">You have no games in your collection.</p></td>
+		  </tr>
         {% endfor %}
+		  
+		  
     </tbody>
 </table>
 <input type="hidden" id="gamesortfield" value="{{game_sort_field}}" />

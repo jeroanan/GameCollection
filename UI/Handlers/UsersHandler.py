@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+import UI.Handlers.AuthenticatedHandler as ah
 
 
-class UsersHandler(AuthenticatedHandler):
+class UsersHandler(ah.AuthenticatedHandler):
     # Handle requests for the users page
     
     def get_page(self, params):
@@ -26,3 +26,4 @@ class UsersHandler(AuthenticatedHandler):
         interactor = self.interactor_factory.create("GetUsersInteractor")
         users = interactor.execute()
         return self.renderer.render("users.html", title="User Management", users=list(users))
+

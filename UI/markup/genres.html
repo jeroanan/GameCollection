@@ -1,9 +1,31 @@
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
 {% extends 'master.html' %}
 
 {% block content %}
 <h2>{{title}}</h2>
 <h3>My Genres</h3>
+{% if genres|length ==1 %}
+<p>Showing 1 genre.
+{% else %}
 <p>Showing {{genres|length}} genres.</p>
+{% endif %}
 <table class="table table-striped">
   <thead>
     <tr>
@@ -13,16 +35,20 @@
     </tr>
   </thead>
   <tbody>
-    {%for genre in genres %}
+    {% for genre in genres %}
     <tr>
       <td>
         <a title="See all games for {{genre.description}}"
            href="/allgames?genre={{genre.name}}">{{genre.name}}</a>
       </td>
       <td>{{genre.description}}</td>
-      <td><a class="btn btn-default" href="/editgenre?genreid={{genre.id}}">Edit</button></td>
+      <td><a class="btn btn-default" href="/editgenre?genreid={{genre.id}}">Edit</a></td>
     </tr>
-    {%endfor%}
+    {% else %}
+	 <tr>
+		<td colspan="3"><p class="text-center">No genres.</p>
+	 </tr>
+    {% endfor %}
   </tbody>
 </table>
 
@@ -70,7 +96,7 @@
 		  </tr>
 		</thead>
 		<tbody>
-		  {%for genre in suggested_genres%}
+		  {% for genre in suggested_genres %}
 		  <tr>
 			 <td>{{genre.name}}</td>
 			 <td>{{genre.description}}</td>
@@ -80,7 +106,11 @@
 				</button>
 			 </td>
 		  </tr>
-		  {%endfor%}
+		  {% else %}
+		  <tr>
+			 <td colspan="3"><p class="text-center">No suggestions.</p>
+		  </tr>
+		  {% endfor %}
 		</tbody>
 	 </table>
   </div>

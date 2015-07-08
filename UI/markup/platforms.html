@@ -1,8 +1,31 @@
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
 {%extends 'master.html'%}
 {%block content%}
 <h1 class="page-header">{{title}}</h1>
 <h2 class="page-header">My Platforms</h2>
+
+{% if platforms|length == 1 %}
+<p>Showing 1 platform.</p>
+{% else %}
 <p>Showing {{platforms|length}} platforms.</p>
+{% endif %}
 <div class="row">
   <div class="col-sm-12">
 	 <table class="table table-striped">
@@ -14,17 +37,21 @@
         </tr>
       </thead>
       <tbody>
-        {%for platform in platforms%}
+        {% for platform in platforms %}
         <tr>
           <td>
             <a title="See all games for {{platform.description}}"
                href="/allgames?platform={{platform.name}}">{{platform.name}}</a>
           </td>
           <td>{{platform.description}}</td>
-          <td><a class="btn btn-default" href="/editplatform?platformid={{platform.id}}">Edit</button></td>
-        </tr>
-        {%endfor%}
-      </tbody>
+          <td><a class="btn btn-default" href="/editplatform?platformid={{platform.id}}">Edit</a></td>
+		  </tr>
+		  {% else %}
+		  <tr>
+			 <td colspan="3"><p class="text-center">No platforms</p></td>
+		  </tr>
+		  {% endfor %}
+		</tbody>
 	 </table>
   </div>
 </div>
@@ -78,7 +105,7 @@
 		  </tr>
 		</thead>
 		<tbody>
-		  {%for platform in suggested_platforms%}
+		  {% for platform in suggested_platforms %}
 		  <tr>
 			 <td>{{platform.name}}</td>
 			 <td>{{platform.description}}</td>
@@ -88,7 +115,11 @@
 				</button>
 			 </td>
 		  </tr>
-		  {%endfor%}
+		  {% else %}
+		  <tr>
+			 <td colspan="3"><p class="text-center">No suggestions</p></td>
+		  </tr>
+		  {% endfor %}
 		</tbody>
 	 </table>
   </div>
