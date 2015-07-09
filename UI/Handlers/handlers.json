@@ -37,6 +37,7 @@
 				"users": "UsersHandler",
 				"edituser": "EditUserHandler",
 				"updateuser": "UpdateUserHandler",
-				"deleteuser": "DeleteUserHandler"}
+				"deleteuser": "DeleteUserHandler",
+				"viewgame": "ViewGameHandler"}
 		  ]
 }

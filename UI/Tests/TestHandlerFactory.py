@@ -1,4 +1,4 @@
-# Copyright (c) David Wilson 2015x
+# Copyright (c) David Wilson 2015
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -61,6 +61,7 @@ from UI.Handlers.UpdateHardwareTypeHandler import UpdateHardwareTypeHandler
 from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.Handlers.UpdateUserHandler import UpdateUserHandler
 from UI.Handlers.UsersHandler import UsersHandler
+from UI.Handlers.ViewGameHandler import ViewGameHandler
 from UI.TemplateRenderer import TemplateRenderer
 
 
@@ -119,7 +120,8 @@ class TestHandlerFactory(unittest.TestCase):
             "updatehardwaretype": UpdateHardwareTypeHandler,
             "updateplatform": UpdatePlatformHandler,
             "updateuser": UpdateUserHandler,
-            "users": UsersHandler
+            "users": UsersHandler,
+            "viewgame": ViewGameHandler
         }
 
         list(map(lambda m: self.assertIsInstance(self.__target.create(m), mappings[m]), mappings))
