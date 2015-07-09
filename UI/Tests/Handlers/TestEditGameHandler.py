@@ -63,9 +63,6 @@ class TestEditGameHandler(unittest.TestCase):
         self.__platforms = [p.Platform()]
         self.__genres = [ge.Genre()]
         self.__renderer = Mock(tr.TemplateRenderer)
-        get_game_interactor = init_get_game_interactor()
-        get_platforms_interactor = init_get_platforms_interactor()
-        get_genres_interactor = init_genres_interactor()
         interactor_factory = init_interactor_factory()
         self.__target = get_target()
         self.__get_page = lambda: self.__target.get_page({"gameid": "game_id"})
