@@ -12,12 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Game import Game
-from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+import Game as g
+import Persistence.Exceptions.GameNotFoundException as gnfe
+import UI.Handlers.AuthenticatedHandler as ah
 
 
-class EditGameHandler(AuthenticatedHandler):
+class EditGameHandler(ah.AuthenticatedHandler):
     """Handles requests for the Edit Game page"""
     
     def get_page(self, args):
@@ -27,32 +27,28 @@ class EditGameHandler(AuthenticatedHandler):
         access the game then a "Game Not Found" message will display.
         """
         super().get_page(args)
+
+        interactor_get = lambda x: self.interactor_factory.create(x).execute()
+        platforms =  interactor_get("GetPlatformsInteractor")
+        genres = interactor_get("GetGenresInteractor")
+
+        def get_game(game_id):
+            get_game_interactor = self.interactor_factory.create("GetGameInteractor")
+            return get_game_interactor.execute(game_id=game_id, user_id=self.session.get_value("user_id"))
+
         game_found = True
-        game = Game()
-        try:
-            game = self.__get_game(args.get("gameid", ""))
-            page_title = self.__get_page_title(game)
-        except GameNotFoundException:
+        game = g.Game()
+        try:            
+            game = get_game(args.get("gameid", ""))            
+            page_title = "{title} ({platform})".format(title=game.title, platform=game.platform)
+        except gnfe.GameNotFoundException:
             game_found = False
             page_title = "Game Not Found"
 
-        platforms = self.__get_platforms()
-
         return self.renderer.render("editgame.html", game=game, title=page_title, 
                                     platforms=platforms, game_found=game_found, 
-                                    genres=self.__get_genres())
+                                    genres=genres)
 
-    def __get_game(self, game_id):
-        get_game_interactor = self.interactor_factory.create("GetGameInteractor")
-        return get_game_interactor.execute(game_id=game_id, user_id=self.session.get_value("user_id"))
+    
 
-    def __get_platforms(self):
-        platform_interactor = self.interactor_factory.create("GetPlatformsInteractor")
-        return platform_interactor.execute()
-
-    def __get_genres(self):
-        genre_interactor = self.interactor_factory.create("GetGenresInteractor")
-        return genre_interactor.execute()
-
-    def __get_page_title(self, game):
-        return "{title} ({platform})".format(title=game.title, platform=game.platform)
+    

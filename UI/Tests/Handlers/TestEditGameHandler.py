@@ -16,18 +16,17 @@ import cherrypy
 import unittest
 from unittest.mock import Mock
 
-from Game import Game
-from Genre import Genre
-from Interactors.GameInteractors import GetGameInteractor
-from Interactors.GenreInteractors import GetGenresInteractor
-from Interactors.PlatformInteractors import GetPlatformsInteractor
-from Interactors.InteractorFactory import InteractorFactory
-from Platform import Platform
-from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.Session.Session import Session
-from UI.Handlers.EditGameHandler import EditGameHandler
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.TemplateRenderer import TemplateRenderer
+import Game as g
+import Genre as ge
+import Interactors.GameInteractors as gi
+import Interactors.GenreInteractors as gei
+import Interactors.PlatformInteractors as pi
+import Interactors.InteractorFactory as factory
+import Platform as p
+import UI.Handlers.Session.Session as sess
+import UI.Handlers.EditGameHandler as egh
+import UI.Handlers.AuthenticatedHandler as ah
+import UI.TemplateRenderer as tr
 
 
 class TestEditGameHandler(unittest.TestCase):
@@ -35,39 +34,35 @@ class TestEditGameHandler(unittest.TestCase):
 
     def setUp(self):        
         """setUp function for all unit tests in this class"""
-        
-        def init_get_game_interactor():
-            i = Mock(GetGameInteractor)
-            i.execute = Mock(return_value=self.__game)
-            return i
-
-        def init_get_platforms_interactor():
-            i = Mock(GetPlatformsInteractor)
-            i.execute = Mock(return_value=self.__platforms)
-            return i
-
-        def init_genres_interactor():
-            i = Mock(GetGenresInteractor)
-            i.execute = Mock(return_value=self.__genres)
-            return i
-
         def init_interactor_factory():
-            get_interactor = lambda: [get_game_interactor, get_platforms_interactor, 
-                                      get_genres_interactor]
-            factory = Mock(InteractorFactory)
-            factory.create = Mock(side_effect=get_interactor())
-            return factory
+
+            def get_interactor(interactor_type):                
+                interactors = {"GetGameInteractor": (gi.GetGameInteractor, self.__game),
+                               "GetPlatformsInteractor": (pi.GetPlatformsInteractor, self.__platforms),
+                               "GetGenresInteractor": (gei.GetGenreInteractor, self.__genres)}
+
+                if interactor_type not in interactors: 
+                    return None
+
+                t, data = interactors[interactor_type]
+                i = Mock(t)
+                i.execute = Mock(return_value=data)
+                return i
+
+            f = Mock(factory.InteractorFactory)
+            f.create = Mock(side_effect=get_interactor)
+            return f
 
         def get_target():
-            target = EditGameHandler(interactor_factory, self.__renderer)
-            target.session = Mock(Session)
+            target = egh.EditGameHandler(interactor_factory, self.__renderer)
+            target.session = Mock(sess.Session)
             target.session.get_value = Mock(return_value="1234")
             return target
             
-        self.__game = Game.from_dict({"title": "Game", "platform": "Platform"})
-        self.__platforms = [Platform()]
-        self.__genres = [Genre()]
-        self.__renderer = Mock(TemplateRenderer)
+        self.__game = g.Game.from_dict({"title": "Game", "platform": "Platform"})
+        self.__platforms = [p.Platform()]
+        self.__genres = [ge.Genre()]
+        self.__renderer = Mock(tr.TemplateRenderer)
         get_game_interactor = init_get_game_interactor()
         get_platforms_interactor = init_get_platforms_interactor()
         get_genres_interactor = init_genres_interactor()
@@ -78,7 +73,7 @@ class TestEditGameHandler(unittest.TestCase):
 
     def test_is_instance_of_authenticated_handler(self):
         """Test that EditGameHandler is derived from AuthenticatedHandler"""
-        self.assertIsInstance(self.__target, AuthenticatedHandler)
+        self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
     def test_calls_renderer(self):
         """Test that calling EditGameHandler.get_page causes renderer.render to be called correctly"""
