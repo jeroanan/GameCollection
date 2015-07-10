@@ -31,7 +31,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
         {% for game in games %}
         <tr>
             <td>
-                <a title="View game details" href="/editgame?gameid={{game.id}}" class="linkbutton">{{game.title}}</a>
+                <a title="View game details" href="/viewgame?id={{game.id}}" class="linkbutton">{{game.title}}</a>
             </td>
             <td>
                 <a title="See all games for {{game.platform}}" href="/allgames?platform={{game.platform}}">

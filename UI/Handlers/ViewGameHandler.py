@@ -27,5 +27,5 @@ class ViewGameHandler(ah.AuthenticatedHandler):
         """
         super().get_page(params)        
         interactor = self.interactor_factory.create("GetGameInteractor")
-        game = interactor.execute(g.Game.from_dict(params), self.session.get_value("user_id"))
+        game = interactor.execute(g.Game.from_dict(params).id, self.session.get_value("user_id"))
         return self.renderer.render("viewgame.html", title=game.title, game=game)
