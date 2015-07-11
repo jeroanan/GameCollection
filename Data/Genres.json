@@ -108,6 +108,18 @@
     {
       "name": "Board Game",
       "description": "Board Game"
-    }
+    },
+	 { 
+		"name": "Beat 'Em Up",
+		"description": "Beat 'Em Up"
+	 },
+	 {
+		"name": "Flight combat simulator",
+		"description": "Flight combat simulator"
+	 },
+	 {
+		"name": "Wrestling",
+		"description": "Wrestling"
+	 }
   ]
 }

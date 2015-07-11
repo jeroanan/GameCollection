@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+import markdown
+
 import Game as g
 import UI.Handlers.AuthenticatedHandler as ah
 
@@ -28,4 +30,5 @@ class ViewGameHandler(ah.AuthenticatedHandler):
         super().get_page(params)        
         interactor = self.interactor_factory.create("GetGameInteractor")
         game = interactor.execute(g.Game.from_dict(params).id, self.session.get_value("user_id"))
+        game.notes = markdown.markdown(game.notes)
         return self.renderer.render("viewgame.html", title=game.title, game=game)

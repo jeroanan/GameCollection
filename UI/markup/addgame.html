@@ -6,14 +6,9 @@
     <form class="form-horizontal" role="form" method="post" action="" id="gameform">
 
         <div class="row">
-			 <div class="col-sm-5">
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input class="form-control" name="title" id="title" placeholder="Title" autofocus="autofocus"
-                     required="required" />
-            </div>
-			 </div>
-			 <div class="col-sm-2"></div>
+
+			 {{ column('5', text_field('title', 'Title', '', 'Title')) }}
+			 {{ column('2') }}
 
 			 <div class="col-sm-5">
 				<div class="form-group">
@@ -29,33 +24,14 @@
         </div>
 
         <div class="row">
-			 <div class="col-sm-2">
-            <div class="form-group">
-              <label for="numcopies">Copies</label>
-              <input name="numcopies" id="numcopies" type="number" class="form-control" value="1" min="0"
-                     required="required" />
-            </div>
-			 </div>
 
-          <div class="col-sm-1"></div>
-			 <div class="col-sm-2">
-            <div class="form-group">
-              <label for="numboxed">Boxes</label>
-              <input name="numboxed" id="numboxed" type="number" class="form-control" value="0" min="0"
-                     required="required">
-            </div>
-			 </div>
-			 
-          <div class="col-sm-1"></div>
+			 {{ column('2', number_field('numcopies', 'Copies', '1')) }}
+          {{ column('1') }}
+			 {{ column('2', number_field('numboxed', 'Boxes', '0')) }}			 
+          {{ column('1') }}
+			 {{ column('2', number_field('nummanuals', 'Manuals', '0')) }}
+			 {{ column('2') }}
 
-			 <div class="col-sm-2">
-				<div class="form-group">
-              <label for="nummanuals">Manuals</label>
-              <input name="nummanuals" id="nummanuals" type="number" class="form-control" value="0" min="0"
-							required="required">
-				</div>
-			 </div>
-			 <div class="col-sm-1"></div>
 			 <div class="col-sm-2">
              <div class="form-group">
                <label for="datepurchased">Date Purchased</label>
@@ -84,15 +60,8 @@
 			 </div>
 		  </div>
 		  
-        <div class="row">
-			 <div class="col-sm-12">
-            <div class="form-group">
-              <label for="notes">Notes</label>
-              <textarea id="notes" name="notes" class="form-control" rows="5"></textarea>
-            </div>
-			 </div>
-        </div>
-		  
+		  {{ row([column('12', notes(''))]) }}
+
         <div class="row">
           <div class="form-group col-sm-3">
             <input type="button" class="btn btn-primary" value="Save" onclick="saveGame();return false;" />

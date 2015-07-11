@@ -15,101 +15,78 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 #}
+
 {% extends 'master.html' %}
 
 {% block content %}
 <h1>{{title}}</h1>
 
+{% macro readonly_text_field(name, title, value) %}
+<div class="form-group">
+  <label for="{{ name }}">{{ title }}</label>
+  <span id="{{ name }}" name="{{ name }}" class="form-control">{{ value }}</span>
+</div>
+{% endmacro %}
+
 <form class="form-horizontal" method="post" role="form" action="updategame">
-             <div class="row">
-					<div class="col-sm-5">
-                 <div class="form-group">						 
-                   <label for="title">Title</label>
-                   <span id="title" name="title" class="form-control">{{game.title}}</span>
-                 </div>
-					</div>
-					
-					<div class="col-sm-2"></div>
-					<div class="col-sm-5">
-                 <div class="form-group">
-                   <label for="platform">Platform</label>
-						 <span name="platform" id="platform" class="form-control">{{game.platform}}</span>
-                 </div>
-					</div>
-             </div>
-
-             <div class="row">
-					<div class="col-sm-2">
-                 <div class="form-group">
-                   <label for="numcopies">Number of Copies</label>
-                   <span name="numcopies" id="numcopies" class="form-control">{{game.num_copies}}</span>
-                 </div>
-					</div>
-
-					<div class="col-sm-1"></div>
-					<div class="col-sm-2">
-                 <div class="form-group">
-                   <label for="numboxed">Boxes</label>
-                   <span name="numboxed" id="numboxed" class="form-control">{{game.num_boxed}}</span>
-                 </div>
-					</div>
-
-					<div class="col-sm-1"></div>				
-
-					<div class="col-sm-2">
-                 <div class="form-group">
-                   <label for="nummanuals">Manuals</label>
-                   <cpan name="nummanuals" id="nummanuals" class="form-control">{{game.num_manuals}}</span>
-                 </div>
-					</div>
-
-					<div class="col-sm-1"></div>
-             
-					  <div class="col-sm-2">
-						 <div class="form-group">
-                     <label for="datepurchased">Date Purchased</label>
-                     <span id="datepurchased" name="datepurchased" class="form-control">{{game.date_purchased}}</span>
-                     <div class="checkbox"><label>
-                         {% if game.approximate_date_purchased %}
-                         <input name="approximatepurchaseddate" id="approximatepurchaseddate"
-                                type="checkbox" checked="checked" readonly="true"/>
-                         {% else %}
-                         <input name="approximatepurchaseddate" id="approximatepurchaseddate" type="checkbox" 
-										  readonly="true" />
-                         {% endif %}
-                         Approximate date</label></div>
-						 </div>
-					  </div>
-             </div>
-
-				 <div class="row">
-					<div class="col-sm-4">
-					  <div class="form-group">
-						 <label for="genre">Genre</label>
-						 <span name="genre" id="genre" class="form-control">{{game.genre}}</span>
-					  </div>
-					</div>
-				 </div>
-
-             <div class="row">
-					<div class="col-sm-12">
-                 <div class="form-group">
-                   <label for="notes">Notes</label>
-                   <div id="notes" name="notes" class="form-control">{{game.notes}}</div>
-                 </div>
-					</div>
-             </div>
-
-             <div class="row">
-					<div class="col-sm-1">
-                 <a class="btn btn-primary" href="/editgame?gameid={{game.id}}">Edit</a>
-					</div>
-					<div class="col-sm-1">
-                 <input type="button" class="btn" value="Back" onclick="cancelEdit()" />
-					</div>
-					<div class="col-sm-10"></div>
-             </div>
-         </form>
-
+  {{ row([
+  column('5', readonly_text_field('title', 'Title', game.title)),					
+  column('2'),
+  column('5', readonly_text_field('platform', 'Platform', game.platform))
+  ]) }}
+  
+  <div class="row">
+	 {{ column('2', readonly_text_field('numcopies', 'Number of Copies', game.num_copies)) }}
+	 
+	 {{ column('1') }}
+	 
+	 {{ column('2', readonly_text_field('numboxed', 'Boxes', game.num_boxed)) }}
+	 
+	 {{ column('1') }}
+	 
+	 {{ column('2', readonly_text_field('nummanuals', 'Manuals', game.num_manuals)) }}
+	 
+	 {{ column('1') }}
+    
+	 <div class="col-sm-2">
+		<div class="form-group">
+        <label for="datepurchased">Date Purchased</label>
+        <span id="datepurchased" name="datepurchased" class="form-control">{{game.date_purchased}}</span>
+        <div class="checkbox"><label>
+            {% if game.approximate_date_purchased %}
+            <input name="approximatepurchaseddate" id="approximatepurchaseddate"
+                   type="checkbox" checked="checked" readonly="true"/>
+            {% else %}
+            <input name="approximatepurchaseddate" id="approximatepurchaseddate" type="checkbox" 
+						 readonly="true" />
+            {% endif %}
+            Approximate date</label></div>
+		</div>
+	 </div>
+  </div>
+  
+  {{ row([
+  column('4', readonly_text_field('genre', 'Genre', game.genre))
+  ]) }}
+  
+  <div class="row">
+	 <div class="col-sm-12">
+      <div class="form-group">
+        <label for="notes">Notes</label>
+        <div id="notes" name="notes">{{game.notes}}</div>
+      </div>
+	 </div>
+  </div>
+  
+  <div class="row">
+	 <div class="col-sm-1">
+      <a class="btn btn-primary" href="/editgame?gameid={{game.id}}">Edit</a>
+	 </div>
+	 <div class="col-sm-1">
+      <input type="button" class="btn" value="Back" onclick="cancelEdit()" />
+	 </div>
+	 <div class="col-sm-10"></div>
+  </div>
+</form>
 {% endblock %}
 

@@ -17,44 +17,46 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 #}
 
 {% extends 'master.html' %}
+
+{% macro show_all_link(count, uri, item_name, item_name_plural) %}
+
+  {% if count == 1 %}
+    <a class="pull-right" href="{{ uri }}">Show the {{ item_name }}...</a>
+  {% elif count > 0 %}
+    <a class="pull-right" href="{{ uri }}">Show all {{ count }} {{ item_name_plural }}...</a>
+  {% endif %}
+
+{% endmacro %}
+
+{% macro show_all_games_link() %}
+  {{ show_all_link(number_of_games, '/allgames', 'game', 'games') }}
+{% endmacro %}
+
+{% macro show_all_hardware_link() %}
+  {{ show_all_link(number_of_hardware, '/allhardware', 'item of hardware', 'items of hardware') }}
+{% endmacro %}
+
+{% macro template_div(class, template) %}
+<div class="{{ class }}">
+  {% include template %}
+</div>
+{% endmacro %}
+
 {% block content %}
-<h1>{{title}}</h1>
+
+<h1>{{ title }}</h1>
 <h2>Games</h2>
-<div class="row">
-  {% if number_of_games == 1 %}
-  <a class="pull-right" href="/allgames">Show the game...</a>
-  {% elif number_of_games > 0 %}
-  <a class="pull-right" href="/allgames">Show all {{number_of_games}} games...</a>
-  {% endif %}
-</div>
-<div class="row">
-  <div id="games">
-    {% include "games.html" %}
-  </div>
-  <input type="hidden" id="gamerows" value="10" />
-  {% if number_of_games == 1 %}
-  <a class="pull-right" href="/allgames">Show the game...</a>
-  {% elif number_of_games > 0 %}
-  <a class="pull-right" href="/allgames">Show all {{number_of_games}} games...</a>
-  {% endif %}
-</div>
+
+{{ row([show_all_games_link()]) }}
+{{ row([template_div('games', "games.html")]) }}
+{{ row([show_all_games_link()]) }}
+
 <h2>Hardware</h2>
 
-<div class="row">
-  {% if number_of_hardware == 1 %}
-  <a class="pull-right" href="/allhardware">Show the item of hardware...</a>
-  {% elif number_of_hardware > 0 %}
-  <a class="pull-right" href="/allhardware">Show all {{number_of_hardware}} items of hardware...</a>
-  {% endif %}
-</div>
-<div class="row">
-  <div id="hardware">
-    {% include "hardware.html" %}
-  </div>
-  {% if number_of_hardware == 1 %}
-  <a class="pull-right" href="/allhardware">Show the item of hardware...</a>
-  {% elif number_of_hardware > 0 %}
-  <a class="pull-right" href="/allhardware">Show all {{number_of_hardware}} items of hardware...</a>
-  {% endif %}
-</div>
+{{ row([show_all_hardware_link()]) }}
+{{ row([template_div('hardware', 'hardware.html')]) }}
+{{ row([show_all_hardware_link()]) }}
+
+<input type="hidden" id="gamerows" value="10" />
+
 {% endblock %}

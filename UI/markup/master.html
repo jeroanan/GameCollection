@@ -1,4 +1,42 @@
 <!DOCTYPE html>
+
+{% macro column(width, content) %}
+<div class="col-sm-{{ width }}">
+  {{ content }}
+</div>
+{% endmacro %}
+
+{% macro row(content) %}
+<div class="row">
+  {% for c in content %}
+  {{ c }}
+  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro generic_text_field(name, title, value, type, placeholder) %}
+<div class="form-group">						 
+  <label for="{{ name }}">{{ title }}</label>
+  <input type="{{ type }}" id="{{ name }}" name="{{ name }}" value="{{ value }}" class="form-control" 
+			 placeholder="{{ placeholder }}" />
+</div>
+{% endmacro %}
+
+{% macro text_field(name, title, value, placeholder) %}
+  {{ generic_text_field(name, title, value, 'text', placeholder) }}
+{% endmacro %}
+
+{% macro number_field(name, title, value) %}
+  {{ generic_text_field(name, title, value, 'number') }}
+{% endmacro %}
+
+{% macro notes(value) %}
+<div class="form-group">
+  <label for="notes">Notes</label>
+  <textarea class="form-control" id="notes" name="notes" rows="5">{{ value }}</textarea>
+</div>
+{% endmacro %}
+
 <html>
 <head lang="en">
     <meta charset="UTF-8">
