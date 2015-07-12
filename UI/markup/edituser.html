@@ -26,16 +26,15 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   {{ row([ column('12', text_field('userid', 'User ID', user.user_id))]) }}
   
   <div class="row">
-	 <div class="col-sm-1">
-		<button class="btn btn-primary" onclick="updateUser('{{user.id}}');return false;">Save</button>
-	 </div>
+	 {{ column('1', save_button('updateUser();return false;')) }}
 	 {{ column('1', cancel_button()) }}
 	 {{ column('9') }}
 	 {{ column('1', delete_button()) }}
   </div>
+  {{ id_field(user.id) }}
 </form>
 <div id="deleteConfirm" style="display: none;" class="text-danger">
   Really delete this user? Their game and hardware collection will also be deleted.
-  <a href="javascript:deleteUser('{{user.id}}');">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+  <a href="javascript:deleteUser();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
 </div>
 {% endblock %}

@@ -17,8 +17,8 @@
  *
  * @param {string} id The uuid of the user to be deleted
  */
-function deleteUser(id) {
-	 j = {"id": id};
+function deleteUser() {
+	 j = {"id": getIdJson().id};
 	 ajaxDelete(urls.deleteuser, j, urls.users);
 }
 
@@ -27,9 +27,9 @@ function deleteUser(id) {
  * 
  * @param id The uuid of the user to be updated
  */
-function updateUser(id) {
+function updateUser() {
 	 j  = {
-		  "id": id,
+		  "id": getIdJson().id,
 		  "userid": $('#userid').val() 
 	 };
 	 ajaxSave(urls.updateuser, j, urls.users);

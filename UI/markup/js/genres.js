@@ -35,8 +35,7 @@ function addNewGenre() {
 *
 * @param {string} id The uuid of the genre to be deleted
 */
-function deleteGenre(id) {
-	 //todo: id param unneeded
+function deleteGenre() {
 	 ajaxDelete(urls.deletegenre, getIdJson(), urls.genres);
 }
 

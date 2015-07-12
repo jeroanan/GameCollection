@@ -51,5 +51,5 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 			{{ delete_confirm('hardware', 'javascript:deleteHardware();') }}
 			{% endif %}
 			
-			<input type="hidden" name="id" id="id" value="{{hardware.id}}" />
+			{{ id_field(hardware.id) }}
 			{% endblock %}

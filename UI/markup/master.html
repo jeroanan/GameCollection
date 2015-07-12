@@ -103,7 +103,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 {% macro drop_down_selected(name, title, collection, selected_value) %}
   <div class="form-group">
     <label for="{{ name }}">{{ title }}</label>
-    <select name="{{ name }}" id="{{ platform }}" required="required" class="form-control">
+    <select name="{{ name }}" id="{{ name }}" required="required" class="form-control">
       {% for c in collection %}
         {% if c.name == selected_value %}
           <option value="{{ c.name }}" selected="selected">{{ c.name }}</option>
@@ -126,6 +126,10 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 	 Really delete this {{ item_name }}?
 	 <a href="{{ yes_script }}">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
   </div>
+{% endmacro %}
+
+{% macro id_field(value) %}
+  <input type="hidden" id="id" name="id" value="{{ value }}" />
 {% endmacro %}
 
 <html>

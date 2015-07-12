@@ -67,7 +67,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 	 column('9'),
 	 column('1', delete_button())
   ]) }}
-  <input type="hidden" id="id" name="id" value="{{game.id}}" />
+  {{ id_field(game.id) }}
 </form>
 
 {{ delete_confirm('game', 'javascript:deleteGame();') }}
