@@ -29,12 +29,12 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 	    column('5', text_field('description', 'Description', genre.description))
   ]) }}
 
-<div class="row">
-  {{ column('1', save_button('updateGenre();')) }}
-  {{ column('1', cancel_button()) }}
-  {{ column('9') }}
-  {{ column('1', delete_button()) }}
-</div>
+  {{ row([
+    column('1', save_button('updateGenre();')),
+    column('1', cancel_button()),
+    column('9'),
+    column('1', delete_button()),
+  ]) }}
 </form>
 
 <div style="display: none;" class="text-danger" id="deleteConfirm">
