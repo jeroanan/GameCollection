@@ -21,11 +21,9 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 <h1 class="page-header">{{title}}</h1>
 <h1 class="page-header">All Users</h2>
-{% if users|length == 1 %}
-<p>Showing 1 user.</p>
-{% else %}
-<p>Showing {{users|length}} users.</p>
-{% endif %}
+
+{{ list_counter(users|length, 'user', 'users') }}
+
 <div class="row">
   <table class="table table-striped">
 	   <thead>

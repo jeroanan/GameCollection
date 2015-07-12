@@ -42,7 +42,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 	 
 	 {{ column('2', readonly_text_field('numboxed', 'Boxes', game.num_boxed)) }}
 	 
-	 {{ column('1') }}
+	 {{ column('2') }}
 	 
 	 {{ column('2', readonly_text_field('nummanuals', 'Manuals', game.num_manuals)) }}
 	 
@@ -80,12 +80,12 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   
   <div class="row">
 	 <div class="col-sm-1">
-      <a class="btn btn-primary" href="/editgame?gameid={{game.id}}">Edit</a>
+		<div class="form-group">
+        <a class="btn btn-primary" href="/editgame?gameid={{game.id}}">Edit</a>
+		</div>
 	 </div>
-	 <div class="col-sm-1">
-      <input type="button" class="btn" value="Back" onclick="cancelEdit()" />
-	 </div>
-	 <div class="col-sm-10"></div>
+	 {{ column('1', cancel_button()) }}
+	 {{ column('10') }}x
   </div>
 </form>
 {% endblock %}

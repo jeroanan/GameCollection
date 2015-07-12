@@ -1,79 +1,50 @@
-{%extends 'master.html'%}
-{%block content%}
-{%include 'status.html'%}
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
+{% extends 'master.html' %}
+{% block content %}
+{% include 'status.html' %}
+
 <h1>{{title}}</h1>
-<form class="form-horizontal" role="form" method="post" action="savehardware">
+<form class="form-horizontal" role="form" method="post" action="savehardware">  
   
-  <div class="row">
-	 <div class="col-sm-5">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" name="name" autofocus="autofocus" placeholder="Name" required="required"
-               class="form-control" />
-      </div>
-	 </div>
-	 <div class="col-sm-2"></div>
-	 <div class="col-sm-5">
-      <div class="form-group">
-        <label for="platform">Platform</label>
-        <select id="platform" name="platform" required="required" class="form-control">
-          {% for platform in platforms %}
-          <option value="{{platform.name}}">{{platform.name}}</option>
-          {% endfor %}
-        </select>
-      </div>
-	 </div>
-  </div>
+  {{ row([
+	 column('5', text_field('name', 'Name', '', 'Name')),
+	 column('2'),
+	 column('5', drop_down('platform', 'Platform', platforms))
+  ]) }}
   
-  <div class="row">
-	 
-	 <div class="col-sm-5">
-		<div class="form-group">
-        <label for="hardwaretype">Hardware Type</label>
-		  <select name="hardwaretype" id="hardwaretype" class="form-control">
-			 {% for ht in hardware_types %}
-			 <option value="{{ht.name}}">{{ht.name}}</option>
-			 {% endfor %}
-		  </select>
-      </div>
-	 </div>
-	 
-	 <div class="col-sm-2"></div>
-	 
-	 <div class="col-sm-2">
-      <div class="form-group">
-		  <label for="numcopies">Number owned</label>
-		  <input name="numcopies" id="numcopies" type="number" class="form-control" value="1" min="0"
-               required="required" />
-      </div>
-	 </div>
-	 
-    <div class="col-sm-1"></div>
-	 
-	 <div class="col-sm-2">
-      <div class="form-group">
-		  <label for="numboxed">Number of Boxed items</label>
-		  <input name="numboxed" id="numboxed" type="number" class="form-control" value="0" min="0"
-               required="required" />
-      </div>
-	 </div>
-  </div>
+  {{ row([
+	 column('5', drop_down('hardwaretype', 'Hardware Type', hardware_types)),
+	 column('2'),
+	 column('2', number_field('numcopies', 'Number owned', '0')),
+	 column('1'),
+	 column('2', number_field('numboxed', 'Number of Boxed items', '0'))
+  ]) }}
   
-  <div class="row">
-	 <div class="col-sm-12">
-      <div class="form-group">
-		  <label for="notes">Notes</label>
-		  <textarea class="form-control" name="notes" id="notes" rows="5"></textarea>
-      </div>
-	 </div>
-  </div>
-  
-  <div class="row">				
-    <div class="form-group col-sm-12">
-      <input type="button" class="btn btn-primary" value="Save" onclick="addHardware();" />
-      <input type="button" class="btn" value="Cancel" onclick="cancelEdit()" />
-    </div>
-  </div>
+  {{ row([column('12', notes(''))]) }} 
+
+  {{ row([
+       column('1', save_button('addHardware(); return false;')),
+       column('1', cancel_button())
+  ]) }}
+
 </form>
-{%endblock%}
+
+{% endblock %}
 

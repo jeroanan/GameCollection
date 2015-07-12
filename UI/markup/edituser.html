@@ -1,3 +1,21 @@
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
 {% extends "master.html" %}
 {% block content %}
 
@@ -5,26 +23,15 @@
 <h1 class="page-header">{{title}}</h1>
 
 <form action="" role="form">
-  <div class="row">
-	 <div class="col-sm-12">
-		<div class="form-group">
-		  <label for="userid">User ID:</label>
-		  <input class="form-control" type="text" id="userid" name="userid" value="{{user.user_id}}" />
-		</div>
-	 </div>
-  </div>
+  {{ row([ column('12', text_field('userid', 'User ID', user.user_id))]) }}
   
   <div class="row">
 	 <div class="col-sm-1">
 		<button class="btn btn-primary" onclick="updateUser('{{user.id}}');return false;">Save</button>
 	 </div>
-	 <div class="col-sm-1">
-		<button class="btn" onclick="cancelEdit();">Cancel</button>
-	 </div>
-	 <div class="col-sm-9"></div>
-	 <div class="col-sm-1">
-		<button class="btn btn-danger" onclick="showDeleteConfirm();return false;">Delete</button>
-	 </div>
+	 {{ column('1', cancel_button()) }}
+	 {{ column('9') }}
+	 {{ column('1', delete_button()) }}
   </div>
 </form>
 <div id="deleteConfirm" style="display: none;" class="text-danger">

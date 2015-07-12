@@ -1,3 +1,21 @@
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
 <!DOCTYPE html>
 
 {% macro column(width, content) %}
@@ -35,6 +53,79 @@
   <label for="notes">Notes</label>
   <textarea class="form-control" id="notes" name="notes" rows="5">{{ value }}</textarea>
 </div>
+{% endmacro %}
+
+{% macro list_counter(count, single_item, plural_item) %}
+  {% if count == 1 %}
+  <p>Showing {{ count }} {{ single_item }}.
+  {% else %}
+  <p>Showing {{ count }} {{ plural_item }}.
+  {% endif %}
+{% endmacro %}
+
+{% macro name_description_table_header() %}
+
+  <thead>
+	 <tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th></th>
+	 </tr>
+  </thead>
+
+{% endmacro %}
+
+{% macro drop_down(name, title, collection) %}
+  <div class="form-group">
+    <label for="{{ name }}">{{ title }}</label>
+    <select id="{{ name }}" name="{{ name }}" required="required" class="form-control">
+		<option value="" />
+      {% for c in collection %}
+        <option value="{{ c.name }}">{{ c.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+{% endmacro %}
+
+
+{% macro save_button(script) %}
+  <div class="form-group">
+	 <input type="button" class="btn btn-primary" value="Save" onclick="{{ script }}" />
+  </div>   
+{% endmacro %}
+
+{% macro cancel_button(script) %}
+  <div class="form-group">
+    <input type="button" class="btn" value="Cancel" onclick="cancelEdit();" />
+  </div>
+{% endmacro %}
+
+{% macro drop_down_selected(name, title, collection, selected_value) %}
+  <div class="form-group">
+    <label for="{{ name }}">{{ title }}</label>
+    <select name="{{ name }}" id="{{ platform }}" required="required" class="form-control">
+      {% for c in collection %}
+        {% if c.name == selected_value %}
+          <option value="{{ c.name }}" selected="selected">{{ c.name }}</option>
+		  {% else %}
+          <option value="{{ c.name }}">{{ c.name }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+{% endmacro %}
+
+{% macro delete_button() %}
+  <div class="form-group">
+    <input type="button" class="btn btn-danger pull-right" value="Delete" onclick="showDeleteConfirm()"/>
+  </div>
+{% endmacro %}
+
+{% macro delete_confirm(item_name, yes_script) %}
+  <div id="deleteConfirm" style="display: none;" class="text-danger">
+	 Really delete this {{ item_name }}?
+	 <a href="{{ yes_script }}">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+  </div>
 {% endmacro %}
 
 <html>

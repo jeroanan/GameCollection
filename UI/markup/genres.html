@@ -19,21 +19,14 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 {% extends 'master.html' %}
 
 {% block content %}
+
 <h2>{{title}}</h2>
 <h3>My Genres</h3>
-{% if genres|length ==1 %}
-<p>Showing 1 genre.
-{% else %}
-<p>Showing {{genres|length}} genres.</p>
-{% endif %}
+
+{{ list_counter(genres|length, 'genre', 'genres') }}
+
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th></th>
-    </tr>
-  </thead>
+  {{ name_description_table_header() }}
   <tbody>
     {% for genre in genres %}
     <tr>
@@ -54,47 +47,28 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 <h2 class="page-header">Add Genre</h2>
 <form action="" method="post" role="form" class="form-horizontal">
-  <div class="row">
-	 
-	 <div class="col-sm-5">
-		<div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" required="required" placeholder="Name" class="form-control" />
-		</div>
-	 </div>
-    <div class="col-sm-2"></div>
-	 
-	 <div class="col-sm-5">
-		<div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description" placeholder="Description" class="form-control" />
-		</div>
-	 </div>
-  </div>
+ 
+  {{ row([
+	 column('5', text_field('name', 'Name', '', 'Name')),
+	 column('2'),
+	 column('5', text_field('description', 'Description', '', 'Description'))
+  ]) }}
+
   <div class="row">
     <div class="form-group col-sm-3">
-		<button class="btn btn-primary"
-              onclick="addNewGenre(); return false;">Add
-    </div>
+		<button class="btn btn-primary" onclick="addNewGenre(); return false;">Add</div>
   </div>
 </form>
 
 <h2 class="page-header">Suggested Genres</h2>
-{% if suggested_genres|length == 1 %}
-<p>1 suggestion</p>
-{%else%}
-<p>{{suggested_genres|length}} suggestions</p>
-{%endif%}
+
+{{ list_counter(suggested_genres|length, 'suggestion', 'suggestions') }}
+
 <div class="row">
   <div class="col-sm-12">
 	 <table class="table table-striped">
-		<thead>
-		  <tr>
-			 <th>Name</th>
-			 <th>Description</th>
-			 <th></th>
-		  </tr>
-		</thead>
+		{{ name_description_table_header() }}
+
 		<tbody>
 		  {% for genre in suggested_genres %}
 		  <tr>

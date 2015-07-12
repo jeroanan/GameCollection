@@ -1,3 +1,21 @@
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
 {% extends 'master.html' %}
 {% block content %}
 {% include 'status.html' %}
@@ -5,48 +23,23 @@
 <h1 class="page-header">{{title}}</h1>
 
 <form class="form-vertical" method="post" action="" role="form">
-  <div class="row">
-	 <div class="col-sm-5">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" value="{{hardware_type.name}}" class="form-control"
-               required="required" autofocus="autofocus" />
-      </div>
-	 </div>
-	 
-	 <div class="col-sm-2"></div>
-	 
-	 <div class="col-sm-5">
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description" class="form-control"
-               value="{{hardware_type.description}}" />
-        <input type="hidden" id="id" name="id" value="{{hardware_type.id}}" />
-      </div>
-    </div>
-  </div>
+
+  {{ row([
+    column('5', text_field('name', 'Name', hardware_type.name)),
+    column('2'),	 
+    column('5', text_field('description', 'Description', hardware_type.description))
+  ]) }}
   
-  <div class="row">
-	 <div class="col-sm-1">
-      <input type="button" class="btn btn-primary" value="Save" onclick="updateHardwareType();" />
-	 </div>
-	 <div class="col-sm-1">
-      <input type="button" class="btn" value="Cancel" onclick="cancelEditHardwareType()" />
-	 </div>
-	 <div class="col-sm-9"></div>
-	 <div class="col-sm-1">
-      <input type="button" class="btn btn-danger" value="Delete" onclick="showDeleteConfirm()"/>
-	 </div>
-	 
-  </div>
-  <div class="row">
-	 <div class="form-group">
-		<div id="deleteConfirm" style="display: none;" class="text-danger">
-		  Really delete this hardware type?
-		  <a href="javascript:deleteHardwareType();">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
-		</div>
-	 </div>
-  </div>
+  {{ row([
+   column('1', save_button('updateHardwareType();')),
+	  column('1', cancel_button()),
+	  column('9'),
+     column('1', delete_button())    
+  ]) }}
+
+  {{ row([
+	 delete_confirm('hardware type', 'javascript:deleteHardwareType();')
+  ]) }}
 </form>
 
 

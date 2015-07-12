@@ -16,26 +16,18 @@ You should have received a copy of the GNU General Public License
 along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 #}
 
-{%extends 'master.html'%}
-{%block content%}
+{% extends 'master.html' %}
+{% block content %}
+
 <h1 class="page-header">{{title}}</h1>
 <h2 class="page-header">My Platforms</h2>
 
-{% if platforms|length == 1 %}
-<p>Showing 1 platform.</p>
-{% else %}
-<p>Showing {{platforms|length}} platforms.</p>
-{% endif %}
+{{ list_counter(platforms|length, 'platform', 'platforms') }}
+
 <div class="row">
   <div class="col-sm-12">
 	 <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th></th>
-        </tr>
-      </thead>
+     {{ name_description_table_header() }}
       <tbody>
         {% for platform in platforms %}
         <tr>
@@ -58,24 +50,12 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 <h2 class="page-header">Add Platform</h2>
 <form action="" method="post" role="form" class="form-horizontal">
-  <div class="row">
-	 
-	 <div class="col-sm-5">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required="required" placeholder="Name" 
-					class="form-control" />
-      </div>
-	 </div>
-    <div class="col-sm-2"></div>
-	 <div class="col-sm-5">
-		<div class="form-group">
-		  <label for="description">Description</label>
-		  <input type="text" id="description" name="description" placeholder="Description" 
-					class="form-control" />
-		</div>
-	 </div>
-  </div>
+
+  {{ row([
+	 column('5', text_field('name', 'Name', '', 'Name')),
+    column('2'),
+	 column('5', text_field('description', 'Description', '', 'Description'))
+  ]) }}
   
   <div class="row">
 	 <div class="col-sm-12">
@@ -89,21 +69,13 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 
 <h2 class="page-header">Suggested Platforms</h2>
-{% if suggested_platforms|length == 1 %}
-<p>1 suggestion</p>
-{% else %}
-<p>{{suggested_platforms|length}} suggestions</p>
-{% endif %}
+
+{{ list_counter(suggested_platforms|length, 'suggestion', 'suggestions') }}
+
 <div class="row">
   <div class="col-sm-12">
 	 <table class="table table-striped">
-		<thead>
-		  <tr>
-			 <th>Name</th>
-			 <th>Description</th>
-			 <th></th>
-		  </tr>
-		</thead>
+		{{ name_description_table_header() }}
 		<tbody>
 		  {% for platform in suggested_platforms %}
 		  <tr>

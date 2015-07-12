@@ -1,30 +1,37 @@
-{%extends 'master.html'%}
-{%block content%}
+{#
+Copyright (c) 2015 David Wilson
+This file is part of Icarus.
+
+Icarus is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Icarus is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
+#}
+
+{% extends 'master.html' %}
+
+{% block content %}
+{% include 'status.html' %}
+
     <h1>{{title}}</h1>
 
-    {% include 'status.html' %}
     <form class="form-horizontal" role="form" method="post" action="" id="gameform">
 
-        <div class="row">
-
-			 {{ column('5', text_field('title', 'Title', '', 'Title')) }}
-			 {{ column('2') }}
-
-			 <div class="col-sm-5">
-				<div class="form-group">
-              <label for="platform">Platform</label>
-				  
-              <select class="form-control" id="platform" name="platform" required="required">
-                {% for platform in platforms %}
-                <option value="{{platform.name}}">{{platform.name}}</option>
-                {% endfor %}
-              </select>
-            </div>
-			 </div>
-        </div>
+        {{ row([
+			 column('5', text_field('title', 'Title', '', 'Title')),
+			 column('2'),
+			 column('5', drop_down('platform', 'Platform', platforms))
+		  ]) }}
 
         <div class="row">
-
 			 {{ column('2', number_field('numcopies', 'Copies', '1')) }}
           {{ column('1') }}
 			 {{ column('2', number_field('numboxed', 'Boxes', '0')) }}			 
@@ -46,29 +53,16 @@
 			 </div>
         </div>
 
-		  <div class="row">
-			 <div class="col-sm-4">
-				<div class="form-group">
-				  <label for="genre">Genre</label>
-				  <select name="genre" id="genre" class="form-control">
-					 <option value="" />
-					 {% for genre in genres %}
-					 <option value="{{genre.name}}">{{genre.name}}</option>
-					 {% endfor %}
-				  </select>
-				</div>
-			 </div>
-		  </div>
+		  {{ row([column('4', drop_down('genre', 'Genre', genres))]) }}		  
 		  
 		  {{ row([column('12', notes(''))]) }}
 
-        <div class="row">
-          <div class="form-group col-sm-3">
-            <input type="button" class="btn btn-primary" value="Save" onclick="saveGame();return false;" />
-            <input type="button" class="btn" value="Cancel" onclick="cancelEdit();" />
-          </div>
-        </div>
+        {{ row([
+		       column('1', save_button('saveGame(); return false;')),
+			    column('1', cancel_button()),
+		       column('10')		  
+		  ]) }}
+
     </form>
 
 	 {% endblock %}
-	 

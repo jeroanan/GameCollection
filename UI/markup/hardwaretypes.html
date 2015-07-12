@@ -23,21 +23,13 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 <h1>{{title}}</h1>
 
 <h2>My Hardware Types</h2>
-{% if hardware_types|length == 1 %}
-<p>Showing 1 hardware type.</p>
-{% else %}
-<p>Showing {{hardware_types|length}} hardware types.</p>
-{% endif %}
+
+{{ list_counter(hardware_types|length, 'hardware type', 'hardware types') }}
+
 <div class="row">
   <div class="col-xs-12">
 	 <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th></th>
-        </tr>
-      </thead>
+      {{ name_description_table_header() }}
       <tbody>
 		  {% for ht in hardware_types %}
 		  <tr>
@@ -56,24 +48,12 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 <h2>Add Hardware Type</h2>
 
 <form action="" method="post" role="form" class="form-horizontal">
-  <div class="row">
-	 
-	 <div class="col-xs-5">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required="required" placeholder="Name" 
-					class="form-control" />
-      </div>
-	 </div>
-    <div class="col-xs-2"></div>
-	 <div class="col-xs-5">
-		<div class="form-group">
-		  <label for="description">Description</label>
-		  <input type="text" id="description" name="description" placeholder="Description" 
-					class="form-control" />
-		</div>
-	 </div>
-  </div>
+
+  {{ row([
+	 column('5', text_field('name', 'Name', '', 'Name')),
+	 column('2'),
+	 column('5', text_field('description', 'Description', '','Description'))
+  ]) }}
   
   <div class="row">
 	 <div class="col-xs-12">
@@ -86,21 +66,13 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 </form>
 
 <h2>Suggested Hardware Types</h2>
-{%if suggested_hardware_types|length == 1 %}
-<p>{{suggested_hardware_types|length}} suggestion</p>
-{%else%}
-<p>{{suggested_hardware_types|length}} suggestions</p>
-{%endif%}
+
+{{ list_counter(suggested_hardware_types|length, 'suggestion', 'suggestions') }}
+
 <div class="row">
   <div class="col-xs-12">
 	 <table class="table table-striped">
-		<thead>
-		  <tr>
-			 <th>Name</th>
-			 <th>Description</th>
-			 <th></th>
-		  </tr>
-		</thead>
+		{{ name_description_table_header() }}
 		<tbody>
 		  {% for sht in suggested_hardware_types %}
 		  <tr>
