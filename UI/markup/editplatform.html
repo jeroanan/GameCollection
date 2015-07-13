@@ -37,4 +37,6 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   {{ id_field(platform.id) }}
 </form>
 {{ delete_confirm('platform', 'javascript:deletePlatform();') }}
+
+{{ script('/static/js/platforms.min.js') }}
 {% endblock %}

@@ -48,6 +48,10 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   {{ generic_text_field(name, title, value, 'number') }}
 {% endmacro %}
 
+{% macro password_field(name, title, placeholder) %}
+  {{ generic_text_field(name, title, '', 'password', placeholder) }}
+{% endmacro %}
+
 {% macro notes(value) %}
 <div class="form-group">
   <label for="notes">Notes</label>
@@ -130,6 +134,10 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 {% macro id_field(value) %}
   <input type="hidden" id="id" name="id" value="{{ value }}" />
+{% endmacro %}
+
+{% macro script(src) %}
+  <script type="text/javascript" src="{{ src }}"></script>
 {% endmacro %}
 
 <html>

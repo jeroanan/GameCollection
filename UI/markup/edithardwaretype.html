@@ -40,7 +40,8 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   {{ row([
 	 delete_confirm('hardware type', 'javascript:deleteHardwareType();')
   ]) }}
+  {{ id_field(hardware_type.id) }}
 </form>
 
-
+{{ script('/static/js/hardwaretypes.min.js') }}
 {% endblock %}
