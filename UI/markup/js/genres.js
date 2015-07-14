@@ -12,6 +12,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+
 var Genres = function(ajaxFunctions, urls) {
 	 this.ajaxFunctions = ajaxFunctions;
 	 this.urls = urls;
@@ -23,56 +24,76 @@ var Genres = function(ajaxFunctions, urls) {
 * @param {string} name The name of the new genre
 * @param {string} description The description of the new genre
 */
-Genres.prototype.addGenre = function(name, description) {
-	 this.ajaxFunctions.addNameDescription(this.urls.addgenre, name, description);
+Genres.prototype.addGenre = function(name, description) {	 
+
+	 var ajaxFunctions = null;
+
+	 if (this.ajaxFunctions === undefined) {
+		  ajaxFunctions =  new Ajax();
+	 } else {
+		  ajaxFunctions =  this.ajaxFunctions;
+	 }
+	 
+	 ajaxFunctions.addNameDescription(this.urls.addgenre, name, description);
 };
 
 /**
 *Add a genre.
 */
-Genres.prototype.addNewGenre = function(name, description) {
+Genres.prototype.addNewGenre = function() {
 	 this.ajaxFunctions.addNewNameDescription(this.addGenre);
 };
 
 /**
-* Delete a genre by id.
+* Delete a genre
 */
 Genres.prototype.deleteGenre = function() {
-	 this.ajaxFunctions.deleteGenre(this.urls.deletegenre, this.ajaxFunctions.getIdJson(), this.urls.genres);
+	 this.ajaxFunctions.ajaxDelete(this.urls.deletegenre, this.ajaxFunctions.getIdJson(), this.urls.genres);
 };
-
-Genres.prototype.updateGenre = function () {
-	 this.ajaxFunctions.updateNameDescription(urls.updategenre, urls.genres);
-};
-
-/**
-* Add a genre. This is done by calling script.js's addNameDescription function
-*
-* @param {string} name The name of the new genre
-* @param {string} description The description of the new genre
-*/
-function addGenre(name, description) {
-	 this.ajaxFunctions.addNameDescription(urls.addgenre, name, description);
-}
-
-
-/**
-*Add a genre. This is done by calling script.js's addNewNameDescription function
-*/
-function addNewGenre() {
-	 addNewNameDescription(addGenre);
-}
-
-/**
-* Delete a genre by id. This is done using ajax.
-*/
-function deleteGenre() {
-	 ajaxDelete(urls.deletegenre, getIdJson(), urls.genres);
-}
 
 /**
 * Update a genre
 */
-function updateGenre() {
-	 updateNameDescription(urls.updategenre, urls.genres);
-}
+Genres.prototype.updateGenre = function () {
+
+	 var ajaxFunctions = null;
+
+	 if (this.ajaxFunctions === undefined) {
+		  ajaxFunctions =  new Ajax();
+	 } else {
+		  ajaxFunctions = this.ajaxFunctions;
+	 }
+	 
+	 ajaxFunctions.updateNameDescription(urls.updategenre, urls.genres);
+};
+
+$(function () {	  
+	 var genres = new Genres(new Ajax(), urls);
+
+	 $('.addnewgenre').on('click', function () {		  		  
+		  genres.addNewGenre();
+		  document.location.reload();
+		  return false;
+	 });
+
+	 $('a.yesDelete').on('click', function(e) {
+		  e.preventDefault();
+		  genres.deleteGenre();
+		  return false;
+	 });		 
+	 
+	 $('button.addSuggestedGenre').on('click', function(e) {
+		  var index = e.currentTarget.attributes['data-index'].value;
+		  var genreName = $('td.genreName-' + index).text();
+		  var genreDescription = $('td.genreDescription-' + index).text();
+		  genres.addGenre(genreName, genreDescription);		  
+		  document.location.reload();
+		  return false;
+	 });
+
+	 $('input.saveButton').on('click', function(e) {
+		  e.preventDefault();
+		  genres.updateGenre();
+	 });
+});
+

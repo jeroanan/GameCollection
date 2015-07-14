@@ -30,7 +30,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   ]) }}
 
   {{ row([
-    column('1', save_button('updateGenre();')),
+    column('1', save_button()),
     column('1', cancel_button()),
     column('9'),
     column('1', delete_button()),
@@ -38,8 +38,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   {{ id_field(genre.id) }}
 </form>
 
-{{ delete_confirm('genre', 'javascript:deleteGenre();') }}
-{{ script('/static/js/genres.min.js') }}
+{{ delete_confirm('genre') }}
 
 {% endblock %}
 

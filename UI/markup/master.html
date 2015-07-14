@@ -94,7 +94,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 {% macro save_button(script) %}
   <div class="form-group">
-	 <input type="button" class="btn btn-primary" value="Save" onclick="{{ script }}" />
+	 <input type="button" class="btn btn-primary saveButton" value="Save" onclick="{{ script }}" />
   </div>   
 {% endmacro %}
 
@@ -128,7 +128,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 {% macro delete_confirm(item_name, yes_script) %}
   <div id="deleteConfirm" style="display: none;" class="text-danger">
 	 Really delete this {{ item_name }}?
-	 <a href="{{ yes_script }}">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
+	 <a href="{{ yes_script }}" class="yesDelete">Yes</a>&nbsp;|&nbsp;<a href="javascript:hideDeleteConfirm();">No</a>
   </div>
 {% endmacro %}
 

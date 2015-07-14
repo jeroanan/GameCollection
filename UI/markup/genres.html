@@ -56,7 +56,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
   <div class="row">
     <div class="form-group col-sm-3">
-		<button class="btn btn-primary" onclick="addNewGenre(); return false;">Add</button>
+		<button class="btn btn-primary addnewgenre">Add</button>
 	 </div>
   </div>
 </form>
@@ -73,12 +73,10 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 		<tbody>
 		  {% for genre in suggested_genres %}
 		  <tr>
-			 <td>{{genre.name}}</td>
-			 <td>{{genre.description}}</td>
+			 <td class="genreName-{{ loop.index }}">{{genre.name}}</td>
+			 <td class="genreDescription-{{ loop.index }}">{{genre.description}}</td>
 			 <td>
-				<button class="btn btn-success" onclick="addGenre('{{genre.name}}', '{{genre.description}}')">
-				  Add
-				</button>
+				<button class="btn btn-success addSuggestedGenre" data-index="{{ loop.index }}">Add</button>
 			 </td>
 		  </tr>
 		  {% else %}
@@ -90,5 +88,4 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 	 </table>
   </div>
 </div>
-{{ script('/static/js/genres.min.js') }}
 {% endblock %}

@@ -1,7 +1,7 @@
 var ajaxFunctions = function() {
 	 this.addNameDescriptionCalled = false;
 	 this.addNewNameDescriptionCalled = false;
-	 this.deleteGenreCalled = false;
+	 this.ajaxDeleteCalled = false;
 	 this.updateNameDescriptionCalled = false;
 };
 
@@ -9,8 +9,8 @@ ajaxFunctions.prototype.addNameDescription = function(url, name, descritption) {
 	 this.addNameDescriptionCalled = true;	 
 }
 
-ajaxFunctions.prototype.deleteGenre = function(url, name, descritption) {
-	 this.deleteGenreCalled = true;
+ajaxFunctions.prototype.ajaxDelete = function(url1, id, url2) {
+	 this.ajaxDeleteCalled = true;
 }
 
 ajaxFunctions.prototype.addNewNameDescription = function(f) {
@@ -44,7 +44,7 @@ QUnit.test('Test addNewGenre calls addNewNameDescription', function(assert) {
 
 QUnit.test('Test deleteGenre calls ajaxDelete', function(assert) {
 	 this.genres.deleteGenre();
-	 assert.equal(this.ajax.deleteGenreCalled, true);
+	 assert.equal(this.ajax.ajaxDeleteCalled, true);
 });
 
 QUnit.test('Test updateGenre calls updateNameDescription', function(assert) {
