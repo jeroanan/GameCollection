@@ -58,8 +58,8 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   <div class="row">
 	 <div class="col-xs-12">
       <div class="form-group">
-		  <button class="btn btn-primary" onclick="addNewHardwareType();return false;">Add</button>
-      </div>
+		  <button class="btn btn-primary addnewhardwaretype" onclick="addNewHardwareType();return false;">Add</button>
+      </div>nn
 	 </div>
 	 
   </div>
@@ -76,12 +76,10 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 		<tbody>
 		  {% for sht in suggested_hardware_types %}
 		  <tr>
-			 <td>{{sht.name}}</td>
-			 <td>{{sht.description}}</td>
+			 <td class="hardwareTypeName-{{ loop.index }}">{{sht.name}}</td>
+			 <td class="hardwareTypeDesription-{{ loop.index }}">{{sht.description}}</td>
 			 <td>
-				<button class="btn btn-success"
-						  onclick="addHardwareType('{{sht.name}}', '{{sht.description}}');return false;">Add
-				</button>
+				<button class="btn btn-success addsuggestedhardwaretype" data-index="{{ loop.index }}">Add</button>
 			 </td>
 		  </tr>
 		  {% else %}
@@ -94,5 +92,4 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   </div>
 </div>
 
-{{ script('/static/js/hardwaretypes.min.js') }}
 {% endblock %}

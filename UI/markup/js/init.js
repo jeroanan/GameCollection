@@ -13,7 +13,7 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 requirejs.config({
-	 urlArgs: "bust=20150714225951",
+	 urlArgs: "bust=20150715231046",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
@@ -32,12 +32,14 @@ require(['jquery'], function () {
 		  }
 		  
 		  if (urlContains('/genres') || urlContains('/editgenre')) {
-				console.log('moo');
 				require(['ajax'], function() {
 					 require(['genres.min']);
 				});
-		  } else {
-				console.log('oink');
+		  }
+		  if (urlContains('/hardwaretypes') || urlContains('/edithardwaretype')) {
+				require(['ajax'], function() {
+					 require(['hardwaretypes.min']);
+				});
 		  }
 	 });
 });

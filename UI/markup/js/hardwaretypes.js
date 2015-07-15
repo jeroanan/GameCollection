@@ -12,33 +12,71 @@
 // You should have received a copy of the GNU General Public License
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
-* Delete a hardware type. This is done by calling script.js's ajaxDelete function
-*/
-function deleteHardwareType() {
-	 ajaxDelete(urls.deletehardwaretype, getIdJson(), urls.hardwaretypes);
-}
+var HardwareTypes = function(ajaxFunctions, urls) {
+	 this.ajax = ajaxFunctions;
+	 this.urls = urls;
+};
 
 /**
-* Add a hardware type. This is done by calling script.js's addNameDescription function
+* Delete a hardware type.
+*/
+HardwareTypes.prototype.deleteHardwareType = function() {
+	 this.ajax.ajaxDelete(urls.deletehardwaretype,  this.ajax.getIdJson(), urls.hardwaretypes);
+};
+
+/**
+* Add a hardware type.
 *
 * @param {string} name the name of the new hardware type
 * @param {string} description of the new hardware type
 */
-function addHardwareType(name, description) {
-	 addNameDescription(urls.addhardwaretype, name, description);
-}
+HardwareTypes.prototype.addHardwareType = function(name, description) {
+	 ajax = this.ajax || new Ajax();
+	 ajax.addNameDescription(urls.addhardwaretype, name, description);
+};
 
 /**
-* Add a hardware type. This is done by calling script.js's addNewNameDescription function
+* Add a hardware type.
 */
-function addNewHardwareType() {
-	 addNewNameDescription(addHardwareType);
-}
+HardwareTypes.prototype.addNewHardwareType = function() {
+	 this.ajax.addNewNameDescription(this.addHardwareType);
+};
 
 /**
-* Update a hardware type. This is done by calling script.js's updateNameDescription function
+* Update a hardware type.
 */
-function updateHardwareType() {
-	 updateNameDescription(urls.updatehardwaretype, urls.hardwaretypes);
-}
+HardwareTypes.prototype.updateHardwareType = function() {
+	 this.ajax.updateNameDescription(urls.updatehardwaretype, urls.hardwaretypes);
+};
+
+$(function() {
+	 var hardwareTypes = new HardwareTypes(new Ajax(), urls);
+
+	 $('button.addnewhardwaretype').on('click', function(e) {		  
+	 	  hardwareTypes.addNewHardwareType();
+		  document.location.reload();
+	 	  return false;
+	 });
+
+	 $('a.yesDelete').on('click', function(e) {
+		  e.preventDefault();
+		  hardwareTypes.deleteHardwareType();
+		  return false;
+	 });
+
+	 $('input.saveButton').on('click', function(e) {
+		  e.preventDefault();
+		  hardwareTypes.updateHardwareType();
+		  return false;
+	 });
+
+	 $('button.addsuggestedhardwaretype').on('click', function(e) {
+		  e.preventDefault();
+		  var index = e.currentTarget.attributes['data-index'].value;
+		  var name = $('td.hardwareTypeName-' + index).text();
+		  var description = $('td.hardwareTypeDesription-' + index).text();
+		  hardwareTypes.addHardwareType(name, description);
+		  document.location.reload();
+		  return false;
+	 });
+});
