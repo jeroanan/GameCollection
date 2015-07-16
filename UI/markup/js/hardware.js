@@ -12,6 +12,35 @@
 // You should have received a copy of the GNU General Public License
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+var Hardware = function(ajax, urls) {
+	 this.ajax = ajax;
+	 this.urls = urls;
+};
+
+/**
+ * Get the details of the item of hardware currently being viewed.
+ * 
+ * @return {object} The details of the current item of hardware as an object.
+ */
+Hardware.prototype.getHardwareNoId = function() {
+	 return {
+        name: $("#name").val(),
+        platform: $("#platform").val(),
+        numcopies: $("#numcopies").val(),
+        numboxed: $("#numboxed").val(),
+        notes: $("#notes").val(),
+		  hardwaretype: $("#hardwaretype").val()		  
+    };
+};
+
+/**
+ * Delete the item of hardware being currently viewed. This is done using ajax and after the 
+ * item of hardware has been saved the user will be redirected to the All Hardware page.
+ */
+Hardware.prototype.deleteHardware = function() {
+	 this.ajax.ajaxDelete(urls.deletehardware, this.ajax.getIdJson(), urls.allhardware);
+};
+
 /**
  * Delete the item of hardware being currently viewed. This is done using ajax and after the 
  * item of hardware has been saved the user will be redirected to the All Hardware page.
