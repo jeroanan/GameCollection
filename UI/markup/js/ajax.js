@@ -129,3 +129,40 @@ Ajax.prototype.updateNameDescription = function(updateUri, successUri) {
 Ajax.prototype.getIdJson = function() {
 	 return { id: $("#id").val() };
 };
+
+
+/**
+ * Saves an item by calling url with data. If a successUri is provided then it is redirected to if the save succeeds.
+ *
+ * @param {string} url - The url to call in order to perform the save
+ * @param {object] data - The details of the items to be saved
+ * @param {string} successUri - The uri to be redirected to if the save succeeds
+*/
+Ajax.prototype.ajaxSave = function(url, data, successUri) {
+	 /**
+	  * Called when a save operation succeeds. A success message is displayed for a few seconds.
+	  * If successUri has a value then the uri it contains is then redirected to.
+	  */
+	 function saveSuccess() {
+		  showValidationSuccess("Save Successful");
+		  setTimeout(function() {
+				hideValidationSuccess();
+				if (successUri) navigate(successUri);
+		  }, 3000);
+	 }
+
+	 /**
+	  * Called when a save operation fails. Display a save failed message.
+	  */
+	 function saveError() {
+		  showValidationFailure("Save Failed!");
+	 }
+
+    $.ajax({
+		  type: 'post',
+        url: url,
+        data: data,
+        success: saveSuccess,
+        error: saveError
+    });
+};

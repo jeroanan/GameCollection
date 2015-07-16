@@ -12,25 +12,43 @@
 // You should have received a copy of the GNU General Public License
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+var Users = function(ajax, urls) {
+	 this.ajax = ajax;
+	 this.urls = urls;
+};
+
 /**
  * Delete a user
- *
- * @param {string} id The uuid of the user to be deleted
  */
-function deleteUser() {
-	 j = {"id": getIdJson().id};
-	 ajaxDelete(urls.deleteuser, j, urls.users);
-}
+Users.prototype.deleteUser = function() {
+	 var j = {"id": this.ajax.getIdJson().id};
+	 this.ajax.ajaxDelete(urls.deleteuser, j, urls.users);	 
+};
 
 /**
  * Update a user
- * 
- * @param id The uuid of the user to be updated
  */
-function updateUser() {
+Users.prototype.updateUser = function () {
 	 j  = {
-		  "id": getIdJson().id,
+		  "id": this.ajax.getIdJson().id,
 		  "userid": $('#userid').val() 
 	 };
-	 ajaxSave(urls.updateuser, j, urls.users);
-}
+	 this.ajax.ajaxSave(urls.updateuser, j, urls.users);
+};
+
+$(function() {
+
+	 var users = new Users(new Ajax(), urls);
+
+	 $('input.saveButton').on('click', function(e) {
+		  e.preventDefault();
+		  users.updateUser();
+		  return false;
+	 });
+
+	 $('a.yesDelete').on('click', function(e) {
+		  e.preventDefault();
+		  users.deleteUser();
+		  return false;
+	 });
+});

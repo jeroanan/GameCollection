@@ -13,7 +13,7 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 requirejs.config({
-	 urlArgs: "bust=20150716220413",
+	 urlArgs: "bust=20150716230516",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
@@ -31,20 +31,15 @@ require(['jquery'], function () {
 				return document.location.href.indexOf(str) > 0;
 		  }
 		  
-		  if (urlContains('/genres') || urlContains('/editgenre')) {
+		  function requireFeature(module) {
 				require(['ajax'], function() {
-					 require(['genres.min']);
+					 require([module + '.min']);
 				});
 		  }
-		  if (urlContains('/hardwaretypes') || urlContains('/edithardwaretype')) {
-				require(['ajax'], function() {
-					 require(['hardwaretypes.min']);
-				});
-		  }
-		  if (urlContains('/platforms')|| urlContains('/editplatform')) {
-				require(['ajax'], function() {
-					 require(['platforms.min']);
-				});
-		  }
+
+		  if (urlContains('/genres') || urlContains('/editgenre')) requireFeature('genres');
+		  if (urlContains('/hardwaretypes') || urlContains('/edithardwaretype')) requireFeature('hardwaretypes');
+		  if (urlContains('/platforms')|| urlContains('/editplatform')) requireFeature('platforms');
+		  if (urlContains('/edituser')) requireFeature('users');
 	 });
 });
