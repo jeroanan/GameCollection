@@ -19,6 +19,8 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 {% extends 'master.html' %}
 {% block content %}
 
+{% include 'status.html' %}
+
 <h1 class="page-header">{{title}}</h1>
 <h2 class="page-header">My Platforms</h2>
 
@@ -60,7 +62,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   <div class="row">
 	 <div class="col-sm-12">
       <div class="form-group">
-		  <button class="btn btn-primary" onclick="addNewPlatform();return false;">Add</button>
+		  <button class="btn btn-primary addnewplatform">Add</button>
       </div>
 	 </div>
 	 
@@ -79,12 +81,10 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 		<tbody>
 		  {% for platform in suggested_platforms %}
 		  <tr>
-			 <td>{{platform.name}}</td>
-			 <td>{{platform.description}}</td>
+			 <td class="suggestedplatformname-{{ loop.index }}">{{platform.name}}</td>
+			 <td class="suggestedplatformdescription-{{ loop.index }}">{{platform.description}}</td>
 			 <td>
-				<button class="btn btn-success"
-						  onclick="addPlatform('{{platform.name}}', '{{platform.description}}');">Add
-				</button>
+				<button class="btn btn-success addsuggestedplatform" data-index="{{ loop.index }}">Add</button>
 			 </td>
 		  </tr>
 		  {% else %}
@@ -96,7 +96,6 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 	 </table>
   </div>
 </div>
-{{ script('/static/js/platforms.min.js') }}
 {% endblock %}
 
 

@@ -29,14 +29,13 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   ]) }}
   
   {{ row([
-	 column('1', save_button('updatePlatform();')),
+	 column('1', save_button()),
 	 column('1', cancel_button()),
 	 column('9'),
 	 column('1', delete_button())
   ]) }}
   {{ id_field(platform.id) }}
 </form>
-{{ delete_confirm('platform', 'javascript:deletePlatform();') }}
+{{ delete_confirm('platform') }}
 
-{{ script('/static/js/platforms.min.js') }}
 {% endblock %}
