@@ -49,6 +49,17 @@ function deleteHardware() {
 	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
 }
 
+
+/**
+ * Add a new item of hardware. This is done using ajax and after the
+ * item of hardware has been saved the user will be redirected to the All Hardware page.
+ */
+Hardware.prototype.addHardware = function() {
+	 var j = this.getHardwareNoId();
+    if (!this.validateSaveHardware(j)) return;
+    this.ajax.ajaxSave(urls.savehardware, j, urls.allhardware);
+};
+
 /**
  * Add a new item of hardware. This is done using ajax and after the
  * item of hardware has been saved the user will be redirected to the All Hardware page.
@@ -58,6 +69,17 @@ function addHardware() {
     if (!validateSaveHardware(j)) return;
     ajaxSave(urls.savehardware, j, urls.allhardware);
 }
+
+/**
+ * Update an item of hardware. This is done using ajax and after the
+ * item of hardware has been saved the user will be redirected to the All Hardware page.
+ */
+Hardware.prototype.updateHardware = function() {
+	 var j = this.getHardwareNoId();
+	 j.id = this.ajax.getIdJson().id;
+    if (!this.validateSaveHardware(j)) return;
+    this.ajax.ajaxSave(urls.updatehardware, j, urls.allhardware);
+};
 
 /**
  * Update an item of hardware. This is done using ajax and after the
@@ -93,6 +115,25 @@ function getHardwareNoId()
  * @param {object} An object containing the details of the item of hardware from getHardwareNoId()
  * @return {bool} true if validation passes, otherwise false.
  */
+Hardware.prototype.validateSaveHardware = function(j) {
+    this.ajax.hideValidationFailure();
+
+    var failureText = "";
+    if (j.name === "") failureText = "Please enter a name";
+    if (j.numowned === "") failureText = this.ajax.appendText(failureText, "Please enter number owned");
+    if (j.numboxed === "") failureText = this.ajax.appendText(failureText, "Please enter number boxed");
+
+    var validationSuccessful = failureText === "";
+    if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
+    return validationSuccessful;
+};
+
+/**
+ * Validate that various required fields of the item of hardware have been provided.
+ *
+ * @param {object} An object containing the details of the item of hardware from getHardwareNoId()
+ * @return {bool} true if validation passes, otherwise false.
+ */
 function validateSaveHardware(j) {
     hideValidationFailure();
 
@@ -105,6 +146,29 @@ function validateSaveHardware(j) {
     if (!validationSuccessful) showValidationFailure(failureText);
     return validationSuccessful;
 }
+
+Hardware.prototype.sortHardware = function(field) {
+    var hdnSort = $('#hwsortfield');
+    var hdnDir = $('#hwsortdir');
+    var hdnRows = $('#gamerows');
+
+    var oldSortDir = hdnDir.val();
+    var newSortDir = "asc";
+    var numRows = hdnRows.val() === null ? 999999 : hdnRows.val();
+
+    if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
+
+    hdnSort.val(field);
+    hdnDir.val(newSortDir);
+	
+	 var loadData = {
+        field: field,
+        sortdir: newSortDir,
+        numrows: numRows
+    };
+
+	 this.ajax.loadAjax('#hardware', urls.sorthardware, loadData);
+};
 
 /**
  * Sort the list of items of hardware on screen.
@@ -124,10 +188,12 @@ function sortHardware(field) {
 
     hdnSort.val(field);
     hdnDir.val(newSortDir);
-
-    $("#hardware").load(urls.sorthardware, {
+	
+	 var loadData = {
         field: field,
         sortdir: newSortDir,
         numrows: numRows
-    });
+    };
+
+	 this.ajax.loadAjax('#hardware', urls.sorthardware, loadData);
 }

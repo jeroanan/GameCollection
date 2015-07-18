@@ -20,6 +20,7 @@ var Ajax = function() {
 	 this.ajaxDeleteCalled = false;
 	 this.updateNameDescriptionCalled = false;
 	 this.ajaxSaveCalled = false;
+	 this.loadAjaxCalled = false;
 };
 
 Ajax.prototype.addNameDescription = function(url, name, descritption) {
@@ -45,3 +46,13 @@ Ajax.prototype.ajaxSave = function(url, data, successUri) {
 Ajax.prototype.getIdJson = function () {
 	 return "id";
 }
+
+Ajax.prototype.hideValidationFailure = function() {};
+
+Ajax.prototype.showValidationFailure = function(failureText) {};
+
+Ajax.prototype.appendText = function(t, a) {};
+
+Ajax.prototype.loadAjax = function(i, u, d) {
+	 this.loadAjaxCalled = true;
+};

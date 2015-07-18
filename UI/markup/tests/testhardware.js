@@ -18,9 +18,31 @@ QUnit.module('hardware tests', {
 	 beforeEach: function() {
 		  this.ajax = new Ajax();
 		  this.hardware = new Hardware(this.ajax, urls);
+
+		  this.assertOperationCallsAjaxSave = function(operation, assert) {
+				this.hardware[operation]();
+				assert.ok(this.ajax.ajaxSaveCalled);
+		  };
+
+		  this.assertOperationDoesNotCallAjaxSave = function(operation, assert) {
+				this.hardware.validateSaveHardware = function(j) { return false };
+				this.hardware[operation]();
+				assert.notOk(this.ajax.ajaxSaveCalled);
+		  };
+
+		  this.assertValidateSaveHardwareReturnsFalseWithMissingField = function(fieldName, assert) {
+				var j = {
+					 'name': 'myname',
+					 'numowned': '1',
+					 'numboxed': '1'
+				};
+
+				j[fieldName] = '';
+
+				assert.notOk(this.hardware.validateSaveHardware(j));
+		  };
 	 }
 });
-
 
 QUnit.test('Test getHardwareNoId', function(assert) {
 
@@ -41,4 +63,47 @@ QUnit.test('Test getHardwareNoId', function(assert) {
 QUnit.test('Test deleteHardware', function(assert) {
 	 this.hardware.deleteHardware()
 	 assert.ok(this.ajax.ajaxDeleteCalled);
+});
+
+QUnit.test('Test addHardware calls ajaxSave if all is well', function(assert) {
+	 this.assertOperationCallsAjaxSave('addHardware', assert)
+});
+
+QUnit.test('Test addHardware does not call ajaxSave if validation fails', function(assert) {
+	 this.assertOperationDoesNotCallAjaxSave('addHardware', assert);
+});
+
+QUnit.test('Test updateHardware calls ajaxSave if all is well', function(assert) {
+	 this.assertOperationCallsAjaxSave('updateHardware', assert)
+});
+
+QUnit.test('Test updateHardware does not call ajaxSave if validation fails.', function(assert) {
+	 this.assertOperationDoesNotCallAjaxSave('updateHardware', assert);
+});
+
+QUnit.test('Test validateSaveHardware returns true if all required fields filled.', function(assert) {
+	 var j = {
+		  'name': 'myname',
+		  'numowned': '1',
+		  'numboxed': '1'
+	 };
+
+	 assert.ok(this.hardware.validateSaveHardware(j))
+});
+
+QUnit.test('Test validateSaveHardware returns false if name is missing.', function(assert) {
+	 this.assertValidateSaveHardwareReturnsFalseWithMissingField('name', assert);
+});
+
+QUnit.test('Test validateSaveHardware returns false if numowned is missing.', function(assert) {
+	 this.assertValidateSaveHardwareReturnsFalseWithMissingField('numowned', assert);
+});
+
+QUnit.test('Test validateSaveHardware returns false if numboxed is missing.', function(assert) {
+	 this.assertValidateSaveHardwareReturnsFalseWithMissingField('numboxed', assert);
+});
+
+QUnit.test('Test sortHardware', function(assert) {
+	 this.hardware.sortHardware('title');
+	 assert.ok(this.ajax.loadAjaxCalled)
 });
