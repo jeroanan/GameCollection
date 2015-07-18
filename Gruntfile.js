@@ -25,6 +25,7 @@ module.exports = function(grunt) {
 																	'UI/markup/js/urls.js', 'UI/markup/js/games.js', 
 																	'UI/markup/js/hardware.js', 'UI/markup/js/ajax.js'],
 
+						  'UI/markup/js/ajax.min.js': 'UI/markup/js/ajax.js',
 						  'UI/markup/js/genres.min.js': 'UI/markup/js/genres.js',
 						  'UI/markup/js/hardwaretypes.min.js': 'UI/markup/js/hardwaretypes.js',
 						  'UI/markup/js/platforms.min.js': 'UI/markup/js/platforms.js',

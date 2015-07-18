@@ -29,6 +29,10 @@ Ajax.prototype.sendAjax = function(uri, data, successFunc, errorFunc) {
 	 $.ajax();
 };
 
+Ajax.prototype.loadAjax = function(identifier, loadUrl, data) {
+	 $(identifier).load(loadUrl, data);
+};
+
 /**
  * Do an ajax call to the given url with a json object containing name and description.
  * 

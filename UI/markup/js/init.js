@@ -13,7 +13,7 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 requirejs.config({
-	 urlArgs: "bust=20150717233645",
+	 urlArgs: "bust=20150717234628",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
@@ -32,7 +32,7 @@ require(['jquery'], function () {
 		  }
 		  
 		  function requireFeature(module) {
-				require(['ajax'], function() {
+				require(['ajax.min'], function() {
 					 require([module + '.min']);
 				});
 		  }
