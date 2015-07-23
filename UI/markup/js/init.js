@@ -13,7 +13,7 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 requirejs.config({
-	 urlArgs: "bust=20150718234855",
+	 urlArgs: "bust=20150719072105",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
@@ -27,8 +27,8 @@ require(['jquery'], function () {
 	 require(['jqueryui', 'jquerycookie', 'bootstrap.min'], function () {
 		  require(['script.min']);
 
-		  function urlContains(str) {
-				return document.location.href.indexOf(str) > 0;
+		  function pageIsOneOf(pageList) {
+				return pageList.filter(function (x) { return x == document.location.pathname; }).length > 0;
 		  }
 		  
 		  function requireFeature(module) {
@@ -37,9 +37,10 @@ require(['jquery'], function () {
 				});
 		  }
 
-		  if (urlContains('/genres') || urlContains('/editgenre')) requireFeature('genres');
-		  if (urlContains('/hardwaretypes') || urlContains('/edithardwaretype')) requireFeature('hardwaretypes');
-		  if (urlContains('/platforms')|| urlContains('/editplatform')) requireFeature('platforms');
-		  if (urlContains('/edituser')) requireFeature('users');
+		  if (pageIsOneOf(['/genres', '/editgenre'])) requireFeature('genres');
+		  if (pageIsOneOf(['/hardwaretypes', '/edithardwaretype'])) requireFeature('hardwaretypes');
+		  if (pageIsOneOf(['/platforms', '/editplatform'])) requireFeature('platforms');
+		  if (pageIsOneOf(['/edituser'])) requireFeature('users');
+		  if (pageIsOneOf(['/', '/allhardware', '/edithardware']); requireFeature('hardware');
 	 });
 });

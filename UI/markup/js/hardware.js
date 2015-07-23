@@ -147,6 +147,11 @@ function validateSaveHardware(j) {
     return validationSuccessful;
 }
 
+/**
+ * Sort the list of items of hardware on screen.
+ *
+ * @param {field} The field to sort by
+ */
 Hardware.prototype.sortHardware = function(field) {
     var hdnSort = $('#hwsortfield');
     var hdnDir = $('#hwsortdir');

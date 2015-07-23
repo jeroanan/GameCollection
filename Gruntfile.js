@@ -29,7 +29,8 @@ module.exports = function(grunt) {
 						  'UI/markup/js/genres.min.js': 'UI/markup/js/genres.js',
 						  'UI/markup/js/hardwaretypes.min.js': 'UI/markup/js/hardwaretypes.js',
 						  'UI/markup/js/platforms.min.js': 'UI/markup/js/platforms.js',
-						  'UI/markup/js/users.min.js': 'UI/markup/js/users.js'
+						  'UI/markup/js/users.min.js': 'UI/markup/js/users.js',
+						  'UI/markup/js/hardware.min.js': 'UI/markup/js/hardware.js'
 					 }
 				}
 		  },
