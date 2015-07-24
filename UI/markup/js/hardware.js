@@ -42,15 +42,6 @@ Hardware.prototype.deleteHardware = function() {
 };
 
 /**
- * Delete the item of hardware being currently viewed. This is done using ajax and after the 
- * item of hardware has been saved the user will be redirected to the All Hardware page.
- */
-function deleteHardware() {
-	 ajaxDelete(urls.deletehardware, getIdJson(), urls.allhardware);
-}
-
-
-/**
  * Add a new item of hardware. This is done using ajax and after the
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
@@ -59,16 +50,6 @@ Hardware.prototype.addHardware = function() {
     if (!this.validateSaveHardware(j)) return;
     this.ajax.ajaxSave(urls.savehardware, j, urls.allhardware);
 };
-
-/**
- * Add a new item of hardware. This is done using ajax and after the
- * item of hardware has been saved the user will be redirected to the All Hardware page.
- */
-function addHardware() {
-    var j = getHardwareNoId();
-    if (!validateSaveHardware(j)) return;
-    ajaxSave(urls.savehardware, j, urls.allhardware);
-}
 
 /**
  * Update an item of hardware. This is done using ajax and after the
@@ -80,34 +61,6 @@ Hardware.prototype.updateHardware = function() {
     if (!this.validateSaveHardware(j)) return;
     this.ajax.ajaxSave(urls.updatehardware, j, urls.allhardware);
 };
-
-/**
- * Update an item of hardware. This is done using ajax and after the
- * item of hardware has been saved the user will be redirected to the All Hardware page.
- */
-function updateHardware() {
-    var j = getHardwareNoId();
-	 j.id = getIdJson().id;
-    if (!validateSaveHardware(j)) return;
-    ajaxSave(urls.updatehardware, j, urls.allhardware);
-}
-
-/**
- * Get the details of the item of hardware currently being viewed.
- * 
- * @return {object} The details of the current item of hardware as an object.
- */
-function getHardwareNoId() 
-{
-    return {
-        name: $("#name").val(),
-        platform: $("#platform").val(),
-        numcopies: $("#numcopies").val(),
-        numboxed: $("#numboxed").val(),
-        notes: $("#notes").val(),
-		  hardwaretype: $("#hardwaretype").val()		  
-    };
-}
 
 /**
  * Validate that various required fields of the item of hardware have been provided.
@@ -143,7 +96,7 @@ function validateSaveHardware(j) {
     if (j.numboxed === "") failureText = appendText(failureText, "Please enter number boxed");
 
     var validationSuccessful = failureText === "";
-    if (!validationSuccessful) showValidationFailure(failureText);
+    if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
     return validationSuccessful;
 }
 
@@ -172,33 +125,43 @@ Hardware.prototype.sortHardware = function(field) {
         numrows: numRows
     };
 
-	 this.ajax.loadAjax('#hardware', urls.sorthardware, loadData);
+	 this.ajax.loadAjax('#hardware', urls.sorthardware, loadData, this.initSorting);
 };
 
-/**
- * Sort the list of items of hardware on screen.
- *
- * @param {field} The field to sort by
- */
-function sortHardware(field) {
-    var hdnSort = $('#hwsortfield');
-    var hdnDir = $('#hwsortdir');
-    var hdnRows = $('#gamerows');
+Hardware.prototype.initSorting = function(hardware, status) {
+	 if (status!=='1') hardware = new Hardware(new Ajax(), urls);
 
-    var oldSortDir = hdnDir.val();
-    var newSortDir = "asc";
-    var numRows = hdnRows.val() === null ? 999999 : hdnRows.val();
+	 $('a.sorthardwarename').on('click', function(e) {
+	 	  hardware.sortHardware('name');
+	 });
 
-    if (hdnSort.val() == field) newSortDir = toggleSortDirection(oldSortDir);
+	 $('a.sorthardwareplatform').on('click', function(e) {
+	 	  hardware.sortHardware('platform');
+	 });
 
-    hdnSort.val(field);
-    hdnDir.val(newSortDir);
-	
-	 var loadData = {
-        field: field,
-        sortdir: newSortDir,
-        numrows: numRows
-    };
+	 $('a.sorthardwarenumowned').on('click', function(e) {
+	 	  hardware.sortHardware('numowned');
+	 });
+};
 
-	 this.ajax.loadAjax('#hardware', urls.sorthardware, loadData);
-}
+$(function() {
+	 var h = new Hardware(new Ajax(), urls);
+	 
+	 h.initSorting(h, '1');
+
+	 $('input.saveButton').on('click', function() {
+		  if (document.location.pathname === '/edithardware') {
+				h.updateHardware();
+		  }
+		  if (document.location.pathname === '/addhardware') {
+				h.addHardware();
+		  }
+	 });
+
+	 $('a.yesDelete').on('click', function(e) {
+		  e.preventDefault();
+		  h.deleteHardware();
+		  document.location = '/hardware';
+		  return false;
+	 });
+});

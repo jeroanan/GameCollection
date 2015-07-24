@@ -29,8 +29,8 @@ Ajax.prototype.sendAjax = function(uri, data, successFunc, errorFunc) {
 	 $.ajax();
 };
 
-Ajax.prototype.loadAjax = function(identifier, loadUrl, data) {
-	 $(identifier).load(loadUrl, data);
+Ajax.prototype.loadAjax = function(identifier, loadUrl, data, completeFunc) {
+	 $(identifier).load(loadUrl, data, completeFunc);
 };
 
 /**
@@ -162,9 +162,12 @@ Ajax.prototype.ajaxSave = function(url, data, successUri) {
 	  * If successUri has a value then the uri it contains is then redirected to.
 	  */
 	 function saveSuccess() {
-		  this.showValidationSuccess("Save Successful");
+		  var ajax = this;
+		  if (!this.showValidationSuccess) ajax = new Ajax();
+
+		  ajax.showValidationSuccess("Save Successful");
 		  setTimeout(function() {
-				this.hideValidationSuccess();
+				ajax.hideValidationSuccess();
 				if (successUri) navigate(successUri);
 		  }, 3000);
 	 }
@@ -206,7 +209,7 @@ Ajax.prototype.hideValidationSuccess = function() {
 	 this.hideValidationBox($("#success"));
 };
 
-Ajax.prototype.showValidationSuccess = function() {
+Ajax.prototype.showValidationSuccess = function(successText) {
 	 this.hideValidationFailure();
     this.showValidationMessage($("#success"), $("#successText"), successText);
 };

@@ -13,7 +13,7 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 requirejs.config({
-	 urlArgs: "bust=20150719072105",
+	 urlArgs: "bust=20150724211937",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
@@ -41,6 +41,6 @@ require(['jquery'], function () {
 		  if (pageIsOneOf(['/hardwaretypes', '/edithardwaretype'])) requireFeature('hardwaretypes');
 		  if (pageIsOneOf(['/platforms', '/editplatform'])) requireFeature('platforms');
 		  if (pageIsOneOf(['/edituser'])) requireFeature('users');
-		  if (pageIsOneOf(['/', '/allhardware', '/edithardware']); requireFeature('hardware');
+		  if (pageIsOneOf(['/', '/allhardware', '/edithardware', '/addhardware'])) requireFeature('hardware');
 	 });
 });
