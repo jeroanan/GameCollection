@@ -21,8 +21,8 @@ module.exports = function(grunt) {
 					 files: {
 						  'UI/markup/js/init.min.js': 'UI/markup/js/init.js',
 						  'UI/markup/js/script.min.js': ['UI/markup/js/script.js', 'UI/markup/js/validation.js',
-																	'UI/markup/js/login.js', 'UI/markup/js/editgame.js',
-																	'UI/markup/js/urls.js', 'UI/markup/js/games.js'],
+																	'UI/markup/js/login.js', 'UI/markup/js/urls.js', 
+																	'UI/markup/js/games.js'],
 
 						  'UI/markup/js/ajax.min.js': 'UI/markup/js/ajax.js',
 						  'UI/markup/js/genres.min.js': 'UI/markup/js/genres.js',
