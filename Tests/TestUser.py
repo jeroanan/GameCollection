@@ -14,7 +14,7 @@
 
 import unittest
 
-from User import User
+import User as u
 
 
 class TestUser(unittest.TestCase):
@@ -24,17 +24,24 @@ class TestUser(unittest.TestCase):
         d = {"userid": "user_id",
              "password": "pw",
              "id": "1234"}
-        u = User.from_dict(d)
-        self.assertEqual(d["userid"], u.user_id)
-        self.assertEqual(d["password"], u.password)
-        self.assertEqual(d["id"], u.id)
+        user = u.User.from_dict(d)
+        self.assertEqual(d["userid"], user.user_id)
+        self.assertEqual(d["password"], user.password)
+        self.assertEqual(d["id"], user.id)
 
     def test_from_mongo_result_does_mapping(self):
         """Mongo result maps to User object"""
         ud = {"_id": "id",
               "_User__user_id": "user_id",
               "_User__password": "password"}
-        u = User.from_mongo_result(ud)
-        self.assertEqual(ud["_id"], u.id)
-        self.assertEqual(ud["_User__user_id"], u.user_id)
-        self.assertEqual(ud["_User__password"], u.password)
+        user = u.User.from_mongo_result(ud)
+        self.assertEqual(ud["_id"], user.id)
+        self.assertEqual(ud["_User__user_id"], user.user_id)
+        self.assertEqual(ud["_User__password"], user.password)
+
+    def test_from_mongo_result_none_resultset_returns_default_field_values(self):
+        """Mongo result is None -- return User object with its default field values"""
+        user = u.User.from_mongo_result(None)
+        self.assertEqual(user.id, "")
+        self.assertEqual(user.user_id, "")
+        self.assertEqual(user.password, "")

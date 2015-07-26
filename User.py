@@ -85,6 +85,10 @@ class User(object):
                  Any keys missing from mongo_result will have their values left as default.
         """
         user = User()
+
+        if mongo_result is None:
+            return user
+
         user.id = mongo_result.get("_id", user.id)
         user.user_id = mongo_result.get("_User__user_id", user.user_id)
         user.password = mongo_result.get("_User__password", user.password)
