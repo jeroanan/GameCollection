@@ -18,9 +18,10 @@ var Ajax = function() {
 	 this.addNameDescriptionCalled = false;
 	 this.addNewNameDescriptionCalled = false;
 	 this.ajaxDeleteCalled = false;
-	 this.updateNameDescriptionCalled = false;
 	 this.ajaxSaveCalled = false;
+	 this.hideValidationFailureCalled = false;
 	 this.loadAjaxCalled = false;
+	 this.updateNameDescriptionCalled = false;
 };
 
 Ajax.prototype.addNameDescription = function(url, name, descritption) {
@@ -47,7 +48,9 @@ Ajax.prototype.getIdJson = function () {
 	 return "id";
 }
 
-Ajax.prototype.hideValidationFailure = function() {};
+Ajax.prototype.hideValidationFailure = function() {
+	 this.hideValidationFailureCalled = true;
+};
 
 Ajax.prototype.showValidationFailure = function(failureText) {};
 

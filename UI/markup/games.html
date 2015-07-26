@@ -18,11 +18,9 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 <table class="table table-striped">
     <thead>
        <tr>
-           <th><a title="Sort by game title" onclick="sortGames('title');" class="linkbutton">Title</a></th>
-           <th><a title="Sort by platform" onclick="sortGames('platform');" class="linkbutton">Platform</a></th>
-           <th>
-               <a title="Sort by number of copies" onclick="sortGames('numcopies');" class="linkbutton"># Copies</a>
-           </th>
+           <th><a title="Sort by game title" class="linkbutton sortgamestitle">Title</a></th>
+           <th><a title="Sort by platform" class="linkbutton sortgamesplatform">Platform</a></th>
+           <th><a title="Sort by number of copies" class="linkbutton sortgamesnumcopies"># Copies</a></th>
            <th># Boxed</th>
            <th># Manuals</th>
         </tr>
@@ -46,9 +44,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 		  <tr>
 			 <td colspan="5"><p class="text-center">You have no games in your collection.</p></td>
 		  </tr>
-        {% endfor %}
-		  
-		  
+        {% endfor %}		  
     </tbody>
 </table>
 <input type="hidden" id="gamesortfield" value="{{game_sort_field}}" />

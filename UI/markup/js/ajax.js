@@ -18,15 +18,13 @@ var Ajax = function() {
 Ajax.prototype.sendAjax = function(uri, data, successFunc, errorFunc) {
 
 	 var ajaxParams = {
-		  url: url,
-		  data: {"name": name,
-					"description": description}
-	 }
-
+		  url: uri,
+		  data: data
+	 };
 	 if (successFunc) ajaxParams.success = successFunc;
 	 if (errorFunc) ajaxParams.error = errorFunc;
-
-	 $.ajax();
+	 
+	 $.ajax(ajaxParams);
 };
 
 Ajax.prototype.loadAjax = function(identifier, loadUrl, data, completeFunc) {
@@ -62,7 +60,10 @@ Ajax.prototype.addNewNameDescription = function (f) {
  * @param {string} successUri the uri to redirect the user to when the deletion is successful
  */
 Ajax.prototype.ajaxDelete = function (url, data, successUri) {
-	 this.sendAjax(url, data, this.deletionSuccessful, this.deletionFailed);
+	 
+	 var ajax = this;
+	 if (!this.sendAjax) ajax = new Ajax();
+	 ajax.sendAjax(url, data, this.deletionSuccessful, this.deletionFailed);
 };
 
 /**
@@ -70,12 +71,18 @@ Ajax.prototype.ajaxDelete = function (url, data, successUri) {
  * seconds and then, if one has been provided, reidrects the user to the uri provided in
  * successUri
  */
- Ajax.prototype.deletionSuccessful = function(sucessUri) {
- 	 this.showValidationSuccess("Deletion successful");
- 	 setTimeout(function() {
- 		  this.hideValidationSuccess();				
- 		  if (successUri) navigate(successUri);
- 	 }, 3000);
+ Ajax.prototype.deletionSuccessful = function(successUri) {
+
+	  var ajax = this;
+
+	  if(!this.showValidationSuccess) ajax = new Ajax();
+
+ 	  ajax.showValidationSuccess("Deletion successful");
+	  
+ 	  setTimeout(function() {
+ 			ajax.hideValidationSuccess();				
+ 			if (successUri) navigate(successUri);
+ 	  }, 3000);
 };
 
 /**

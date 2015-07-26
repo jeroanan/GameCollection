@@ -26,15 +26,15 @@ class DeleteGameHandler(AuthenticatedHandler):
         """
         super().__init__(interactor_factory, renderer)
         self.__get_game = lambda args: Game.from_dict({"id": args.get("id", "")})
-
-    """Handles Game deletion requests.
-    This is really intended to be used as an ajax request rather than a webpage, so
-    it doesn't give much in the way of user feedback. If the user is not currently logged
-    in then it will redirect to the homepage.
-    :param args: A dictionary containing the key "gameid". gameid contains the uuid of the game to be deleted.
-    :returns: If gameid is not present in args then an empty string is returned. Else None is returned.
-    """
+    
     def get_page(self, args):
+        """Handles Game deletion requests.
+        This is really intended to be used as an ajax request rather than a webpage, so
+        it doesn't give much in the way of user feedback. If the user is not currently logged
+        in then it will redirect to the homepage.
+        :param args: A dictionary containing the key "gameid". gameid contains the uuid of the game to be deleted.
+        :returns: If gameid is not present in args then an empty string is returned. Else None is returned.
+        """
         super().get_page(args)
         if not self.validate_params(args, ["id"]):
             return ""
