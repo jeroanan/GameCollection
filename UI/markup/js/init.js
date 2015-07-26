@@ -13,7 +13,7 @@
 // along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 requirejs.config({
-	 urlArgs: "bust=20150726224133",
+	 urlArgs: "bust=20150726232612",
 	 baseUrl: '/static/js',
 	 paths: {
 		  jquery: ['https://code.jquery.com/jquery-2.1.4.min', 'jquery-2.1.4.min'],
@@ -37,10 +37,18 @@ require(['jquery'], function () {
 				});
 		  }
 
+		  function requireFailFeature(module) {
+				require(['ajax.min'], function() {
+					 require([module + '.min'], function() {
+						  require(['fail' + module + '.min']);
+					 });					 
+				});
+		  }
+
 		  if (pageIsOneOf(['/genres', '/editgenre'])) requireFeature('genres');
 		  if (pageIsOneOf(['/hardwaretypes', '/edithardwaretype'])) requireFeature('hardwaretypes');
 		  if (pageIsOneOf(['/platforms', '/editplatform'])) requireFeature('platforms');
-		  if (pageIsOneOf(['/edituser'])) requireFeature('users');
+		  if (pageIsOneOf(['/edituser'])) requireFailFeature('users');
 		  if (pageIsOneOf(['/', '/allhardware', '/edithardware', '/addhardware'])) requireFeature('hardware');
 		  if (pageIsOneOf(['/', '/allgames', '/editgame', '/addgame'])) requireFeature('games');
 		  if (pageIsOneOf(['/login'])) requireFeature('login');
