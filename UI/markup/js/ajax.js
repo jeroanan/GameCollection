@@ -19,12 +19,13 @@ Ajax.prototype.sendAjax = function(uri, data, successFunc, errorFunc) {
 
 	 var ajaxParams = {
 		  url: uri,
-		  data: data
+		  data: data,
+		  type: 'POST'
 	 };
 	 if (successFunc) ajaxParams.success = successFunc;
 	 if (errorFunc) ajaxParams.error = errorFunc;
 	 
-	 $.ajax(ajaxParams);
+	 return $.ajax(ajaxParams);
 };
 
 Ajax.prototype.loadAjax = function(identifier, loadUrl, data, completeFunc) {
@@ -220,3 +221,17 @@ Ajax.prototype.showValidationSuccess = function(successText) {
 	 this.hideValidationFailure();
     this.showValidationMessage($("#success"), $("#successText"), successText);
 };
+
+/**
+ * Sets the logged in as/logout text. The user id to display is retrieved from the user_id cookie.
+ */
+Ajax.prototype.setLoginText = function()
+{
+	 var userid = $.cookie("user_id");
+	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");	 
+};
+
+Ajax.prototype.hideValidationMessages = function() {
+	 this.hideValidationSuccess();
+	 this.hideValidationFailure();
+}

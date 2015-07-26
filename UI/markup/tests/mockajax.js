@@ -21,6 +21,8 @@ var Ajax = function() {
 	 this.ajaxSaveCalled = false;
 	 this.hideValidationFailureCalled = false;
 	 this.loadAjaxCalled = false;
+	 this.showValidationFailureCalled = false;
+	 this.showValidationSuccessCalled = false;
 	 this.updateNameDescriptionCalled = false;
 };
 
@@ -52,10 +54,18 @@ Ajax.prototype.hideValidationFailure = function() {
 	 this.hideValidationFailureCalled = true;
 };
 
-Ajax.prototype.showValidationFailure = function(failureText) {};
+Ajax.prototype.showValidationFailure = function(failureText) {
+	 this.showValidationFailureCalled = true;
+};
 
-Ajax.prototype.appendText = function(t, a) {};
+Ajax.prototype.showValidationSuccess = function(successText) {
+	 this.showValidationSuccessCalled = true;
+};
+
+Ajax.prototype.appendText = function(t, a) { };
 
 Ajax.prototype.loadAjax = function(i, u, d) {
 	 this.loadAjaxCalled = true;
 };
+
+Ajax.prototype.setLoginText = function() { };

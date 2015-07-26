@@ -23,7 +23,6 @@ var Games = function(ajax, urls) {
  * All Games page.
  */
 Games.prototype.deleteGame = function() {
-	 console.log(this.ajax.getIdJson());
 	 this.ajax.ajaxDelete(this.urls.deletegame, this.ajax.getIdJson(), this.urls.allgames);
 };
 
