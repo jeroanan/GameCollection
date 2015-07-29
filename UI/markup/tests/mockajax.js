@@ -22,7 +22,9 @@ var Ajax = function() {
 	 this.hideValidationFailureCalled = false;
 	 this.loadAjaxCalled = false;
 	 this.showValidationFailureCalled = false;
+	 this.showValidationFailureMessage = '';
 	 this.showValidationSuccessCalled = false;
+	 this.showValidationSuccessMessage = '';
 	 this.updateNameDescriptionCalled = false;
 };
 
@@ -55,10 +57,12 @@ Ajax.prototype.hideValidationFailure = function() {
 };
 
 Ajax.prototype.showValidationFailure = function(failureText) {
+	 this.showValidationFailureMessage = failureText;
 	 this.showValidationFailureCalled = true;
 };
 
 Ajax.prototype.showValidationSuccess = function(successText) {
+	 this.showValidationSuccessMessage = successText;
 	 this.showValidationSuccessCalled = true;
 };
 

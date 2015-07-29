@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
+import json
 import cherrypy
 
 from Cryptography.BCryptHashProvider import BCryptHashProvider
@@ -36,16 +37,17 @@ class SigninHandler(Handler):
         """
         self.check_session()
         self.check_cookies()
+
         if not self.validate_params(params, ["userid", "password"]):
-            return "False"
+            return json.dumps({'result': 'failed', 'message': 'failed_validation'})
 
         user = User.from_dict(params)
         success = self.__login_check(user)
 
-        if success:
+        if success.get('result', '') == 'ok':
             self.__do_login(user)
 
-        return str(success)        
+        return json.dumps(success)
 
     def __login_check(self, user):
         def get_login_interactor():
@@ -53,8 +55,13 @@ class SigninHandler(Handler):
             interactor.set_hash_provider(BCryptHashProvider())        
             return interactor
 
+        def login_status_to_json(login_status):
+            if login_status:
+                return {'result': 'ok', 'message': 'success'}
+            return {'result': 'failed', 'message': 'invalid'}
+
         login_interactor = get_login_interactor()
-        return login_interactor.execute(user)
+        return login_status_to_json(login_interactor.execute(user))
 
     def __do_login(self, user):
         def get_actual_user():

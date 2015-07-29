@@ -31,7 +31,8 @@ module.exports = function(grunt) {
 						  'UI/markup/js/failusers.min.js': 'UI/markup/js/failusers.js',
 						  'UI/markup/js/hardware.min.js': 'UI/markup/js/hardware.js',
 						  'UI/markup/js/games.min.js': 'UI/markup/js/games.js',
-						  'UI/markup/js/login.min.js': 'UI/markup/js/login.js'
+						  'UI/markup/js/login.min.js': 'UI/markup/js/login.js',
+						  'UI/markup/js/faillogin.min.js': 'UI/markup/js/faillogin.js'
 					 }
 				}
 		  },
