@@ -29,19 +29,39 @@ var Ajax = function() {
 };
 
 Ajax.prototype.addNameDescription = function(url, name, descritption) {
+	 var def = $.Deferred();
+
 	 this.addNameDescriptionCalled = true;	 
+
+	 def.resolve();
+	 return def;	 
 };
 
 Ajax.prototype.ajaxDelete = function(url1, id, url2) {
+	 var def = $.Deferred();
+
 	 this.ajaxDeleteCalled = true;
+
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.addNewNameDescription = function(f) {
+	 var def = new $.Deferred();
+	 
 	 this.addNewNameDescriptionCalled = true;
+
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.updateNameDescription = function(uri1, uri2) {
+	 var def = $.Deferred();
+
 	 this.updateNameDescriptionCalled = true;
+
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.ajaxSave = function(url, data, successUri) {

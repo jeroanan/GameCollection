@@ -24,29 +24,55 @@ var Platforms = function(ajax, urls) {
 * @param {string} description The description of the new platform
 */
 Platforms.prototype.addPlatform = function(name, description) {
+	 var def = $.Deferred();
+
 	 ajax = this.ajax || new Ajax();
-	 ajax.addNameDescription(urls.addplatform, name, description);
+	 ajax.addNameDescription(urls.addplatform, name, description)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+	 
+	 return def;
 };
 
 /**
 * Add a new platform by entering one manually.
 */
 Platforms.prototype.addNewPlatform = function () {
-	 this.ajax.addNewNameDescription(this.addPlatform);
+
+	 var def = $.Deferred();
+	 
+	 this.ajax.addNewNameDescription(this.addPlatform)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Delete a platform.
 */
 Platforms.prototype.deletePlatform = function() {
-	 this.ajax.ajaxDelete(urls.deleteplatform, this.ajax.getIdJson(), urls.platform);
+	 var def = $.Deferred();
+	 
+	 this.ajax.ajaxDelete(urls.deleteplatform, this.ajax.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Update a platform.
 */
 Platforms.prototype.updatePlatform = function() {
-	 this.ajax.updateNameDescription(urls.updateplatform, urls.platforms);
+
+	 var def = $.Deferred();
+	 
+	 this.ajax.updateNameDescription(urls.updateplatform)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 $(function() {
@@ -54,8 +80,10 @@ $(function() {
 
 	 $('button.addnewplatform').on('click', function(e) {
 		  e.preventDefault();
-		  platforms.addNewPlatform();
-		  document.location.reload();
+		  platforms.addNewPlatform()
+				.done(function() {
+					 document.location.reload();
+				});
 	 });
 
 	 $('button.addsuggestedplatform').on('click', function(e) {
@@ -71,14 +99,16 @@ $(function() {
 
 	 $('input.saveButton').on ('click', function(e) {
 		  e.preventDefault();
-		  platforms.updatePlatform();
+		  platforms.updatePlatform()
+				.done( function() { document.location = '/platforms'; });
 		  return false;
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
 		  e.preventDefault();
-		  platforms.deletePlatform();
-		  document.location = '/platforms';
+		  platforms.deletePlatform()
+				.done(function() { document.location = '/platforms'; });
+
 		  return false;
 	 });
 });

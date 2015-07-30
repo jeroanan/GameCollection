@@ -44,9 +44,16 @@ Games.prototype.updateGame = function() {
  * script.js's ajaxSave(). After saving the user is redirected to the All Games page.
  */
 Games.prototype.saveGame = function() {
+	 var def = new $.Deferred();
 	 var j = this.getGameNoId();
-    if (!this.validateSaveGame(j)) return;
-    this.ajax.ajaxSave(urls.savegame, j, urls.allgames);
+    if (!this.validateSaveGame(j)) {
+		  def.reject();		  
+	 }
+	 else {
+		  this.ajax.ajaxSave(urls.savegame, j);
+		  def.resolve();
+	 }
+	 return def;
 };
 
 /**
@@ -149,7 +156,9 @@ $(function() {
 				g.updateGame();
 		  }
 		  if (document.location.pathname == '/addgame') {
-				g.saveGame();
+				g.saveGame().done(function() {
+
+				});
 		  }
 	 });
 

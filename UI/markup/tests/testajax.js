@@ -20,11 +20,15 @@ QUnit.module('ajax tests', {
 	 }
 });
 
-
 QUnit.test('Test addNewNameDescription', function(assert) {
 
 	 var f = function(n, d) {
-		  if (n === expectedName && d == expectedDescription) functionCalled = true; 		  
+		  var def = $.Deferred();
+
+		  if (n === expectedName && d == expectedDescription) functionCalled = true; 
+
+		  def.resolve();
+		  return def;
 	 };
 	 
 	 var functionCalled = false;
@@ -39,7 +43,12 @@ QUnit.test('Test addNewNameDescription', function(assert) {
 QUnit.test('Test addNameDescription makes ajax request', function(assert) {
 
 	 this.ajax.sendAjax = function(u, d) {
+		  var def = $.Deferred();
+
 		  if (u === expectedUri && JSON.stringify(d) == JSON.stringify(expectedData)) sendAjaxCalled = true;
+		  
+		  def.resolve();
+		  return def;
 	 };
 
 	 var sendAjaxCalled = false;
@@ -58,7 +67,11 @@ QUnit.test('Test addNameDescription makes ajax request', function(assert) {
 QUnit.test('Test ajaxDelete', function(assert) {
 	 
 	 this.ajax.sendAjax = function(u, d) {
+		  var def = $.Deferred();
 		  if (u === expectedUri && JSON.stringify(d) == JSON.stringify(expectedData)) sendAjaxCalled = true;
+
+		  def.resolve();
+		  return def;
 	 };
 
 	 var expectedUri = '/deletesomething';
@@ -67,7 +80,7 @@ QUnit.test('Test ajaxDelete', function(assert) {
 	 };
 	 var sendAjaxCalled = false;
 
-	 this.ajax.ajaxDelete(expectedUri, expectedData, '/success');
+	 this.ajax.ajaxDelete(expectedUri, expectedData);
 	 assert.ok(sendAjaxCalled);
 });
 
@@ -165,7 +178,10 @@ QUnit.test('Test appendText returns two lines for second line', function(assert)
 
 QUnit.test('Test updateNameDescription calls ajaxSave if everything is well', function(assert) {
 	 this.ajax.ajaxSave = function(uri, j, successUri) {
+		  var d = $.Deferred();
 		  ajaxSaveCalled = true;
+		  d.resolve();
+		  return d;
 	 };
 
 	 var ajaxSaveCalled = false;

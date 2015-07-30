@@ -24,16 +24,14 @@ Login.prototype.login = function() {
 };
 
 Login.prototype.loginDone = function(data) {
-
 	 if (data.result === 'ok') {
 		  this.ajax.showValidationSuccess('Login successful.');
 		  this.ajax.setLoginText();
-	 } else if (data === false || (data.result === 'failed' && data.message === 'failed_validation')) {
+	 } else if (data.result === 'failed' && data.message === 'failed_validation') {
 		  this.ajax.showValidationFailure('Please enter user id and password.');
 	 } else if (data.result === 'failed' && data.message === 'invalid') {
 		  this.ajax.showValidationFailure('Invalid user id or password.');
 	 } else {
-		  console.log(data);
 		  this.ajax.showValidationFailure('Error while logging in.');
 	 }
 };
@@ -56,8 +54,8 @@ Login.prototype.newUserDone = function(data) {
 
 Login.prototype.loginPageAjax = function(url) {
     if (!this.validateLoginForm()) {
-		  var def = new $.Deferred();
-		  def.resolve(false);
+		  var def = new $.Deferxred();
+		  def.resolve(JSON.stringify({'result': 'failed', 'message': 'failed_validation'}));
 		  return def;
 	 }
 

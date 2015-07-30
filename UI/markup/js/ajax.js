@@ -16,6 +16,8 @@ var Ajax = function() {
 };
 
 Ajax.prototype.sendAjax = function(uri, data, successFunc, errorFunc) {
+	 
+	 var d = $.Deferred();
 
 	 var ajaxParams = {
 		  url: uri,
@@ -25,7 +27,15 @@ Ajax.prototype.sendAjax = function(uri, data, successFunc, errorFunc) {
 	 if (successFunc) ajaxParams.success = successFunc;
 	 if (errorFunc) ajaxParams.error = errorFunc;
 	 
-	 return $.ajax(ajaxParams);
+	 $.ajax(ajaxParams)
+		  .done(function (r) {
+				d.resolve(r); 
+		  })
+		  .fail(function(r) {
+				d.reject(r);
+		  });
+
+	 return d;
 };
 
 Ajax.prototype.loadAjax = function(identifier, loadUrl, data, completeFunc) {
@@ -40,8 +50,14 @@ Ajax.prototype.loadAjax = function(identifier, loadUrl, data, completeFunc) {
  * @param {string} description - The value of the description attribute in the passed object
  */
 Ajax.prototype.addNameDescription = function (uri, name, description) {
+	 var def = $.Deferred();
 	 var data = {"name": name,	"description": description}
-	 this.sendAjax(uri, data);
+
+	 this.sendAjax(uri, data)
+		  .done(function(r) { def.resolve(r) })
+		  .fail(function(r) { def.reject(r) });
+	 
+	 return def;
 };
 
 /**
@@ -50,7 +66,13 @@ Ajax.prototype.addNameDescription = function (uri, name, description) {
  * @param {function} f - The function to call
  */ 
 Ajax.prototype.addNewNameDescription = function (f) {
- 	 f($("#name").val(), $("#description").val());
+	 var def = $.Deferred();
+	 
+ 	 f($("#name").val(), $("#description").val())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
@@ -62,9 +84,14 @@ Ajax.prototype.addNewNameDescription = function (f) {
  */
 Ajax.prototype.ajaxDelete = function (url, data, successUri) {
 	 
+	 var def = $.Deferred();
 	 var ajax = this;
 	 if (!this.sendAjax) ajax = new Ajax();
-	 ajax.sendAjax(url, data, this.deletionSuccessful, this.deletionFailed);
+	 ajax.sendAjax(url, data, this.deletionSuccessful, this.deletionFailed)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+	 
+	 return def;
 };
 
 /**
@@ -143,9 +170,23 @@ Ajax.prototype.appendText =  function(t, a) {
  * @param {string} successUri - The uri to redirect the user to if the call to updateUri is successful
  */
 Ajax.prototype.updateNameDescription = function(updateUri, successUri) {
+	 var def = $.Deferred();
+	 
 	 var j = this.getIdNameDescriptionJson();
-    if (!this.validateSaveNameDescriptionJson(j)) return;
-    this.ajaxSave(updateUri, j, successUri);
+    if (this.validateSaveNameDescriptionJson(j)) {
+		  
+		  this.ajaxSave(updateUri, j)
+				.done(function(r) { 
+					 def.resolve(r);
+				})
+				.fail(function(r) {  
+					 def.reject(r);
+				});
+	 } else {
+		  def.reject();
+	 }
+
+	 return def;
 };
 
 /**
@@ -165,13 +206,19 @@ Ajax.prototype.getIdJson = function() {
  * @param {string} successUri - The uri to be redirected to if the save succeeds
 */
 Ajax.prototype.ajaxSave = function(url, data, successUri) {
+	 var def = $.Deferred();
+	 
+	 function getAjax() {
+		  if (!this.showValidationSuccess) return new Ajax();
+		  return this;
+	 }
+
 	 /**
 	  * Called when a save operation succeeds. A success message is displayed for a few seconds.
 	  * If successUri has a value then the uri it contains is then redirected to.
 	  */
 	 function saveSuccess() {
-		  var ajax = this;
-		  if (!this.showValidationSuccess) ajax = new Ajax();
+		  var ajax = getAjax();
 
 		  ajax.showValidationSuccess("Save Successful");
 		  setTimeout(function() {
@@ -184,16 +231,21 @@ Ajax.prototype.ajaxSave = function(url, data, successUri) {
 	  * Called when a save operation fails. Display a save failed message.
 	  */
 	 function saveError() {
-		  this.showValidationFailure("Save Failed!");
+		  var ajax = getAjax();
+		  ajax.showValidationFailure("Save Failed!");
 	 }
 
-    $.ajax({
-		  type: 'post',
-        url: url,
-        data: data,
-        success: saveSuccess,
-        error: saveError
-    });
+	 this.sendAjax(url, data)
+		  .done(function(r) {
+				saveSuccess()
+				def.resolve(r);
+		  })
+		  .fail(function(r) {
+				saveError();
+				def.reject(r);
+		  });
+
+	 return def;
 };
 
 Ajax.prototype.hideValidationBox = function(box) {
