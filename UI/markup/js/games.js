@@ -23,7 +23,14 @@ var Games = function(ajax, urls) {
  * All Games page.
  */
 Games.prototype.deleteGame = function() {
-	 this.ajax.ajaxDelete(this.urls.deletegame, this.ajax.getIdJson(), this.urls.allgames);
+
+	 var def = $.Deferred();
+
+	 this.ajax.ajaxDelete(this.urls.deletegame, this.ajax.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
@@ -32,11 +39,21 @@ Games.prototype.deleteGame = function() {
  * is redirected to the All Games page.
  */
 Games.prototype.updateGame = function() {
+
+	 var def = $.Deferred();
+
 	 var j = this.getGameNoId();
     j.id = this.ajax.getIdJson().id;
 
-    if (!this.validateSaveGame(j)) return;
-    this.ajax.ajaxSave(urls.updategame, j, urls.allgames);
+    if (this.validateSaveGame(j)) {
+		  this.ajax.ajaxSave(urls.updategame, j, urls.allgames)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); });
+	 } else {
+		  def.reject();
+	 }
+
+	 return def;
 };
 
 /**
@@ -45,14 +62,18 @@ Games.prototype.updateGame = function() {
  */
 Games.prototype.saveGame = function() {
 	 var def = new $.Deferred();
+
 	 var j = this.getGameNoId();
-    if (!this.validateSaveGame(j)) {
-		  def.reject();		  
+    if (this.validateSaveGame(j)) {
+		  this.ajax.ajaxSave(urls.savegame, j)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
 	 }
 	 else {
-		  this.ajax.ajaxSave(urls.savegame, j);
-		  def.resolve();
+		  def.reject();		  
+		  
 	 }
+
 	 return def;
 };
 
@@ -92,7 +113,9 @@ Games.prototype.validateSaveGame = function(j) {
 
 	 var validatedSuccessfully = failureText === "";
 
-    if (!validatedSuccessfully) this.ajax.showValidationFailure(failureText);
+    if (!validatedSuccessfully) {
+		  this.ajax.showValidationFailure(failureText);
+	 }
     return validatedSuccessfully;
 };
 
@@ -153,17 +176,19 @@ $(function() {
 
 	 $('input.saveButton').on('click', function() {
 		  if (document.location.pathname === '/editgame') {
-				g.updateGame();
+				g.updateGame()
+					 .done(function() { document.location = '/allgames'; });
 		  }
 		  if (document.location.pathname == '/addgame') {
 				g.saveGame().done(function() {
-
+					 document.location = '/allgames';
 				});
 		  }
-	 });
+	 }); 
 
 	 $('a.yesDelete').on('click', function(e) {
 		  e.preventDefault();
-		  g.deleteGame();
+		  g.deleteGame()
+				.done(function() { document.location = '/allgames'; });
 	 });
 });

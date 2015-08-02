@@ -21,7 +21,14 @@ var HardwareTypes = function(ajaxFunctions, urls) {
 * Delete a hardware type.
 */
 HardwareTypes.prototype.deleteHardwareType = function() {
-	 this.ajax.ajaxDelete(urls.deletehardwaretype,  this.ajax.getIdJson(), urls.hardwaretypes);
+
+	 var def = $.Deferred();
+
+	 this.ajax.ajaxDelete(urls.deletehardwaretype,  this.ajax.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+	 
+	 return def;
 };
 
 /**
@@ -31,42 +38,65 @@ HardwareTypes.prototype.deleteHardwareType = function() {
 * @param {string} description of the new hardware type
 */
 HardwareTypes.prototype.addHardwareType = function(name, description) {
-	 ajax = this.ajax || new Ajax();
-	 ajax.addNameDescription(urls.addhardwaretype, name, description);
+
+	 var def = $.Deferred();
+	 var ajax = this.ajax || new Ajax();
+
+	 ajax.addNameDescription(urls.addhardwaretype, name, description)
+		  .done(function(r) { def.resolve(r); } )
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Add a hardware type.
 */
 HardwareTypes.prototype.addNewHardwareType = function() {
-	 this.ajax.addNewNameDescription(this.addHardwareType);
+
+	 var def = $.Deferred();
+	 
+	 this.ajax.addNewNameDescription(this.addHardwareType)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Update a hardware type.
 */
 HardwareTypes.prototype.updateHardwareType = function() {
-	 this.ajax.updateNameDescription(urls.updatehardwaretype, urls.hardwaretypes);
+
+	 var def = $.Deferred();
+
+	 this.ajax.updateNameDescription(urls.updatehardwaretype)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+	 
+	 return def;
 };
 
 $(function() {
 	 var hardwareTypes = new HardwareTypes(new Ajax(), urls);
 
 	 $('button.addnewhardwaretype').on('click', function(e) {		  
-	 	  hardwareTypes.addNewHardwareType();
-		  document.location.reload();
+	 	  hardwareTypes.addNewHardwareType()
+				.done(function(r) { document.location.reload(); });
 	 	  return false;
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
 		  e.preventDefault();
-		  hardwareTypes.deleteHardwareType();
+		  hardwareTypes.deleteHardwareType()
+				.done(function(r) { document.location = urls.hardwaretypes; });
 		  return false;
 	 });
 
 	 $('input.saveButton').on('click', function(e) {
 		  e.preventDefault();
-		  hardwareTypes.updateHardwareType();
+		  hardwareTypes.updateHardwareType()
+				.done(function() { document.location = urls.hardwaretypes; });
 		  return false;
 	 });
 
@@ -75,8 +105,8 @@ $(function() {
 		  var index = e.currentTarget.attributes['data-index'].value;
 		  var name = $('td.hardwareTypeName-' + index).text();
 		  var description = $('td.hardwareTypeDesription-' + index).text();
-		  hardwareTypes.addHardwareType(name, description);
-		  document.location.reload();
+		  hardwareTypes.addHardwareType(name, description)
+				.done(function() { document.location.reload(); });
 		  return false;
 	 });
 });

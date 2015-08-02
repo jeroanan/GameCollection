@@ -26,29 +26,42 @@ var Genres = function(ajaxFunctions, urls) {
 */
 Genres.prototype.addGenre = function(name, description) {	 
 
-	 var ajaxFunctions = null;
-
-	 if (this.ajaxFunctions === undefined) {
-		  ajaxFunctions =  new Ajax();
-	 } else {
-		  ajaxFunctions =  this.ajaxFunctions;
-	 }
+	 var def = $.Deferred();
+	 var ajaxFunctions = this.ajaxFunctions || new Ajax();
 	 
-	 ajaxFunctions.addNameDescription(this.urls.addgenre, name, description);
+	 ajaxFunctions.addNameDescription(this.urls.addgenre, name, description)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 *Add a genre.
 */
 Genres.prototype.addNewGenre = function() {
-	 this.ajaxFunctions.addNewNameDescription(this.addGenre);
+
+	 var def = $.Deferred();
+	 
+	 this.ajaxFunctions.addNewNameDescription(this.addGenre)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Delete a genre
 */
 Genres.prototype.deleteGenre = function() {
-	 this.ajaxFunctions.ajaxDelete(this.urls.deletegenre, this.ajaxFunctions.getIdJson(), this.urls.genres);
+	 
+	 var def = $.Deferred();
+
+	 this.ajaxFunctions.ajaxDelete(this.urls.deletegenre, this.ajaxFunctions.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
@@ -56,29 +69,29 @@ Genres.prototype.deleteGenre = function() {
 */
 Genres.prototype.updateGenre = function () {
 
-	 var ajaxFunctions = null;
-
-	 if (this.ajaxFunctions === undefined) {
-		  ajaxFunctions =  new Ajax();
-	 } else {
-		  ajaxFunctions = this.ajaxFunctions;
-	 }
+	 var def = $.Deferred();
+	 var ajaxFunctions = this.ajaxFunctions || new Ajax();
 	 
-	 ajaxFunctions.updateNameDescription(urls.updategenre, urls.genres);
+	 ajaxFunctions.updateNameDescription(urls.updategenre)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 $(function () {	  
 	 var genres = new Genres(new Ajax(), urls);
 
 	 $('.addnewgenre').on('click', function () {		  		  
-		  genres.addNewGenre();
-		  document.location.reload();
+		  genres.addNewGenre()
+				.done(function() { document.location.reload(); });
 		  return false;
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
 		  e.preventDefault();
-		  genres.deleteGenre();
+		  genres.deleteGenre()
+				.done(function() { document.location = urls.genres; });
 		  return false;
 	 });		 
 	 
@@ -86,14 +99,15 @@ $(function () {
 		  var index = e.currentTarget.attributes['data-index'].value;
 		  var genreName = $('td.genreName-' + index).text();
 		  var genreDescription = $('td.genreDescription-' + index).text();
-		  genres.addGenre(genreName, genreDescription);		  
-		  document.location.reload();
+		  genres.addGenre(genreName, genreDescription)
+				.done(function() { document.location.reload(); });
 		  return false;
 	 });
 
 	 $('input.saveButton').on('click', function(e) {
 		  e.preventDefault();
-		  genres.updateGenre();
+		  genres.updateGenre()
+				.done(function() { document.location = urls.genres; });
 	 });
 });
 
