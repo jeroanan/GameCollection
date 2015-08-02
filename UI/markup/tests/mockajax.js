@@ -65,7 +65,12 @@ Ajax.prototype.updateNameDescription = function(uri1, uri2) {
 };
 
 Ajax.prototype.ajaxSave = function(url, data, successUri) {
+	 var def = $.Deferred();
+
 	 this.ajaxSaveCalled = true;
+	 
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.getIdJson = function () {

@@ -21,19 +21,32 @@ var Users = function(ajax, urls) {
  * Delete a user
  */
 Users.prototype.deleteUser = function() {
+	 var def = $.Deferred();
+
 	 var j = {"id": this.ajax.getIdJson().id};
-	 this.ajax.ajaxDelete(urls.deleteuser, j, urls.users);	 
+	 this.ajax.ajaxDelete(urls.deleteuser, j, urls.users)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
  * Update a user
  */
 Users.prototype.updateUser = function () {
+
+	 var def = $.Deferred();
+
 	 j  = {
 		  "id": this.ajax.getIdJson().id,
 		  "userid": $('#userid').val() 
 	 };
-	 this.ajax.ajaxSave(urls.updateuser, j, urls.users);
+	 this.ajax.ajaxSave(urls.updateuser, j)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+	 
+	 return def;
 };
 
 $(function() {
@@ -42,13 +55,15 @@ $(function() {
 
 	 $('input.saveButton').on('click', function(e) {
 		  e.preventDefault();
-		  users.updateUser();
+		  users.updateUser()
+				.done(function() { document.location = '/users'; });
 		  return false;
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
 		  e.preventDefault();
-		  users.deleteUser();
+		  users.deleteUser()
+			.done(function() { document.location = '/users'; });
 		  return false;
 	 });
 });
