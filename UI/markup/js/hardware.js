@@ -38,7 +38,14 @@ Hardware.prototype.getHardwareNoId = function() {
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
 Hardware.prototype.deleteHardware = function() {
-	 this.ajax.ajaxDelete(urls.deletehardware, this.ajax.getIdJson(), urls.allhardware);
+
+	 var def = $.Deferred();
+
+	 this.ajax.ajaxDelete(urls.deletehardware, this.ajax.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
@@ -46,9 +53,19 @@ Hardware.prototype.deleteHardware = function() {
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
 Hardware.prototype.addHardware = function() {
+	 var def = $.Deferred();
+
 	 var j = this.getHardwareNoId();
-    if (!this.validateSaveHardware(j)) return;
-    this.ajax.ajaxSave(urls.savehardware, j, urls.allhardware);
+
+    if (this.validateSaveHardware(j)) {
+		  this.ajax.ajaxSave(urls.savehardware, j)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); });		  
+	 } else {
+		  def.reject();
+	 }
+
+	 return def;
 };
 
 /**
@@ -56,10 +73,20 @@ Hardware.prototype.addHardware = function() {
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
 Hardware.prototype.updateHardware = function() {
+	 var def = $.Deferred();
+
 	 var j = this.getHardwareNoId();
 	 j.id = this.ajax.getIdJson().id;
-    if (!this.validateSaveHardware(j)) return;
-    this.ajax.ajaxSave(urls.updatehardware, j, urls.allhardware);
+
+    if (this.validateSaveHardware(j)) {
+		  this.ajax.ajaxSave(urls.updatehardware, j)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); });
+	 } else {
+		  def.reject();
+	 }
+
+	 return def;
 };
 
 /**
@@ -80,25 +107,6 @@ Hardware.prototype.validateSaveHardware = function(j) {
     if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
     return validationSuccessful;
 };
-
-/**
- * Validate that various required fields of the item of hardware have been provided.
- *
- * @param {object} An object containing the details of the item of hardware from getHardwareNoId()
- * @return {bool} true if validation passes, otherwise false.
- */
-function validateSaveHardware(j) {
-    hideValidationFailure();
-
-    var failureText = "";
-    if (j.name === "") failureText = "Please enter a name";
-    if (j.numowned === "") failureText = appendText(failureText, "Please enter number owned");
-    if (j.numboxed === "") failureText = appendText(failureText, "Please enter number boxed");
-
-    var validationSuccessful = failureText === "";
-    if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
-    return validationSuccessful;
-}
 
 /**
  * Sort the list of items of hardware on screen.
@@ -150,18 +158,20 @@ $(function() {
 	 h.initSorting(h, '1');
 
 	 $('input.saveButton').on('click', function() {
-		  if (document.location.pathname === '/edithardware') {
-				h.updateHardware();
+		  if (document.location.pathname === urls.edithardware) {
+				h.updateHardware()
+					 .done(function() { document.location = urls.allhardware; });
 		  }
-		  if (document.location.pathname === '/addhardware') {
-				h.addHardware();
+		  if (document.location.pathname === urls.addhardware) {
+				h.addHardware()
+					 .done(function() { document.location = urls.allhardware; });
 		  }
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
 		  e.preventDefault();
-		  h.deleteHardware();
-		  document.location = '/hardware';
+		  h.deleteHardware()
+				.done(function() { document.location = urls.allhardware; });
 		  return false;
 	 });
 });
