@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 				all: ['UI/markup/js/script.js', 'UI/markup/js/editgame.js', 'UI/markup/js/init.js',
 						'UI/markup/js/login.js', 'UI/markup/js/require/urls.js',	'UI/markup/js/validation.js',
 						'UI/markup/js/platforms.js', 'UI/markup/js/hardwaretypes.js', 'UI/markup/js/genres.js',
-						'UI/markup/js/games.js', 'UI/markup/js/hardware.js', 'UI/markup/js/users.js']
+						'UI/markup/js/games.js', 'UI/markup/js/hardware.js', 'UI/markup/js/users.js',
+						'UI/markup/js/ajax.js']
 		  },
 		  qunit: {
 				all: ['UI/markup/tests/**/*.html']

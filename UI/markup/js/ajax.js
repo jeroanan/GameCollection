@@ -51,11 +51,11 @@ Ajax.prototype.loadAjax = function(identifier, loadUrl, data, completeFunc) {
  */
 Ajax.prototype.addNameDescription = function (uri, name, description) {
 	 var def = $.Deferred();
-	 var data = {"name": name,	"description": description}
+	 var data = {"name": name,	"description": description};
 
 	 this.sendAjax(uri, data)
-		  .done(function(r) { def.resolve(r) })
-		  .fail(function(r) { def.reject(r) });
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
 	 
 	 return def;
 };
@@ -131,7 +131,7 @@ Ajax.prototype.getIdNameDescriptionJson = function() {
 		  name: $("#name").val(),
 		  description: $("#description").val()
 	 };
-}
+};
 
 /**
  * Validates that the name and description fields of the screen have been entered.
@@ -139,15 +139,17 @@ Ajax.prototype.getIdNameDescriptionJson = function() {
  * @param {object} j - An object returned from getIdNameDescriptionJson()
  * @return {bool} true if validation passes. false otherwise.
  */
-Ajax.prototype.validateSaveNameDescriptionJson = function(j) {		  
- 	 this.hideValidationFailure();
- 	 var failureText = "";
- 	 if (j.name === "") failureText = "Please enter a name";
-	 if (j.description === "") failureText = this.appendText(failureText, "Please enter a description");
-	 
-	 var validationSuccessful = failureText === "";
-	 if (!validationSuccessful) this.showValidationFailure(failureText);
-	 return validationSuccessful;
+Ajax.prototype.validateSaveNameDescriptionJson = function(j) {
+
+	 var fields = [];
+
+	 if (!j.name) fields.push('name');
+	 if (!j.description) fields.push('description');
+
+	 return {
+		  'result': fields.length === 0 ? 'ok': 'fail',
+		  'fields': fields
+	 };
 };
 
 /**
@@ -160,7 +162,7 @@ Ajax.prototype.validateSaveNameDescriptionJson = function(j) {
 Ajax.prototype.appendText =  function(t, a) {
     if (t !== "") t += "<br />";
     return t + a;
-}
+};
 
 /**
  * Call the given uri with the values of the id, name and description elements. If the uri is successful then redirect 
@@ -173,8 +175,10 @@ Ajax.prototype.updateNameDescription = function(updateUri, successUri) {
 	 var def = $.Deferred();
 	 
 	 var j = this.getIdNameDescriptionJson();
-    if (this.validateSaveNameDescriptionJson(j)) {
-		  
+
+	 var validationResult = this.validateSaveNameDescriptionJson(j);
+
+    if (validationResult.result === 'ok') {		  
 		  this.ajaxSave(updateUri, j)
 				.done(function(r) { 
 					 def.resolve(r);
@@ -183,7 +187,9 @@ Ajax.prototype.updateNameDescription = function(updateUri, successUri) {
 					 def.reject(r);
 				});
 	 } else {
-		  def.reject();
+		  def.reject({
+				'fields': validationResult.fields 
+		  });
 	 }
 
 	 return def;
@@ -237,7 +243,7 @@ Ajax.prototype.ajaxSave = function(url, data, successUri) {
 
 	 this.sendAjax(url, data)
 		  .done(function(r) {
-				saveSuccess()
+				saveSuccess();
 				def.resolve(r);
 		  })
 		  .fail(function(r) {
@@ -286,4 +292,17 @@ Ajax.prototype.setLoginText = function()
 Ajax.prototype.hideValidationMessages = function() {
 	 this.hideValidationSuccess();
 	 this.hideValidationFailure();
-}
+};
+
+Ajax.prototype.validateNameDescription = function(j)
+{
+	 var fields = [];
+
+	 if (!j.name || j.name.trim() === '') fields.push('name');
+	 if (!j.description || j.description.trim() === '') fields.push('description');
+
+	 return {
+		  'result': fields.length === 0 ? 'ok': 'fail',
+		  'fields': fields
+	 };
+};

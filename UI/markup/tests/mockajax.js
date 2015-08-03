@@ -98,3 +98,12 @@ Ajax.prototype.loadAjax = function(i, u, d) {
 };
 
 Ajax.prototype.setLoginText = function() { };
+
+Ajax.prototype.validateNameDescription = function(j) { 
+	 return {
+		  'result': 'ok',
+		  'fields': []
+	 };
+};
+
+Ajax.prototype.getIdNameDescriptionJson = function() { };

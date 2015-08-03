@@ -123,46 +123,51 @@ QUnit.test('Test getIdNameDescriptionJson', function(assert) {
 	 assert.deepEqual(result, expected);
 });
 
-QUnit.test('Test validateSaveNameDescriptionJson calls hideValidationFailure', function(assert) {
-
-	 this.ajax.hideValidationFailure = function() {
-		  hideValidationFailureCalled = true;
-	 };
-	 var hideValidationFailureCalled = false;
-
-	 this.ajax.validateSaveNameDescriptionJson({}); 
-	 
-	 assert.ok(hideValidationFailureCalled);
-});
-
-QUnit.test('Test validateSaveNameDescriptionJson with empty name returns false', function(assert) {
+QUnit.test('Test validateSaveNameDescriptionJson with missing name returns fail', function(assert) {
 	 var data = {
-		  'name': '',
 		  'description': $('#description').val()
 	 };
 
-	 assertValidateSaveNameDescritpoinJsonReturnsFalse(assert, this.ajax, data);
+	 var expected = {
+		  'result': 'fail',
+		  'fields': ['name']
+	 };
+
+	 var result = this.ajax.validateSaveNameDescriptionJson(data);
+
+	 assert.deepEqual(result, expected);
 });
 
-QUnit.test('Test validateSaveNameDescriptionJson with empty description returns false', function(assert) {
+QUnit.test('Test validateSaveNameDescriptionJson with missing description returns fail', function(assert) {
+	 var data = {
+		  'name': $('#name').val()
+	 };
+
+	 var expected = {
+		  'result': 'fail',
+		  'fields': ['description']
+	 };
+
+	 var result = this.ajax.validateSaveNameDescriptionJson(data);
+
+	 assert.deepEqual(result, expected);
+});
+
+QUnit.test('Test validateSaveNameDescriptionJson returns ok when all is well', function(assert) {
 	 var data = {
 		  'name': $('#name').val(),
-		  'description': ''
+		  'description': $('#description').val()
 	 };
-	 assertValidateSaveNameDescritpoinJsonReturnsFalse(assert, this.ajax, data);
+
+	 var expected = {
+		  'result': 'ok',
+		  'fields': []
+	 };
+
+	 var result = this.ajax.validateSaveNameDescriptionJson(data);
+
+	 assert.deepEqual(result, expected);
 });
-
-function assertValidateSaveNameDescritpoinJsonReturnsFalse(assert, ajax, data) {
-	 ajax.showValidationFailure = function(t) {
-		  showValidationFailureCalled = true;
-	 };
-	 var showValidationFailureCalled = false;
-
-	 var result = ajax.validateSaveNameDescriptionJson(data);
-
-	 assert.notOk(result);
-	 assert.ok(showValidationFailureCalled);
-}
 
 QUnit.test('Test appendText returns one line of text for first line', function(assert) {
 	 var expected = 'test'
@@ -176,38 +181,108 @@ QUnit.test('Test appendText returns two lines for second line', function(assert)
 	 assert.equal(result, expected);
 });
 
-QUnit.test('Test updateNameDescription calls ajaxSave if everything is well', function(assert) {
-	 this.ajax.ajaxSave = function(uri, j, successUri) {
-		  var d = $.Deferred();
-		  ajaxSaveCalled = true;
-		  d.resolve();
-		  return d;
-	 };
-
-	 var ajaxSaveCalled = false;
-	 this.ajax.updateNameDescription('/someuri', 'someotheruri');
-	 
-	 assert.ok(ajaxSaveCalled);
-});
-
-QUnit.test('Test updateNameDescription does not call ajaxSave if validation fails', function(assert) {
-	 this.ajax.ajaxSave = function(uri, j, successUri) {
-		  ajaxSaveCalled = true;
-	 };
-
-	 this.ajax.validateSaveNameDescriptionJson = function(j) {
-		  return false;
-	 };
-
-	 var ajaxSaveCalled = false;
-	 this.ajax.updateNameDescription('/someuri', 'someotheruri');
-	 
-	 assert.notOk(ajaxSaveCalled);
-});
-
 QUnit.test('Test getIdJson', function(assert) {	 
 	 var expected = 'myid';
 
 	 var result = this.ajax.getIdJson();
 	 assert.equal(result.id, expected);
+});
+
+QUnit.test('Test validateNameDescription fails with empty name', function(assert) {
+
+	 var j = {
+		  'name': '',
+		  'description': $('#description').val()
+	 };
+
+	 var expected = {
+		  'result': 'fail',
+		  'fields': ['name']
+	 };
+
+	 var result = this.ajax.validateNameDescription(j);
+	 assert.deepEqual(result, expected);
+	 
+});
+
+QUnit.test('Test validateNameDescription fails with missing name', function(assert) {
+
+	 var j = {
+		  'description': $('#description').val()
+	 };
+
+	 var expected = {
+		  'result': 'fail',
+		  'fields': ['name']
+	 };
+
+	 var result = this.ajax.validateNameDescription(j);
+	 assert.deepEqual(result, expected);
+	 
+});
+
+QUnit.test('Test validateNameDescription fails with empty description', function(assert) {
+
+	 var j = {
+		  'name': $('#name').val(),
+		  'description': ''
+	 };
+
+	 var expected = {
+		  'result': 'fail',
+		  'fields': ['description']
+	 };
+
+	 var result = this.ajax.validateNameDescription(j);
+	 assert.deepEqual(result, expected);
+	 
+});
+
+QUnit.test('Test validateNameDescription fails with missing description', function(assert) {
+
+	 var j = {
+		  'name': $('#name').val()
+	 };
+
+	 var expected = {
+		  'result': 'fail',
+		  'fields': ['description']
+	 };
+
+	 var result = this.ajax.validateNameDescription(j);
+	 assert.deepEqual(result, expected);
+	 
+});
+
+QUnit.test('Test validateNameDescription fails with empty description and name', function(assert) {
+
+	 var j = {
+		  'name': '',
+		  'description': ''
+	 };
+
+	 var expected = {
+		  'result': 'fail',
+		  'fields': ['name', 'description']
+	 };
+
+	 var result = this.ajax.validateNameDescription(j);
+	 assert.deepEqual(result, expected);
+	 
+});
+
+QUnit.test('Test validateNameDescription returns ok status when all is well', function(assert) {
+	
+	 var j = {
+		  'name': $('#name').val(),
+		  'description': $('#description').val()
+	 };
+	 
+	 var expected = {
+		  'result': 'ok',
+		  'fields': []
+	 };
+
+	 var result = this.ajax.validateNameDescription(j);
+	 assert.deepEqual(result, expected);
 });

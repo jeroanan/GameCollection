@@ -26,11 +26,23 @@ var Platforms = function(ajax, urls) {
 Platforms.prototype.addPlatform = function(name, description) {
 	 var def = $.Deferred();
 
-	 ajax = this.ajax || new Ajax();
-	 ajax.addNameDescription(urls.addplatform, name, description)
-		  .done(function(r) { def.resolve(r); })
-		  .fail(function(r) { def.reject(r); });
+	 var ajax = this.ajax || new Ajax();
+
+	 var nameDescription = {
+		  'name': name,
+		  'description': description
+	 };
+
+	 var validationResult = this.ajax.validateNameDescription(nameDescription);
 	 
+	 if (validationResult.result === 'fail') {
+		  def.reject(validationResult.fields);
+	 } else {
+		  ajax.addNameDescription(urls.addplatform, name, description)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); }); 
+	 }
+
 	 return def;
 };
 
@@ -40,10 +52,20 @@ Platforms.prototype.addPlatform = function(name, description) {
 Platforms.prototype.addNewPlatform = function () {
 
 	 var def = $.Deferred();
-	 
-	 this.ajax.addNewNameDescription(this.addPlatform)
-		  .done(function(r) { def.resolve(r); })
-		  .fail(function(r) { def.reject(r); });
+
+	 var nameDescription = {
+		  'name': $('#name').val(),
+		  'description': $('#description').val()
+	 };
+
+	 var validationResult = this.ajax.validateNameDescription(nameDescription);
+	 if (validationResult.result === 'fail') {
+		  def.reject(validationResult.fields);
+	 } else {
+		  this.ajax.addNewNameDescription(this.addPlatform)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); });	  
+	 }	 
 
 	 return def;
 };
@@ -76,13 +98,17 @@ Platforms.prototype.updatePlatform = function() {
 };
 
 $(function() {
-	 var platforms = new Platforms(new Ajax(), urls);
+	 var ajax = new Ajax();
+	 var platforms = new Platforms(ajax, urls);
 
 	 $('button.addnewplatform').on('click', function(e) {
 		  e.preventDefault();
 		  platforms.addNewPlatform()
 				.done(function() {
 					 document.location.reload();
+				})
+				.fail( function(r) {
+					 console.log(r);
 				});
 	 });
 
@@ -92,15 +118,36 @@ $(function() {
 		  var name = $('td.suggestedplatformname-' + index).text();
 		  var description = $('td.suggestedplatformdescription-' + index).text();
 		  
-		  platforms.addPlatform(name, description);
-		  document.location.reload();
+		  platforms.addPlatform(name, description)
+				.done(function() {
+					 document.location.reload();
+				})
+				.fail(function(r) {
+					 console.log(r);
+				});
 		  return false;
 	 });
 
 	 $('input.saveButton').on ('click', function(e) {
 		  e.preventDefault();
+
+		  ajax.hideValidationFailure();
+
 		  platforms.updatePlatform()
-				.done( function() { document.location = '/platforms'; });
+				.done(function() { 
+					 document.location = '/platforms'; 
+				})
+				.fail(function(r) { 
+					 if (r.fields) {
+						  var failureText = '';
+						  
+						  for (var f in r.fields) {
+								failureText = ajax.appendText(failureText, 'Please enter a platform ' + r.fields[f]);
+						  }
+
+						  ajax.showValidationFailure(failureText);
+					 }
+				});
 		  return false;
 	 });
 
