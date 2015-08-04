@@ -259,11 +259,11 @@ Ajax.prototype.hideValidationBox = function(box) {
 };
 
 Ajax.prototype.hideValidationFailure = function() {
-    this.hideValidationBox($("#failure"));
+    this.hideValidationBox($(".validation-failure"));
 };
 
 Ajax.prototype.showValidationFailure = function(failureText) {
-	 this.showValidationMessage($("#failure"), $("#failureText"), failureText);
+	 this.showValidationMessage($(".validation-failure"), $("#failureText"), failureText);
 };
 
 Ajax.prototype.showValidationMessage = function(box, boxTextCtrl, boxTextContent) {    

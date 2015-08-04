@@ -19,8 +19,6 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 {% extends 'master.html' %}
 {% block content %}
 
-{% include 'status.html' %}
-
 <h1 class="page-header">{{title}}</h1>
 <h2 class="page-header">My Platforms</h2>
 
@@ -51,7 +49,13 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 
 <h2 class="page-header">Add Platform</h2>
-<form action="" method="post" role="form" class="form-horizontal">
+
+<div id="add-platform-failure" class="row alert alert-danger validation-failure" style="display: none;" role="alert">
+    <span id="failureText"></span>
+    <a style="cursor: pointer;" onclick="new Ajax().hideValidationFailure()">[Close]</a>
+</div>
+
+<form action="" method="post" role="form" class="form-horizontal new-platform-form">
 
   {{ row([
 	 column('5', text_field('name', 'Name', '', 'Name')),
@@ -62,7 +66,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   <div class="row">
 	 <div class="col-sm-12">
       <div class="form-group">
-		  <button class="btn btn-primary addnewplatform">Add</button>
+		  <input type="submit" class="btn btn-primary addnewplatform" value="Add" />
       </div>
 	 </div>
 	 
@@ -84,7 +88,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 			 <td class="suggestedplatformname-{{ loop.index }}">{{platform.name}}</td>
 			 <td class="suggestedplatformdescription-{{ loop.index }}">{{platform.description}}</td>
 			 <td>
-				<button class="btn btn-success addsuggestedplatform" data-index="{{ loop.index }}">Add</button>
+				<button class="btn btn-success addsuggestedplatform addsuggestedplatform-{{loop.index}}" data-index="{{ loop.index }}">Add</button>
 			 </td>
 		  </tr>
 		  {% else %}
