@@ -102,19 +102,6 @@ $(function() {
 	 var ajax = new Ajax();
 	 var platforms = new Platforms(ajax, urls);
 
-	 var showFailure = function(messageArray) {
-		  var failureText = '';
-		  for (var f in messageArray) {
-				failureText = ajax.appendText(failureText, 'Please enter a platform ' + messageArray[f]);
-		  }
-		  
-		  ajax.showValidationFailure(failureText);
-	 };
-
-	 var addLoadingGif = function(selector, cssClass) {
-		  selector.after('<img class="' + cssClass + '" src="/static/images/wait.gif" />');
-	 };
-
 	 $('input.addnewplatform').on('click', function(e) {
 
 		  var inputFields = $('form.new-platform-form').find('input');
@@ -132,7 +119,7 @@ $(function() {
 					 document.location.reload();
 				})
 				.fail( function(r) {
-					 if (r.fields) showFailure(r.fields);
+					 if (r.fields) showFailure(r.fields, 'platform');
 				})
 				.always(function() {
 					 $('.new-platform-loading-gif').remove();

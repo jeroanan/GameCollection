@@ -236,3 +236,19 @@ $(function() {
 		  $(".authenticated-header").hide();
 	 }
 });
+
+function addLoadingGif(selector, cssClass) {
+	 selector.after('<img class="' + cssClass + '" src="/static/images/wait.gif" />');
+}
+
+function showFailure(messageArray, itemType) {
+	 
+	 var ajax = new Ajax();
+	 var failureText = '';
+
+	 for (var f in messageArray) {
+		  failureText = ajax.appendText(failureText, 'Please enter a ' + itemType + ' ' + messageArray[f]);
+	 }
+	 
+	 ajax.showValidationFailure(failureText);
+}
