@@ -47,6 +47,11 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 <h2>Add Hardware Type</h2>
 
+<div id="add-hardware-type-failure" class="row alert alert-danger validation-failure" style="display: none;" role="alert">
+    <span id="failureText"></span>
+    <a style="cursor: pointer;" onclick="new Ajax().hideValidationFailure()">[Close]</a>
+</div>
+
 <form action="" method="post" role="form" class="form-horizontal">
 
   {{ row([
@@ -76,9 +81,12 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 		  {% for sht in suggested_hardware_types %}
 		  <tr>
 			 <td class="hardwareTypeName-{{ loop.index }}">{{sht.name}}</td>
-			 <td class="hardwareTypeDesription-{{ loop.index }}">{{sht.description}}</td>
+			 <td class="hardwareTypeDescription-{{ loop.index }}">{{sht.description}}</td>
 			 <td>
-				<button class="btn btn-success addsuggestedhardwaretype" data-index="{{ loop.index }}">Add</button>
+				<button class="btn btn-success addsuggestedhardwaretype addsuggestedhardwaretype-{{ loop.index }}" 
+						  data-index="{{ loop.index }}">
+				  Add
+				</button>
 			 </td>
 		  </tr>
 		  {% else %}

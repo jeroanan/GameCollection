@@ -105,5 +105,7 @@ $(function() {
 				}
 		  });
 	 });
+	 
+	 if (document.location.pathname === '/login') $('#userid').focus();	 
 });
 
