@@ -92,11 +92,6 @@ HardwareTypes.prototype.updateHardwareType = function() {
 $(function() {
 	 var hardwareTypes = new HardwareTypes(new Ajax(), urls);
 
-	 var doLoading = function(button, loadingGifClass, inputs) {
-		  addLoadingGif(button, loadingGifClass);
-		  if (inputs) inputs.attr('disabled', 'true');
-	 };
-
 	 var finishedLoading = function(loadingGifClass, inputs) {
 		  $('.' + loadingGifClass).remove();
 		  if (inputs) inputs.removeAttr('disabled');

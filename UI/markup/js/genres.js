@@ -113,23 +113,22 @@ $(function () {
 	 $('.addnewgenre').on('click', function (e) {
 		  var button = $('.addnewgenre');
 		  var loadingGifClass = 'add-new-genre-lonading-gif';
-		  var inputs = $('form').find('input');
+		  var inputs = $('input');
 
 		  e.preventDefault();
 
-		  addLoadingGif(button, loadingGifClass);
-		  inputs.attr('disabled', 'true');
+		  doLoading(button, loadingGifClass, inputs);
 
  		  genres.addNewGenre()
 		  		.done(function() { 
-					 document.location.reload(); 
-				})
-				.fail(function(r) {
-					 if (r.fields) showFailure(r.fields, 'genre');					 
-				})
-				.always(function() { 
-					 loadingEnded(loadingGifClass, inputs);
-				});
+		  			 document.location.reload(); 
+		  		})
+		  		.fail(function(r) {
+		  			 if (r.fields) showFailure(r.fields, 'genre');					 
+		  		})
+		  		.always(function() { 
+		  			 loadingEnded(loadingGifClass, inputs);
+		  		});
 
 		  return false;
 	 });
@@ -138,20 +137,19 @@ $(function () {
 
 		  var link = $('a.yesDelete');
 		  var loadingGifClass = 'delete-genre-loading-gif';
-		  var inputs = $('form').find('input');
+		  var inputs = $('input');
 
 		  e.preventDefault();
 
-		  addLoadingGif(link, loadingGifClass);
-		  inputs.attr('disabled', 'true');
+		  doLoading(link, loadingGifClass, inputs);
 
 		  genres.deleteGenre()
 		  		.done(function() { 
-					 document.location = urls.genres; 
-				})
-				.always(function() {
-					 loadingEnded(loadingGifClass, inputs);
-				});
+		  			 document.location = urls.genres; 
+		  		})
+		  		.always(function() {
+		  			 loadingEnded(loadingGifClass, inputs);
+		  		});
 
 		  return false;
 	 });		 
@@ -163,16 +161,16 @@ $(function () {
 		  var button = $('button.addSuggestedGenre-' + index);
 		  var loadingGifClass = 'add-suggested-genre-loading-gif-' + index;
 
-		  addLoadingGif(button, loadingGifClass);
+		  doLoading(button, loadingGifClass);
 		  button.attr('disabled', 'true');
 
 		  genres.addGenre(genreName, genreDescription)
 		  		.done(function() { 
-					 document.location.reload(); 
-				})
-				.always(function() {
-					 loadingEnded(loadingGifClass, button);
-				});
+		  			 document.location.reload(); 
+		  		})
+		  		.always(function() {
+		  			 loadingEnded(loadingGifClass, button);
+		  		});
 
 		  return false;
 	 });
@@ -183,10 +181,9 @@ $(function () {
 
 		  var button = $('input.saveButton');
 		  var loadingGifClass = 'save-button-loading-gif';
-		  var inputs = $('form').find('input');
-		  
-		  addLoadingGif(button, loadingGifClass);
-		  inputs.attr('disabled', 'true');
+		  var inputs = $('input');
+		  		  
+		  doLoading(button, loadingGifClass, inputs);
 
 		  genres.updateGenre()
 		  		.done(function() { 

@@ -106,25 +106,26 @@ $(function() {
 
 		  var inputFields = $('form.new-platform-form').find('input');
 		  var button = $('input.addnewplatform');
+		  var loadingGifClass = 'new-platform-loading-gif';
+		  var inputs = $('input');
 
 		  e.preventDefault();
-
-		  addLoadingGif(button, 'new-platform-loading-gif');
-		  inputFields.attr('disabled', 'true');
+	  
+		  doLoading(button, loadingGifClass, inputs);
 
 		  ajax.hideValidationFailure();
 
 		  platforms.addNewPlatform()
-				.done(function() {
-					 document.location.reload();
-				})
-				.fail( function(r) {
-					 if (r.fields) showFailure(r.fields, 'platform');
-				})
-				.always(function() {
-					 $('.new-platform-loading-gif').remove();
-					 inputFields.removeAttr('disabled');
-				});
+		  		.done(function() {
+		  			 document.location.reload();
+		  		})
+		  		.fail( function(r) {
+		  			 if (r.fields) showFailure(r.fields, 'platform');
+		  		})
+		  		.always(function() {
+		  			 $('.' + loadingGifClass).remove();
+		  			 inputFields.removeAttr('disabled');
+		  		});
 	 });
 
 	 $('button.addsuggestedplatform').on('click', function(e) {
@@ -136,8 +137,7 @@ $(function() {
 
 		  e.preventDefault();
 
-		  addLoadingGif(button, loadingGifClass);
-
+		  doLoading(button, loadingGifClass);
 		  button.attr('disabled', 'true');
 		  
 		  platforms.addPlatform(name, description)
@@ -161,8 +161,7 @@ $(function() {
 
 		  ajax.hideValidationFailure();
 		  
-		  addLoadingGif(button, loadingGifClass);
-		  inputs.attr('disabled', 'true');
+		  doLoading(button, loadingGifClass, inputs);
 
 		  platforms.updatePlatform()
 		  		.done(function() { 
@@ -171,10 +170,10 @@ $(function() {
 		  		.fail(function(r) { 
 		  			 if (r.fields) showFailure(r.fields);						  
 		  		})
-				.always(function() {
-					 $('.' + loadingGifClass).remove();
-					 inputs.removeAttr('disabled');
-				});
+		  		.always(function() {
+		  			 $('.' + loadingGifClass).remove();
+		  			 inputs.removeAttr('disabled');
+		  		});
 		  return false;
 	 });
 
@@ -185,17 +184,16 @@ $(function() {
 
 		  e.preventDefault();
 
-		  addLoadingGif(link, loadingGifClass);
-		  inputs.attr('disabled', 'true');
+		  doLoading(link, loadingGifClass, inputs);
 
 		  platforms.deletePlatform()
 		  		.done(function() { 
-					 document.location = urls.platforms; 
-				})
-				.always(function() {
-					 $('.' + loadingGifClass).remove();
-					 inputs.removeAttr('disabled');
-				});
+		  			 document.location = urls.platforms; 
+		  		})
+		  		.always(function() {
+		  			 $('.' + loadingGifClass).remove();
+		  			 inputs.removeAttr('disabled');
+		  		});
 
 		  return false;
 	 });

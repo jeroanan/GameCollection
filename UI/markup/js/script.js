@@ -252,3 +252,8 @@ function showFailure(messageArray, itemType) {
 	 
 	 ajax.showValidationFailure(failureText);
 }
+
+function doLoading(button, loadingGifClass, inputs) {
+	 addLoadingGif(button, loadingGifClass);
+	 if (inputs) inputs.attr('disabled', 'true');
+}
