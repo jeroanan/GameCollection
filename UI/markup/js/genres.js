@@ -105,11 +105,6 @@ $(function () {
 	 var ajax = new Ajax();
 	 var genres = new Genres(ajax, urls);
 
-	 var loadingEnded = function(loadingGifClass, disabledElements) {
-		  $('.' + loadingGifClass).remove(); 
-		  disabledElements.removeAttr('disabled');
-	 };
-
 	 $('.addnewgenre').on('click', function (e) {
 		  var button = $('.addnewgenre');
 		  var loadingGifClass = 'add-new-genre-lonading-gif';
@@ -127,7 +122,7 @@ $(function () {
 		  			 if (r.fields) showFailure(r.fields, 'genre');					 
 		  		})
 		  		.always(function() { 
-		  			 loadingEnded(loadingGifClass, inputs);
+		  			 finishedLoading(loadingGifClass, inputs);
 		  		});
 
 		  return false;
@@ -148,7 +143,7 @@ $(function () {
 		  			 document.location = urls.genres; 
 		  		})
 		  		.always(function() {
-		  			 loadingEnded(loadingGifClass, inputs);
+		  			 finishedLoading(loadingGifClass, inputs);
 		  		});
 
 		  return false;
@@ -169,7 +164,7 @@ $(function () {
 		  			 document.location.reload(); 
 		  		})
 		  		.always(function() {
-		  			 loadingEnded(loadingGifClass, button);
+		  			 finishedLoading(loadingGifClass, button);
 		  		});
 
 		  return false;
@@ -193,7 +188,7 @@ $(function () {
 		  			 if (r.fields) showFailure(r.fields, 'genre');
 		  		})
 				.always(function(r) {
-					 loadingEnded(loadingGifClass, inputs);
+					 finishedLoading(loadingGifClass, inputs);
 				});
 	 });
 

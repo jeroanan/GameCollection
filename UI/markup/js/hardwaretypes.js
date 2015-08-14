@@ -91,12 +91,6 @@ HardwareTypes.prototype.updateHardwareType = function() {
 
 $(function() {
 	 var hardwareTypes = new HardwareTypes(new Ajax(), urls);
-
-	 var finishedLoading = function(loadingGifClass, inputs) {
-		  $('.' + loadingGifClass).remove();
-		  if (inputs) inputs.removeAttr('disabled');
-	 };
-
 	 var itemName = 'hardware tpye';
 
 	 $('button.addnewhardwaretype').on('click', function(e) {		  

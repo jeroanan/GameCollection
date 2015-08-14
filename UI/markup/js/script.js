@@ -257,3 +257,8 @@ function doLoading(button, loadingGifClass, inputs) {
 	 addLoadingGif(button, loadingGifClass);
 	 if (inputs) inputs.attr('disabled', 'true');
 }
+
+function finishedLoading(loadingGifClass, inputs) {
+		  $('.' + loadingGifClass).remove();
+		  if (inputs) inputs.removeAttr('disabled');
+}
