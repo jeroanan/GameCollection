@@ -98,44 +98,13 @@ Games.prototype.getGameNoId = function() {
     };
 };
 
-/**
- * Validate that various required fields of the game have been provided.
- *
- * @param {object} An object containing the details of the game from getGameNoId()
- * @return {bool} true if validation passes, otherwise false.
- */
-Games.prototype.validateSaveGame = function(j) {
-	 this.ajax.hideValidationFailure();
-	 
-	 var failureText = "";
-    if (j.title === "") failureText = "Please enter a title";
-	 if (j.numcopies === "") failureText = this.ajax.appendText(failureText, "Please enter a number of copies");
-    if (j.numboxed === "") failureText = this.ajax.appendText(failureText, "Please enter a number of boxes");
-    if (j.nummanuals === "") failureText = this.ajax.appendText(failureText, "Please enter a number of manuals");
-
-	 var validatedSuccessfully = failureText === "";
-
-    if (!validatedSuccessfully) {
-		  this.ajax.showValidationFailure(failureText);
-	 }
-    return validatedSuccessfully;
-};
-
 Games.prototype.validateSaveGameJson = function(j) {
-	 var result = 'success';
-	 var fields = [];
 
 	 var requiredFields = ['title', 'platform', 'numcopies', 'numboxed', 'nummanuals'];
-
-	 requiredFields.map(function(f) { 
-		  if (j[f] === '')  {
-				fields.push(f); 
-				result = 'fail';
-		  }
-	 });
-
+	 var fields = requiredFields.filter(function(f) { return j[f] === ''; }); 
+	 
 	 return { 
-		  'result': result,
+		  'result': fields.length === 0 ? 'success': 'fail',
 		  'fields': fields
 	 };	 
 };

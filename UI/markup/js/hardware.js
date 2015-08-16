@@ -52,15 +52,19 @@ Hardware.prototype.deleteHardware = function() {
  * Add a new item of hardware. This is done using ajax and after the
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
-Hardware.prototype.addHardware = function() {
+Hardware.prototype.addHardware = function(h, a) {
 	 var def = $.Deferred();
 
-	 var j = this.getHardwareNoId();
+	 var j = h.getHardwareNoId();
 
-    if (this.validateSaveHardware(j)) {
-		  this.ajax.ajaxSave(urls.savehardware, j)
-				.done(function(r) { def.resolve(r); })
-				.fail(function(r) { def.reject(r); });		  
+    if (h.validateSaveHardware(j)) {
+		  a.ajaxSave(urls.savehardware, j)
+				.done(function(r) { 
+					 def.resolve(r); 
+				})
+				.fail(function(r) { 
+					 def.reject(r);
+				});		  
 	 } else {
 		  def.reject();
 	 }
@@ -72,19 +76,26 @@ Hardware.prototype.addHardware = function() {
  * Update an item of hardware. This is done using ajax and after the
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
-Hardware.prototype.updateHardware = function() {
+Hardware.prototype.updateHardware = function(h, a) {
 	 var def = $.Deferred();
 
-	 var j = this.getHardwareNoId();
-	 j.id = this.ajax.getIdJson().id;
+	 var j = h.getHardwareNoId();
+	 j.id = a.getIdJson().id;
 
-    if (this.validateSaveHardware(j)) {
-		  this.ajax.ajaxSave(urls.updatehardware, j)
-				.done(function(r) { def.resolve(r); })
-				.fail(function(r) { def.reject(r); });
-	 } else {
-		  def.reject();
+	 var validationResult = h.validateSaveHardwareJson(j);
+
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+		  return def;
 	 }
+
+	 a.ajaxSave(urls.updatehardware, j)
+		  .done(function(r) { 
+				def.resolve(r); 
+		  })
+		  .fail(function(r) { 
+				def.reject(r); 
+		  });
 
 	 return def;
 };
@@ -106,6 +117,19 @@ Hardware.prototype.validateSaveHardware = function(j) {
     var validationSuccessful = failureText === "";
     if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
     return validationSuccessful;
+};
+
+Hardware.prototype.validateSaveHardwareJson = function(j) {
+	 var requiredFields = ['name', 'numowned', 'numboxed'];
+
+	 var missingFields = requiredFields.filter(function(f) {
+		  return j[f] === '';
+	 });
+
+	 return {
+		  'result': missingFields.length === 0? 'success': 'fail',
+		  'fields': missingFields
+	 };
 };
 
 /**
@@ -153,25 +177,56 @@ Hardware.prototype.initSorting = function(hardware, status) {
 };
 
 $(function() {
-	 var h = new Hardware(new Ajax(), urls);
+	 var a = new Ajax();
+	 var h = new Hardware(a, urls);
 	 
 	 h.initSorting(h, '1');
 
-	 $('input.saveButton').on('click', function() {
-		  if (document.location.pathname === urls.edithardware) {
-				h.updateHardware()
-					 .done(function() { document.location = urls.allhardware; });
-		  }
-		  if (document.location.pathname === urls.addhardware) {
-				h.addHardware()
-					 .done(function() { document.location = urls.allhardware; });
-		  }
+	 $('input.saveButton').on('click', function(e) {
+
+		  var updateHardware = function() {
+				if (document.location.pathname === urls.edithardware) return h.updateHardware;
+				if (document.location.pathname === urls.addhardware) return h.addHardware;
+		  };
+
+		  var saveHardwareFunc = updateHardware();
+		  
+		  var button = $('input.saveButton');
+		  var loadingGifClass = 'save-hardware-loading-gif';
+		  var inputs = $('input, select, textarea');		  
+		  
+		  doLoading(button, loadingGifClass, inputs);
+
+		  e.preventDefault();
+
+		  saveHardwareFunc(h, a)
+				.done(function() { 
+					 document.location = urls.allhardware; 
+				})
+				.fail(function(r) {
+					 if (r.fields) showFailure(r.fields, 'hardware');
+				})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+				});
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
+		  
+		  var link = $('a.yesDelete');
+		  var loadingGifClass = 'delete-hardware-loading-gif';
+		  var inputs = $('input, select, textarea');
+		  
 		  e.preventDefault();
+
+		  doLoading(link, loadingGifClass, inputs);
 		  h.deleteHardware()
-				.done(function() { document.location = urls.allhardware; });
+		  		.done(function() { 
+					 document.location = urls.allhardware; 
+				})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+				});
 		  return false;
 	 });
 });

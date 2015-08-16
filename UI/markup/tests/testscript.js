@@ -70,3 +70,48 @@ QUnit.test('appendText inserts html breaks if adding subsequent lines.', functio
 	 assert.equal(appendText(t, a), expected);
 });
 
+QUnit.test('test doLoading shows loading gif', function(assert) {
+	 var loadInfo = getSaveButtonLoadingInfo();
+
+	 doLoading(loadInfo.button, loadInfo.loadingGifClass);
+
+	 var loadingGif = $(loadInfo.button).next('.' + loadInfo.loadingGifClass);
+
+	 assert.equal(loadingGif.length, 1); 
+});
+
+QUnit.test('test doLoading disables provided inputs', function(assert) {
+	 var loadInfo = getSaveButtonLoadingInfo();
+	
+	 doLoading(loadInfo.button, loadInfo.loadingGifClass, loadInfo.button);
+	 
+	 assert.equal(loadInfo.button.attr('disabled'), 'disabled');
+});
+
+QUnit.test('test finishedLoading deletes the loading gif', function(assert) {
+	 var loadInfo = getSaveButtonLoadingInfo();
+
+	 loadInfo.button.after('<img class="' + loadInfo.loadingGifClass + '" src="/static/images/wait.gif" />');
+	 
+	 callFinishedLoading(loadInfo);
+	 assert.equal($('.' + loadInfo.loadingGifClass).length, 0);
+});
+
+QUnit.test('test finishedLoading re-enables the button', function(assert) {
+
+	 var loadInfo = getSaveButtonLoadingInfo();
+
+	 callFinishedLoading(loadInfo);
+	 assert.equal(loadInfo.button.attr('disabled'), undefined);
+});
+
+function callFinishedLoading(loadInfo) {
+	 finishedLoading(loadInfo.loadingGifClass, loadInfo.button);
+}
+
+function getSaveButtonLoadingInfo() {
+	 return {
+		  'button': $('input.saveButton'),
+		  'loadingGifClass': 'save-button-loading-gif'
+	 };
+}

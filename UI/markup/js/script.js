@@ -225,18 +225,6 @@ function setLoginText()
 	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");	 
 }
 
-/**
- * Run on documemtReady. Perform basic initialisation.
- */
-$(function() {
-	 var sessionStatus = $.cookie("session_status");
-	 if (sessionStatus == "1") {
-		  setLoginText();
-	 } else {
-		  $(".authenticated-header").hide();
-	 }
-});
-
 function addLoadingGif(selector, cssClass) {
 	 selector.after('<img class="' + cssClass + '" src="/static/images/wait.gif" />');
 }
@@ -254,11 +242,24 @@ function showFailure(messageArray, itemType) {
 }
 
 function doLoading(button, loadingGifClass, inputs) {
-	 addLoadingGif(button, loadingGifClass);
-	 if (inputs) inputs.attr('disabled', 'true');
+ 	 addLoadingGif(button, loadingGifClass);
+ 	 if (inputs) inputs.attr('disabled', 'true');
 }
 
 function finishedLoading(loadingGifClass, inputs) {
-		  $('.' + loadingGifClass).remove();
-		  if (inputs) inputs.removeAttr('disabled');
+ 	 $('.' + loadingGifClass).remove();
+	 if (inputs) inputs.removeAttr('disabled');
 }
+
+/**
+ * Run on documemtReady. Perform basic initialisation.
+ */
+$(function() {
+	 var sessionStatus = $.cookie("session_status");
+	 if (sessionStatus == "1") {
+		  setLoginText();
+	 } else {
+		  $(".authenticated-header").hide();
+	 }
+});
+

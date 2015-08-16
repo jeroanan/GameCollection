@@ -20,13 +20,14 @@ QUnit.module('hardware tests', {
 		  this.hardware = new Hardware(this.ajax, urls);
 
 		  this.assertOperationCallsAjaxSave = function(operation, assert) {
-				this.hardware[operation]();
+				this.hardware[operation](this.hardware, this.ajax);
 				assert.ok(this.ajax.ajaxSaveCalled);
 		  };
 
 		  this.assertOperationDoesNotCallAjaxSave = function(operation, assert) {
 				this.hardware.validateSaveHardware = function(j) { return false };
-				this.hardware[operation]();
+				this.hardware.validateSaveHardwareJson = function(j) { return {'result': 'fail'}; };
+				this.hardware[operation](this.hardware, this.ajax);
 				assert.notOk(this.ajax.ajaxSaveCalled);
 		  };
 
@@ -106,4 +107,47 @@ QUnit.test('Test validateSaveHardware returns false if numboxed is missing.', fu
 QUnit.test('Test sortHardware', function(assert) {
 	 this.hardware.sortHardware('title');
 	 assert.ok(this.ajax.loadAjaxCalled)
+});
+
+QUnit.test('Test validateSaveHardwareJson gives failure for missing name', function(assert) {
+	 
+	 var requiredFields = ['name', 'numowned', 'numboxed'];
+	 var hardware = this.hardware;
+
+	 requiredFields.forEach(function(f) {
+		  var j = {
+				'name': 'myname',
+				'numowned': '1',
+				'numboxed': '2'
+		  };
+
+		  var expected = {
+				'result': 'fail',
+				'fields': [f]
+		  };
+
+		  var origVal = j[f];
+		  j[f] = ''
+
+		  var result = hardware.validateSaveHardwareJson(j);	 
+		  assert.deepEqual(result, expected);
+	 });
+	 
+});
+
+QUnit.test('Test validateSaveHardwareJson returns success if validation succeeds', function(assert) {
+	 var j = {
+		  'name': 'myname',
+		  'numowned': '1',
+		  'numboxed': '2'
+	 };
+
+	 var expected = {
+		  'result': 'success',
+		  'fields': []
+	 };
+
+	 var result = this.hardware.validateSaveHardwareJson(j);
+	 
+	 assert.deepEqual(result, expected);
 });

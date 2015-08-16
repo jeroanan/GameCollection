@@ -7,11 +7,14 @@
   </head>
   <body>
 	 <div id="qunit"></div>
-	 <div id="qunit-fixture"></div>
-	 <div id="deleteConfirm" style="display: none;"></div>
-	 <input type="hidden" id="id" />
-	 <input type="hidden" id="name" />
-	 <input type="hidden" id="description" />
+	 <div id="qunit-fixture">
+		<div id="deleteConfirm" style="display: none;"></div>
+		<input type="hidden" id="id" />
+		<input type="hidden" id="name" />
+		<input type="hidden" id="description" />
+		<input type="submit" class="btn btn-primary saveButton" value="Test save button" />
+	 </div>
+	 
 
 	 <script src="qunit-1.18.0.js"></script>
 	 <script src="../js/jquery-2.1.4.min.js"></script>

@@ -27,45 +27,6 @@ QUnit.test('test deleteGame calls ajaxDelete', function(assert) {
 	 assert.ok(this.ajax.ajaxDeleteCalled);
 });
 
-QUnit.test('test validateSaveGame calls hideValidationFailure', function(assert) {
-	 this.games.validateSaveGame({});
-	 assert.ok(this.ajax.hideValidationFailureCalled);
-});
-
-QUnit.test('test validateSaveGame returns false with missing required fields', function(assert) {
-	 function setUp() {
-		  return {
-				'title': 't',
-				'numcopies': 1,
-				'numboxed': 2,
-				'nummanuals': 3
-		  };
-	 }
-
-	 var j = setUp();
-
-	 for (var key in j) {
-		  j[key] = '';
-		  var result = this.games.validateSaveGame(j);
-		  assert.notOk(result);
-		  j = setUp();
-	 }
-	 
-});
-
-QUnit.test('test validateSaveGame returns true when all is well', function(assert) {
-
-	 var j = {
-		  'title': 't',
-		  'numcopies': 1,
-		  'numboxed': 2,
-		  'nummanuals': 3
-	 };
-
-	 var result = this.games.validateSaveGame(j);
-	 assert.ok(result);
-});
-
 QUnit.test('test getGameNoId', function(assert) {
 	 
 	 var j = {
