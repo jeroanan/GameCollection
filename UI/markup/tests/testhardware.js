@@ -75,7 +75,7 @@ QUnit.test('Test sortHardware', function(assert) {
 	 assert.ok(this.ajax.loadAjaxCalled)
 });
 
-QUnit.test('Test validateSaveHardwareJson gives failure for missing name', function(assert) {
+QUnit.test('Test validateSaveHardwareJson gives failure for missing required fields', function(assert) {
 	 
 	 var requiredFields = ['name', 'numowned', 'numboxed'];
 	 var hardware = this.hardware;
