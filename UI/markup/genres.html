@@ -46,6 +46,12 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 </table>
 
 <h2 class="page-header">Add Genre</h2>
+
+<div id="add-genre-failure" class="row alert alert-danger validation-failure" style="display: none;" role="alert">
+    <span id="failureText"></span>
+    <a style="cursor: pointer;" onclick="new Ajax().hideValidationFailure()">[Close]</a>
+</div>
+
 <form action="" method="post" role="form" class="form-horizontal">
  
   {{ row([
@@ -56,7 +62,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
   <div class="row">
     <div class="form-group col-sm-3">
-		<button class="btn btn-primary addnewgenre">Add</button>
+		<input type="submit" class="btn btn-primary addnewgenre" value="Add" />
 	 </div>
   </div>
 </form>
@@ -76,7 +82,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 			 <td class="genreName-{{ loop.index }}">{{genre.name}}</td>
 			 <td class="genreDescription-{{ loop.index }}">{{genre.description}}</td>
 			 <td>
-				<button class="btn btn-success addSuggestedGenre" data-index="{{ loop.index }}">Add</button>
+				<button class="btn btn-success addSuggestedGenre addSuggestedGenre-{{ loop.index }}" data-index="{{ loop.index }}">Add</button>
 			 </td>
 		  </tr>
 		  {% else %}

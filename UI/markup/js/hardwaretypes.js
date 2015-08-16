@@ -21,7 +21,14 @@ var HardwareTypes = function(ajaxFunctions, urls) {
 * Delete a hardware type.
 */
 HardwareTypes.prototype.deleteHardwareType = function() {
-	 this.ajax.ajaxDelete(urls.deletehardwaretype,  this.ajax.getIdJson(), urls.hardwaretypes);
+
+	 var def = $.Deferred();
+
+	 this.ajax.ajaxDelete(urls.deletehardwaretype,  this.ajax.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+	 
+	 return def;
 };
 
 /**
@@ -31,52 +38,151 @@ HardwareTypes.prototype.deleteHardwareType = function() {
 * @param {string} description of the new hardware type
 */
 HardwareTypes.prototype.addHardwareType = function(name, description) {
-	 ajax = this.ajax || new Ajax();
-	 ajax.addNameDescription(urls.addhardwaretype, name, description);
+
+	 var def = $.Deferred();
+	 var ajax = this.ajax || new Ajax();
+
+	 ajax.addNameDescription(urls.addhardwaretype, name, description)
+		  .done(function(r) { def.resolve(r); } )
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Add a hardware type.
 */
 HardwareTypes.prototype.addNewHardwareType = function() {
-	 this.ajax.addNewNameDescription(this.addHardwareType);
+
+	 var def = $.Deferred();
+	 
+	 var j = {
+		  'name': $('#name').val(),
+		  'description': $('#description').val()
+	 };
+
+	 var validationResult = this.ajax.validateNameDescription(j);
+
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+		  return def;
+	 }	 
+
+	 this.ajax.addNewNameDescription(this.addHardwareType)
+	 	  .done(function(r) { def.resolve(r); })
+	 	  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Update a hardware type.
 */
 HardwareTypes.prototype.updateHardwareType = function() {
-	 this.ajax.updateNameDescription(urls.updatehardwaretype, urls.hardwaretypes);
+
+	 var def = $.Deferred();
+
+	 this.ajax.updateNameDescription(urls.updatehardwaretype)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+	 
+	 return def;
 };
 
 $(function() {
 	 var hardwareTypes = new HardwareTypes(new Ajax(), urls);
+	 var itemName = 'hardware tpye';
 
 	 $('button.addnewhardwaretype').on('click', function(e) {		  
-	 	  hardwareTypes.addNewHardwareType();
-		  document.location.reload();
+		  var button = $('button.addnewhardwaretype');
+		  var loadingGifClass = 'add-new-hardware-type-loading-gif';
+		  var inputs = $('input');
+
+		  e.preventDefault();
+
+		  doLoading(button, loadingGifClass, inputs);
+
+	 	  hardwareTypes.addNewHardwareType()
+		  		.done(function(r) { 
+		  			 document.location.reload(); 
+		  		})
+		  		.fail(function(r) {
+		  			 if (r.fields) showFailure(r.fields, itemName);
+		  		})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+				});
+
 	 	  return false;
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
+
+		  var button = $('a.yesDelete');
+		  var loadingGifClass = 'delete-hardware-type-loading-gif';
+		  var inputs = $('input');
+		  
 		  e.preventDefault();
-		  hardwareTypes.deleteHardwareType();
+		
+		  doLoading(button, loadingGifClass, inputs);
+		  
+		  hardwareTypes.deleteHardwareType()
+		   	.done(function(r) { 
+					 document.location = urls.hardwaretypes; 
+				})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+				});
+
 		  return false;
 	 });
 
 	 $('input.saveButton').on('click', function(e) {
+
+		  var button = $('input.saveButton');
+		  var loadingGifClass = 'save-hardware-type-loading-gif';
+		  var inputs = $('input');
+
 		  e.preventDefault();
-		  hardwareTypes.updateHardwareType();
+
+		  doLoading(button, loadingGifClass, inputs);
+
+		  hardwareTypes.updateHardwareType()
+		  		.done(function() { 
+					 document.location = urls.hardwaretypes; 
+				})
+				.fail(function(r) {
+					 if(r.fields) showFailure(r.fields, itemName);
+				})
+				.always(function(r) {
+					 finishedLoading(loadingGifClass, inputs);
+				});
+
 		  return false;
 	 });
 
 	 $('button.addsuggestedhardwaretype').on('click', function(e) {
-		  e.preventDefault();
+
 		  var index = e.currentTarget.attributes['data-index'].value;
 		  var name = $('td.hardwareTypeName-' + index).text();
-		  var description = $('td.hardwareTypeDesription-' + index).text();
-		  hardwareTypes.addHardwareType(name, description);
-		  document.location.reload();
+		  var description = $('td.hardwareTypeDescription-' + index).text();
+		  var button = $('button.addsuggestedhardwaretype-' + index);
+		  var loadingGifClass = 'add-suggested-hardware-loading-gif-' + index;
+
+		  e.preventDefault();
+
+		  doLoading(button, loadingGifClass);
+		  button.attr('disabled', 'true');
+
+		  hardwareTypes.addHardwareType(name, description)
+		  		.done(function() { 
+					 document.location.reload(); 
+				})
+				.alwayns(function() {
+					 finishedLoading(loadingGifClass);
+					 button.removeAttr('disabled');
+				});
+
 		  return false;
 	 });
 });

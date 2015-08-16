@@ -27,45 +27,6 @@ QUnit.test('test deleteGame calls ajaxDelete', function(assert) {
 	 assert.ok(this.ajax.ajaxDeleteCalled);
 });
 
-QUnit.test('test validateSaveGame calls hideValidationFailure', function(assert) {
-	 this.games.validateSaveGame({});
-	 assert.ok(this.ajax.hideValidationFailureCalled);
-});
-
-QUnit.test('test validateSaveGame returns false with missing required fields', function(assert) {
-	 function setUp() {
-		  return {
-				'title': 't',
-				'numcopies': 1,
-				'numboxed': 2,
-				'nummanuals': 3
-		  };
-	 }
-
-	 var j = setUp();
-
-	 for (var key in j) {
-		  j[key] = '';
-		  var result = this.games.validateSaveGame(j);
-		  assert.notOk(result);
-		  j = setUp();
-	 }
-	 
-});
-
-QUnit.test('test validateSaveGame returns true when all is well', function(assert) {
-
-	 var j = {
-		  'title': 't',
-		  'numcopies': 1,
-		  'numboxed': 2,
-		  'nummanuals': 3
-	 };
-
-	 var result = this.games.validateSaveGame(j);
-	 assert.ok(result);
-});
-
 QUnit.test('test getGameNoId', function(assert) {
 	 
 	 var j = {
@@ -85,28 +46,90 @@ QUnit.test('test getGameNoId', function(assert) {
 });
 
 QUnit.test('test updateGame calls ajaxSave if all is well', function(assert) {
-	 this.games.updateGame();
+	 this.games.updateGame(this.games, this.ajax);
 	 assert.ok(this.ajax.ajaxSaveCalled);
 });
 
 QUnit.test('test updateGame does not call ajaxSave if validation fails', function(assert) {
-	 this.games.validateSaveGame = function() { return false; }
-	 this.games.updateGame();
+	 this.games.validateSaveGameJson = function() { 
+		  return {
+				'result': 'fail',
+				'fields': []
+		  };
+	 }
+	 this.games.updateGame(this.games, this.ajax);
 	 assert.notOk(this.ajax.ajaxSaveCalled);
 });
 
 QUnit.test('test saveGame calls ajaxSave if all is well', function(assert) {
-	 this.games.saveGame();
+	 this.games.saveGame(this.games, this.ajax);
 	 assert.ok(this.ajax.ajaxSaveCalled);
 });
 
-QUnit.test('test saveGame does not call ajaxSave if all is well', function(assert) {
-	 this.games.validateSaveGame = function() { return false };
-	 this.games.saveGame();
+QUnit.test('test saveGame does not call ajaxSave if validation fails', function(assert) {
+	 this.games.validateSaveGameJson = function() { 
+		  return  {
+				'result': 'fail',
+				'fields': []
+		  };
+	 };
+
+	 this.games.saveGame(this.games, this.ajax);
 	 assert.notOk(this.ajax.ajaxSaveCalled);
 });
 
 QUnit.test('test sortGames', function(assert) {
 	 this.games.sortGames('title');
 	 assert.ok(this.ajax.loadAjaxCalled);
+});
+
+QUnit.test('test validateSaveGameJson returns fail when required fields are missing', function(assert) {
+	 
+	 var fields = ['title', 'platform', 'numcopies', 'numboxed', 'nummanuals'];
+
+	 var j = {
+				'title': 'mytitle',
+				'platform': 'myplatform',
+				'numcopies': '0',
+				'numboxed': '1',
+				'nummanuals': '2'
+	 };
+
+	 fields.map(function(f) {
+		  var origVal = j[f];
+
+		  var expected = {
+	 			'result': 'fail',
+	 			'fields': [f]
+	 	  };
+
+		  j[f] = '';
+
+		  var games = new Games(new Ajax(), urls);
+	 	  var result = games.validateSaveGameJson(j);
+
+	 	  assert.deepEqual(result, expected);
+
+	 	  j[f] = origVal;
+		  
+	 });	 
+});
+
+QUnit.test('test validateSaveGameJson returns success when all is well', function(assert) {
+	 var j = {
+				'title': 'mytitle',
+				'platform': 'myplatform',
+				'numcopies': '0',
+				'numboxed': '1',
+				'nummanuals': '2'
+	 };
+
+	 var expected = {
+		  'result': 'success',
+		  'fields': []
+	 };
+
+	 var result = this.games.validateSaveGameJson(j);
+	 
+	 assert.deepEqual(result, expected); 
 });

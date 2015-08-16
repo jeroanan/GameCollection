@@ -26,29 +26,64 @@ var Genres = function(ajaxFunctions, urls) {
 */
 Genres.prototype.addGenre = function(name, description) {	 
 
-	 var ajaxFunctions = null;
-
-	 if (this.ajaxFunctions === undefined) {
-		  ajaxFunctions =  new Ajax();
-	 } else {
-		  ajaxFunctions =  this.ajaxFunctions;
-	 }
+	 var def = $.Deferred();
+	 var ajaxFunctions = this.ajaxFunctions || new Ajax();
 	 
-	 ajaxFunctions.addNameDescription(this.urls.addgenre, name, description);
+	 var nameDescription = {
+		  'name': name,
+		  'description': description
+	 };
+
+	 var validationResult = ajaxFunctions.validateNameDescription(nameDescription);
+
+	 if (validationResult.result === 'fail') {
+		  def.reject(validationResult.fields);
+	 } else {
+		  ajaxFunctions.addNameDescription(this.urls.addgenre, name, description)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); });
+	 }
+
+	 return def;
 };
 
 /**
 *Add a genre.
 */
 Genres.prototype.addNewGenre = function() {
-	 this.ajaxFunctions.addNewNameDescription(this.addGenre);
+
+	 var def = $.Deferred();
+	 
+	 var j = { 
+		  'name': $('#name').val(),
+		  'description': $('#description').val()
+	 };
+				  
+	 var validation = this.ajaxFunctions.validateNameDescription(j);
+
+	 if (validation.result === 'fail') {
+		  def.reject({'fields': validation.fields});
+	 } else {
+		  this.ajaxFunctions.addNewNameDescription(this.addGenre)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); });
+	 }
+
+	 return def;
 };
 
 /**
 * Delete a genre
 */
 Genres.prototype.deleteGenre = function() {
-	 this.ajaxFunctions.ajaxDelete(this.urls.deletegenre, this.ajaxFunctions.getIdJson(), this.urls.genres);
+	 
+	 var def = $.Deferred();
+
+	 this.ajaxFunctions.ajaxDelete(this.urls.deletegenre, this.ajaxFunctions.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
@@ -56,29 +91,61 @@ Genres.prototype.deleteGenre = function() {
 */
 Genres.prototype.updateGenre = function () {
 
-	 var ajaxFunctions = null;
-
-	 if (this.ajaxFunctions === undefined) {
-		  ajaxFunctions =  new Ajax();
-	 } else {
-		  ajaxFunctions = this.ajaxFunctions;
-	 }
+	 var def = $.Deferred();
+	 var ajaxFunctions = this.ajaxFunctions || new Ajax();
 	 
-	 ajaxFunctions.updateNameDescription(urls.updategenre, urls.genres);
+	 ajaxFunctions.updateNameDescription(urls.updategenre)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
-$(function () {	  
-	 var genres = new Genres(new Ajax(), urls);
+$(function () {
+	 var ajax = new Ajax();
+	 var genres = new Genres(ajax, urls);
 
-	 $('.addnewgenre').on('click', function () {		  		  
-		  genres.addNewGenre();
-		  document.location.reload();
+	 $('.addnewgenre').on('click', function (e) {
+		  var button = $('.addnewgenre');
+		  var loadingGifClass = 'add-new-genre-lonading-gif';
+		  var inputs = $('input');
+
+		  e.preventDefault();
+
+		  doLoading(button, loadingGifClass, inputs);
+
+ 		  genres.addNewGenre()
+		  		.done(function() { 
+		  			 document.location.reload(); 
+		  		})
+		  		.fail(function(r) {
+		  			 if (r.fields) showFailure(r.fields, 'genre');					 
+		  		})
+		  		.always(function() { 
+		  			 finishedLoading(loadingGifClass, inputs);
+		  		});
+
 		  return false;
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
+
+		  var link = $('a.yesDelete');
+		  var loadingGifClass = 'delete-genre-loading-gif';
+		  var inputs = $('input');
+
 		  e.preventDefault();
-		  genres.deleteGenre();
+
+		  doLoading(link, loadingGifClass, inputs);
+
+		  genres.deleteGenre()
+		  		.done(function() { 
+		  			 document.location = urls.genres; 
+		  		})
+		  		.always(function() {
+		  			 finishedLoading(loadingGifClass, inputs);
+		  		});
+
 		  return false;
 	 });		 
 	 
@@ -86,14 +153,44 @@ $(function () {
 		  var index = e.currentTarget.attributes['data-index'].value;
 		  var genreName = $('td.genreName-' + index).text();
 		  var genreDescription = $('td.genreDescription-' + index).text();
-		  genres.addGenre(genreName, genreDescription);		  
-		  document.location.reload();
+		  var button = $('button.addSuggestedGenre-' + index);
+		  var loadingGifClass = 'add-suggested-genre-loading-gif-' + index;
+
+		  doLoading(button, loadingGifClass);
+		  button.attr('disabled', 'true');
+
+		  genres.addGenre(genreName, genreDescription)
+		  		.done(function() { 
+		  			 document.location.reload(); 
+		  		})
+		  		.always(function() {
+		  			 finishedLoading(loadingGifClass, button);
+		  		});
+
 		  return false;
 	 });
 
 	 $('input.saveButton').on('click', function(e) {
 		  e.preventDefault();
-		  genres.updateGenre();
-	 });
-});
+		  hideValidationFailure();
 
+		  var button = $('input.saveButton');
+		  var loadingGifClass = 'save-button-loading-gif';
+		  var inputs = $('input');
+		  		  
+		  doLoading(button, loadingGifClass, inputs);
+
+		  genres.updateGenre()
+		  		.done(function() { 
+		  			 document.location = urls.genres; 
+		  		})
+		  		.fail(function(r) { 
+		  			 if (r.fields) showFailure(r.fields, 'genre');
+		  		})
+				.always(function(r) {
+					 finishedLoading(loadingGifClass, inputs);
+				});
+	 });
+
+	 if (document.location.pathname === '/editgenre') $('#name').focus();
+});

@@ -38,67 +38,83 @@ Hardware.prototype.getHardwareNoId = function() {
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
 Hardware.prototype.deleteHardware = function() {
-	 this.ajax.ajaxDelete(urls.deletehardware, this.ajax.getIdJson(), urls.allhardware);
+
+	 var def = $.Deferred();
+
+	 this.ajax.ajaxDelete(urls.deletehardware, this.ajax.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
  * Add a new item of hardware. This is done using ajax and after the
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
-Hardware.prototype.addHardware = function() {
-	 var j = this.getHardwareNoId();
-    if (!this.validateSaveHardware(j)) return;
-    this.ajax.ajaxSave(urls.savehardware, j, urls.allhardware);
+Hardware.prototype.addHardware = function(h, a) {
+	 var def = $.Deferred();
+
+	 var j = h.getHardwareNoId();
+	 
+	 var validationResult = h.validateSaveHardwareJson(j);
+
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+		  return def;
+	 }
+
+	 a.ajaxSave(urls.savehardware, j)
+		  .done(function(r) { 
+				def.resolve(r); 
+		  })
+		  .fail(function(r) { 
+				def.reject(r);
+		  });		  
+
+	 return def;
 };
 
 /**
  * Update an item of hardware. This is done using ajax and after the
  * item of hardware has been saved the user will be redirected to the All Hardware page.
  */
-Hardware.prototype.updateHardware = function() {
-	 var j = this.getHardwareNoId();
-	 j.id = this.ajax.getIdJson().id;
-    if (!this.validateSaveHardware(j)) return;
-    this.ajax.ajaxSave(urls.updatehardware, j, urls.allhardware);
+Hardware.prototype.updateHardware = function(h, a) {
+	 var def = $.Deferred();
+
+	 var j = h.getHardwareNoId();
+	 j.id = a.getIdJson().id;
+
+	 var validationResult = h.validateSaveHardwareJson(j);
+
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+		  return def;
+	 }
+
+	 a.ajaxSave(urls.updatehardware, j)
+		  .done(function(r) { 
+				def.resolve(r); 
+		  })
+		  .fail(function(r) { 
+				def.reject(r); 
+		  });
+
+	 return def;
 };
 
-/**
- * Validate that various required fields of the item of hardware have been provided.
- *
- * @param {object} An object containing the details of the item of hardware from getHardwareNoId()
- * @return {bool} true if validation passes, otherwise false.
- */
-Hardware.prototype.validateSaveHardware = function(j) {
-    this.ajax.hideValidationFailure();
+Hardware.prototype.validateSaveHardwareJson = function(j) {
+	 var requiredFields = ['name', 'numowned', 'numboxed'];
 
-    var failureText = "";
-    if (j.name === "") failureText = "Please enter a name";
-    if (j.numowned === "") failureText = this.ajax.appendText(failureText, "Please enter number owned");
-    if (j.numboxed === "") failureText = this.ajax.appendText(failureText, "Please enter number boxed");
+	 var missingFields = requiredFields.filter(function(f) {
+		  return j[f] === '';
+	 });
 
-    var validationSuccessful = failureText === "";
-    if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
-    return validationSuccessful;
+	 return {
+		  'result': missingFields.length === 0? 'success': 'fail',
+		  'fields': missingFields
+	 };
 };
-
-/**
- * Validate that various required fields of the item of hardware have been provided.
- *
- * @param {object} An object containing the details of the item of hardware from getHardwareNoId()
- * @return {bool} true if validation passes, otherwise false.
- */
-function validateSaveHardware(j) {
-    hideValidationFailure();
-
-    var failureText = "";
-    if (j.name === "") failureText = "Please enter a name";
-    if (j.numowned === "") failureText = appendText(failureText, "Please enter number owned");
-    if (j.numboxed === "") failureText = appendText(failureText, "Please enter number boxed");
-
-    var validationSuccessful = failureText === "";
-    if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
-    return validationSuccessful;
-}
 
 /**
  * Sort the list of items of hardware on screen.
@@ -145,23 +161,56 @@ Hardware.prototype.initSorting = function(hardware, status) {
 };
 
 $(function() {
-	 var h = new Hardware(new Ajax(), urls);
+	 var a = new Ajax();
+	 var h = new Hardware(a, urls);
 	 
 	 h.initSorting(h, '1');
 
-	 $('input.saveButton').on('click', function() {
-		  if (document.location.pathname === '/edithardware') {
-				h.updateHardware();
-		  }
-		  if (document.location.pathname === '/addhardware') {
-				h.addHardware();
-		  }
+	 $('input.saveButton').on('click', function(e) {
+
+		  var updateHardware = function() {
+				if (document.location.pathname === urls.edithardware) return h.updateHardware;
+				if (document.location.pathname === urls.addhardware) return h.addHardware;
+		  };
+
+		  var saveHardwareFunc = updateHardware();
+		  
+		  var button = $('input.saveButton');
+		  var loadingGifClass = 'save-hardware-loading-gif';
+		  var inputs = $('input, select, textarea');		  
+		  
+		  doLoading(button, loadingGifClass, inputs);
+
+		  e.preventDefault();
+
+		  saveHardwareFunc(h, a)
+				.done(function() { 
+					 document.location = urls.allhardware; 
+				})
+				.fail(function(r) {
+					 if (r.fields) showFailure(r.fields, 'hardware');
+				})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+				});
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
+		  
+		  var link = $('a.yesDelete');
+		  var loadingGifClass = 'delete-hardware-loading-gif';
+		  var inputs = $('input, select, textarea');
+		  
 		  e.preventDefault();
-		  h.deleteHardware();
-		  document.location = '/hardware';
+
+		  doLoading(link, loadingGifClass, inputs);
+		  h.deleteHardware()
+		  		.done(function() { 
+					 document.location = urls.allhardware; 
+				})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+				});
 		  return false;
 	 });
 });

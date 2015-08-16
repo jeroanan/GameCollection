@@ -22,7 +22,7 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
         {% include 'status.html' %}
         <h1>{{title}}</h1>
          {% if hardware_found %}
-         <form class="form-horizontal" method="post" role="form" action="updatehardware">
+         <form class="form-horizontal" method="post" role="form">
 
              {{ row([
 					       column('5', text_field('name', 'Name', hardware.name)),

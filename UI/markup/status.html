@@ -3,7 +3,7 @@
     <a style="cursor: pointer;" onclick="hideValidationSuccess();">[Close]</a>
 </div>
 
-<div id="failure" class="row alert alert-danger" style="display: none;" role="alert">
+<div id="failure" class="row alert alert-danger validation-failure" style="display: none;" role="alert">
     <span id="failureText"></span>
-    <a style="cursor: pointer;" onclick="hideValidationFailure()">[Close]</a>
+    <a style="cursor: pointer;" onclick="new Ajax().hideValidationFailure()">[Close]</a>
 </div>

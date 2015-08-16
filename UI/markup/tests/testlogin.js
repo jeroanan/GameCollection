@@ -22,18 +22,22 @@ QUnit.module('login tests', {
 });
 
 QUnit.test('test loginDone with true data calls showValidationSuccess', function(assert) {
-	 this.login.loginDone('True');
-	 assert.ok(this.ajax.showValidationSuccessCalled);
+	 var json = JSON.parse('{"result": "ok", "message": "success"}')
+	 this.login.loginDone(json);
+	 assert.equal(this.ajax.showValidationSuccessMessage, 'Login successful.');
 });
 
-QUnit.test('test loginDone with none-true data calls showValidationFailure', function(assert) {
-	 this.login.loginDone('False');
-	 assert.ok(this.ajax.showValidationFailureCalled);	 
+QUnit.test('test loginDone with missing username/password calls showValidationFailure', function(assert) {
+	 this.login.loginDone(JSON.parse('{"result": "failed", "message": "failed_validation"}'));
+	 assert.equal(this.ajax.showValidationFailureMessage, 'Please enter user id and password.');
 });
 
-QUnit.test('test loginDone with boolean false data doesnt show any validaton message', function(assert) {
+QUnit.test('test loginDone with invalid username/password calls showValidationFailure', function(assert) {
+	 this.login.loginDone(JSON.parse('{"result": "failed", "message": "invalid"}'));
+	 assert.equal(this.ajax.showValidationFailureMessage, 'Invalid user id or password.');
+});
 
-	 this.login.loginDone(false);
-	 assert.notOk(this.ajax.showValidationSuccessCalled);
-	 assert.notOk(this.ajax.showValidationFailureCalled);
+QUnit.test('test loginDone with any other error shows generic login failed message', function(assert) {
+	 this.login.loginDone(JSON.parse('{"result": "failed", "message": "bananas"}'));
+	 assert.equal(this.ajax.showValidationFailureMessage, 'Error while logging in.');
 });

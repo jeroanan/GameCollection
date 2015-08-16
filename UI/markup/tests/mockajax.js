@@ -22,28 +22,55 @@ var Ajax = function() {
 	 this.hideValidationFailureCalled = false;
 	 this.loadAjaxCalled = false;
 	 this.showValidationFailureCalled = false;
+	 this.showValidationFailureMessage = '';
 	 this.showValidationSuccessCalled = false;
+	 this.showValidationSuccessMessage = '';
 	 this.updateNameDescriptionCalled = false;
 };
 
 Ajax.prototype.addNameDescription = function(url, name, descritption) {
+	 var def = $.Deferred();
+
 	 this.addNameDescriptionCalled = true;	 
+
+	 def.resolve();
+	 return def;	 
 };
 
 Ajax.prototype.ajaxDelete = function(url1, id, url2) {
+	 var def = $.Deferred();
+
 	 this.ajaxDeleteCalled = true;
+
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.addNewNameDescription = function(f) {
+	 var def = new $.Deferred();
+	 
 	 this.addNewNameDescriptionCalled = true;
+
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.updateNameDescription = function(uri1, uri2) {
+	 var def = $.Deferred();
+
 	 this.updateNameDescriptionCalled = true;
+
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.ajaxSave = function(url, data, successUri) {
+	 var def = $.Deferred();
+
 	 this.ajaxSaveCalled = true;
+	 
+	 def.resolve();
+	 return def;
 };
 
 Ajax.prototype.getIdJson = function () {
@@ -55,10 +82,12 @@ Ajax.prototype.hideValidationFailure = function() {
 };
 
 Ajax.prototype.showValidationFailure = function(failureText) {
+	 this.showValidationFailureMessage = failureText;
 	 this.showValidationFailureCalled = true;
 };
 
 Ajax.prototype.showValidationSuccess = function(successText) {
+	 this.showValidationSuccessMessage = successText;
 	 this.showValidationSuccessCalled = true;
 };
 
@@ -69,3 +98,12 @@ Ajax.prototype.loadAjax = function(i, u, d) {
 };
 
 Ajax.prototype.setLoginText = function() { };
+
+Ajax.prototype.validateNameDescription = function(j) { 
+	 return {
+		  'result': 'ok',
+		  'fields': []
+	 };
+};
+
+Ajax.prototype.getIdNameDescriptionJson = function() { };

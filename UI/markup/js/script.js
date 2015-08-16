@@ -225,6 +225,32 @@ function setLoginText()
 	 $("#logintext").html("Logged in as " + userid + " | <a href='logout'>(Log out)</a>");	 
 }
 
+function addLoadingGif(selector, cssClass) {
+	 selector.after('<img class="' + cssClass + '" src="/static/images/wait.gif" />');
+}
+
+function showFailure(messageArray, itemType) {
+	 
+	 var ajax = new Ajax();
+	 var failureText = '';
+
+	 for (var f in messageArray) {
+		  failureText = ajax.appendText(failureText, 'Please enter a ' + itemType + ' ' + messageArray[f]);
+	 }
+	 
+	 ajax.showValidationFailure(failureText);
+}
+
+function doLoading(button, loadingGifClass, inputs) {
+ 	 addLoadingGif(button, loadingGifClass);
+ 	 if (inputs) inputs.attr('disabled', 'true');
+}
+
+function finishedLoading(loadingGifClass, inputs) {
+ 	 $('.' + loadingGifClass).remove();
+	 if (inputs) inputs.removeAttr('disabled');
+}
+
 /**
  * Run on documemtReady. Perform basic initialisation.
  */
@@ -236,3 +262,4 @@ $(function() {
 		  $(".authenticated-header").hide();
 	 }
 });
+

@@ -19,11 +19,16 @@ var Games = function(ajax, urls) {
 
 /**
  * Delete the game being currenlty viewed. The game is deleted by getting the value of the id control
- * on the page and calling script.js's ajaxDelete() on it. Afterwards the user is redirected to the
- * All Games page.
+ * on the page and calling script.js's ajaxDelete() on it.
  */
 Games.prototype.deleteGame = function() {
-	 this.ajax.ajaxDelete(this.urls.deletegame, this.ajax.getIdJson(), this.urls.allgames);
+	 var def = $.Deferred();
+
+	 this.ajax.ajaxDelete(this.urls.deletegame, this.ajax.getIdJson())
+	 	  .done(function(r) { def.resolve(r); })
+	 	  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
@@ -31,22 +36,47 @@ Games.prototype.deleteGame = function() {
  * into the screen. The game is updated by calling script.js's ajaxSave() and then the user
  * is redirected to the All Games page.
  */
-Games.prototype.updateGame = function() {
-	 var j = this.getGameNoId();
-    j.id = this.ajax.getIdJson().id;
+Games.prototype.updateGame = function(g, a) {
 
-    if (!this.validateSaveGame(j)) return;
-    this.ajax.ajaxSave(urls.updategame, j, urls.allgames);
+	 var def = $.Deferred();
+
+	 var j = g.getGameNoId();
+    j.id = a.getIdJson().id;
+
+	 var validationResult = g.validateSaveGameJson(j);
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+		  return def;
+	 }
+    
+	 a.ajaxSave(urls.updategame, j)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); }); 
+
+	 return def;
 };
 
 /**
  * Save a new game using the details entered into the screen. The game is saved by calling 
  * script.js's ajaxSave(). After saving the user is redirected to the All Games page.
  */
-Games.prototype.saveGame = function() {
-	 var j = this.getGameNoId();
-    if (!this.validateSaveGame(j)) return;
-    this.ajax.ajaxSave(urls.savegame, j, urls.allgames);
+Games.prototype.saveGame = function(g, a) {
+	 var def = new $.Deferred();
+
+	 var j = g.getGameNoId();
+
+	 var validationResult = g.validateSaveGameJson(j);
+
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+		  return def;
+	 }
+    
+	 a.ajaxSave(urls.savegame, j)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
@@ -68,25 +98,15 @@ Games.prototype.getGameNoId = function() {
     };
 };
 
-/**
- * Validate that various required fields of the game have been provided.
- *
- * @param {object} An object containing the details of the game from getGameNoId()
- * @return {bool} true if validation passes, otherwise false.
- */
-Games.prototype.validateSaveGame = function(j) {
-	 this.ajax.hideValidationFailure();
+Games.prototype.validateSaveGameJson = function(j) {
+
+	 var requiredFields = ['title', 'platform', 'numcopies', 'numboxed', 'nummanuals'];
+	 var fields = requiredFields.filter(function(f) { return j[f] === ''; }); 
 	 
-	 var failureText = "";
-    if (j.title === "") failureText = "Please enter a title";
-	 if (j.numcopies === "") failureText = this.ajax.appendText(failureText, "Please enter a number of copies");
-    if (j.numboxed === "") failureText = this.ajax.appendText(failureText, "Please enter a number of boxes");
-    if (j.nummanuals === "") failureText = this.ajax.appendText(failureText, "Please enter a number of manuals");
-
-	 var validatedSuccessfully = failureText === "";
-
-    if (!validatedSuccessfully) this.ajax.showValidationFailure(failureText);
-    return validatedSuccessfully;
+	 return { 
+		  'result': fields.length === 0 ? 'success': 'fail',
+		  'fields': fields
+	 };	 
 };
 
 /**
@@ -141,20 +161,62 @@ $(function() {
     pickers.datepicker("option", "dateFormat", "dd/mm/yy");
 	 pickers.val(val);
 
-	 var g = new Games(new Ajax(), urls);
+	 var a = new Ajax();
+	 var g = new Games(a, urls);
 	 g.initSorting(g, '1');
 
-	 $('input.saveButton').on('click', function() {
-		  if (document.location.pathname === '/editgame') {
-				g.updateGame();
-		  }
-		  if (document.location.pathname == '/addgame') {
-				g.saveGame();
-		  }
-	 });
+	 $('input.saveButton').on('click', function(e) {
+
+		  var loadingGifClass = 'save-game-loading-gif';
+		  var inputs = $('input');
+		  var button = $('input.saveButton');
+
+		  var updateGame = function() {
+				if (document.location.pathname === '/editgame') return g.updateGame;
+				if (document.location.pathname === '/addgame') return g.saveGame;
+		  };
+
+		  var saveGameFunc = updateGame();
+
+		  e.preventDefault();
+
+		  doLoading(button, loadingGifClass, inputs);
+		  $('textarea').attr('disabled', 'true');
+		  $('select').attr('disabled', 'true');
+
+		  saveGameFunc(g, a)
+				.done(function() {
+					 document.location = '/allgames';
+				})
+				.fail(function(r) {
+					 if (r.fields) showFailure(r.fields, 'game');
+				})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+					 $('textarea').removeAttr('disabled');
+					 $('select').removeAttr('disabled');
+				});
+	 }); 
 
 	 $('a.yesDelete').on('click', function(e) {
+		  var inputs = $('form').find('input');
+		  var link = $('a.yesDelete');
+		  var loadingGifClass = 'delete-platform-loading-gif';	 
+
 		  e.preventDefault();
-		  g.deleteGame();
+
+		  doLoading(link, loadingGifClass, inputs);
+		  $('textarea').attr('disabled', 'true');
+		  $('select').attr('disabled', 'true');
+
+		  g.deleteGame()
+				.done(function() { 
+					 document.location = '/allgames'; 
+				})
+				.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+					 $('textarea').removeAttr('disabled');
+					 $('select').removeAttr('disabled');
+				});		  
 	 });
 });

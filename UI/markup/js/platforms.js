@@ -24,61 +24,174 @@ var Platforms = function(ajax, urls) {
 * @param {string} description The description of the new platform
 */
 Platforms.prototype.addPlatform = function(name, description) {
-	 ajax = this.ajax || new Ajax();
-	 ajax.addNameDescription(urls.addplatform, name, description);
+	 var def = $.Deferred();
+
+	 var ajax = this.ajax || new Ajax();
+
+	 var nameDescription = {
+		  'name': name,
+		  'description': description
+	 };
+
+	 var validationResult = this.ajax.validateNameDescription(nameDescription);
+	 
+	 if (validationResult.result === 'fail') {
+		  def.reject(validationResult.fields);
+	 } else {
+		  ajax.addNameDescription(urls.addplatform, name, description)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); }); 
+	 }
+
+	 return def;
 };
 
 /**
 * Add a new platform by entering one manually.
 */
 Platforms.prototype.addNewPlatform = function () {
-	 this.ajax.addNewNameDescription(this.addPlatform);
+
+	 var def = $.Deferred();
+
+	 var nameDescription = {
+		  'name': $('#name').val(),
+		  'description': $('#description').val()
+	 };
+
+	 var validationResult = this.ajax.validateNameDescription(nameDescription);
+
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+	 } else {
+		  this.ajax.addNewNameDescription(this.addPlatform)
+				.done(function(r) { def.resolve(r); })
+				.fail(function(r) { def.reject(r); });	  
+	 }	 
+
+	 return def;
 };
 
 /**
 * Delete a platform.
 */
 Platforms.prototype.deletePlatform = function() {
-	 this.ajax.ajaxDelete(urls.deleteplatform, this.ajax.getIdJson(), urls.platform);
+	 var def = $.Deferred();
+	 
+	 this.ajax.ajaxDelete(urls.deleteplatform, this.ajax.getIdJson())
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 /**
 * Update a platform.
 */
 Platforms.prototype.updatePlatform = function() {
-	 this.ajax.updateNameDescription(urls.updateplatform, urls.platforms);
+
+	 var def = $.Deferred();
+	 
+	 this.ajax.updateNameDescription(urls.updateplatform)
+		  .done(function(r) { def.resolve(r); })
+		  .fail(function(r) { def.reject(r); });
+
+	 return def;
 };
 
 $(function() {
-	 var platforms = new Platforms(new Ajax(), urls);
+	 var ajax = new Ajax();
+	 var platforms = new Platforms(ajax, urls);
+	 var itemName = 'platform';
 
-	 $('button.addnewplatform').on('click', function(e) {
+	 $('input.addnewplatform').on('click', function(e) {
+
+		  var button = $('input.addnewplatform');
+		  var loadingGifClass = 'new-platform-loading-gif';
+		  var inputs = $('input');
+
 		  e.preventDefault();
-		  platforms.addNewPlatform();
-		  document.location.reload();
+	  
+		  doLoading(button, loadingGifClass, inputs);
+
+		  ajax.hideValidationFailure();
+
+		  platforms.addNewPlatform()
+		  		.done(function() {
+		  			 document.location.reload();
+		  		})
+		  		.fail( function(r) {
+		  			 if (r.fields) showFailure(r.fields, itemName);
+		  		})
+		  		.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+		  		});
 	 });
 
 	 $('button.addsuggestedplatform').on('click', function(e) {
-		  e.preventDefault();
 		  var index = e.currentTarget.attributes['data-index'].value;
 		  var name = $('td.suggestedplatformname-' + index).text();
 		  var description = $('td.suggestedplatformdescription-' + index).text();
+		  var button = $('button.addsuggestedplatform-' + index);
+		  var loadingGifClass = 'suggested-platform-loading-gif';
+
+		  e.preventDefault();
+
+		  doLoading(button, loadingGifClass);
+		  button.attr('disabled', 'true');
 		  
-		  platforms.addPlatform(name, description);
-		  document.location.reload();
+		  platforms.addPlatform(name, description)
+		  		.done(function() {
+		  			 document.location.reload();
+		  		})
+		  		.always(function() {
+					 finishedLoading(loadingGifClass);
+		  		});
+
 		  return false;
 	 });
 
 	 $('input.saveButton').on ('click', function(e) {
+		  var button = $('.saveButton');
+		  var loadingGifClass = 'save-platform-loading-gif';
+		  var inputs = $('form').find('input');
+
 		  e.preventDefault();
-		  platforms.updatePlatform();
+
+		  ajax.hideValidationFailure();
+		  
+		  doLoading(button, loadingGifClass, inputs);
+
+		  platforms.updatePlatform()
+		  		.done(function() { 
+		  			 document.location = urls.platforms; 
+		  		})
+		  		.fail(function(r) { 
+		  			 if (r.fields) showFailure(r.fields);						  
+		  		})
+		  		.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+		  		});
 		  return false;
 	 });
 
 	 $('a.yesDelete').on('click', function(e) {
+		  var inputs = $('form').find('input');
+		  var link = $('a.yesDelete');
+		  var loadingGifClass = 'delete-platform-loading-gif';
+
 		  e.preventDefault();
-		  platforms.deletePlatform();
-		  document.location = '/platforms';
+
+		  doLoading(link, loadingGifClass, inputs);
+
+		  platforms.deletePlatform()
+		  		.done(function() { 
+		  			 document.location = urls.platforms; 
+		  		})
+		  		.always(function() {
+					 finishedLoading(loadingGifClass, inputs);
+		  		});
+
 		  return false;
 	 });
+	 if (document.location.pathname === '/editplatform') $('#name').focus();
 });

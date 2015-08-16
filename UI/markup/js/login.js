@@ -24,14 +24,16 @@ Login.prototype.login = function() {
 };
 
 Login.prototype.loginDone = function(data) {
-	 if (data === false) return;
-
-	 if (data === "True") {
-		  this.ajax.showValidationSuccess("Login successful.");
+	 if (data.result === 'ok') {
+		  this.ajax.showValidationSuccess('Login successful.');
 		  this.ajax.setLoginText();
+	 } else if (data.result === 'failed' && data.message === 'failed_validation') {
+		  this.ajax.showValidationFailure('Please enter user id and password.');
+	 } else if (data.result === 'failed' && data.message === 'invalid') {
+		  this.ajax.showValidationFailure('Invalid user id or password.');
 	 } else {
-		  this.ajax.showValidationFailure("Login failed.");
-	 }	 
+		  this.ajax.showValidationFailure('Error while logging in.');
+	 }
 };
 
 Login.prototype.newUser = function() {
@@ -52,8 +54,8 @@ Login.prototype.newUserDone = function(data) {
 
 Login.prototype.loginPageAjax = function(url) {
     if (!this.validateLoginForm()) {
-		  var def = new $.Deferred();
-		  def.resolve(false);
+		  var def = new $.Deferxred();
+		  def.resolve(JSON.stringify({'result': 'failed', 'message': 'failed_validation'}));
 		  return def;
 	 }
 
@@ -75,12 +77,14 @@ Login.prototype.validateLoginForm = function() {
 
 $(function() {
 	 var login = new Login(new Ajax(), urls);
-
 	 $("#login").on("click", function(e) {
 		  e.preventDefault();
 		  login.login().done(function(d) {
-				login.loginDone(d);
-				if (d == 'True') {
+				var data = JSON.parse(d);
+
+				login.loginDone(data);
+
+				if (data.result == 'ok') {
 					 document.location = '/';
 				}
 		  });
@@ -92,13 +96,16 @@ $(function() {
 		  e.preventDefault();
 		  
 		  login.newUser().done(function(d) {
+
 				newUserDone(d);
-				if (d === 'True') {
+				if (d === 'ok') {
 					 setTimeout(function() {
 						  document.location = '/';
 					 }, 2000);
 				}
 		  });
 	 });
+	 
+	 if (document.location.pathname === '/login') $('#userid').focus();	 
 });
 
