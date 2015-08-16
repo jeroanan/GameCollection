@@ -56,18 +56,21 @@ Hardware.prototype.addHardware = function(h, a) {
 	 var def = $.Deferred();
 
 	 var j = h.getHardwareNoId();
+	 
+	 var validationResult = h.validateSaveHardwareJson(j);
 
-    if (h.validateSaveHardware(j)) {
-		  a.ajaxSave(urls.savehardware, j)
-				.done(function(r) { 
-					 def.resolve(r); 
-				})
-				.fail(function(r) { 
-					 def.reject(r);
-				});		  
-	 } else {
-		  def.reject();
+	 if (validationResult.result === 'fail') {
+		  def.reject({'fields': validationResult.fields});
+		  return def;
 	 }
+
+	 a.ajaxSave(urls.savehardware, j)
+		  .done(function(r) { 
+				def.resolve(r); 
+		  })
+		  .fail(function(r) { 
+				def.reject(r);
+		  });		  
 
 	 return def;
 };
@@ -98,25 +101,6 @@ Hardware.prototype.updateHardware = function(h, a) {
 		  });
 
 	 return def;
-};
-
-/**
- * Validate that various required fields of the item of hardware have been provided.
- *
- * @param {object} An object containing the details of the item of hardware from getHardwareNoId()
- * @return {bool} true if validation passes, otherwise false.
- */
-Hardware.prototype.validateSaveHardware = function(j) {
-    this.ajax.hideValidationFailure();
-
-    var failureText = "";
-    if (j.name === "") failureText = "Please enter a name";
-    if (j.numowned === "") failureText = this.ajax.appendText(failureText, "Please enter number owned");
-    if (j.numboxed === "") failureText = this.ajax.appendText(failureText, "Please enter number boxed");
-
-    var validationSuccessful = failureText === "";
-    if (!validationSuccessful) this.ajax.showValidationFailure(failureText);
-    return validationSuccessful;
 };
 
 Hardware.prototype.validateSaveHardwareJson = function(j) {
