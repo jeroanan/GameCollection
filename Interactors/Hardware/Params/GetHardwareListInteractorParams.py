@@ -93,3 +93,10 @@ class GetHardwareListInteractorParams(object):
         p.user_id = dictionary.get("user_id", p.user_id)
 
         return p
+
+    def __eq__(self, other):
+        return (self.number_of_items==other.number_of_items and 
+                self.platform==other.platform and 
+                self.sort_field==other.sort_field and
+                self.sort_direction==other.sort_direction and
+                self.user_id==other.user_id)

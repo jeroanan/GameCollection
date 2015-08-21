@@ -39,7 +39,9 @@ from UI.Handlers.EditHardwareTypeHandler import EditHardwareTypeHandler
 from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
+import UI.Handlers.ExportCollectionHandler as ech
 from UI.Handlers.GenresHandler import GenresHandler
+import UI.Handlers.GetExportHandler as geh
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.Handlers.HardwareTypesHandler import HardwareTypesHandler
 from UI.Handlers.IndexHandler import IndexHandler
@@ -101,7 +103,9 @@ class TestHandlerFactory(unittest.TestCase):
             "edithardwaretype": EditHardwareTypeHandler,
             "editplatform": EditPlatformHandler,
             "edituser": EditUserHandler,
+            "exportcollection": ech.ExportCollectionHandler,
             "genres": GenresHandler,
+            "getexportcollection": geh.GetExportHandler,
             "hardwaretypes": HardwareTypesHandler,
             "index": IndexHandler,
             "login": LoginHandler,

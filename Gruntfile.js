@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 						'UI/markup/js/login.js', 'UI/markup/js/require/urls.js',	'UI/markup/js/validation.js',
 						'UI/markup/js/platforms.js', 'UI/markup/js/hardwaretypes.js', 'UI/markup/js/genres.js',
 						'UI/markup/js/games.js', 'UI/markup/js/hardware.js', 'UI/markup/js/users.js',
-						'UI/markup/js/ajax.js']
+						'UI/markup/js/ajax.js', 'UI/markup/js/collection.js']
 		  },
 		  qunit: {
 				all: ['UI/markup/tests/**/*.html']
@@ -33,7 +33,8 @@ module.exports = function(grunt) {
 						  'UI/markup/js/hardware.min.js': 'UI/markup/js/hardware.js',
 						  'UI/markup/js/games.min.js': 'UI/markup/js/games.js',
 						  'UI/markup/js/login.min.js': 'UI/markup/js/login.js',
-						  'UI/markup/js/faillogin.min.js': 'UI/markup/js/faillogin.js'
+						  'UI/markup/js/faillogin.min.js': 'UI/markup/js/faillogin.js',
+						  'UI/markup/js/collection.min.js': 'UI/markup/js/collection.js'
 					 }
 				}
 		  },

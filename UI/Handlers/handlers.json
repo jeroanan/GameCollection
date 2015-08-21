@@ -38,6 +38,8 @@
 				"edituser": "EditUserHandler",
 				"updateuser": "UpdateUserHandler",
 				"deleteuser": "DeleteUserHandler",
-				"viewgame": "ViewGameHandler"}
+				"viewgame": "ViewGameHandler",
+				"exportcollection": "ExportCollectionHandler",
+				"getexportcollection": "GetExportHandler"}
 		  ]
 }

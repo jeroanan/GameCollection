@@ -16,6 +16,7 @@ import json
 
 import Data.DataLoad as dl
 import Interactors.Exceptions.UnrecognisedInteractorTypeException as uite
+import Interactors.CollectionInteractors as ci
 import Interactors.LoggingInteractor as li
 import Interactors.GenreInteractors as gi
 import Interactors.HardwareInteractors as hi
@@ -43,12 +44,17 @@ class InteractorFactory(object):
             "GetSuggestedPlatformsInteractor": (pi.GetSuggestedPlatformsInteractor, dl.load_suggested_platforms),
             "GetSuggestedGenresInteractor": (gi.GetSuggestedGenresInteractor, dl.load_suggested_genres),
             "GetSuggestedHardwareTypesInteractor": (hi.GetSuggestedHardwareTypesInteractor, 
-                                                    dl.load_suggested_hardware_types)            
+                                                    dl.load_suggested_hardware_types)
+
         }
 
         if interactor_type in special_interactors:
             interactor, init_value = special_interactors[interactor_type]
             return self.__initialise_interactor(interactor(init_value))
+
+        elif interactor_type == "ExportCollectionInteractor":
+            return ci.ExportCollectionInteractor(self)
+
         elif interactor_type in self.__interactors:
             return self.__initialise_interactor(self.__string_to_interactor(self.__interactors[interactor_type]))
 
