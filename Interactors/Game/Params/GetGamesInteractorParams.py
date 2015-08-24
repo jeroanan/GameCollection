@@ -17,7 +17,7 @@ class GetGamesInteractorParams(object):
 
     def __init__(self):
         """Initialise object state"""
-        self.__sort_field = ""
+        self.__sort_field = "title"
         self.__sort_direction = "ASC"
         self.__number_of_games = 999999
         self.__platform = None

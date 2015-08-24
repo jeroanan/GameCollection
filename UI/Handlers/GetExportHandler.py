@@ -21,6 +21,20 @@ class GetExportHandler(ah.AuthenticatedHandler):
 
     def get_page(self, params):
         super().get_page(params)
+        p = params['data[]']
+
+        if not isinstance(p, list):
+            p = [p]
+        
         interactor = self.interactor_factory.create('ExportCollectionInteractor')
-        collection_data = interactor.execute(params['data'])
+        collection_data = interactor.execute(p, self.session.get_value("user_id"))
+
+        result = {}
+        for k, v in collection_data.items():
+            values = []
+            for g in v:
+                values.append(json.loads(g.to_json()))
+            result[k] = values
+
+        return json.dumps(result)
 

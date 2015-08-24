@@ -24,7 +24,7 @@ $(function() {
 				selections.push($(this).val());
 		  });
 
-		  var d = { 'exportitems': selections };
+		  var d = { 'data': selections };
 
 		  if (selections.length>0) new Ajax().sendAjax(urls.getexportcollection, d);
 	 });
