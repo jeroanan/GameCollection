@@ -26,6 +26,8 @@ $(function() {
 
 		  var d = { 'data': selections };
 
-		  if (selections.length>0) new Ajax().sendAjax(urls.getexportcollection, d);
+		  if (selections.length>0) { //new Ajax().sendAjax(urls.getexportcollection, d);
+				window.location = urls.getexportcollection + "?data[]=" + selections;
+		  }
 	 });
 });

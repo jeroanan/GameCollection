@@ -203,21 +203,12 @@ class Game(object):
         return game
 
     def to_json(self):
-        attrs = ["id", 
-                 "date_purchased",
-                 "genre",
-                 "title",
-                 "num_copies",
-                 "num_boxed",
-                 "num_manuals",
-                 "platform",
-                 "notes"]
+        attrs = ["date_purchased", "genre", "title", "num_copies", "num_boxed", "num_manuals", "platform", "notes"]
         result = {}
 
+        result["id"] = str(self.id)
+
         for a in attrs:
-            if a == "id":
-                result[a] = str(self.id)
-            else:
-                result[a] = getattr(self, a)
+            result[a] = getattr(self, a)
         
         return json.dumps(result)

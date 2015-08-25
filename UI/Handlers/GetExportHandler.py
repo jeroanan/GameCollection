@@ -14,6 +14,8 @@
 
 import json
 
+import cherrypy
+
 import UI.Handlers.AuthenticatedHandler as ah
 
 
@@ -24,7 +26,7 @@ class GetExportHandler(ah.AuthenticatedHandler):
         p = params['data[]']
 
         if not isinstance(p, list):
-            p = [p]
+            p = p.split(',')
         
         interactor = self.interactor_factory.create('ExportCollectionInteractor')
         collection_data = interactor.execute(p, self.session.get_value("user_id"))
@@ -36,5 +38,7 @@ class GetExportHandler(ah.AuthenticatedHandler):
                 values.append(json.loads(g.to_json()))
             result[k] = values
 
-        return json.dumps(result)
+        cherrypy.response.headers['Content-Type'] = 'application/json'
+        cherrypy.response.headers['Content-Disposition'] = 'attachment; filename="icarus_collection.json"'
+        return json.dumps(result).encode('utf-8')
 

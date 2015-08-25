@@ -19,7 +19,7 @@ class GetHardwareListInteractorParams(object):
         """Initialise object state"""        
         self.__number_of_items = 999999
         self.__platform = None
-        self.__sort_field = ""
+        self.__sort_field = "name"
         self.__sort_direction = ""
         self.__user_id = ""
 
