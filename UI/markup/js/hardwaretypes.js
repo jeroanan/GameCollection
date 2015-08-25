@@ -94,6 +94,14 @@ $(function() {
 	 var hardwareTypes = new HardwareTypes(ajax, urls);
 	 var itemName = 'hardware type';
 
+	 var saveFailed = function(r) {
+		  if (r.fields) {
+				showFailure(r.fields, itemName);
+		  } else {
+				ajax.showValidationFailure('Internal error while saving');
+		  }
+	 };
+
 	 $('button.addnewhardwaretype').on('click', function(e) {		  
 		  var button = $('button.addnewhardwaretype');
 		  var loadingGifClass = 'add-new-hardware-type-loading-gif';
@@ -108,11 +116,7 @@ $(function() {
 		  			 document.location.reload(); 
 		  		})
 		  		.fail(function(r) {
-		  			 if (r.fields) {
-						  showFailure(r.fields, itemName);
-					 } else {
-						  ajax.showValidationFailure('Internal error while saving');
-					 }
+					 saveFailed(r);
 		  		})
 				.always(function() {
 					 finishedLoading(loadingGifClass, inputs);
@@ -157,11 +161,7 @@ $(function() {
 					 document.location = urls.hardwaretypes; 
 				})
 				.fail(function(r) {
-					 if(r.fields) {
-						  showFailure(r.fields, itemName);
-					 } else {
-						  ajax.showValidationFailure('Internal error while saving');
-					 }
+					 saveFailed(r);
 				})
 				.always(function(r) {
 					 finishedLoading(loadingGifClass, inputs);
