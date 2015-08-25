@@ -27,14 +27,33 @@ class TestUpdateHardwareTypeInteractor(unittest.TestCase):
         self.__persistence = Mock(ap.AbstractPersistence)
         self.__target = hi.UpdateHardwareTypeInteractor()
         self.__target.persistence = self.__persistence
-    
+        self.__required_fields = ['name', 'description']
+
     def test_is_instance_of_interactor(self):
         self.assertIsInstance(self.__target, interactor.Interactor)
 
-    def test_execute(self):
-        self.__target.execute(ht.HardwareType())
-
     def test_execute_calls_persistence_method(self):
-        hardware_type = ht.HardwareType()
+        hardware_type = self.__get_hardware_type()
         self.__target.execute(hardware_type)
         self.__persistence.update_hardware_type.assert_called_with(hardware_type)
+
+    def test_execute_none_hardware_type_raises_type_error(self):
+        self.assertRaises(TypeError, self.__target.execute, None)
+
+    def test_empty_required_field_raises_value_error(self):
+        self.__assert_forbidden_value_raises_value_error('')
+
+    def test_none_required_field_raises_value_error(self):
+        self.__assert_forbidden_value_raises_value_error(None)
+
+    def __assert_forbidden_value_raises_value_error(self, forbidden_value):
+        for rf in self.__required_fields:
+            hardware_type = self.__get_hardware_type()
+            setattr(hardware_type, rf, forbidden_value)
+            self.assertRaises(ValueError, self.__target.execute, hardware_type)
+
+    def __get_hardware_type(self):
+        hardware_type = ht.HardwareType()
+        hardware_type.name = 'name'
+        hardware_type.description = 'description'
+        return hardware_type

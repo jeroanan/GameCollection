@@ -127,6 +127,19 @@ class UpdateHardwareTypeInteractor(Interactor):
         """Update a hardware type
         :param hardware_type: The hardware type to update
         """
+
+        def validate():
+            if hardware_type is None:
+                raise TypeError("hardware_type cannot be null")
+
+            required_fields = ['name', 'description']
+            
+            for rf in required_fields:
+                attr_val = getattr(hardware_type, rf)
+                if attr_val == '' or attr_val is None:
+                    raise ValueError(rf)
+
+        validate()
         self.persistence.update_hardware_type(hardware_type)
 
 
