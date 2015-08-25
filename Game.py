@@ -13,6 +13,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import functools as ft
+import json
 
 
 class Game(object):
@@ -200,3 +201,14 @@ class Game(object):
 
         list(map(lambda m: set_attr(m, dict_get((mappings[m], m))), mappings))
         return game
+
+    def to_json(self):
+        attrs = ["date_purchased", "genre", "title", "num_copies", "num_boxed", "num_manuals", "platform", "notes"]
+        result = {}
+
+        result["id"] = str(self.id)
+
+        for a in attrs:
+            result[a] = getattr(self, a)
+        
+        return json.dumps(result)

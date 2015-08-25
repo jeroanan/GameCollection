@@ -13,6 +13,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import functools as ft
+import json
 
 
 class Hardware():
@@ -187,3 +188,13 @@ class Hardware():
         list(map(lambda m: set_attr(m, dict_get((mappings[m],m))), mappings))
         return hardware
         
+    def to_json(self):
+        attrs = ["hardware_type", "name", "platform", "num_owned", "num_boxed", "notes"]
+        result = {}
+
+        result["id"] = str(self.id)
+        
+        for a in attrs:
+            result[a] = getattr(self, a)
+        
+        return json.dumps(result)

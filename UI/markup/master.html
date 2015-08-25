@@ -68,7 +68,6 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 {% endmacro %}
 
 {% macro name_description_table_header() %}
-
   <thead>
 	 <tr>
 		<th>Name</th>
@@ -76,7 +75,6 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 		<th></th>
 	 </tr>
   </thead>
-
 {% endmacro %}
 
 {% macro drop_down(name, title, collection) %}
@@ -91,9 +89,8 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
   </div>
 {% endmacro %}
 
-
 {% macro save_button(script) %}
-  <div class=n"form-group">
+  <div class="form-group">
 	 <input type="submit" class="btn btn-primary saveButton" value="Save" onclick="{{ script }}" />
   </div>   
 {% endmacro %}
@@ -138,6 +135,16 @@ along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 {% macro script(src) %}
   <script type="text/javascript" src="{{ src }}"></script>
+{% endmacro %}
+
+{% macro checkbox_field(name, text, value) %}
+  <div class="form-group">
+	 <div class="checkbox">
+		<label>
+		  <input type="checkbox" name="{{ name }}" id="{{ name }}" value="{{ value }}" />{{ text }}
+		</label>
+	 </div>
+  </div>
 {% endmacro %}
 
 <html>

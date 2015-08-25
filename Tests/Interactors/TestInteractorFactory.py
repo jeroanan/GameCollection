@@ -19,6 +19,7 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.Exceptions.UnrecognisedInteractorTypeException import UnrecognisedInteractorTypeException
+import Interactors.CollectionInteractors as collection_interactors
 import Interactors.GameInteractors as game_interactors
 import Interactors.GenreInteractors as genre_interactors
 import Interactors.HardwareInteractors as hardware_interactors
@@ -60,6 +61,7 @@ class TestInteractorFactory(unittest.TestCase):
                     "DeleteHardwareTypeInteractor": hardware_interactors.DeleteHardwareTypeInteractor,
                     "DeletePlatformInteractor": platform_interactors.DeletePlatformInteractor,
                     "DeleteUserInteractor": user_interactors.DeleteUserInteractor,
+                    "ExportCollectionInteractor": collection_interactors.ExportCollectionInteractor,
                     "GetGameInteractor": game_interactors.GetGameInteractor,
                     "GetGamesInteractor": game_interactors.GetGamesInteractor,
                     "GetGenreInteractor": genre_interactors.GetGenreInteractor,

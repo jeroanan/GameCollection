@@ -1,4 +1,4 @@
-# Copyright (c) 20115 David Wilson
+# Copyright (c) 2015 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -22,26 +22,35 @@ class TestHardware(unittest.TestCase):
 
     def test_from_mongo_result_performs_mapping(self):
         """Mapping mongo result to Hardware object properly initialises object."""
-        hd = {"_id": "id",
-              "_Hardware__name": "name",
-              "_Hardware__platform": "platform",
-              "_Hardware__num_owned": 1,
-              "_Hardware__num_boxed": 2,
-              "_Hardware__notes": "notes",
-              "_Hardware__hardware_type": "ht"}
 
+        hd = {
+            "_id": "id",
+            "_Hardware__name": "name",
+            "_Hardware__platform": "platform",
+            "_Hardware__num_owned": 1,
+            "_Hardware__num_boxed": 2,
+            "_Hardware__notes": "notes",
+            "_Hardware__hardware_type": "ht"
+        }
     
         h = hw.Hardware.from_mongo_result(hd)
-        self.assertEqual(hd["_id"], h.id)
-        self.assertEqual(hd["_Hardware__name"], h.name)
-        self.assertEqual(hd["_Hardware__platform"], h.platform)
-        self.assertEqual(hd["_Hardware__num_owned"], h.num_owned)
-        self.assertEqual(hd["_Hardware__num_boxed"], h.num_boxed)
-        self.assertEqual(hd["_Hardware__notes"], h.notes)
-        self.assertEqual(hd["_Hardware__hardware_type"], h.hardware_type)
+
+        expected_mappings = {
+            "_id": h.id,
+            "_Hardware__name": h.name,
+            "_Hardware__platform": h.platform,
+            "_Hardware__num_owned": h.num_owned,
+            "_Hardware__num_boxed": h.num_boxed,
+            "_Hardware__notes": h.notes,
+            "_Hardware__hardware_type": h.hardware_type
+        }
+
+        for k, v in expected_mappings.items():
+            self.assertEqual(hd[k], v)
         
     def test_from_dict_performs_mappings(self):
         """Mapping a dictionary to Hardware object properly initialises object"""
+
         hd = {
             "id": "id",
             "name": "name",
@@ -52,12 +61,19 @@ class TestHardware(unittest.TestCase):
             "userid": "userid",
             "hardwaretype": "ht"
         }
+
         h = hw.Hardware.from_dict(hd)
-        self.assertEqual(hd["id"], h.id)
-        self.assertEqual(hd["name"], h.name)
-        self.assertEqual(hd["platform"], h.platform)
-        self.assertEqual(hd["numcopies"], h.num_owned)
-        self.assertEqual(hd["numboxed"], h.num_boxed)
-        self.assertEqual(hd["notes"], h.notes)
-        self.assertEqual(hd["userid"], h.user_id)
-        self.assertEqual(hd["hardwaretype"], h.hardware_type)
+
+        expected_mappings = {
+            "id": h.id,
+            "name": h.name,
+            "platform": h.platform,
+            "numcopies": h.num_owned,
+            "numboxed": h.num_boxed,
+            "notes": h.notes,
+            "userid": h.user_id,
+            "hardwaretype": h.hardware_type
+        }
+
+        for k, v in expected_mappings.items():
+            self.assertEqual(hd[k], v)

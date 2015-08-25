@@ -16,6 +16,7 @@
 				"DeleteHardwareTypeInteractor": "HardwareInteractors.DeleteHardwareTypeInteractor",
 				"DeletePlatformInteractor": "PlatformInteractors.DeletePlatformInteractor",
 				"DeleteUserInteractor": "UserInteractors.DeleteUserInteractor",
+				"ExportCollectionInteractor": "CollectionInteractors.ExportCollectionInteractor",
 				"GetGameInteractor": "GameInteractors.GetGameInteractor",
 				"GetGamesInteractor": "Game.GetGamesInteractor",
 				"GetGamesInteractor": "GameInteractors.GetGamesInteractor",
