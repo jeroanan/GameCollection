@@ -91,7 +91,7 @@ HardwareTypes.prototype.updateHardwareType = function() {
 
 $(function() {
 	 var hardwareTypes = new HardwareTypes(new Ajax(), urls);
-	 var itemName = 'hardware tpye';
+	 var itemName = 'hardware type';
 
 	 $('button.addnewhardwaretype').on('click', function(e) {		  
 		  var button = $('button.addnewhardwaretype');
