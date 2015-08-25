@@ -64,9 +64,9 @@ HardwareTypes.prototype.addNewHardwareType = function() {
 	 var validationResult = this.ajax.validateNameDescription(j);
 
 	 if (validationResult.result === 'fail') {
-		  def.reject({'fields': validationResult.fields});
-		  return def;
-	 }	 
+	 	  def.reject({'fields': validationResult.fields});
+	 	  return def;
+	 }
 
 	 this.ajax.addNewNameDescription(this.addHardwareType)
 	 	  .done(function(r) { def.resolve(r); })
@@ -90,7 +90,8 @@ HardwareTypes.prototype.updateHardwareType = function() {
 };
 
 $(function() {
-	 var hardwareTypes = new HardwareTypes(new Ajax(), urls);
+	 var ajax = new Ajax();
+	 var hardwareTypes = new HardwareTypes(ajax, urls);
 	 var itemName = 'hardware type';
 
 	 $('button.addnewhardwaretype').on('click', function(e) {		  
@@ -107,7 +108,11 @@ $(function() {
 		  			 document.location.reload(); 
 		  		})
 		  		.fail(function(r) {
-		  			 if (r.fields) showFailure(r.fields, itemName);
+		  			 if (r.fields) {
+						  showFailure(r.fields, itemName);
+					 } else {
+						  ajax.showValidationFailure('Internal error while saving');
+					 }
 		  		})
 				.always(function() {
 					 finishedLoading(loadingGifClass, inputs);
@@ -152,7 +157,11 @@ $(function() {
 					 document.location = urls.hardwaretypes; 
 				})
 				.fail(function(r) {
-					 if(r.fields) showFailure(r.fields, itemName);
+					 if(r.fields) {
+						  showFailure(r.fields, itemName);
+					 } else {
+						  ajax.showValidationFailure('Internal error while saving');
+					 }
 				})
 				.always(function(r) {
 					 finishedLoading(loadingGifClass, inputs);

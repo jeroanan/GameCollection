@@ -22,6 +22,19 @@ class AddHardwareTypeInteractor(Interactor):
     :param hardware_type: An object of type HardwareType. The hardware type to add.
     """
     def execute(self, hardware_type):
+
+        def validate():
+            if hardware_type is None:
+                raise TypeError("hardware_type cannot be null")
+
+            required_fields = ["name", "description"]
+
+            for rf in required_fields:
+                attr_val = getattr(hardware_type, rf)
+                if  attr_val == "" or attr_val is None:
+                    raise ValueError(rf)
+
+        validate()
         self.persistence.add_hardware_type(hardware_type)
 
 
