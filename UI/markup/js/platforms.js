@@ -33,7 +33,7 @@ Platforms.prototype.addPlatform = function(name, description) {
 		  'description': description
 	 };
 
-	 var validationResult = this.ajax.validateNameDescription(nameDescription);
+	 var validationResult = ajax.validateNameDescription(nameDescription);
 	 
 	 if (validationResult.result === 'fail') {
 		  def.reject(validationResult.fields);
@@ -116,11 +116,29 @@ $(function() {
 		  ajax.hideValidationFailure();
 
 		  platforms.addNewPlatform()
-		  		.done(function() {
-		  			 document.location.reload();
+		  		.done(function(r) {
+					 var json_result = JSON.parse(r);
+					 
+					 if (json_result.result) {
+						  var res = json_result.result;
+
+						  if (res === 'already_exists') {
+								ajax.showValidationFailure('A platform with this name already exists');
+						  } else if (res === 'validation_failed') {
+								ajax.showValidationFailure('Please enter a platform name and description');
+						  } else if (res === 'ok') {
+								document.location.reload();						  
+						  } else {
+								ajax.showValidationFailure('An error occurred while adding the platform');
+						  }						  
+					 }
 		  		})
 		  		.fail( function(r) {
-		  			 if (r.fields) showFailure(r.fields, itemName);
+		  			 if (r.fields) {
+						  showFailure(r.fields, itemName);
+					 } else {
+						  ajax.showValidationFailure('An error occurred while adding the platform');
+					 }
 		  		})
 		  		.always(function() {
 					 finishedLoading(loadingGifClass, inputs);

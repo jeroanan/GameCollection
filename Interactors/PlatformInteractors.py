@@ -21,11 +21,23 @@ class AddPlatformInteractor(i.Interactor):
     """Add a platform"""
 
     def execute(self, platform):
-        """Add a platform
+        """
+        Add a platform
         :param platform: An object of type Platform. The platform to add.
         """
         self.__validate(platform)
+        self.__stop_if_platform_exists(platform)
         self.persistence.add_platform(platform)
+
+    def __stop_if_platform_exists(self, platform):
+        """
+        If persistence tells us that a platform with the same name already exists,
+        raise PlatformExistsException.
+        """
+        existing_platforms = self.persistence.get_platforms()
+        matching_platforms = [p for p in existing_platforms if p.name == platform.name]
+        if len(matching_platforms) > 0:
+            raise PlatformExistsException()
 
     def __validate(self, platform):
         if platform is None:
@@ -39,7 +51,8 @@ class DeletePlatformInteractor(i.Interactor):
     """Delete a platform"""
 
     def execute(self, platform):
-        """Delete a platform
+        """
+        Delete a platform
         :param platform: An object of type Platform. The platform to delete.
         """
         self.__validate(platform)
@@ -54,9 +67,11 @@ class GetPlatformInteractor(i.Interactor):
     """Get details of a specific platform"""
 
     def execute(self, platform_id):
-        """Get details of a specific platform
+        """
+        Get details of a specific platform
         :param platform_id: The uuid of the platform to be retrieved
-        :returns: An object of type Platform. The requested platform"""
+        :returns: An object of type Platform. The requested platform
+        """
         return self.persistence.get_platform(platform_id)
 
 
@@ -102,3 +117,6 @@ class UpdatePlatformInteractor(i.Interactor):
         if platform is None:
             raise TypeError("platform")
         self.validate_string_field("Platform", platform.name)
+
+class PlatformExistsException(Exception):
+    pass

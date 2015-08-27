@@ -1,3 +1,4 @@
+# Copyright (c) 2015 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -70,7 +71,7 @@ class Handler(object):
             raise cherrypy.HTTPRedirect("/login")
 
     def validate_params(self, params, fields):
-        invalid_fields = sum(map(lambda x: x not in params or params[x] == "", fields))
+        invalid_fields = sum(map(lambda x: x not in params or str(params[x]).strip() == "" or params[x] == None, fields))
         return invalid_fields == 0
 
     def renew_cookies(self):

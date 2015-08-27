@@ -14,8 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.PlatformInteractors import AddPlatformInteractor
+from unittest.mock import Mock
+
+import Interactors.PlatformInteractors as pi
 from Interactors.Interactor import Interactor
+import Platform as p
 from Tests.Interactors.InteractorTestBase import InteractorTestBase
 
 
@@ -24,9 +27,26 @@ class TestAddPlatformInteractor(InteractorTestBase):
 
     def setUp(self):
         """setup function for all unit tests in this class"""
+
+        def get_stored_platforms():
+            existing_platforms = [{
+                "name": "existing_platform",
+                "description": "It exists"
+            }, {
+                "name": "another one",
+                "description": "This also exists"
+            }]
+
+            platforms = []
+            for ep in existing_platforms:
+                platforms.append(p.Platform.from_dict(ep))
+            
+            return platforms
+
         super().setUp()
-        self.__target = AddPlatformInteractor()
+        self.__target = pi.AddPlatformInteractor()
         self.__target.persistence = self.persistence
+        self.__target.persistence.get_platforms = Mock(return_value=get_stored_platforms())
         self.__target.validate_string_field = self.validate_string_field
         self.__target.validate_integer_field = self.validate_integer_field
 
@@ -48,8 +68,18 @@ class TestAddPlatformInteractor(InteractorTestBase):
         self.__target.execute(platform)
         self.assertTrue(self.validate_string_field_was_called_with("Platform name", platform.name))
 
-    def test_execute_calls_persistence(self):
+    def test_execute_calls_persistence_to_add_platform(self):
         """Test that calling AddPlatformInteractor.execute causes persistence.add_platform to be executed"""
         self.__target.execute(self.get_platform(name="platform"))
         self.assertTrue(self.persistence.add_platform.called)
 
+    def test_execute_calls_persistence_to_get_all_platforms(self):
+        """
+        Test that calling AddPlatformInteractor.execute causes persistence.get_platforms to be executed.
+        This will then be used to check whether the name of the platform we're trying to add already exists.       
+        """
+        self.__target.execute(self.get_platform(name="platform"))
+        self.assertTrue(self.persistence.get_platforms.called)
+
+    def test_execute_with_existing_platform_name_raises_platform_exists_exception(self):
+        self.assertRaises(pi.PlatformExistsException, self.__target.execute, self.get_platform(name='existing_platform'))

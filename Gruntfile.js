@@ -55,6 +55,12 @@ module.exports = function(grunt) {
 						  to: 'bust=<%= grunt.template.today("yyyymmddHHMMss") %>\"'
 					 }]
 				}
+		  },
+		  watch: {
+				scripts: {
+					 files: ['!UI/markup/js/*.min.js', '!UI/markup/js/init/.js', 'UI/markup/js/*.js'],
+					 tasks: ['uglify', 'replace']
+				}
 		  }
 	 });
 
@@ -63,6 +69,7 @@ module.exports = function(grunt) {
 	 grunt.loadNpmTasks('grunt-contrib-uglify');
 	 grunt.loadNpmTasks('grunt-contrib-cssmin');
 	 grunt.loadNpmTasks('grunt-text-replace');
+	 grunt.loadNpmTasks('grunt-contrib-watch');
 	 
 	 // Default task(s).
 	 grunt.registerTask('default', ['qunit', 'jshint',  'uglify', 'replace', 'cssmin']);
