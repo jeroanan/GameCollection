@@ -64,13 +64,15 @@ class Platform(object):
     @staticmethod
     def from_dict(dictionary):
         """Initialises an instance of Platform from a dictionary.
-        :param d: A dictionary containing the following keys:
+        :param d: A dictionary containing some or all of the following keys:
+           * id
            * name
            * description
         :returns: An instance of Platform with its properties set. Keys missing from d
                   will be initialised to their default values.
         """
         platform = Platform()
+        platform.id = dictionary.get("id", platform.id)
         platform.name = dictionary.get("name", platform.name)
         platform.description = dictionary.get("description", platform.description)
         return platform

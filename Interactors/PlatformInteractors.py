@@ -31,7 +31,7 @@ class AddPlatformInteractor(i.Interactor):
 
     def __stop_if_platform_exists(self, platform):
         """
-        If persistence tells us that a platform with the same name already exists,
+        If persistence tells us that a platform with a different id but the same name already exists,
         raise PlatformExistsException.
         """
         existing_platforms = self.persistence.get_platforms()
@@ -79,8 +79,11 @@ class GetPlatformsInteractor(i.Interactor):
     """Get all platforms"""
 
     def execute(self):
-        """Get all platforms.
-        :returns: A list of Platform objects containing details on all platforms"""
+        """
+        Get all platforms.
+        :returns: A list of Platform objects containing details on all platforms
+        """
+
         platforms = self.persistence.get_platforms()
         if platforms is None:
             platforms = []
@@ -96,8 +99,11 @@ class GetSuggestedPlatformsInteractor(i.Interactor):
         self.__suggested_platforms = suggested_platforms
 
     def execute(self):
-        """Get the list of suggested platforms
-        :returns: A list of Platform objects sorted by name containing details of the suggested platforms"""
+        """
+        Get the list of suggested platforms
+        :returns: A list of Platform objects sorted by name containing details of the suggested platforms
+        """
+
         platforms = list(self.persistence.get_platforms())
         suggested_platforms = self.__suggested_platforms()        
         result = [p for p in suggested_platforms if p not in platforms]
@@ -108,10 +114,26 @@ class UpdatePlatformInteractor(i.Interactor):
     """Update the details of a platform"""
 
     def execute(self, platform):
-        """Update the details of a platform.
-        :param platform: An object of type Platform. The platform to be updated"""
+        """
+        Update the details of a platform.
+        :param platform: An object of type Platform. The platform to be updated
+        """
+
         self.__validate(platform)
+        self.__stop_if_platform_is_invalid(platform)
+        
         self.persistence.update_platform(platform)
+
+    def __stop_if_platform_is_invalid(self, platform):
+        print(platform.id)
+        existing_platforms = self.persistence.get_platforms()
+        matching_platforms = [x for x in existing_platforms if (x.name==platform.name and str(x.id)!=platform.id)]
+        this_platform = [x for x in existing_platforms if str(x.id)==platform.id]
+
+        if len(this_platform) == 0:
+            raise PlatformNotFoundException
+        if len(matching_platforms)>0:
+            raise PlatformExistsException
 
     def __validate(self, platform):
         if platform is None:
@@ -120,3 +142,7 @@ class UpdatePlatformInteractor(i.Interactor):
 
 class PlatformExistsException(Exception):
     pass
+
+class PlatformNotFoundException(Exception):
+    pass
+

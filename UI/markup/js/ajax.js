@@ -219,35 +219,11 @@ Ajax.prototype.ajaxSave = function(url, data, successUri) {
 		  return this;
 	 }
 
-	 /**
-	  * Called when a save operation succeeds. A success message is displayed for a few seconds.
-	  * If successUri has a value then the uri it contains is then redirected to.
-	  */
-	 function saveSuccess() {
-		  var ajax = getAjax();
-
-		  ajax.showValidationSuccess("Save Successful");
-		  setTimeout(function() {
-				ajax.hideValidationSuccess();
-				if (successUri) navigate(successUri);
-		  }, 3000);
-	 }
-
-	 /**
-	  * Called when a save operation fails. Display a save failed message.
-	  */
-	 function saveError() {
-		  var ajax = getAjax();
-		  ajax.showValidationFailure("Save Failed!");
-	 }
-
 	 this.sendAjax(url, data)
 		  .done(function(r) {
-				saveSuccess();
 				def.resolve(r);
 		  })
 		  .fail(function(r) {
-				saveError();
 				def.reject(r);
 		  });
 

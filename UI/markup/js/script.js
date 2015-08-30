@@ -179,18 +179,6 @@ function updateNameDescription(updateUri, successUri) {
 function ajaxSave(url, data, successUri) {
 	 
 	 /**
-	  * Called when a save operation succeeds. A success message is displayed for a few seconds.
-	  * If successUri has a value then the uri it contains is then redirected to.
-	  */
-	 function saveSuccess() {
-		  showValidationSuccess("Save Successful");
-		  setTimeout(function() {
-				hideValidationSuccess();
-				if (successUri) navigate(successUri);
-		  }, 3000);
-	 }
-
-	 /**
 	  * Called when a save operation fails. Display a save failed message.
 	  */
 	 function saveError() {
@@ -201,7 +189,6 @@ function ajaxSave(url, data, successUri) {
 		  type: 'post',
         url: url,
         data: data,
-        success: saveSuccess,
         error: saveError
     });
 }

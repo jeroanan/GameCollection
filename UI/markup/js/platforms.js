@@ -103,6 +103,24 @@ $(function() {
 	 var platforms = new Platforms(ajax, urls);
 	 var itemName = 'platform';
 
+	 var save_done = function(r) {
+		  if (r.result) {
+				var res = r.result;
+				
+				if (res === 'already_exists') {
+					 ajax.showValidationFailure('A platform with this name already exists');
+				} else if (res === 'not_found') {
+					 ajax.showValidationFailure('Unknown platform');
+				} else if (res === 'validation_failed') {
+					 ajax.showValidationFailure('Please enter a platform name and description');
+				} else if (res === 'ok') {
+					 document.location.reload();						  
+				} else {
+					 ajax.showValidationFailure('An error occurred while adding the platform');
+				}
+		  }
+	 };
+
 	 $('input.addnewplatform').on('click', function(e) {
 
 		  var button = $('input.addnewplatform');
@@ -118,20 +136,7 @@ $(function() {
 		  platforms.addNewPlatform()
 		  		.done(function(r) {
 					 var json_result = JSON.parse(r);
-					 
-					 if (json_result.result) {
-						  var res = json_result.result;
-
-						  if (res === 'already_exists') {
-								ajax.showValidationFailure('A platform with this name already exists');
-						  } else if (res === 'validation_failed') {
-								ajax.showValidationFailure('Please enter a platform name and description');
-						  } else if (res === 'ok') {
-								document.location.reload();						  
-						  } else {
-								ajax.showValidationFailure('An error occurred while adding the platform');
-						  }						  
-					 }
+					 save_done(json_result);					 
 		  		})
 		  		.fail( function(r) {
 		  			 if (r.fields) {
@@ -174,14 +179,14 @@ $(function() {
 		  var inputs = $('form').find('input');
 
 		  e.preventDefault();
-
 		  ajax.hideValidationFailure();
 		  
 		  doLoading(button, loadingGifClass, inputs);
 
 		  platforms.updatePlatform()
-		  		.done(function() { 
-		  			 document.location = urls.platforms; 
+		  		.done(function(r) { 
+					 var json_result = JSON.parse(r);
+					 save_done(json_result);		  			 
 		  		})
 		  		.fail(function(r) { 
 		  			 if (r.fields) showFailure(r.fields);						  

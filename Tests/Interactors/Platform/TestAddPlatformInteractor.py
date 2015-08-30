@@ -73,13 +73,9 @@ class TestAddPlatformInteractor(InteractorTestBase):
         self.__target.execute(self.get_platform(name="platform"))
         self.assertTrue(self.persistence.add_platform.called)
 
-    def test_execute_calls_persistence_to_get_all_platforms(self):
-        """
-        Test that calling AddPlatformInteractor.execute causes persistence.get_platforms to be executed.
-        This will then be used to check whether the name of the platform we're trying to add already exists.       
-        """
-        self.__target.execute(self.get_platform(name="platform"))
-        self.assertTrue(self.persistence.get_platforms.called)
-
     def test_execute_with_existing_platform_name_raises_platform_exists_exception(self):
+        """
+        Test that if a platform with the same name as the one being added already exists, PlatofrmExistsException is 
+        raised.
+        """
         self.assertRaises(pi.PlatformExistsException, self.__target.execute, self.get_platform(name='existing_platform'))
