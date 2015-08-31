@@ -14,22 +14,47 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
+import json
+
+import Interactors.PlatformInteractors as pi
 import UI.Handlers.AuthenticatedHandler as ah
 
 
 class DeletePlatformHandler(ah.AuthenticatedHandler):
-    # Handles requests to delete a platform
+    """Handles requests to delete a platform"""
 
     def get_page(self, params):
-        """Handles requests to delete a platform
-        :param params: A dictionary. It is expected to contain the following:
+        """
+        Handles requests to delete a platform
+
+        Args:
+            params: A dictionary. It is expected to contain the following:
                        * id -- the id of the platform to be deleted
+
+        Returns:
+            A json object with one field: result. Values of result can be:
+
+               + validation_failed -- Validation of params failed
+               + not_found -- The platform to be deleted did not exist
+               + error -- A problem occurred while deleting the platform
+               + ok -- Deletion was successful
+
+           Only in the case of ok will deletion have taken place
         """
         super().get_page(params)
 
-        if not self.validate_params(params, ["id"]):
-            return ""
+        result = {'result': ''}
 
-        interactor = self.interactor_factory.create("DeletePlatformInteractor")
-        interactor.execute(params.get("id", params.get("id", "")))
-        
+        if not self.validate_params(params, ["id"]):
+            result['result'] = 'validation_failed'
+        else:
+            interactor = self.interactor_factory.create("DeletePlatformInteractor")
+            try:
+                interactor.execute(params.get("id", params.get("id", "")))
+                result['result'] = 'ok'
+            except pi.PlatformNotFoundException:
+                result['result'] = 'not_found'
+            except:                
+                result['result'] = 'error'
+
+        return json.dumps(result)

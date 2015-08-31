@@ -114,7 +114,7 @@ $(function() {
 				} else if (res === 'validation_failed') {
 					 ajax.showValidationFailure('Please enter a platform name and description');
 				} else if (res === 'ok') {
-					 document.location.reload();						  
+					 document.location = urls.platforms;
 				} else {
 					 ajax.showValidationFailure('An error occurred while adding the platform');
 				}
@@ -207,8 +207,9 @@ $(function() {
 		  doLoading(link, loadingGifClass, inputs);
 
 		  platforms.deletePlatform()
-		  		.done(function() { 
-		  			 document.location = urls.platforms; 
+		  		.done(function(r) { 
+					 var json_result = JSON.parse(r);
+		  			 save_done(json_result);
 		  		})
 		  		.always(function() {
 					 finishedLoading(loadingGifClass, inputs);
@@ -216,5 +217,6 @@ $(function() {
 
 		  return false;
 	 });
+
 	 if (document.location.pathname === '/editplatform') $('#name').focus();
 });

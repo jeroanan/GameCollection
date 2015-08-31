@@ -53,14 +53,23 @@ class DeletePlatformInteractor(i.Interactor):
     def execute(self, platform):
         """
         Delete a platform
-        :param platform: An object of type Platform. The platform to delete.
-        """
-        self.__validate(platform)
-        self.persistence.delete_platform(platform)
 
-    def __validate(self, platform_id):
-        if platform_id is None:
+        Args:
+            platform: The id of the platform to delete.
+        
+        Raises:
+            TypeError: The platform passed in was None
+        """
+        if platform is None:
             raise TypeError("platform")
+
+        platforms = self.persistence.get_platforms()
+        this_platform = [x for x in platforms if str(x.id)==platform]
+
+        if len(this_platform) == 0:
+            raise PlatformNotFoundException
+
+        self.persistence.delete_platform(platform)
 
 
 class GetPlatformInteractor(i.Interactor):

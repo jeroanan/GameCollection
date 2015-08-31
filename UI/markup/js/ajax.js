@@ -87,6 +87,7 @@ Ajax.prototype.ajaxDelete = function (url, data, successUri) {
 	 var def = $.Deferred();
 	 var ajax = this;
 	 if (!this.sendAjax) ajax = new Ajax();
+
 	 ajax.sendAjax(url, data, this.deletionSuccessful, this.deletionFailed)
 		  .done(function(r) { def.resolve(r); })
 		  .fail(function(r) { def.reject(r); });
@@ -106,12 +107,7 @@ Ajax.prototype.ajaxDelete = function (url, data, successUri) {
 	  if(!this.showValidationSuccess) ajax = new Ajax();
 
  	  ajax.showValidationSuccess("Deletion successful");
-	  
- 	  setTimeout(function() {
- 			ajax.hideValidationSuccess();				
- 			if (successUri) navigate(successUri);
- 	  }, 3000);
-};
+ };
 
 /**
  * Called when deletion failes. It displays a deletion failed message.
