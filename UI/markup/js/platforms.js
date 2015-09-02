@@ -163,11 +163,19 @@ $(function() {
 		  button.attr('disabled', 'true');
 		  
 		  platforms.addPlatform(name, description)
-		  		.done(function() {
-		  			 document.location.reload();
+				.done(function(r) { 
+					 var json_result = JSON.parse(r);
+					 save_done(json_result);		  			 
+		  		})
+		  		.fail(function(r) { 
+					 if (r.fields) {
+						  showFailure(r.fields, itemName);
+					 } else {
+						  ajax.showValidationFailure('An error occurred while adding the platform');
+					 }
 		  		})
 		  		.always(function() {
-					 finishedLoading(loadingGifClass);
+					 finishedLoading(loadingGifClass, inputs);
 		  		});
 
 		  return false;
@@ -189,7 +197,11 @@ $(function() {
 					 save_done(json_result);		  			 
 		  		})
 		  		.fail(function(r) { 
-		  			 if (r.fields) showFailure(r.fields);						  
+					 if (r.fields) {
+						  showFailure(r.fields, itemName);
+					 } else {
+						  ajax.showValidationFailure('An error occurred while adding the platform');
+					 }
 		  		})
 		  		.always(function() {
 					 finishedLoading(loadingGifClass, inputs);
@@ -211,6 +223,13 @@ $(function() {
 					 var json_result = JSON.parse(r);
 		  			 save_done(json_result);
 		  		})
+				.fail(function(r) {
+					 if (r.fields) {
+						  showFailure(r.fields, itemName);
+					 } else {
+						  ajax.showValidationFailure('An error occurred while adding the platform');
+					 }	 
+				})
 		  		.always(function() {
 					 finishedLoading(loadingGifClass, inputs);
 		  		});

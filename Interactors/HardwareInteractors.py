@@ -18,10 +18,20 @@ from Interactors.Interactor import Interactor
 
 
 class AddHardwareTypeInteractor(Interactor):
-    """Add a hardware type.
-    :param hardware_type: An object of type HardwareType. The hardware type to add.
-    """
+    """Adds a new hardware type"""
+
     def execute(self, hardware_type):
+        """
+        Add a hardware type.
+
+        Args:
+            hardware_type: An object of type HardwareType. The hardware type to add.
+
+        Raises:
+            TypeError: hardware_type is None
+            ValueError: hardware_type.name or hardware_type.description is None or empty
+            HardwareTypeExistsException: A hardware type with the same name already exists
+        """        
 
         def validate():
             if hardware_type is None:
@@ -31,11 +41,20 @@ class AddHardwareTypeInteractor(Interactor):
 
             for rf in required_fields:
                 attr_val = getattr(hardware_type, rf)
-                if  attr_val == "" or attr_val is None:
+                if  attr_val is None or str.strip(attr_val) == "":
                     raise ValueError(rf)
 
+        def stop_if_hardware_type_exists():
+            existing_hardware_types = self.persistence.get_hardware_types_list()
+            this_hardware_type = [x for x in existing_hardware_types if x.name==hardware_type.name]
+        
+            if len(this_hardware_type)>0:
+                raise HardwareTypeExistsException            
+
         validate()
-        self.persistence.add_hardware_type(hardware_type)
+        stop_if_hardware_type_exists()
+
+        self.persistence.add_hardware_type(hardware_type)        
 
 
 class CountHardwareInteractor(Interactor):
@@ -124,8 +143,17 @@ class UpdateHardwareTypeInteractor(Interactor):
     """Update a hardware type"""
     
     def execute(self, hardware_type):
-        """Update a hardware type
-        :param hardware_type: The hardware type to update
+        """
+        Update a hardware type.
+
+        Args:
+            hardware_type: The hardware type to update. name and description are required.
+
+        Raises:
+            TypeError: hardware_type is None
+            ValueError: One of the required members of hardware_type is empty/None
+            HardwareTypeExistsException: A hardware type with the same name exists as a different record
+            HardwareTypeNotFoundException: The hardware type does not exist
         """
 
         def validate():
@@ -136,10 +164,28 @@ class UpdateHardwareTypeInteractor(Interactor):
             
             for rf in required_fields:
                 attr_val = getattr(hardware_type, rf)
-                if attr_val == '' or attr_val is None:
+                if  attr_val is None or str.strip(attr_val) == '':
                     raise ValueError(rf)
 
+        def stop_if_hardware_type_exists_with_different_id():            
+            different_hardware_type = [x for x in existing_hardware_types 
+                                       if x.name==hardware_type.name and x.id!=hardware_type.name]
+
+            if len(different_hardware_type)>0:
+                raise HardwareTypeExistsException
+
+        def stop_if_hardware_type_does_not_exist():
+            this_hardware_type = [x for x in existing_hardware_types if x.id==hardware_type.id]
+
+            if len(this_hardware_type)==0:
+                raise HardwareTypeNotFoundException
+
+        existing_hardware_types = self.persistence.get_hardware_types_list()
+
         validate()
+        stop_if_hardware_type_exists_with_different_id()
+        stop_if_hardware_type_does_not_exist()
+
         self.persistence.update_hardware_type(hardware_type)
 
 
@@ -212,8 +258,16 @@ class UpdateHardwareInteractor(Interactor):
 
     def __validate(self, hardware):
         if hardware is None:
-            raise TypeError("hardware")
+            raise TypeError('hardware')
+
         self.validate_string_field("hardware name", hardware.name)
         self.validate_string_field("platform", hardware.platform)
         self.validate_integer_field("Number owned", hardware.num_owned)
         self.validate_integer_field("Number boxed", hardware.num_boxed)
+
+class HardwareTypeExistsException(Exception):
+    pass
+
+
+class HardwareTypeNotFoundException(Exception):
+    pass

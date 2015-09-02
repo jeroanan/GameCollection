@@ -14,13 +14,55 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
+
 import HardwareType as ht
+import Interactors.HardwareInteractors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 
 
 class AddHardwareTypeHandler(ah.AuthenticatedHandler):
+    """Handle requests to add a hardware type"""
     
     def get_page(self, args):
+        """
+        Handle requests to add a hardware type
+        
+        Args:
+            args: A dictionary containing the following keys:
+        
+                  + name: The name of the new hardware type
+                  + description: The description of the new hardware type
+
+        Returns:
+            A json object with one field: result. Values of result can be:
+                  
+                  + validation_failed -- Validation of args failed
+                  + ok -- The hardware type was added successfully.
+
+            Only in the case of ok will the hardware type have been added.
+        """
         super().get_page(args)
-        interactor = self.interactor_factory.create("AddHardwareTypeInteractor")
-        interactor.execute(ht.HardwareType.from_dict(args))
+
+        def validate():
+            required_fields = ['name', 'description']
+            return self.validate_params(args, required_fields)
+
+        def save_hardware_type():
+            interactor = self.interactor_factory.create('AddHardwareTypeInteractor')
+            interactor.execute(ht.HardwareType.from_dict(args))
+
+        result = {'result': ''}
+
+        if not validate():
+            result['result'] = 'validation_failed'
+        else:
+            try:
+                save_hardware_type()
+                result['result'] = 'ok'
+            except hi.HardwareTypeExistsException:
+                result['result'] = 'already_exists'
+            except:
+                result['result'] = 'error'
+
+        return json.dumps(result)

@@ -101,6 +101,18 @@ $(function() {
 				ajax.showValidationFailure('Internal error while saving');
 		  }
 	 };
+	 
+	 var saveDone = function(r) {
+		  if (r==='ok') {
+				document.location = urls.hardwaretypes;
+		  } else if (r==='already_exists') {
+				ajax.showValidationFailure('A hardware type with this name already exists.');
+		  } else if (r==='validation_failed') {
+				ajax.showValidationFailure('Please enter a hardware type name and description.');
+		  } else {
+				ajax.showValidationFailure('An error occurred while adding the hardware type.');
+		  }
+	 };
 
 	 $('button.addnewhardwaretype').on('click', function(e) {		  
 		  var button = $('button.addnewhardwaretype');
@@ -113,7 +125,10 @@ $(function() {
 
 	 	  hardwareTypes.addNewHardwareType()
 		  		.done(function(r) { 
-		  			 document.location.reload(); 
+					 var json_result = JSON.parse(r);
+
+					 if (json_result.result) 
+						  saveDone(json_result.result);
 		  		})
 		  		.fail(function(r) {
 					 saveFailed(r);
@@ -157,8 +172,12 @@ $(function() {
 		  doLoading(button, loadingGifClass, inputs);
 
 		  hardwareTypes.updateHardwareType()
-		  		.done(function() { 
-					 document.location = urls.hardwaretypes; 
+		  		.done(function(r) { 
+					 var json_result = JSON.parse(r);
+					 
+					 if (json_result.result) {
+						  saveDone(json_result.result);
+					 }					 
 				})
 				.fail(function(r) {
 					 saveFailed(r);
