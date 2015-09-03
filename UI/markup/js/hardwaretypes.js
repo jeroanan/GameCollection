@@ -152,7 +152,12 @@ $(function() {
 		  
 		  hardwareTypes.deleteHardwareType()
 		   	.done(function(r) { 
-					 document.location = urls.hardwaretypes; 
+
+					 var json_result = JSON.parse(r);
+					 
+					 if (json_result.result) {
+						  saveDone(json_result.result);
+					 }
 				})
 				.always(function() {
 					 finishedLoading(loadingGifClass, inputs);
@@ -203,10 +208,13 @@ $(function() {
 		  button.attr('disabled', 'true');
 
 		  hardwareTypes.addHardwareType(name, description)
-		  		.done(function() { 
-					 document.location.reload(); 
+		  		.done(function(r) { 
+					 json_result = JSON.parse(r);
+					 
+					 if (json_result.result)
+						  saveDone(json_result.result);
 				})
-				.alwayns(function() {
+				.always(function() {
 					 finishedLoading(loadingGifClass);
 					 button.removeAttr('disabled');
 				});

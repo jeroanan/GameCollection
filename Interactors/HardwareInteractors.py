@@ -97,9 +97,21 @@ class DeleteHardwareTypeInteractor(Interactor):
     """Delete a hardware type"""
 
     def execute(self, hardware_type):
-        """Delete a hardware type.
-        :param hardware_type: The hardware type to be deleted
         """
+        Delete a hardware type.
+
+        Args:
+            hardware_type: The hardware type to be deleted
+        """
+
+        def stop_if_hardware_type_does_not_exist():
+            existing_hardware_types = self.persistence.get_hardware_types_list()
+            this_hardware_type = [x for x in existing_hardware_types if str(x.id)==hardware_type.id]
+        
+            if len(this_hardware_type)==0:
+                raise HardwareTypeNotFoundException
+
+        stop_if_hardware_type_does_not_exist()
         self.persistence.delete_hardware_type(hardware_type)
 
 
