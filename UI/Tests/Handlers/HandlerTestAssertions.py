@@ -12,15 +12,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-def get_missing_param_assertion(handler):
-    
-    def assert_missing_param_returns_empty_string(param, params):
-        del(params[param])
-        result = handler.get_page(params)
-        return result == ""
+from unittest.mock import Mock
 
-    return assert_missing_param_returns_empty_string
-
+import json
 
 def get_empty_param_assertion(handler):
     
@@ -30,6 +24,78 @@ def get_empty_param_assertion(handler):
         return result == ""
     
     return assert_empty_param_returns_empty_string
+
+def get_missing_param_assertion(handler):
+    
+    def assert_missing_param_returns_empty_string(param, params):
+        del(params[param])
+        result = handler.get_page(params)
+        return result == ""
+
+    return assert_missing_param_returns_empty_string
+
+def get_params_returns_json_result_value_assertion(test_class, handler):
+    """
+    Get an assertion function that tests that calling a handler's get_page method causes the given result value of a
+    json object to be returned.
+
+    Args:
+        test_class: An instance of UnitTest.TestCase
+        handler: An instance of Handler that is executed when the returned closure is called
+    
+    Returns:
+        A function that will execute handler.get_page with the given parameters and assert that the expected value is 
+        returned in the resulting json object's result field.
+    """
+
+    def do_params_give_json_result_value(params, result_value):
+        """
+        Assert that when handler.get_page is called with params, the expected result_value is returned in the returned
+        json object's result field.
+
+        Args:
+            params: The params to pass to handler.get_page
+            result_value: The expected value of the returned json object's result field
+        """
+        json_result = json.loads(handler.get_page(params))
+        test_class.assertEqual(result_value, json_result['result'])
+
+    return do_params_give_json_result_value
+
+def get_exception_returns_json_result_value_assertion(test_class, handler, interactor):
+    """
+    Get an assertion function that tests that when an exception is encountered by handler.get_page, the expected 
+    result_value is returned in the returned json object's result field.
+
+    Args:
+        test_class: An instance of UnitTest.TestCase
+        handler: An instance of Handler that is executed when the returned closure is called
+        interactor: The instance of Interactor that generates the exception
+
+    Returns:
+        A function that will execute handler.get_page with the given parameters and assert that the expected value is 
+        returned in the resulting json object's result field when the given exception is encountered.
+    """
+
+    def does_exception_give_json_result_value(params, exception_type, result_value):
+        """
+        Assert that when handler.get_page encounters an exception of type exception_type, the returned json object's
+        result value is result_value
+        
+        Args:
+            params: Parameters to pass to handler.get_page
+            exception_type: The type of exception that is expected to be encountered
+            result_value: The expected value of result.result
+        """
+        
+        def interactor_execute(x):
+            raise exception_type
+
+        interactor.execute = Mock(side_effect=interactor_execute)
+        assertion = get_params_returns_json_result_value_assertion(test_class, handler)
+        assertion(params, result_value)
+
+    return does_exception_give_json_result_value
 
 def assert_operation_on_params_returns_true(func, params):
         for p in params:

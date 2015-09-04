@@ -45,13 +45,14 @@ class UpdatePlatformHandler(ah.AuthenticatedHandler):
             platform = p.Platform.from_dict(params)
 
             try:
-                interactor.execute(platform=platform)
+                interactor.execute(platform)
                 result['result'] = 'ok'
             except pi.PlatformExistsException:
                 result['result'] = 'already_exists'
             except pi.PlatformNotFoundException:
                 result['result'] = 'not_found'
-            except Exception:
+            except Exception as e:
+                print(e)
                 result['result'] = 'error'
         
         return json.dumps(result)

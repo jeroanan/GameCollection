@@ -25,7 +25,7 @@ import Platform as p
 import UI.Handlers.AddPlatformHandler as aph
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as sess
-
+import UI.Tests.Handlers.HandlerTestAssertions as hta
 
 class TestAddPlatformHandler(unittest.TestCase):
     """Unit tests for all methods in the AddPlatformHandler class"""
@@ -35,54 +35,59 @@ class TestAddPlatformHandler(unittest.TestCase):
 
         interactor_factory = Mock(factory.InteractorFactory)
         self.__interactor = Mock(pi.AddPlatformInteractor)
-
-        def add_platform_interactor_execute(platform):
-            if platform.name == 'already_exists':
-                raise pi.PlatformExistsException
-            elif platform.name == 'go_boom':
-                raise Exception
-
-        self.__interactor.execute = Mock(side_effect=add_platform_interactor_execute)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = aph.AddPlatformHandler(interactor_factory, renderer=None)
         self.__target.session = Mock(sess.Session) 
+
+        self.__json_message_assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
+        self.__exception_assertion = hta.get_exception_returns_json_result_value_assertion(self, self.__target, self.__interactor)
 
     def test_is_instance_of_authenticated_handler(self):
         """Test that AddPlatformHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
-    def test_platform_fails_validation_returns_json_validation_failed_message(self):
-        """Test that if validation of parameters fails, the json result is 'validation_failed'"""
-        params = self.__get_args(name='')
-        self.__assert_add_platform_returns_json_message(params, 'validation_failed')
+    def test_bad_name_gives_json_validation_failed_message(self):
+        """
+        Test that setting params['id'] to different bad values causes DeletePlatformHandler.handler to return a json 
+        result of 'validation_failed'
+        """
+        
+        def delete_id(x):
+            del x['name']
+            return x
+
+        def empty_id(x):
+            x['name'] = ''
+            return x
+
+        def null_id(x):
+            x['name'] = None
+            return x
+
+        make_bad_funcs = [delete_id, empty_id, null_id]
+
+        for bf in make_bad_funcs:
+            p = bf(self.__get_args())
+            self.__json_message_assertion(p, 'validation_failed')
         
     def test_success_returns_json_success_message(self):
         """Test that if adding the platform is successful, the json result is 'ok'"""
-        params = self.__get_args(name='platform')
-        self.__assert_add_platform_returns_json_message(params, 'ok')
+        self.__json_message_assertion(self.__get_args(), 'ok')
 
-    def test_platform_already_exists_returns_json_platform_exists_message(self):
-        """Test that if the platform already exists, the json result is 'already_exists'"""
-        params = self.__get_args(name='already_exists')
-        self.__assert_add_platform_returns_json_message(params, 'already_exists')
-    
-    def test_misc_error_returns_json_error_message(self):
-        """Test that if a misc exception occurs when adding a platform, the json result is 'error'"""
-        params = self.__get_args(name='go_boom')
-        self.__assert_add_platform_returns_json_message(params, 'error')
-
-    def __assert_add_platform_returns_json_message(self, params, result_content):
+    def test_exceptions_return_expected_json_results(self):
         """
-        Assert that sending the given parameters to the platofrm returns the given content in its json result.
-        :param params: An dictionary containing the platform details
-        :json_content: The expected content of json result
+        Test that when exceptions are encountered by DeletePlatformHandler.get_page, the expected result value is 
+        returned
         """
-        result = self.__target.get_page(params)
-        json_result = json.loads(result)
-        self.assertEqual(result_content, json_result['result'])
+        expected_combos = [(pi.PlatformExistsException, 'already_exists'), 
+                           (Exception, 'error')]
+        
+        for ec in expected_combos:
+            expected_exception, result_value = ec
+            self.__exception_assertion(self.__get_args(), expected_exception, result_value)
 
-    def __get_args(self, name="name", description="description"):
+    def __get_args(self):
         return {
-            "name": name,
-            "description": description
+            "name": 'name',
+            "description": 'description'
         }

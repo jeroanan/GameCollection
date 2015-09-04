@@ -102,6 +102,9 @@ class DeleteHardwareTypeInteractor(Interactor):
 
         Args:
             hardware_type: The hardware type to be deleted
+
+        Raises:
+            HardwareTypeNotFoundException: The hardware type to be deleted was not founda
         """
 
         def stop_if_hardware_type_does_not_exist():
