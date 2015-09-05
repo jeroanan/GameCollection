@@ -24,6 +24,7 @@ import Interactors.HardwareInteractors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as session
 import UI.Handlers.UpdateHardwareTypeHandler as handler
+import UI.Tests.Handlers.HandlerTestAssertions as hta
 
 
 class TestUpdateHardwareTypeHandler(unittest.TestCase):
@@ -42,123 +43,44 @@ class TestUpdateHardwareTypeHandler(unittest.TestCase):
         """Test that UpdateHardwareTypeHandler is am instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
-    def test_get_page_executes_update_hardware_type_interactor(self):
-        """
-        Test that calling UpdateHardwareTypeHandler.get_page causes UpdateHardwareTypeInteractor.execute to be called.
-        """
-        params = self.__get_params()
-        hardware_type = self.__get_hardware_type()
-        self.__target.get_page(params)
-        self.__interactor.execute.assert_called_with(hardware_type)
-
     def test_successful_save_returns_json_ok_message(self):
         """
         Test that successfully updating a hardware type returns a json object with a field called 'result' whose value 
         is 'ok'.
         """
-        self.__assert_params_gives_json_result_message(self.__get_params(), 'ok')
+        assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
+        assertion(self.__get_params(), 'ok')
 
     def test_none_hardware_type_returns_json_validation_failed_message(self):
         """
         Test that when hardware_type is None then a json object is returned with a field called 'result' whose value
         is 'validation_faled'
         """
-        self.__assert_params_gives_json_validation_failed_message(None)
+        assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
+        assertion(None, 'validation_failed')
 
     def test_required_param_forbidden_value_returns_json_validation_failed_message(self):
         """
         Test that if a required parameter has a forbidden value then a json object is returned with a field called 
         'result' whose value is 'validation_failed'
         """
-        forbidden_values = [None, '', ' ']
+        assertion = hta.get_bad_value_returns_json_validation_failed_assertion(self, 
+                                                                               self.__target, 
+                                                                               self.__required_params)
+        assertion(self.__get_params())
 
-        for fv in forbidden_values:
-            self.__assert_field_forbidden_value_returns_json_validation_failed_message(fv)
-
-    def __assert_field_forbidden_value_returns_json_validation_failed_message(self, forbidden_value):
+    def test_exceptions_return_expected_json_results(self):
         """
-        Assert that when required parameters are set to a forbidden value then a json object is returned with a field 
-        called 'result' whose value is 'validation_failed'
-
-        Args:
-           forbidden_value: The forbidden value to set required fields to
+        Test that when exceptions are encountered, the expected result value is returned
         """
-        for rf in self.__required_params:
-            params = self.__get_params()
-            params[rf] = forbidden_value
+        assertion = hta.get_exceptions_returns_json_result_value_assertion(self, self.__target, self.__interactor)
 
-            self.__assert_params_gives_json_validation_failed_message(params)
-
-    def test_missing_param_returns_json_validation_failed_message(self):
-        """
-        Test that when a required value is missing from hardware_type then a json object is returned with a field called 
-        'result' whose value is 'validation_failed'
-        """
-        for rp in self.__required_params:
-            params = self.__get_params()
-            del(params[rp])
-            self.__assert_params_gives_json_validation_failed_message(params)
-
-    def __assert_params_gives_json_validation_failed_message(self, params):
-        """
-        Assert that when the given parameters are sent to UpdateHardwareTypeHandler.get_page then a json object is 
-        returned with a field called 'result' whose value is 'validation_failed'
-
-        Args:
-            params: The parameters to send to UpdateHardwareTypeHandler.get_page
-        """
-        self.__assert_params_gives_json_result_message(params, 'validation_failed')
-
-    def __assert_params_gives_json_result_message(self, params, result_value):
-        """
-        Assert that when the given parameters are sent to UpdateHardwareTypeHandler.get_page then a json object is
-        returned with a field called 'result' whose value is the given result_value.
+        expected_combos = [(hi.HardwareTypeNotFoundException, 'not_found'),
+                           (hi.HardwareTypeExistsException, 'already_exists'),
+                           (Exception, 'error')]
         
-        Args:
-            params: The parameters to send to UpdateHardwareTypeHandler.get_page
-            result_value: The expected value of result.result
-        """
-        result = json.loads(self.__target.get_page(params))
-        self.assertEqual(result_value, result['result'])
+        assertion(self.__get_params(), expected_combos)
 
-    def test_hardware_type_already_exists_returns_json_already_exists_message(self):
-        """
-        Test that when a different hardware type already exists with the same name then a json object is returned with 
-        a field called 'result' whose value is 'already_exists'
-        """
-        self.__assert_exception_causes_json_message_to_be_returned(hi.HardwareTypeExistsException, 'already_exists')
-
-    def test_hardware_type_doesnt_exists_raises_hardware_type_not_found_exception(self):
-        """
-        Test that when the hardware type does not exist then a json object is returned with a field called 'result' 
-        whose value is 'not_found'
-        """
-        self.__assert_exception_causes_json_message_to_be_returned(hi.HardwareTypeNotFoundException, 'not_found')
-
-    def test_misc_error_returns_json_error_message(self):
-        """
-        Test that when a miscellaneous exception is encountered by UpdateHardwareTypeHandler.get_page, a json object 
-        is returned with a fiedl called 'result'' whose value is 'error'
-        """
-        self.__assert_exception_causes_json_message_to_be_returned(Exception, 'error')
-
-    def __assert_exception_causes_json_message_to_be_returned(self, exception_type, result_value):
-        """
-        Assert that when the given type of exception is encountered by UpdateHardwareTypeHandler.get_page, a json object
-        is returned with a field called 'result' whose value is result_value
-
-        Args:
-            exception_type: The type of exception that is expected to be encountered
-            result_value: The expected value of result.result
-        """
-        def interactor_execute(x):
-            raise exception_type
-
-        self.__interactor.execute = Mock(side_effect=interactor_execute)
-
-        result = json.loads(self.__target.get_page(self.__get_params()))
-        self.assertEqual(result_value, result['result'])
-        
     def __get_hardware_type(self):
         return ht.HardwareType.from_dict(self.__get_params())
 

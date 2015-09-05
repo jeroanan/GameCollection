@@ -62,6 +62,37 @@ def get_params_returns_json_result_value_assertion(test_class, handler):
 
     return do_params_give_json_result_value
 
+def get_exceptions_returns_json_result_value_assertion(test_class, handler, interactor):
+    """
+    Get an assertion that tests that when and exception is encountered by handler.get_page, the expected result_value
+    is returned for that exception.
+
+    Args:
+        test_class: An instance of UnitTest.TestCase
+        handler: An instance of Handler that is executed when the returned closure is called
+        interactor: The instance of Interactor that generates the exception
+    
+    Returns:
+        A function that will execute handler.get_page with the given parameters for each pair of exception and result 
+        value and assert that the expected value is returned in the resulting json object's result field when the given
+        exception is encountered.
+    """
+    def do_exceptions_give_json_result_value(params, exceptions_and_results):
+        """
+        Assert that when handler is called with each of the given exceptions, the matching result value is returned.
+
+        Args:
+            params: The params to call handler.get_page with
+            exceptions_and_results: A list of tuples. Each tuple is (exception_type, result_value).
+        """
+        assertion = get_exception_returns_json_result_value_assertion(test_class, handler, interactor)
+
+        for ec in exceptions_and_results:
+            expected_exception, result_value = ec
+            assertion(params, expected_exception, result_value)
+
+    return do_exceptions_give_json_result_value
+
 def get_exception_returns_json_result_value_assertion(test_class, handler, interactor):
     """
     Get an assertion function that tests that when an exception is encountered by handler.get_page, the expected 

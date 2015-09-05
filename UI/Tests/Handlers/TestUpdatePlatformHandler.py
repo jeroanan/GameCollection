@@ -67,18 +67,15 @@ class TestUpdatePlatformHandler(unittest.TestCase):
 
     def test_exceptions_return_expected_json_results(self):
         """
-        Test that when exceptions are encountered by DeletePlatformHandler.get_page, the expected result value is 
-        returned
+        Test that when exceptions are encountered by, the expected result value is returned
         """
-        assertion = hta.get_exception_returns_json_result_value_assertion(self, self.__target, self.__interactor)
+        assertion = hta.get_exceptions_returns_json_result_value_assertion(self, self.__target, self.__interactor)
 
         expected_combos = [(pi.PlatformExistsException, 'already_exists'),
                            (pi.PlatformNotFoundException, 'not_found'),
                            (Exception, 'error')]
         
-        for ec in expected_combos:
-            expected_exception, result_value = ec
-            assertion(self.__get_params(), expected_exception, result_value)
+        assertion(self.__get_params(), expected_combos)
 
     def __get_params(self):
         return {
