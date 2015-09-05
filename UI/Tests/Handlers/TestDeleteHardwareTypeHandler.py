@@ -22,6 +22,7 @@ import Interactors.InteractorFactory as factory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.DeleteHardwareTypeHandler as handler
 import UI.Handlers.Session.Session as session
+import UI.Tests.Handlers.HandlerTestAssertions as hta
 
 
 class TestDeleteHardwareTypeHandler(unittest.TestCase):
@@ -39,63 +40,27 @@ class TestDeleteHardwareTypeHandler(unittest.TestCase):
         """Test that DeleteHardwareTypeHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
-    def test_get_page_executes_delete_hardware_type_interactor(self):
-        """
-        Test that calling DeleteHardwareTypeHandler.get_page causes DeleteHardwareTypeInteractor.execute to be called.
-        """
-        params = self.__get_params()
-        hardware_type = self.__get_hardware_type()
-
-        self.__target.get_page(params)
-        self.__interactor.execute.assert_called_with(hardware_type)
-
     def test_deletion_successful_returns_json_ok_message(self):
         """
         Test that successfully deleting a hardware type causes a json object to be returned with a field called 'result' 
         whose value is 'ok'
         """
-        self.__assert_params_gives_json_result_value(self.__get_params(), 'ok')
+        assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
+        assertion(self.__get_params(), 'ok')
 
-    def test_deleting_non_existant_hardware_type_returns_json_not_found_message(self):
+    def test_exceptions_return_expected_json_results(self):
         """
-        Test that attempting to delete a non-existant hardwaretype causes a json object to be returned with a field 
-        called 'result' whose value is 'not_found'
+        Test that when exceptions are encountered by DeletePlatformHandler.get_page, the expected result value is 
+        returned
         """
-        self.__assert_exception_gives_json_result_value(hi.HardwareTypeNotFoundException, 'not_found')
+        assertion = hta.get_exception_returns_json_result_value_assertion(self, self.__target, self.__interactor)
 
-    def test_misc_error_returns_json_error_message(self):
-        """
-        Test that when target.get_page encounters a miscellaneous excpetion, a json object is returned with a field 
-        called 'result' whose value is 'error'
-        """
-        self.__assert_exception_gives_json_result_value(Exception, 'error')
-
-    def __assert_exception_gives_json_result_value(self, exception_type, result_value):
-        """
-        Assert that when target.get_page encounters the given exception, a json object is returned with a field called
-        'result' whose value is result_value
-
-        Args:
-            exception_type: The expected exception type
-            result_value: The expected value of result.result
-        """
-        def interactor_execute(x):
-            raise exception_type
-            
-        self.__interactor.execute = Mock(side_effect=interactor_execute)
-        self.__assert_params_gives_json_result_value(self.__get_params(), result_value)
-
-    def __assert_params_gives_json_result_value(self, params, result_value):
-        """
-        Assert that calling target.get_page with the given params returns a json object with a field called 'result' 
-        whose value is result_value
-
-        Args:
-            params: The dictionary of parameters to pass to target.get_page
-            result_value: The expected value of result.result
-        """
-        result = json.loads(self.__target.get_page(params))
-        self.assertEqual(result_value, result['result'])
+        expected_combos = [(hi.HardwareTypeNotFoundException, 'not_found'),
+                           (Exception, 'error')]
+        
+        for ec in expected_combos:
+            expected_exception, result_value = ec
+            assertion(self.__get_params(), expected_exception, result_value)
 
     def __get_params(self):
         return {"name": "n", 

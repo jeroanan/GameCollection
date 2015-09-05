@@ -36,9 +36,6 @@ class TestDeletePlatformHandler(unittest.TestCase):
         self.__target.session = Mock(sess.Session)
         self.__get_params = lambda: {"id": "id"}
 
-        self.__json_message_assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
-        self.__exception_assertion = hta.get_exception_returns_json_result_value_assertion(self, self.__target, self.__interactor)
-
     def test_is_instance_of_authenticated_handler(self):
         """Test that DeletePlatformHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
@@ -48,31 +45,18 @@ class TestDeletePlatformHandler(unittest.TestCase):
         Test that when a platform is deleted successfully, a json object with a result field with a value of 'ok' is 
         returned.
         """
-        self.__json_message_assertion(self.__get_params(), 'ok')
+        assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
+        assertion(self.__get_params(), 'ok')
 
     def test_bad_id_gives_json_validation_failed_message(self):
         """
         Test that setting params['id'] to different bad values causes DeletePlatformHandler.handler to return a json 
         result of 'validation_failed'
         """
-        
-        def delete_id(x):
-            del x['id']
-            return x
-
-        def empty_id(x):
-            x['id'] = ''
-            return x
-
-        def null_id(x):
-            x['id'] = None
-            return x
-
-        make_bad_funcs = [delete_id, empty_id, null_id]
-
-        for bf in make_bad_funcs:
-            p = bf(self.__get_params())
-            self.__json_message_assertion(p, 'validation_failed')
+        assertion = hta.get_bad_value_returns_json_validation_failed_assertion(test_class=self, 
+                                                                               handler=self.__target,
+                                                                               required_params=['id'])
+        assertion(self.__get_params())
 
     def test_exceptions_return_expected_json_results(self):
         """
@@ -82,6 +66,8 @@ class TestDeletePlatformHandler(unittest.TestCase):
         expected_combos = [(pi.PlatformNotFoundException, 'not_found'), 
                            (Exception, 'error')]
 
+        assertion = hta.get_exception_returns_json_result_value_assertion(self, self.__target, self.__interactor)
+
         for ec in expected_combos:
             expected_exception, result_value = ec
-            self.__exception_assertion(self.__get_params(), expected_exception, result_value)
+            assertion(self.__get_params(), expected_exception, result_value)

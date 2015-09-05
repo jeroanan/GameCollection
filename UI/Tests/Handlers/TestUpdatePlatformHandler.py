@@ -38,9 +38,7 @@ class TestUpdatePlatformHandler(unittest.TestCase):
         self.__target = uph.UpdatePlatformHandler(interactor_factory, renderer=None)
         self.__target.session = Mock(sess.Session)
         self.__platform = p.Platform.from_dict({"id": "id", "name": "name", "description": "description"})
-
         self.__json_message_assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
-        self.__exception_assertion = hta.get_exception_returns_json_result_value_assertion(self, self.__target, self.__interactor)
 
     def test_is_instance_of_authenticated_handler(self):
         """Test that UpdatePlatformHandler is an instance of AuthenticatedHandler"""
@@ -64,39 +62,23 @@ class TestUpdatePlatformHandler(unittest.TestCase):
         Test that setting required fields to different bad values causes DeletePlatformHandler.handler to return a json
         result of 'validation_failed'
         """
-        
-        def delete_id(x, field_name):
-            del x[field_name]
-            return x
-
-        def empty_id(x, field_name):
-            x[field_name] = ''
-            return x
-
-        def null_id(x, field_name):
-            x[field_name] = None
-            return x
-
-        required_fields = ['id', 'name']
-        make_bad_funcs = [delete_id, empty_id, null_id]
-
-        for rf in required_fields:
-            for bf in make_bad_funcs:
-                p = bf(self.__get_params(), rf)
-                self.__json_message_assertion(p, 'validation_failed')
+        assertion = hta.get_bad_value_returns_json_validation_failed_assertion(self, self.__target, ['id', 'name'])
+        assertion(self.__get_params())
 
     def test_exceptions_return_expected_json_results(self):
         """
         Test that when exceptions are encountered by DeletePlatformHandler.get_page, the expected result value is 
         returned
         """
+        assertion = hta.get_exception_returns_json_result_value_assertion(self, self.__target, self.__interactor)
+
         expected_combos = [(pi.PlatformExistsException, 'already_exists'),
                            (pi.PlatformNotFoundException, 'not_found'),
                            (Exception, 'error')]
         
         for ec in expected_combos:
             expected_exception, result_value = ec
-            self.__exception_assertion(self.__get_params(), expected_exception, result_value)
+            assertion(self.__get_params(), expected_exception, result_value)
 
     def __get_params(self):
         return {

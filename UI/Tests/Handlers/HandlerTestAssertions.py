@@ -97,6 +97,54 @@ def get_exception_returns_json_result_value_assertion(test_class, handler, inter
 
     return does_exception_give_json_result_value
 
+def get_bad_value_returns_json_validation_failed_assertion(test_class, handler, required_params):
+    """
+    Get an assertion function that tests that when required values are set to None/empty, 'validation_failed' is given
+    in the returned json object's result field.
+
+    Args:
+        test_class: An instance of UnitTest.TestCase
+        handler: An instance of Handler that is executed when the returned closure is called
+        required_params: A list of parameter names that should be given None/empty values
+
+    Returns: A function that will execute handler.get_page with its required parameters set to None/empty in turn. The 
+    returned json message's result field will be asserted to be 'validation_failed'
+    """
+    
+    def do_bad_values_give_json_validation_failed_message(params):
+        """
+        Assert that calling handler.get_page with required parameters set to None/empty in turn causes the returned json
+        object's result field to be 'validation_failed'
+
+        Args:
+            params: The parameters to send to handler.get_page        
+        """
+        
+        def delete_param(x, p):
+            del x[p]
+            return x
+
+        def empty_param(x, p):
+            x[p] = ''
+            return x
+
+        def null_param(x, p):
+            x[p] = None
+            return x
+
+        funcs = [delete_param, empty_param, null_param]
+
+        assertion = get_params_returns_json_result_value_assertion(test_class, handler)
+
+        for rp in required_params:
+            for f in funcs:
+                ps = f(dict(params), rp)
+                assertion(ps, 'validation_failed')
+                
+
+    return do_bad_values_give_json_validation_failed_message
+
+
 def assert_operation_on_params_returns_true(func, params):
         for p in params:
             return func(p)
