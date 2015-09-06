@@ -1,4 +1,4 @@
-# Copyright (c) 20115 David Wilson
+# Copyright (c) 2015 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +12,48 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Genre import Genre
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
+import json
 
-class DeleteGenreHandler(AuthenticatedHandler):
+import Interactors.GenreInteractors as gi
+import Genre as g
+import UI.Handlers.AuthenticatedHandler as ah
+
+class DeleteGenreHandler(ah.AuthenticatedHandler):
     """Handles requests to delete a genre"""
 
     def get_page(self, params):
-        """Handles a request to delete a genre.
-        :param params: A dictionary containing the following keys:
-           * id
-        :returns: None
+        """
+        Handles a request to delete a genre.
+
+        Args:
+            params: A dictionary containing the following keys:
+
+                    + id
+
+        Returns: A json object containing one field: result. Values of result can be:
+                  
+                 + ok: The deletion was successful
+                 + not_found: The genre to be deleted was not found
+                 + error: A miscellaneous error was encountered while deleting the genre
+
+                Only in the case of ok will the deletion have taken place.
         """
         super().get_page(params)
+
+        result = {'result': ''}
+
+        if not self.validate_params(params, ['id']):
+            result['result'] = 'validation_failed'
+            return json.dumps(result)
+
         interactor = self.interactor_factory.create("DeleteGenreInteractor")
-        interactor.execute(Genre.from_dict(params))
+
+        try:
+            interactor.execute(g.Genre.from_dict(params))
+            result['result'] = 'ok'
+        except gi.GenreNotFoundException:
+            result['result'] = 'not_found'
+        except:
+            result['result'] = 'error'
+
+        return json.dumps(result)
