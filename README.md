@@ -14,3 +14,10 @@ This software needs the following:
 * cherrypy
 * jinja2
 
+## Instructions
+
+### How to run
+
+```python Main.py```
+
+### How to run the unit tests
