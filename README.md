@@ -21,3 +21,5 @@ This software needs the following:
 ```python Main.py```
 
 ### How to run the unit tests
+
+```python -m unittest```
