@@ -1,7 +1,8 @@
+"""Base class for webserver tests."""
 import unittest
 from unittest.mock import Mock
 
-from Data.Config import Config
+from Data.config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
@@ -9,6 +10,7 @@ from UI.WebServer import WebServer
 
 
 class WebServerTestBase(unittest.TestCase):
+    """Base class for webserver tests."""
     def setUp(self):
         self.__interactor_factory = Mock(InteractorFactory)
         self.__renderer = Mock(TemplateRenderer)
@@ -21,6 +23,7 @@ class WebServerTestBase(unittest.TestCase):
         self.target.handler_factory = self.__handler_factory
 
     def get_handler_factory(self, handler):
+        """Returns a mocked handler factory that returns the given handler."""
         handler_factory = Mock(HandlerFactory)
         handler_factory.create = Mock(return_value=handler)
         return handler_factory

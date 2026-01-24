@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Provides unit tests for the HandlerFactory class."""
+# Copyright (c) David Wilson 2015, 2026
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -17,7 +18,7 @@
 import unittest
 from unittest.mock import Mock
 
-from Data.Config import Config
+from Data.config import Config
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AddGenreHandler import AddGenreHandler
@@ -51,7 +52,6 @@ from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from UI.Handlers.SearchHandler import SearchHandler
-from UI.Handlers.Session.Session import Session
 from UI.Handlers.SigninHandler import SigninHandler
 from UI.Handlers.SignupHandler import SignupHandler
 from UI.Handlers.SortGamesHandler import SortGamesHandler
@@ -78,11 +78,16 @@ class TestHandlerFactory(unittest.TestCase):
         self.__target = HandlerFactory(interactor_factory, renderer, config)
 
     def test_create_with_unrecognised_type_string_throws_unrecognised_handler_exception(self):
-        """Calling HandlerFactory.Create with an unrecognised handler type raises UnrecognisedHandlerException."""
-        self.assertRaises(UnrecognisedHandlerException, self.__target.create, "UnrecognisedHandlerType")
+        """Calling HandlerFactory.Create with an unrecognised handler type raises
+        UnrecognisedHandlerException."""
+        self.assertRaises(
+            UnrecognisedHandlerException,
+            self.__target.create,
+            "UnrecognisedHandlerType")
 
     def test_handler_creation(self):
-        """Calling HandlerFactory.Create with a recgonised handler type creates the correct ttype of Handler."""
+        """Calling HandlerFactory.Create with a recgonised handler type creates the correct type of
+        Handler."""
         mappings = {
             "addgame": AddGameHandler,            
             "addgenre": AddGenreHandler,

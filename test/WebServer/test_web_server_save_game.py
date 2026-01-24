@@ -1,10 +1,12 @@
+"""Tests for WebServer SaveGame page handling."""
 from unittest.mock import Mock
 
+from test.WebServer.web_server_test_base import WebServerTestBase
 from UI.Handlers.SaveGameHandler import SaveGameHandler
-from test.WebServer.WebServerTestBase import WebServerTestBase
 
 
 class TestWebServerSaveGame(WebServerTestBase):
+    """Tests for WebServer SaveGame page handling."""
 
     def setUp(self):
         super().setUp()
@@ -12,6 +14,8 @@ class TestWebServerSaveGame(WebServerTestBase):
         self.target.handler_factory = self.get_handler_factory(self.__handler)
 
     def test_savegame_calls_handler_get_page(self):
+        """Tests that the savegame handler's get_page method is called with the correct
+        parameters."""
         self.target.default(*("savegame",), **self.__get_args())
         self.__handler.get_page.assert_called_with(self.__get_args())
 

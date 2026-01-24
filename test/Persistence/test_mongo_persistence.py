@@ -1,3 +1,4 @@
+"""Provides unit tests for the MongoPersistence class."""
 # Copyright (c) 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,25 +13,29 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from logging import Logger
-from pymongo import MongoClient
 import unittest
 from unittest.mock import Mock
+from logging import Logger
+from pymongo import MongoClient
 
-from Data.Config import Config;
+from Data.config import Config
 from Persistence.MongoPersistence import MongoPersistence
 
 class TestMongoPersistence(unittest.TestCase):
-
+    """Unit tests for the MongoPersistence class."""
     def setUp(self):
         self.logger = Mock(Logger)
         self.config = Mock(Config)
         self.mongo_client = Mock(MongoClient)
         self.mongo_client.GamesCollection = Mock()
-        self.mongo_persistence = MongoPersistence(logger=self.logger, config=self.config, mongo_client=self.mongo_client)
+        self.mongo_persistence = MongoPersistence(
+            logger=self.logger,
+            config=self.config,
+            mongo_client=self.mongo_client)
 
     def tearDown(self):
         self.mongo_persistence = None
 
     def test_constructs(self):
+        """Tests that the MongoPersistence constructs correctly."""
         self.assertIsNotNone(self.mongo_persistence)

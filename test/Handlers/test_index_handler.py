@@ -1,3 +1,4 @@
+"""Provides unit tests for the IndexHandler class"""
 # Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,19 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import cherrypy
 import unittest
 from unittest.mock import Mock
 
-from Data.Config import Config
+from Data.config import Config
 from Game import Game
 from Hardware import Hardware
 import Interactors.GameInteractors as game_interactors
 import Interactors.HardwareInteractors as hardware_interactors
-from Interactors.Game.Params.GetGamesInteractorParams import GetGamesInteractorParams
 from Interactors.InteractorFactory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
@@ -35,14 +33,14 @@ class TestIndexHandler(unittest.TestCase):
 
     def setUp(self):
         """setUp function for all unit tests in this class"""
-        
+
         def get_interactor(interactor_type):
             interactors = {game_interactors.GetGamesInteractor: self.__games,
                            game_interactors.CountGamesInteractor: 0,
                            hardware_interactors.GetHardwareListInteractor: self.__hardware,
                            hardware_interactors.CountHardwareInteractor: 2
             }
-            
+
             if interactor_type in interactors:
                 interactor = Mock(interactor_type)
                 interactor.execute = Mock(return_value=interactors[interactor_type])
@@ -53,10 +51,11 @@ class TestIndexHandler(unittest.TestCase):
         self.__hardware = [Hardware()]
         self.__renderer = Mock(TemplateRenderer)
 
-        get_interactors = lambda: [get_interactor(game_interactors.GetGamesInteractor), 
-                                   get_interactor(hardware_interactors.GetHardwareListInteractor),
-                                   get_interactor(game_interactors.CountGamesInteractor),
-                                   get_interactor(hardware_interactors.CountHardwareInteractor)]
+        def get_interactors():
+            return [get_interactor(game_interactors.GetGamesInteractor), 
+                    get_interactor(hardware_interactors.GetHardwareListInteractor),
+                    get_interactor(game_interactors.CountGamesInteractor),
+                    get_interactor(hardware_interactors.CountHardwareInteractor)]
 
         interactor_factory = Mock(InteractorFactory)
         interactor_factory.create = Mock(side_effect=get_interactors())
@@ -64,14 +63,14 @@ class TestIndexHandler(unittest.TestCase):
         self.__config.get = Mock(return_value=0)
         self.__target = IndexHandler(interactor_factory, self.__renderer, self.__config)
         self.__target.session = Mock(Session)
-        self.__get_page = lambda args: self.__target.get_page(args)
+        self.__get_page = self.__target.get_page
 
-    def test_uses_default_sort_options_for_games(self):        
+    def test_uses_default_sort_options_for_games(self):
         """Test that when sort options are not given, the correct default sort options are used."""
-        args = self.__get_args(game_sort=None, game_sort_direction=None, hardware_sort=None, 
+        args = self.__get_args(game_sort=None, game_sort_direction=None, hardware_sort=None,
                                hardware_sort_direction=None)
         self.__get_page(args)
-        self.__renderer.render.assert_called_with("index.html", games=self.__games, 
+        self.__renderer.render.assert_called_with("index.html", games=self.__games,
                                                   hardware=self.__hardware, title="Games Collection",
                                                   game_sort_field="title", game_sort_dir="asc",
                                                   hw_sort_field="name", number_of_games=0,
