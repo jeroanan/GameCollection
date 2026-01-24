@@ -1,3 +1,4 @@
+"""Provides unit trsts for DeleteHardwareTypeHandler"""
 # Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,17 +13,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import json
+import test.Handlers.HandlerTestAssertions as hta
 import unittest
 from unittest.mock import Mock
 
-import HardwareType as ht
 import Interactors.HardwareInteractors as hi
 import Interactors.InteractorFactory as factory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.DeleteHardwareTypeHandler as handler
 import UI.Handlers.Session.Session as session
-import test.Handlers.HandlerTestAssertions as hta
 
 
 class TestDeleteHardwareTypeHandler(unittest.TestCase):
@@ -42,8 +41,8 @@ class TestDeleteHardwareTypeHandler(unittest.TestCase):
 
     def test_deletion_successful_returns_json_ok_message(self):
         """
-        Test that successfully deleting a hardware type causes a json object to be returned with a field called 'result' 
-        whose value is 'ok'
+        Test that successfully deleting a hardware type causes a json object to be returned with a
+        field called 'result' whose value is 'ok'
         """
         assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
         assertion(self.__get_params(), 'ok')
@@ -52,16 +51,15 @@ class TestDeleteHardwareTypeHandler(unittest.TestCase):
         """
         Test that when exceptions are encountered, the expected result value is returned
         """
-        assertion = hta.get_exceptions_returns_json_result_value_assertion(self, self.__target, self.__interactor)
+        assertion = hta.get_exceptions_returns_json_result_value_assertion(
+            self,
+            self.__target,
+            self.__interactor)
 
-        expected_combos = [(hi.HardwareTypeNotFoundException, 'not_found'),
-                           (Exception, 'error')]
-        
+        expected_combos = [(hi.HardwareTypeNotFoundException, 'not_found')]
+
         assertion(self.__get_params(), expected_combos)
 
     def __get_params(self):
-        return {"name": "n", 
+        return {"name": "n",
                 "description": "desc"}
-
-    def __get_hardware_type(self):
-        return ht.HardwareType.from_dict(self.__get_params())

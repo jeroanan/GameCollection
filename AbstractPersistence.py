@@ -16,7 +16,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 
-class AbstractPersistence(object):
+class AbstractPersistence:
     """Provides a list of methods for persistence objects to implement."""
 
     #Games
@@ -27,7 +27,6 @@ class AbstractPersistence(object):
         :param user_id: The id of the current user (actual id rather than username)
         :returns: None
         """
-        pass
 
     def count_games(self, user_id):
         """Counts the games in the user's collection.

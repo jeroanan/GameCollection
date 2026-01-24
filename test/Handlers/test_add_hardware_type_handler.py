@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Provides unit tests for the AddHardwareHandler type"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -14,17 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import json
 import unittest
 from unittest.mock import Mock
+import test.Handlers.HandlerTestAssertions as hta
 
-import HardwareType as ht
 import Interactors.InteractorFactory as factory
 import Interactors.HardwareInteractors as hi
 import UI.Handlers.AddHardwareTypeHandler as ath
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as session
-import test.Handlers.HandlerTestAssertions as hta
 
 
 class TestAddHardwareTypeHandler(unittest.TestCase):
@@ -37,38 +36,42 @@ class TestAddHardwareTypeHandler(unittest.TestCase):
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = ath.AddHardwareTypeHandler(interactor_factory, None)
         self.__target.session = Mock(session.Session)
- 
+
     def test_is_instance_of_authenticated_handler(self):
         """Test that AddHardwareTypeHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, ah.AuthenticatedHandler)
 
     def test_successful_save_returns_json_ok_message(self):
         """
-        Test that successfully adding a hardware type returns a json object with a field called result that has a value 
-        of 'ok'
+        Test that successfully adding a hardware type returns a json object with a field called 
+        result that has a value of 'ok'
         """
         assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
         assertion(self.__get_args(), 'ok')
 
     def test_invalid_params_return_json_validation_failed_message(self):
         """
-        Test that setting params to invalid values returns a json object with a field called result that has a value of 
-        'validation_failed'
+        Test that setting params to invalid values returns a json object with a field called 
+        result that has a value of 'validation_failed'
         """
-        assertion = hta.get_bad_value_returns_json_validation_failed_assertion(self, 
-                                                                               self.__target, 
-                                                                               ['name', 'description'])
+        assertion = hta.get_bad_value_returns_json_validation_failed_assertion(
+            self,
+            self.__target,
+            ['name', 'description'])
+
         assertion(self.__get_args())
 
     def test_exceptions_return_expected_json_results(self):
         """
         Test that when exceptions are encountered, the expected result value is returned
         """
-        assertion = hta.get_exceptions_returns_json_result_value_assertion(self, self.__target, self.__interactor)
+        assertion = hta.get_exceptions_returns_json_result_value_assertion(
+            self,
+            self.__target,
+            self.__interactor)
 
-        expected_combos = [(hi.HardwareTypeExistsException, 'already_exists'),
-                           (Exception, 'error')]
-       
+        expected_combos = [(hi.HardwareTypeExistsException, 'already_exists')]
+
         assertion(self.__get_args(), expected_combos)
 
     def __get_args(self):

@@ -1,3 +1,4 @@
+"""Provides unit tests for AddPlatformHandler"""
 # Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,20 +13,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from functools import partial
-import json
+import test.Handlers.HandlerTestAssertions as hta
 import unittest
 from unittest.mock import Mock
 
-import cherrypy
-
 import Interactors.PlatformInteractors as pi
 import Interactors.InteractorFactory as factory
-import Platform as p
 import UI.Handlers.AddPlatformHandler as aph
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as sess
-import test.Handlers.HandlerTestAssertions as hta
 
 class TestAddPlatformHandler(unittest.TestCase):
     """Unit tests for all methods in the AddPlatformHandler class"""
@@ -36,7 +32,7 @@ class TestAddPlatformHandler(unittest.TestCase):
         self.__interactor = Mock(pi.AddPlatformInteractor)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = aph.AddPlatformHandler(interactor_factory, renderer=None)
-        self.__target.session = Mock(sess.Session) 
+        self.__target.session = Mock(sess.Session)
 
     def test_is_instance_of_authenticated_handler(self):
         """Test that AddPlatformHandler is an instance of AuthenticatedHandler"""
@@ -44,12 +40,14 @@ class TestAddPlatformHandler(unittest.TestCase):
 
     def test_bad_name_gives_json_validation_failed_message(self):
         """
-        Test that setting params['name'] to different bad values causes AddPlatformHandler.handler to return a json
-        result of 'validation_failed'
+        Test that setting params['name'] to different bad values causes
+        AddPlatformHandler.handler to return a json result of 'validation_failed'
         """
-        assertion = hta.get_bad_value_returns_json_validation_failed_assertion(self, self.__target, ['name'])
+        assertion = hta.get_bad_value_returns_json_validation_failed_assertion(
+            self,
+            self.__target, ['name'])
         assertion(self.__get_args())
-        
+
     def test_success_returns_json_success_message(self):
         """Test that if adding the platform is successful, the json result is 'ok'"""
         assertion = hta.get_params_returns_json_result_value_assertion(self, self.__target)
@@ -59,11 +57,13 @@ class TestAddPlatformHandler(unittest.TestCase):
         """
         Test that when exceptions are encountered, the expected result value is returned
         """
-        assertion = hta.get_exceptions_returns_json_result_value_assertion(self, self.__target, self.__interactor)
+        assertion = hta.get_exceptions_returns_json_result_value_assertion(
+            self,
+            self.__target,
+            self.__interactor)
 
-        expected_combos = [(pi.PlatformExistsException, 'already_exists'), 
-                           (Exception, 'error')]
-        
+        expected_combos = [(pi.PlatformExistsException, 'already_exists')]
+
         assertion(self.__get_args(), expected_combos)
 
     def __get_args(self):
