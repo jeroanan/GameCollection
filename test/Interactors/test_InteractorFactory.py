@@ -23,7 +23,7 @@ import Interactors.CollectionInteractors as collection_interactors
 import Interactors.GameInteractors as game_interactors
 import Interactors.GenreInteractors as genre_interactors
 import Interactors.HardwareInteractors as hardware_interactors
-import Interactors.InteractorFactory as interactor_factory
+import Interactors.interactor_factory as interactor_factory
 import Interactors.PlatformInteractors as platform_interactors
 import Interactors.Search.SearchInteractor as search_interactor
 import Interactors.UserInteractors as user_interactors

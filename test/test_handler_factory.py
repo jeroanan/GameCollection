@@ -19,9 +19,9 @@ import unittest
 from unittest.mock import Mock
 
 from Data.config import Config
-from Interactors.InteractorFactory import InteractorFactory
+from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
-from UI.Handlers.AddGenreHandler import AddGenreHandler
+from UI.Handlers.add_genre_handler import AddGenreHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler
 from UI.Handlers.AddHardwareTypeHandler import AddHardwareTypeHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler

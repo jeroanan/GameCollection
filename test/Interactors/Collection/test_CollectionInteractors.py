@@ -21,7 +21,7 @@ import Interactors.GameInteractors as gi
 import Interactors.CollectionInteractors as ci
 import Interactors.HardwareInteractors as hi
 import Interactors.Interactor as interactor
-import Interactors.InteractorFactory as interactor_factory
+import Interactors.interactor_factory as interactor_factory
 
 class TestExportCollectionInteractor(unittest.TestCase):
     

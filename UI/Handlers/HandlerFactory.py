@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
+import importlib
 import json
 
 from UI.Cookies.Cookies import Cookies
@@ -43,8 +44,15 @@ class HandlerFactory(object):
 
         def string_to_handler():
             ht = self.__handlers[handler_type]
-            module = __import__("UI.Handlers." + ht, fromlist=ht)
-            class_ = getattr(module, ht)
+
+            if ht == "add_genre_handler":
+                ##module = __import__("UI.Handlers.add_genre_handler", fromlist="AddGenreHandler")
+                module = importlib.import_module("UI.Handlers.add_genre_handler")
+                class_ = getattr(module, "AddGenreHandler")
+            else:
+                module = __import__("UI.Handlers." + ht, fromlist=ht)
+                class_ = getattr(module, ht)
+
             return class_(self.__interactor_factory, self.__renderer)
 
         if handler_type == "index":

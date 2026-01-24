@@ -21,7 +21,7 @@ from Game import Game
 from Hardware import Hardware
 import Interactors.GameInteractors as game_interactors
 import Interactors.HardwareInteractors as hardware_interactors
-from Interactors.InteractorFactory import InteractorFactory
+from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.Session.Session import Session
@@ -52,7 +52,7 @@ class TestIndexHandler(unittest.TestCase):
         self.__renderer = Mock(TemplateRenderer)
 
         def get_interactors():
-            return [get_interactor(game_interactors.GetGamesInteractor), 
+            return [get_interactor(game_interactors.GetGamesInteractor),
                     get_interactor(hardware_interactors.GetHardwareListInteractor),
                     get_interactor(game_interactors.CountGamesInteractor),
                     get_interactor(hardware_interactors.CountHardwareInteractor)]
@@ -70,11 +70,12 @@ class TestIndexHandler(unittest.TestCase):
         args = self.__get_args(game_sort=None, game_sort_direction=None, hardware_sort=None,
                                hardware_sort_direction=None)
         self.__get_page(args)
-        self.__renderer.render.assert_called_with("index.html", games=self.__games,
-                                                  hardware=self.__hardware, title="Games Collection",
-                                                  game_sort_field="title", game_sort_dir="asc",
-                                                  hw_sort_field="name", number_of_games=0,
-                                                  hw_sort_dir="asc", number_of_hardware=2)
+        self.__renderer.render.assert_called_with(
+            "index.html", games=self.__games,
+            hardware=self.__hardware, title="Games Collection",
+            game_sort_field="title", game_sort_dir="asc",
+            hw_sort_field="name", number_of_games=0,
+            hw_sort_dir="asc", number_of_hardware=2)
 
     def __get_args(self, game_sort="title", game_sort_direction="asc", hardware_sort="name",
                    hardware_sort_direction="asc"):

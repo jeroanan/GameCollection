@@ -18,7 +18,7 @@ from unittest.mock import Mock
 from AbstractPersistence import AbstractPersistence
 from Cryptography.HashProvider import HashProvider
 from Interactors.Exceptions.InteractorFactoryNotSetException import InteractorFactoryNotSetException
-from Interactors.InteractorFactory import InteractorFactory
+from Interactors.interactor_factory import InteractorFactory
 from Interactors.LoggingInteractor import LoggingInteractor
 from Interactors.UserInteractors import ChangePasswordInteractor, GetUserInteractor
 from User import User

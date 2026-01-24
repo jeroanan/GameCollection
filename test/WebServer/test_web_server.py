@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 import cherrypy
 
-from Interactors import InteractorFactory
+from Interactors import interactor_factory
 from UI.TemplateRenderer import TemplateRenderer
 from UI.WebServer import WebServer
 
@@ -11,7 +11,7 @@ from UI.WebServer import WebServer
 class TestWebServer(unittest.TestCase):
     """Unit tests for the WebServer module."""
     def setUp(self):
-        self.__interactor_factory = Mock(InteractorFactory)
+        self.__interactor_factory = Mock(interactor_factory)
 
     def test_instantiate_without_renderer_uses_default(self):
         """Tests that the WebServer uses the default TemplateRenderer when none is provided."""

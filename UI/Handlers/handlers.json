@@ -30,7 +30,7 @@
             "signin": "SigninHandler",
 				"logout": "LogoutHandler",
 				"genres": "GenresHandler",
-				"addgenre": "AddGenreHandler",
+				"addgenre": "add_genre_handler",
 				"editgenre": "EditGenreHandler",
 				"updategenre": "UpdateGenreHandler",
 				"deletegenre": "DeleteGenreHandler",
