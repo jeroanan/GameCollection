@@ -1,3 +1,4 @@
+"""The main entry point for the Icarus application."""
 #!/usr/bin/env python3
 
 # This file is part of Icarus.
@@ -26,14 +27,15 @@ from UI.WebServer import WebServer
 WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
 
 def init_logger():
-    logger = logging.getLogger("Icarus")
-    logger.setLevel(logging.INFO)
+    """Initializes and returns the application logger."""
+    _logger = logging.getLogger("Icarus")
+    _logger.setLevel(logging.INFO)
     file_handler = logging.FileHandler("main.log")
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
-    logger.addHandler(file_handler)
-    return logger
+    _logger.addHandler(file_handler)
+    return _logger
 
 if __name__ == "__main__":
     logger = init_logger()
@@ -45,5 +47,3 @@ if __name__ == "__main__":
 
     ui = WebServer()
     ui.start(interactor_factory=interactor_factory, config=config, logger=logger)
-
-

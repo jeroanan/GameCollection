@@ -4,8 +4,8 @@
     {
       "type": "debugpy",
       "request": "launch",
-      "name": "Launch Main.py",
-      "program": "${workspaceFolder}/Main.py",
+      "name": "Launch main.py",
+      "program": "${workspaceFolder}/main.py",
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     }
