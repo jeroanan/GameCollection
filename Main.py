@@ -39,8 +39,8 @@ if __name__ == "__main__":
     logger = init_logger()
     logger.info("Starting up...")
 
-    persistence = MongoPersistence()
     config = Config()
+    persistence = MongoPersistence(logger=logger, config=config)
     interactor_factory = InteractorFactory(persistence, logger)
 
     ui = WebServer()

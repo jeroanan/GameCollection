@@ -1,4 +1,4 @@
-# Copyright (c) 2015, 2025 David Wilson
+# Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -35,16 +35,26 @@ from User import User
 class MongoPersistence(AbstractPersistence):
     """Provide persistence using MongoDB"""
 
-    def __init__(self):
+    def __init__(self, logger, config, mongo_client=None):
         """Initialise object state"""
         self.__client = None
+        self.__config = config
+        self.__logger = logger
+        self.__mongo_client = mongo_client
         self.__init_mongo_client()
         self.__db = self.__client.GamesCollection
 
     def __init_mongo_client(self):
         """Initialise the database connection."""
         try:
-            self.__client = MongoClient()
+            mongo_url = self.__config.get_mongo_url()
+            mongo_port = self.__config.get_mongo_port()
+            if self.__mongo_client is None:
+                self.__logger.info(f'Connecting to MongoDB at {mongo_url}')
+                self.__client = MongoClient(host=mongo_url, port=mongo_port, connect=True)
+                self.__logger.info('Connected to MongoDB(?)')
+            else:
+                self.__client = self.__mongo_client                
         except ConnectionFailure:
             print("No instance of MongoDB detected. Did you forget to start it?")
             sys.exit(-1)
@@ -90,14 +100,16 @@ class MongoPersistence(AbstractPersistence):
         :param user_id: The uuid of the current user.
         :returns: The number of games in the user's collection
         """
-        return self.__db.games.find({"user_id": str(user_id)}).count()
+        return self.__db.games.count_documents({"user_id": str(user_id)})
+        #return self.__db.games.find({"user_id": str(user_id)}).count()
     
     def count_hardware(self, user_id):
         """Counts the items of hardware
         :param user_id: The uuid of the current user.
         :returns: The number of items of hardware
         """
-        return self.__db.hardware.find({"user_id": str(user_id)}).count()        
+        return self.__db.hardware.count_documents({"user_id": str(user_id)})
+        #return self.__db.hardware.find({"user_id": str(user_id)}).count()        
     
     def count_hardware_types(self):
         """Counts the number of hardware types in the system
@@ -410,7 +422,7 @@ class MongoPersistence(AbstractPersistence):
         """Add a user
         :param: An object of type User. The user to add.
         """
-        self.__db.users.insert(user.__dict__)
+        self.__db.users.insert_one(user.__dict__)
     
     def update_user(self, user):
         """Update the details of a user
