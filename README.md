@@ -33,6 +33,11 @@ docker network create mongo-net
 docker run -p 27017:27017 --network mongo-net --rm --name mongo mongodb/mongodb-community-server:latest
 ```
 
+Or, if you want the database to not live in a transient container:
+
+```
+docker run -p 27017:27017 -d -v gc-data:/data/db --network mongo-net --rm --name mongo mongodb/mongodb-community-server:latest
+```
 devcontainer will connect to mongo-net according to config in this repo.
 
 There are enviornment variables, MONGO_URL and MONGO_PORT that control what gets connected to specifically. 
