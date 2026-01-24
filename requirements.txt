@@ -3,3 +3,4 @@ cherrypy
 jinja2
 mock
 bcrypt
+markdown
