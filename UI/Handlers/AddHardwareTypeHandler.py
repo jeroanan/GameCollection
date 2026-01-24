@@ -62,7 +62,5 @@ class AddHardwareTypeHandler(ah.AuthenticatedHandler):
                 result['result'] = 'ok'
             except hi.HardwareTypeExistsException:
                 result['result'] = 'already_exists'
-            except:
-                result['result'] = 'error'
 
         return json.dumps(result)

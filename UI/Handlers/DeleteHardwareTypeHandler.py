@@ -1,4 +1,4 @@
-# Copyright (c) David Wilson 2015
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -48,7 +48,5 @@ class DeleteHardwareTypeHandler(ah.AuthenticatedHandler):
             result['result'] = 'ok'
         except hi.HardwareTypeNotFoundException:
             result['result'] = 'not_found'
-        except:
-            result['result'] = 'error'
 
         return json.dumps(result)

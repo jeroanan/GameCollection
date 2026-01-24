@@ -1,4 +1,4 @@
-# copyright (c) David Wilson 2015
+# copyright (c) David Wilson 2015, 2026
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -54,7 +54,5 @@ class DeletePlatformHandler(ah.AuthenticatedHandler):
                 result['result'] = 'ok'
             except pi.PlatformNotFoundException:
                 result['result'] = 'not_found'
-            except:                
-                result['result'] = 'error'
 
         return json.dumps(result)

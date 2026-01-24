@@ -1,4 +1,4 @@
-# Copyright (c) 2015 David Wilson
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -52,7 +52,5 @@ class AddPlatformHandler(ah.AuthenticatedHandler):
                 result['result'] = 'ok'
             except pi.PlatformExistsException:
                 result['result'] = 'already_exists'
-            except:
-                result['result'] = 'error'
 
         return json.dumps(result)

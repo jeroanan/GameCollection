@@ -72,7 +72,7 @@ class MongoPersistence(AbstractPersistence):
         """
         gd = game.__dict__
         gd["user_id"] = str(user_id)
-        self.__db.games.insert(gd)
+        self.__db.games.insert_one(gd)
     
     def get_all_games(self, params):
         """Gets a list of games.
@@ -101,7 +101,6 @@ class MongoPersistence(AbstractPersistence):
         :returns: The number of games in the user's collection
         """
         return self.__db.games.count_documents({"user_id": str(user_id)})
-        #return self.__db.games.find({"user_id": str(user_id)}).count()
     
     def count_hardware(self, user_id):
         """Counts the items of hardware
@@ -109,7 +108,6 @@ class MongoPersistence(AbstractPersistence):
         :returns: The number of items of hardware
         """
         return self.__db.hardware.count_documents({"user_id": str(user_id)})
-        #return self.__db.hardware.find({"user_id": str(user_id)}).count()        
     
     def count_hardware_types(self):
         """Counts the number of hardware types in the system
@@ -140,7 +138,8 @@ class MongoPersistence(AbstractPersistence):
         :returns: A list of type Platform of all stored platforms
         """
         result = self.__db.platforms.find().sort("_Platform__name")
-        return list(map(lambda p: Platform.from_mongo_result(p), result))
+        platforms = list(map(lambda p: Platform.from_mongo_result(p), result))
+        return platforms
     
     def get_platform(self, platform_id):
         """Get a platform
@@ -154,19 +153,19 @@ class MongoPersistence(AbstractPersistence):
         """Add a platform
         :param platform: An object of type platform. The platform to be added.
         """
-        self.__db.platforms.insert(platform.__dict__)
+        self.__db.platforms.insert_one(platform.__dict__)
     
     def update_platform(self, platform):
         """Update the details of a platform
         :param platform: An object of type platform. The platform to be updated.
         """
-        self.__db.platforms.update({"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
+        self.__db.platforms.update_one({"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
     
     def delete_platform(self, platform_id):
         """Delete a platform
         :param platform_id: The id of the platform to be deleted
         """
-        self.__db.platforms.remove({"_id": ObjectId(platform_id)})
+        self.__db.platforms.remove_one({"_id": ObjectId(platform_id)})
     
     def update_game(self, game,  user_id):
         """Update the given game if it belongs to the given user
@@ -176,7 +175,7 @@ class MongoPersistence(AbstractPersistence):
         """
         gd = game.__dict__
         gd["user_id"] = str(user_id)
-        self.__db.games.update({
+        self.__db.games.update_one({
             "_id": ObjectId(game.id),
             "user_id": str(user_id)
         }, {"$set": gd}, upsert=False)
@@ -187,7 +186,7 @@ class MongoPersistence(AbstractPersistence):
         :param user_id: A string containing the uuid of the given user
         :returns: None
         """
-        self.__db.games.remove({
+        self.__db.games.delete_one({
             "_id": ObjectId(game.id),
             "user_id": str(user_id)
         })
@@ -258,7 +257,7 @@ class MongoPersistence(AbstractPersistence):
         """Delete the given hardware type.
         :param hardware_type: The hardware type to be deleted
         """
-        self.__db.hardware_types.remove({"_id": ObjectId(hardware_type.id)})
+        self.__db.hardware_types.delete_one({"_id": ObjectId(hardware_type.id)})
 
     def add_genre(self, genre):
         self.__db.genres.insert(genre.__dict__)
@@ -267,13 +266,13 @@ class MongoPersistence(AbstractPersistence):
         """Update the details of a genre
         :param genre: An object of type genre. The genre to be updated.
         """
-        self.__db.genres.update({"_id": ObjectId(genre.id)}, {"$set": genre.__dict__}, upsert=False)
+        self.__db.genres.update_one({"_id": ObjectId(genre.id)}, {"$set": genre.__dict__}, upsert=False)
     
     def delete_platform(self, platform_id):
         """Delete a platform
         :param platform_id: The id of the platform to be deleted
         """
-        self.__db.platforms.remove({"_id": ObjectId(platform_id)})
+        self.__db.platforms.delete_one({"_id": ObjectId(platform_id)})
     
     def delete_game(self, game, user_id):
         """Delete the given game if it belongs to the given user
@@ -281,7 +280,7 @@ class MongoPersistence(AbstractPersistence):
         :param user_id: A string containing the uuid of the given user
         :returns: None
         """
-        self.__db.games.remove({
+        self.__db.games.delete_one({
             "_id": ObjectId(game.id),
             "user_id": str(user_id)
         })
@@ -290,7 +289,7 @@ class MongoPersistence(AbstractPersistence):
         """Add a hardware type.
         :param hardware_type: An object of type HardwareType. The hardware type to add.
         """
-        self.__db.hardware_types.insert(hardware_type.__dict__)
+        self.__db.hardware_types.insert_one(hardware_type.__dict__)
 
     def get_hardware_list(self, params):
         """Get a list of all hardware in the user's collection
@@ -331,7 +330,7 @@ class MongoPersistence(AbstractPersistence):
         """
         hd = hardware.__dict__
         hd["user_id"] = str(user_id)
-        self.__db.hardware.insert(hd)
+        self.__db.hardware.insert_one(hd)
     
     def update_hardware(self, hardware, user_id):
         """Update the given item of hardware.
@@ -366,7 +365,7 @@ class MongoPersistence(AbstractPersistence):
         """Add a genre
         :param genre: An object of type Genre. The genre to be added.
         """
-        self.__db.genres.insert(genre.__dict__)
+        self.__db.genres.insert_one(genre.__dict__)
 
     def get_genre_details(self, genre_id):
         """Get the details of a genre.
@@ -381,7 +380,7 @@ class MongoPersistence(AbstractPersistence):
         :param genre_id: The ObjectId of the genre to be deleted.
         :returns: None
         """
-        self.__db.genres.remove({"_id": ObjectId(genre_id)})
+        self.__db.genres.delete_one({"_id": ObjectId(genre_id)})
     
     def search(self, search_term, sort_field, sort_dir, user_id):
         """Search the games collection
