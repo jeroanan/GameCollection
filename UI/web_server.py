@@ -1,3 +1,4 @@
+"""Web server for Icarus UI"""
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -14,7 +15,6 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
 import logging
-import os
 
 import cherrypy
 
@@ -24,8 +24,10 @@ from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
 
 
-class WebServer(object):
+class WebServer:
+    """Icarus Web Server"""
     def __init__(self, interactor_factory=None, renderer=None, config=None, logger=None):
+        # TODO: we should just use dependency injection here
         self.__logger = logger
         self.__renderer = renderer
         self.__set_defaults()
@@ -39,10 +41,12 @@ class WebServer(object):
 
     @property
     def renderer(self):
+        """Return the renderer"""
         return self.__renderer
 
     @property
     def handler_factory(self):
+        """Return the handler factory"""
         return self.__handler_factory
 
     @handler_factory.setter
@@ -50,18 +54,22 @@ class WebServer(object):
         self.__handler_factory = value
 
     def start(self, interactor_factory, config, logger):
-        cherrypy.quickstart(WebServer(interactor_factory=interactor_factory, config=config,logger=logger), 
-                            '/', 'UI/app.conf')
+        """Start the web server"""
+        cherrypy.quickstart(
+            WebServer(interactor_factory=interactor_factory, config=config,logger=logger),
+            '/',
+            'UI/app.conf')
 
     @cherrypy.expose()
     def default(self, *args, **kwargs):
-        if args == ():
+        """The default handler for all requests"""
+        if not args:
             return self.__get_page("index", kwargs)
-        else:
-            try:
-                return self.__get_page(args[0], kwargs)
-            except UnrecognisedHandlerException:
-                raise cherrypy.NotFound
+
+        try:
+            return self.__get_page(args[0], kwargs)
+        except UnrecognisedHandlerException:
+            raise cherrypy.NotFound
 
     def __get_page(self, handler_name, args):
         handler = self.handler_factory.create(handler_name)

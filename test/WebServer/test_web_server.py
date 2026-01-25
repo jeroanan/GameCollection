@@ -5,7 +5,7 @@ import cherrypy
 
 from Interactors import interactor_factory
 from UI.TemplateRenderer import TemplateRenderer
-from UI.WebServer import WebServer
+from UI.web_server import WebServer
 
 
 class TestWebServer(unittest.TestCase):

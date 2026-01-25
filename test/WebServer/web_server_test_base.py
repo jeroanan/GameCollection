@@ -6,7 +6,7 @@ from Data.config import Config
 from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.HandlerFactory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
-from UI.WebServer import WebServer
+from UI.web_server import WebServer
 
 
 class WebServerTestBase(unittest.TestCase):
@@ -17,8 +17,10 @@ class WebServerTestBase(unittest.TestCase):
         self.__handler_factory = Mock(HandlerFactory)
         self.__config = Mock(Config)
 
-        self.target = WebServer(interactor_factory=self.__interactor_factory, renderer=self.__renderer,
-                                config=self.__config)
+        self.target = WebServer(
+            interactor_factory=self.__interactor_factory,
+            renderer=self.__renderer,
+            config=self.__config)
 
         self.target.handler_factory = self.__handler_factory
 
