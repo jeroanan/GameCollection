@@ -21,7 +21,7 @@ import os
 
 from Data.config import Config
 from Interactors.interactor_factory import InteractorFactory
-from Persistence.MongoPersistence import MongoPersistence
+from Persistence.mongo_persistence import MongoPersistence
 from UI.WebServer import WebServer
 
 WorkingDirectory = os.path.dirname(os.path.abspath(__file__))

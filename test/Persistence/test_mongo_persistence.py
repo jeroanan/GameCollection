@@ -19,7 +19,7 @@ from logging import Logger
 from pymongo import MongoClient
 
 from Data.config import Config
-from Persistence.MongoPersistence import MongoPersistence
+from Persistence.mongo_persistence import MongoPersistence
 
 class TestMongoPersistence(unittest.TestCase):
     """Unit tests for the MongoPersistence class."""
