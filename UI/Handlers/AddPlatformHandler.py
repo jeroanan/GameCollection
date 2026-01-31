@@ -17,7 +17,7 @@
 import json
 
 import Interactors.PlatformInteractors as pi
-import Platform as p
+import icarus_platform as p
 import UI.Handlers.AuthenticatedHandler as ah
 
 

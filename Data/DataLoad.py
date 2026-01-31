@@ -19,7 +19,7 @@ import json
 
 import genre
 import hardware_type as hardware
-import Platform as platform
+import icarus_platform as platform
 
 # TODO: Maybe make this into a class?
 

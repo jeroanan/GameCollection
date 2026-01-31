@@ -20,7 +20,7 @@ from unittest.mock import Mock
 from test.Interactors.interactor_test_base import InteractorTestBase
 import Interactors.PlatformInteractors as pi
 from Interactors.Interactor import Interactor
-import Platform as p
+import icarus_platform as p
 
 
 class TestAddPlatformInteractor(InteractorTestBase):

@@ -1,4 +1,4 @@
-# Copyright (c) David Wilson 2015
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +14,7 @@
     
 import unittest
 
-from Platform import Platform
+from icarus_platform import Platform
 
 
 class TestPlatform(unittest.TestCase):

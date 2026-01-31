@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 from Interactors.PlatformInteractors import GetPlatformsInteractor, GetSuggestedPlatformsInteractor
 from Interactors.interactor_factory import InteractorFactory
-from Platform import Platform
+from icarus_platform import Platform
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.Session.Session import Session

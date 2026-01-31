@@ -19,7 +19,7 @@ from test.Interactors.interactor_test_base import InteractorTestBase
 import abstract_persistence
 import Interactors.PlatformInteractors as platform_interactors
 from Interactors.Interactor import Interactor
-from Platform import Platform
+from icarus_platform import Platform
 
 
 class TestGetSuggestedPlatformsInteractor(InteractorTestBase):

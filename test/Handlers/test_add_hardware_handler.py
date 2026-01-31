@@ -20,7 +20,7 @@ import Interactors.HardwareInteractors as hi
 import Interactors.interactor_factory as factory
 import Interactors.PlatformInteractors as pi
 import hardware_type as ht
-import Platform
+import icarus_platform as platform
 import UI.Handlers.AddHardwareHandler as ahh
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as sess
@@ -49,7 +49,7 @@ class TestAddHardwareHandler(unittest.TestCase):
                 return interactor
             return None
 
-        self.__platforms = [Platform.Platform()]
+        self.__platforms = [platform.Platform()]
         self.__hardware_types = [ht.HardwareType()]
         self.__renderer = Mock(renderer.TemplateRenderer)
         interactor_factory = Mock(factory.InteractorFactory)

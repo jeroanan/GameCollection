@@ -4,7 +4,7 @@ from mock import Mock
 from abstract_persistence import AbstractPersistence
 from game import Game
 from hardware import Hardware
-from Platform import Platform
+from icarus_platform import Platform
 
 
 class InteractorTestBase(unittest.TestCase):

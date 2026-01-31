@@ -20,7 +20,7 @@ from test.Handlers.HandlerTestAssertions import \
     (get_missing_param_assertion, get_empty_param_assertion)
 from Interactors.PlatformInteractors import GetPlatformInteractor
 from Interactors.interactor_factory import InteractorFactory
-from Platform import Platform
+from icarus_platform import Platform
 from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session

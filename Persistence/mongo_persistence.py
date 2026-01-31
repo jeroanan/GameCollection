@@ -30,7 +30,7 @@ from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 from game import Game
 from hardware import Hardware
 import hardware_type as ht
-from Platform import Platform
+from icarus_platform import Platform
 from User import User
 
 class MongoPersistence(AbstractPersistence):

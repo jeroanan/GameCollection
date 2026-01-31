@@ -23,7 +23,7 @@ import hardware_type as ht
 import Interactors.HardwareInteractors as hi
 import Interactors.interactor_factory as factory
 import Interactors.PlatformInteractors as pi
-import Platform as p
+import icarus_platform as p
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.EditHardwareHandler as ehh
 import UI.Handlers.Session.Session as sess
