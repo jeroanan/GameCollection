@@ -1,4 +1,5 @@
-# Copyright (C) 2015 David Wilson
+"""Handler for changing a user's password."""
+# Copyright (C) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,10 +15,11 @@
 
 from Cryptography.BCryptHashProvider import BCryptHashProvider
 from UI.Handlers.Handler import Handler
-from User import User
+from icarus_user import User
 
 class ChangePasswordHandler(Handler):
-    
+    """Handler for changing a user's password."""
+
     def get_page(self, params):
         """Handle parameters for changing the password.
         param params: A dictionary that is expected to contain user_id and password entries.
@@ -27,12 +29,13 @@ class ChangePasswordHandler(Handler):
         def validate():
             if params is None:
                 raise TypeError
-                
+
             def throw_if_empty(x):
-                if params.get(x, "") =="": raise ValueError(x)
+                if params.get(x, "") =="":
+                    raise ValueError(x)
 
             ps = ["user_id", "password"]
-            list(map(throw_if_empty, ps))            
+            list(map(throw_if_empty, ps))
 
 
         validate()

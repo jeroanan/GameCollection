@@ -22,7 +22,7 @@ from UI.Cookies.Cookies import Cookies
 from UI.Handlers.Handler import Handler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.SignupHandler import SignupHandler
-from User import User
+from icarus_user import User
 
 
 class TestSignupHandler(unittest.TestCase):

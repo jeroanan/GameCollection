@@ -21,7 +21,7 @@ from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.DeleteUserHandler import DeleteUserHandler
 from UI.Handlers.Session.Session import Session
-from User import User
+from icarus_user import User
 
 
 class TestDeleteUserHandler(unittest.TestCase):

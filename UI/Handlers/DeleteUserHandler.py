@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Handles requests to delete users"""
+# Copyright (c) David Wilson 2015. 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +15,7 @@
 
 
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from User import User
+from icarus_user import User
 
 
 class DeleteUserHandler(AuthenticatedHandler):

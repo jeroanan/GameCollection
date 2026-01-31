@@ -21,7 +21,7 @@ from abstract_persistence import AbstractPersistence
 from Cryptography.HashProvider import HashProvider
 from Interactors.LoggingInteractor import LoggingInteractor
 from Interactors.UserInteractors import LoginInteractor
-from User import User
+from icarus_user import User
 
 
 class TestLoginInteractor(InteractorTestBase):

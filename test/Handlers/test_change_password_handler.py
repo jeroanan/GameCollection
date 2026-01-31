@@ -20,7 +20,7 @@ from Interactors.interactor_factory import InteractorFactory
 from Interactors.UserInteractors import ChangePasswordInteractor
 from UI.Handlers.ChangePasswordHandler import ChangePasswordHandler
 from UI.Handlers.Handler import Handler
-from User import User
+from icarus_user import User
 
 class TestChangePasswordHandler(unittest.TestCase):
     """Unit tests for the ChangePasswordHandler class"""

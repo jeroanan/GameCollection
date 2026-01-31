@@ -24,7 +24,7 @@ from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UsersHandler import UsersHandler
 from UI.TemplateRenderer import TemplateRenderer
-from User import User
+from icarus_user import User
 
 
 class TestUsersHandler(unittest.TestCase):

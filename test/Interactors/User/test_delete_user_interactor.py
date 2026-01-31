@@ -19,7 +19,7 @@ from unittest.mock import Mock
 from abstract_persistence import AbstractPersistence
 from Interactors.Interactor import Interactor
 from Interactors.UserInteractors import DeleteUserInteractor
-from User import User
+from icarus_user import User
 
 
 class TestDeleteUserInteractor(unittest.TestCase):

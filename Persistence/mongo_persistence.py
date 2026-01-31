@@ -31,7 +31,7 @@ from game import Game
 from hardware import Hardware
 import hardware_type as ht
 from icarus_platform import Platform
-from User import User
+from icarus_user import User
 
 class MongoPersistence(AbstractPersistence):
     """Provide persistence using MongoDB"""

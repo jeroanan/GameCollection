@@ -1,4 +1,5 @@
-# Copyright (c) 20115 David Wilson
+"""Handle requests for the Edit User page."""
+# Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -13,12 +14,12 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from User import User
+from icarus_user import User
 
 
 class EditUserHandler(AuthenticatedHandler):
     """Handle requests for the Edit User page."""
-    
+
     def get_page(self, params):
         """Handles the request for the Edit User page.
         :param params: A dictionary containing the following keys:

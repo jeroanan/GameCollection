@@ -23,7 +23,7 @@ import UI.Cookies.Cookies as cookies
 import UI.Handlers.Handler as handler
 import UI.Handlers.Session.Session as session
 import UI.Handlers.SigninHandler as sh
-import User as user
+import icarus_user as user
 
 
 class TestSigninHandler(unittest.TestCase):

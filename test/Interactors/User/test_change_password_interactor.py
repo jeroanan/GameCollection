@@ -22,7 +22,7 @@ from Interactors.Exceptions.InteractorFactoryNotSetException import InteractorFa
 from Interactors.interactor_factory import InteractorFactory
 from Interactors.LoggingInteractor import LoggingInteractor
 from Interactors.UserInteractors import ChangePasswordInteractor, GetUserInteractor
-from User import User
+from icarus_user import User
 
 
 class TestChangePasswordInteractor(unittest.TestCase):
@@ -42,7 +42,7 @@ class TestChangePasswordInteractor(unittest.TestCase):
     def __setup_get_user_interactor(self):
 
         def get_user_interactor_execute(user):
-            return self.__get_user(user_id=user.user_id, password="MyOldPassword", id="123456")
+            return self.__get_user(user_id=user.user_id, password="MyOldPassword", uid="123456")
 
         get_user_interactor = Mock(GetUserInteractor)
         get_user_interactor.execute = Mock(side_effect=get_user_interactor_execute)
@@ -94,7 +94,7 @@ class TestChangePasswordInteractor(unittest.TestCase):
         """Test that calling ChangePasswordInteractor.execute correctly causes 
         persistence.change_password to be called"""
         u = self.__get_user()
-        dbu = self.__get_user(id="123456", password=u.password)
+        dbu = self.__get_user(uid="123456", password=u.password)
         self.__target.execute(u)
         self.__persistence.change_password.assert_called_with(dbu)
 
@@ -105,9 +105,9 @@ class TestChangePasswordInteractor(unittest.TestCase):
         self.__target.execute(u)
         self.__hash_provider.hash_text.assert_called_with(u.password)
 
-    def __get_user(self, user_id="user", password="password", id="id"):
+    def __get_user(self, user_id="user", password="password", uid="id"):
         u = User()
         u.user_id = user_id
         u.password = password
-        u.id = id
+        u.id = uid
         return u

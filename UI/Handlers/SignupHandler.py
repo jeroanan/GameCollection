@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+""" Handler for user signup requests. """
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,20 +15,27 @@
 
 from Cryptography.BCryptHashProvider import BCryptHashProvider
 from Interactors.Exceptions.UserExistsException import UserExistsException
-from User import User
+from icarus_user import User
 from UI.Handlers.Handler import Handler
 
 class SignupHandler(Handler):
+    """ Handler for user signup requests. """
 
-    def get_page(self, params):        
+    def get_page(self, params):
+        """ Handle a user signup request.
+        Args:
+            params (dict): The request parameters.
+        Returns:
+            str: "True" if signup was successful, "False" otherwise.
+        """
         self.check_session()
         self.check_cookies()
 
         if not self.validate_params(params, ["userid", "password"]):
             return "False"
-        u = User.from_dict(params)        
+        u = User.from_dict(params)
         entered_password = u.password
-        try:            
+        try:
             self.__add_user(u)
             u.password = entered_password
         except UserExistsException:
@@ -39,9 +47,9 @@ class SignupHandler(Handler):
     def __add_user(self, user):
         add_user_interactor = self.interactor_factory.create("AddUserInteractor")
         add_user_interactor.set_hash_provider(BCryptHashProvider())
-        add_user_interactor.execute(user)        
+        add_user_interactor.execute(user)
 
-    def __do_login(self, user):        
+    def __do_login(self, user):
         actual_user = self.__get_user_from_database(user)
         login_interactor = self.interactor_factory.create("LoginInteractor")
         login_interactor.set_hash_provider(BCryptHashProvider())

@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Handler for signing into Icarus"""
+# Copyright (c) 2015. 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -15,16 +16,15 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
 import json
-import cherrypy
 
 from Cryptography.BCryptHashProvider import BCryptHashProvider
 
 from UI.Handlers.Handler import Handler
-from User import User
+from icarus_user import User
 
 
 class SigninHandler(Handler):
-    # Handler for signing into Icarus
+    """Handler for signing into Icarus"""
 
     def get_page(self, params):
         """Method that receives the call to sign in.
@@ -52,7 +52,7 @@ class SigninHandler(Handler):
     def __login_check(self, user):
         def get_login_interactor():
             interactor = self.interactor_factory.create("LoginInteractor")
-            interactor.set_hash_provider(BCryptHashProvider())        
+            interactor.set_hash_provider(BCryptHashProvider())
             return interactor
 
         def login_status_to_json(login_status):

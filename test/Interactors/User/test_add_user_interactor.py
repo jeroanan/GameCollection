@@ -20,7 +20,7 @@ from Cryptography.HashProvider import HashProvider
 from Interactors.Exceptions.UserExistsException import UserExistsException
 from Interactors.LoggingInteractor import LoggingInteractor
 from Interactors.UserInteractors import AddUserInteractor
-from User import User
+from icarus_user import User
 
 
 class TestAddUserInteractor(unittest.TestCase):

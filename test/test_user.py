@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Unit tests for the User class"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,10 +15,11 @@
 
 import unittest
 
-import User as u
+import icarus_user as u
 
 
 class TestUser(unittest.TestCase):
+    """Unit tests for the User class"""
 
     def test_from_dict_does_mapping(self):
         """Mapping from a dictionary to a User object performs correct mappings"""

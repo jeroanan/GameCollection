@@ -22,7 +22,7 @@ from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 from Interactors.interactor_factory import InteractorFactory
 from Interactors.UserInteractors import GetUserInteractor
-from User import User
+from icarus_user import User
 
 
 class TestEditUserHandler(unittest.TestCase):
