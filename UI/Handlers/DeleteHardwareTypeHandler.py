@@ -14,20 +14,21 @@
 
 import json
 
-import HardwareType as ht
+import hardware_type as ht
 import Interactors.HardwareInteractors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 
 
 class DeleteHardwareTypeHandler(ah.AuthenticatedHandler):
     """Handle requests to delete a hardware type""" 
-    
+
     def get_page(self, params):
         """
         Handle requests to delete a hardware type
 
         Args:
-            + params: A dictionary containing the details of the hardware type to be deleted. This must contain:
+            + params: A dictionary containing the details of the hardware type to be deleted. 
+                        This must contain:
                    
                       + id: The id of the hardware type to be deleted
 
@@ -36,13 +37,13 @@ class DeleteHardwareTypeHandler(ah.AuthenticatedHandler):
                  + ok: The deletion was successful
 
                  Only in the case of ok will the deletion have taken place.
-        """ 
+        """
         super().get_page(params)
 
         result = {'result': ''}
 
         interactor = self.interactor_factory.create("DeleteHardwareTypeInteractor")
-    
+
         try:
             interactor.execute(ht.HardwareType.from_dict(params))
             result['result'] = 'ok'

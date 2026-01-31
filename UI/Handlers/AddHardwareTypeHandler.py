@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Handle requests to add a hardware type"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -16,14 +17,14 @@
 
 import json
 
-import HardwareType as ht
+import hardware_type as ht
 import Interactors.HardwareInteractors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 
 
 class AddHardwareTypeHandler(ah.AuthenticatedHandler):
     """Handle requests to add a hardware type"""
-    
+
     def get_page(self, args):
         """
         Handle requests to add a hardware type

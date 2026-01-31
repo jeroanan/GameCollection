@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Handle requests to update a hardware type"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -17,7 +18,7 @@
 import json
 
 import Interactors.HardwareInteractors as hi
-import HardwareType as ht
+import hardware_type as ht
 import UI.Handlers.AuthenticatedHandler as ah
 
 
@@ -38,7 +39,8 @@ class UpdateHardwareTypeHandler(ah.AuthenticatedHandler):
         Returns:
             A json object with one field: result. Values of result can be:
 
-                 + validation_failed -- either hardware_type is None, or one of its keys is None or an empty string
+                 + validation_failed -- either hardware_type is None, or one of its keys is None 
+                                        or an empty string
                  + ok -- The hardware type was updated successfully
 
             Only in the case of ok will the hardware type have been updated.
@@ -46,15 +48,15 @@ class UpdateHardwareTypeHandler(ah.AuthenticatedHandler):
         super().get_page(params)
 
         def validate():
-            
+
             required_params = ['id', 'name']
-            
+
             if params is None:
                 return False
 
             if not self.validate_params(params, required_params):
                 return False
-            
+
             return True
 
         result = {'result': ''}
@@ -62,7 +64,7 @@ class UpdateHardwareTypeHandler(ah.AuthenticatedHandler):
         if not validate():
             result['result'] = 'validation_failed'
         else:
-            interactor = self.interactor_factory.create("UpdateHardwareTypeInteractor") 
+            interactor = self.interactor_factory.create("UpdateHardwareTypeInteractor")
 
             try:
                 interactor.execute(ht.HardwareType.from_dict(params))

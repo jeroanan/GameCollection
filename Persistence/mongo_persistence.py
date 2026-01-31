@@ -29,7 +29,7 @@ from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMappe
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
 from game import Game
 from hardware import Hardware
-import HardwareType as ht
+import hardware_type as ht
 from Platform import Platform
 from User import User
 

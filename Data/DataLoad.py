@@ -18,7 +18,7 @@
 import json
 
 import genre
-import HardwareType as hardware
+import hardware_type as hardware
 import Platform as platform
 
 # TODO: Maybe make this into a class?

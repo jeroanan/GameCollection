@@ -19,7 +19,7 @@ from unittest.mock import Mock
 import Interactors.HardwareInteractors as hi
 import Interactors.interactor_factory as factory
 import Interactors.PlatformInteractors as pi
-import HardwareType as ht
+import hardware_type as ht
 import Platform
 import UI.Handlers.AddHardwareHandler as ahh
 import UI.Handlers.AuthenticatedHandler as ah
