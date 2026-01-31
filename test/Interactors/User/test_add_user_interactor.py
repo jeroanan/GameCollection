@@ -16,7 +16,7 @@ from logging import Logger
 import unittest
 from unittest.mock import Mock
 from abstract_persistence import AbstractPersistence
-from Cryptography.HashProvider import HashProvider
+from Cryptography.hash_provider import HashProvider
 from Interactors.Exceptions.UserExistsException import UserExistsException
 from Interactors.LoggingInteractor import LoggingInteractor
 from Interactors.UserInteractors import AddUserInteractor

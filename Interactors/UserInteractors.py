@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Cryptography.HashProvider import HashProvider
+from Cryptography.hash_provider import HashProvider
 from Interactors.Exceptions.InteractorFactoryNotSetException import InteractorFactoryNotSetException
 from Interactors.Exceptions.UserExistsException import UserExistsException
 from Interactors.Interactor import Interactor
