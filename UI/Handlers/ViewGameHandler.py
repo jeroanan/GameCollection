@@ -14,7 +14,7 @@
 
 import markdown
 
-import Game as g
+import game as g
 import UI.Handlers.AuthenticatedHandler as ah
 
 

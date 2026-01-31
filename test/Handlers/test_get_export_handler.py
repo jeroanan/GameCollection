@@ -16,7 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
-import Game as g
+import game as g
 import Hardware as h
 import Interactors.CollectionInteractors as ci
 import Interactors.interactor_factory as factory

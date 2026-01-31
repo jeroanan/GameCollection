@@ -1,4 +1,4 @@
-# copyright (c) David Wilson 2015
+# copyright (c) David Wilson 2015, 2026
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -45,10 +45,18 @@ class HandlerFactory(object):
         def string_to_handler():
             ht = self.__handlers[handler_type]
 
-            if ht == "add_genre_handler":
+            #TODO: Clean this up at some point.
+            handlers = {
+                "add_genre_handler": "AddGenreHandler",
+                "delete_game_handler": "DeleteGameHandler",
+            }
+            if ht in handlers:
+                module = importlib.import_module(f"UI.Handlers.{ht}")
+                class_ = getattr(module, handlers[ht])
+            #if ht == "add_genre_handler":
                 ##module = __import__("UI.Handlers.add_genre_handler", fromlist="AddGenreHandler")
-                module = importlib.import_module("UI.Handlers.add_genre_handler")
-                class_ = getattr(module, "AddGenreHandler")
+            #    module = importlib.import_module("UI.Handlers.add_genre_handler")
+            #    class_ = getattr(module, "AddGenreHandler")
             else:
                 module = __import__("UI.Handlers." + ht, fromlist=ht)
                 class_ = getattr(module, ht)

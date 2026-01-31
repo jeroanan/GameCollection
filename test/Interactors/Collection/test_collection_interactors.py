@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Tests for ExportCollectionInteractor."""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
-import Game as g
+import game as g
 import Hardware as h
 import Interactors.GameInteractors as gi
 import Interactors.CollectionInteractors as ci
@@ -24,7 +25,8 @@ import Interactors.Interactor as interactor
 import Interactors.interactor_factory as interactor_factory
 
 class TestExportCollectionInteractor(unittest.TestCase):
-    
+    """Tests for ExportCollectionInteractor."""
+
     def setUp(self):
 
         def init_games():
@@ -58,22 +60,26 @@ class TestExportCollectionInteractor(unittest.TestCase):
 
         factory = Mock(interactor_factory.InteractorFactory)
         factory.create = Mock(side_effect=interactor_factory_create)
-        self.__target = ci.ExportCollectionInteractor(factory) 
+        self.__target = ci.ExportCollectionInteractor(factory)
 
     def test_is_instance_of_interactor(self):
+        """Test that ExportCollectionInteractor is an Interactor."""
         self.assertIsInstance(self.__target, interactor.Interactor)
 
     def test_execute_with_games_returns_games(self):
+        """Test that execute with 'games' returns games."""
         expected = {'games': self.__games}
         result = self.__target.execute(['games'], 'user')
-        self.assertEqual(expected, result)        
+        self.assertEqual(expected, result)
 
     def test_execute_with_hardware_returns_hardware(self):
+        """Test that execute with 'hardware' returns hardware."""
         expected = {'hardware': self.__hardware}
         result = self.__target.execute(['hardware'], 'user')
         self.assertEqual(expected, result)
 
     def test_execute_with_games_and_hardware_returns_games_and_hardware(self):
+        """Test that execute with 'games' and 'hardware' returns both."""
         expected = {'games': self.__games,
                     'hardware': self.__hardware}
         result = self.__target.execute(['games', 'hardware'], 'user')

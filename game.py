@@ -1,4 +1,5 @@
-# Copyright (c) 20115 David Wilson
+"""Represents a game"""
+# Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -16,7 +17,7 @@ import functools as ft
 import json
 
 
-class Game(object):
+class Game:
     """Represents a game"""
 
     def __init__(self):
@@ -168,7 +169,7 @@ class Game(object):
                     "date_purchased": "_Game__date_purchased",
                     "approximate_date_purchased": "_Game__approximate_date_purchased"}
 
-        return Game._from_dict(mongo_result, mappings)    
+        return Game._from_dict(mongo_result, mappings)
 
     @staticmethod
     def from_dict(dictionary):
@@ -188,7 +189,7 @@ class Game(object):
                     "num_manuals": "nummanuals",
                     "platform": "platform",
                     "notes": "notes"}
-                   
+
         return Game._from_dict(dictionary, mappings)
 
     @staticmethod
@@ -197,18 +198,31 @@ class Game(object):
 
         set_attr = ft.partial(setattr, game)
         get_attr = ft.partial(getattr, game)
-        dict_get = lambda x: dictionary.get(x[0], get_attr(x[1]))
+        def dict_get(x):
+            return dictionary[x[0]] if x[0] in dictionary else get_attr(x[1])
 
         list(map(lambda m: set_attr(m, dict_get((mappings[m], m))), mappings))
         return game
 
     def to_json(self):
-        attrs = ["date_purchased", "genre", "title", "num_copies", "num_boxed", "num_manuals", "platform", "notes"]
+        """Convert this instance of Game to a JSON string.
+        :returns: A JSON string representing this instance of Game.
+        """
+        attrs = [
+            "date_purchased",
+            "genre",
+            "title",
+            "num_copies",
+            "num_boxed",
+            "num_manuals",
+            "platform",
+            "notes"]
+
         result = {}
 
         result["id"] = str(self.id)
 
         for a in attrs:
             result[a] = getattr(self, a)
-        
+
         return json.dumps(result)

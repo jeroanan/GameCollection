@@ -2,7 +2,7 @@
 import unittest
 from mock import Mock
 from abstract_persistence import AbstractPersistence
-from Game import Game
+from game import Game
 from Hardware import Hardware
 from Platform import Platform
 

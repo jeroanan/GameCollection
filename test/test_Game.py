@@ -1,3 +1,4 @@
+"""Unit tests for the Game class"""
 # Copyright (c) 20115 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,10 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import json
 import unittest
 
-from Game import Game
+from game import Game
 
 
 class TestGame(unittest.TestCase):
@@ -51,7 +51,7 @@ class TestGame(unittest.TestCase):
             "_Game__date_purchased": g.date_purchased,
             "_Game__approximate_date_purchased": g.approximate_date_purchased
         }
-         
+
         for k,v in expected_mappings.items():
             self.assertEqual(gd[k], v)
 
@@ -86,4 +86,3 @@ class TestGame(unittest.TestCase):
 
         for k, v in expected_mappings.items():
             self.assertEqual(gd[k], v)
-

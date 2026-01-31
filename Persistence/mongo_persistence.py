@@ -27,7 +27,7 @@ from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundExc
 from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
 from Persistence.Mappers.SortFieldMapper import SortFieldMapper
-from Game import Game
+from game import Game
 from Hardware import Hardware
 import HardwareType as ht
 from Platform import Platform

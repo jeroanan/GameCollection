@@ -1,3 +1,4 @@
+"""Handle requests to save a game"""
 # Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Game import Game
+from game import Game
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
@@ -24,7 +25,7 @@ class SaveGameHandler(AuthenticatedHandler):
         :param params: A dictionary. For details on what keys the dictionary should contain, see
         Game.from_dict()."""
         super().get_page(params)
-        
+
         if not self.validate_params(params, ["title", "platform"]):
             return ""
         interactor = self.interactor_factory.create("AddGameInteractor")

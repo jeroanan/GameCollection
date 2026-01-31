@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Handles Game deletion requests"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Game import Game
+from game import Game
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
@@ -26,14 +27,16 @@ class DeleteGameHandler(AuthenticatedHandler):
         """
         super().__init__(interactor_factory, renderer)
         self.__get_game = lambda args: Game.from_dict({"id": args.get("id", "")})
-    
+
     def get_page(self, args):
         """Handles Game deletion requests.
         This is really intended to be used as an ajax request rather than a webpage, so
         it doesn't give much in the way of user feedback. If the user is not currently logged
         in then it will redirect to the homepage.
-        :param args: A dictionary containing the key "gameid". gameid contains the uuid of the game to be deleted.
-        :returns: If gameid is not present in args then an empty string is returned. Else None is returned.
+        :param args: A dictionary containing the key "gameid". gameid contains the uuid of the 
+                        game to be deleted.
+        :returns: If gameid is not present in args then an empty string is returned. Else None is 
+                    returned.
         """
         super().get_page(args)
         if not self.validate_params(args, ["id"]):

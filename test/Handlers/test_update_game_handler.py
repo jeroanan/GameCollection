@@ -1,5 +1,5 @@
 """Provides unit tests for the UpdateGameHandler class"""
-# Copyright (c) David Wilson 2015
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 from test.Handlers.HandlerTestAssertions import \
     get_missing_param_assertion, get_empty_param_assertion
-from Game import Game
+from game import Game
 from Interactors.Exceptions.PersistenceException import PersistenceException
 from Interactors.interactor_factory import InteractorFactory
 from Interactors.GameInteractors import UpdateGameInteractor

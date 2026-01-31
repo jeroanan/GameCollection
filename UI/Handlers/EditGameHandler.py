@@ -12,14 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import Game as g
+import game as g
 import Persistence.Exceptions.GameNotFoundException as gnfe
 import UI.Handlers.AuthenticatedHandler as ah
 
 
 class EditGameHandler(ah.AuthenticatedHandler):
     """Handles requests for the Edit Game page"""
-    
+
     def get_page(self, args):
         """The Edit game page
         :param args: A dictionary containing a key "gameid" whose value is the uuid of a game
@@ -34,11 +34,13 @@ class EditGameHandler(ah.AuthenticatedHandler):
 
         def get_game(game_id):
             get_game_interactor = self.interactor_factory.create("GetGameInteractor")
-            return get_game_interactor.execute(game_id=game_id, user_id=self.session.get_value("user_id"))
+            return get_game_interactor.execute(
+                game_id=game_id,
+                user_id=self.session.get_value("user_id"))
 
         game_found = True
         game = g.Game()
-        try:            
+        try:
             game = get_game(args.get("gameid", ""))            
             page_title = "{title} ({platform})".format(title=game.title, platform=game.platform)
         except gnfe.GameNotFoundException:
@@ -48,7 +50,3 @@ class EditGameHandler(ah.AuthenticatedHandler):
         return self.renderer.render("editgame.html", game=game, title=page_title, 
                                     platforms=platforms, game_found=game_found, 
                                     genres=genres)
-
-    
-
-    

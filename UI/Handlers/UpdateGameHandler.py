@@ -1,3 +1,4 @@
+"""Handles Game Update requests"""
 # Copyright (c) David Wilson 2015
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,29 +13,30 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Game import Game
+from game import Game
 from Interactors.Exceptions.PersistenceException import PersistenceException
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class UpdateGameHandler(AuthenticatedHandler):
+    """Handles Game Update requests"""
 
-    
     def get_page(self, params):
         """Handles Game Update requests.
         This is really intended to be used as an ajax request rather than a webpage, so
         it doesn't give much in the way of user feedback. If the user is not currently logged
         in then it will redirect to the homepage.
-        :param params: A dictionary representation of a game object. For details on the keys it can contain,
-                      see Game.from_dict().
-        :returns: If one of the mandatory entries in params is missing or there is a problem saving then an empty
+        :param params: A dictionary representation of a game object. For details on the keys it 
+                       can contain, see Game.from_dict().
+        :returns: If one of the mandatory entries in params is missing or there is a problem 
+                    saving then an empty
         string. Else return None.
         """
         super().get_page(params)
         if not self.validate_params(params, ["title", "platform"]):
-            return ""        
+            return ""
         if not self.__execute_interactor(params):
-            return ""           
+            return ""
 
     def __execute_interactor(self, params):
         try:

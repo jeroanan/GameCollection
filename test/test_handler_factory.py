@@ -27,7 +27,7 @@ from UI.Handlers.AddHardwareTypeHandler import AddHardwareTypeHandler
 from UI.Handlers.AddPlatformHandler import AddPlatformHandler
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
-from UI.Handlers.DeleteGameHandler import DeleteGameHandler
+from UI.Handlers.delete_game_handler import DeleteGameHandler
 from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
 from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeleteHardwareTypeHandler import DeleteHardwareTypeHandler

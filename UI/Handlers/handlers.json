@@ -8,7 +8,7 @@
             "addplatform": "AddPlatformHandler",
             "editgame": "EditGameHandler",
             "updategame": "UpdateGameHandler",
-            "deletegame": "DeleteGameHandler",
+            "deletegame": "delete_game_handler",
 				"edithardwaretype": "EditHardwareTypeHandler",
             "savehardware": "SaveHardwareHandler",
             "editplatform": "EditPlatformHandler",

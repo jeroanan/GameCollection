@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from UI.Handlers.DeleteGameHandler import DeleteGameHandler
+from UI.Handlers.delete_game_handler import DeleteGameHandler
 
 
 class TestWebServerDeleteGame(WebServerTestBase):
