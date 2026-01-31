@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Unit tests for the Hardware class"""
+# Copyright (c) 2015. 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +15,7 @@
 
 import unittest
 
-import Hardware as hw
+import hardware as hw
 
 
 class TestHardware(unittest.TestCase):
@@ -32,7 +33,7 @@ class TestHardware(unittest.TestCase):
             "_Hardware__notes": "notes",
             "_Hardware__hardware_type": "ht"
         }
-    
+
         h = hw.Hardware.from_mongo_result(hd)
 
         expected_mappings = {
@@ -47,7 +48,7 @@ class TestHardware(unittest.TestCase):
 
         for k, v in expected_mappings.items():
             self.assertEqual(hd[k], v)
-        
+
     def test_from_dict_performs_mappings(self):
         """Mapping a dictionary to Hardware object properly initialises object"""
 

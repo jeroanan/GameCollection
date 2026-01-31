@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Handle requests to update hardware details"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -14,14 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/.>
 
-import cherrypy
-from Hardware import Hardware
+from hardware import Hardware
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class UpdateHardwareHandler(AuthenticatedHandler):
     """Handle requests to update hardware details"""
-    
+
     def get_page(self, params):
         """Handles Hardware Update requests (i.e. new values to save to a hardware record).
         This is really intended to be used as an ajax request rather than a webpage, so
@@ -38,6 +38,7 @@ class UpdateHardwareHandler(AuthenticatedHandler):
         returns: If one of the mandatory args keys is omitted then an empty string. Else None.
         """
         super().get_page(params)
+        #TODO: This should raise exceptions on error rather than silently failing
         if not self.validate_params(params, ["name", "platform"]):
             return ""
         interactor = self.interactor_factory.create("UpdateHardwareInteractor")

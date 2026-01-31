@@ -1,4 +1,5 @@
-# Copyright (c) 20115 David Wilson
+"""Represents an item of hardware"""
+# Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -122,8 +123,8 @@ class Hardware():
         :param other: An instance of Hardware. The object to compare the current one against
         :returns: True if this object is equal to other. Otherwise False
         """
-        return (self.id == other.id and self.name == other.name and 
-                self.num_owned == other.num_owned and self.num_boxed == other.num_boxed and 
+        return (self.id == other.id and self.name == other.name and
+                self.num_owned == other.num_owned and self.num_boxed == other.num_boxed and
                 self.notes == other.notes and self.user_id == other.user_id)
 
     @staticmethod
@@ -154,15 +155,16 @@ class Hardware():
     @staticmethod
     def from_dict(dictionary):
         """Initialises Hardware object from a dictionary.
-        :param d: A dictionary containing the following keys:
-                 * name
-                 * platform
-                 * numcopies
-                 * numboxed
-                 * notes
-                 * hardware_type
-        :returns: A Hardware object with its properties properly initialised. Any missing keys from d will cause the
-                  object to have that properly initialised as its default.
+        :param dictionary: A dictionary containing the following keys:
+                            * name
+                            * platform
+                            * numcopies
+                            * numboxed
+                            * notes
+                            * hardware_type
+        :returns: A Hardware object with its properties properly initialised. Any missing keys 
+                    from dictionary will cause the object to have that properly initialised as 
+                    its default.
         """
 
         # hardware.attr, d.key
@@ -183,18 +185,22 @@ class Hardware():
 
         set_attr = ft.partial(setattr, hardware)
         get_attr = ft.partial(getattr, hardware)
-        dict_get = lambda x: dictionary.get(x[0], get_attr(x[1]))
+
+        def dict_get(x):
+            return dictionary.get(x[0], get_attr(x[1]))
 
         list(map(lambda m: set_attr(m, dict_get((mappings[m],m))), mappings))
         return hardware
-        
+
     def to_json(self):
+        """Convert this Hardware object to a JSON string"""
+
         attrs = ["hardware_type", "name", "platform", "num_owned", "num_boxed", "notes"]
         result = {}
 
         result["id"] = str(self.id)
-        
+
         for a in attrs:
             result[a] = getattr(self, a)
-        
+
         return json.dumps(result)
