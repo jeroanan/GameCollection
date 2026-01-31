@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import Mock
 
 import game as g
-import Genre as ge
+import genre as ge
 import Interactors.GameInteractors as gi
 import Interactors.GenreInteractors as gei
 import Interactors.PlatformInteractors as pi

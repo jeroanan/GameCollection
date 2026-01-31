@@ -21,7 +21,7 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
 from abstract_persistence import AbstractPersistence
-from Genre import Genre
+from genre import Genre
 from Persistence.Exceptions.GameNotFoundException import GameNotFoundException
 from Persistence.Exceptions.HardwareNotFoundException import HardwareNotFoundException
 from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper

@@ -18,7 +18,7 @@
 import unittest
 from unittest.mock import Mock
 
-import Genre as g
+import genre as g
 from Interactors.interactor_factory import InteractorFactory
 import Interactors.PlatformInteractors as pi
 import Platform as p

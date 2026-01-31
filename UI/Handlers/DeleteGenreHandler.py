@@ -1,4 +1,4 @@
-# Copyright (c) 2015 David Wilson
+# Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,7 @@
 import json
 
 import Interactors.GenreInteractors as gi
-import Genre as g
+import genre as g
 import UI.Handlers.AuthenticatedHandler as ah
 
 class DeleteGenreHandler(ah.AuthenticatedHandler):

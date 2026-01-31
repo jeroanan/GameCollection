@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from Genre import Genre
+from genre import Genre
 from Interactors.Interactor import Interactor
 from Interactors.GenreInteractors import UpdateGenreInteractor
 

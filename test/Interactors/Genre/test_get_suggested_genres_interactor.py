@@ -19,7 +19,7 @@ from unittest.mock import Mock
 import abstract_persistence
 import Interactors.Interactor as interactor
 import Interactors.GenreInteractors as gi
-import Genre as genre
+import genre as genre
 
 
 class TestGetSuggestedGenresInteractor(unittest.TestCase):

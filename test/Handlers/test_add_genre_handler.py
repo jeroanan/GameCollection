@@ -20,7 +20,7 @@ from unittest.mock import Mock
 from test.Handlers.HandlerTestAssertions import (get_missing_param_assertion,
                                                     get_empty_param_assertion,
                                                     assert_operation_on_params_returns_true)
-from Genre import Genre
+from genre import Genre
 from Interactors.GenreInteractors import AddGenreInteractor
 from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler

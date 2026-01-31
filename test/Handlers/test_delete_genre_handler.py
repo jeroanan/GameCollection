@@ -16,7 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
-from Genre import Genre
+from genre import Genre
 from Interactors.interactor_factory import InteractorFactory
 from Interactors.GenreInteractors import DeleteGenreInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler

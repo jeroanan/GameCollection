@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Tests for the Genre class"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -13,15 +14,18 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from Genre import Genre
+from genre import Genre
 
 class TestGenre(unittest.TestCase):
-    
+    """Tests for the Genre class"""
+
     def test_from_dict_returns_genre(self):
+        """Tests that from_dict returns a Genre instance"""
         g = Genre.from_dict({"": ""})
         self.assertIsInstance(g, Genre)
 
     def test_from_dict_does_mappings(self):
+        """Tests that from_dict maps dictionary keys to Genre attributes"""
         d = {"name": "name",
              "description": "description",
              "id": "id"}
@@ -31,10 +35,12 @@ class TestGenre(unittest.TestCase):
         self.assertEqual(d["id"], g.id)
 
     def test_from_mongo_result_returns_genre(self):
+        """Tests that from_mongo_result returns a Genre instance"""
         g = Genre.from_mongo_result({"": ""})
         self.assertIsInstance(g, Genre)
 
     def test_from_mongo_result_does_mappings(self):
+        """Tests that from_mongo_result maps dictionary keys to Genre attributes"""
         d = {"_id": "id",
              "_Genre__name": "name",
              "_Genre__description": "description"}
@@ -42,5 +48,3 @@ class TestGenre(unittest.TestCase):
         self.assertEqual(d["_id"], g.id)
         self.assertEqual(d["_Genre__name"], g.name)
         self.assertEqual(d["_Genre__description"], g.description)
-        
-

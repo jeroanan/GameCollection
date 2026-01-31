@@ -1,4 +1,4 @@
-# Copyright (c) 20115 David Wilson
+# Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Genre import Genre
+from genre import Genre
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
@@ -28,6 +28,6 @@ class UpdateGenreHandler(AuthenticatedHandler):
            * description
         :returns: An empty string
         """
-        interactor = self.interactor_factory.create("UpdateGenreInteractor") 
+        interactor = self.interactor_factory.create("UpdateGenreInteractor")
         interactor.execute(Genre.from_dict(params))
         return ""
