@@ -17,7 +17,7 @@
 
 import json
 
-from Cryptography.BCryptHashProvider import BCryptHashProvider
+from Cryptography.bcrypt_hash_provider import BCryptHashProvider
 
 from UI.Handlers.Handler import Handler
 from icarus_user import User

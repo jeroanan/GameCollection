@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 
-class User(object):
+class User:
     """Represents a User"""
 
     def __init__(self):

@@ -16,9 +16,9 @@
 import functools as ft
 
 
-class HardwareType(object):
+class HardwareType:
     """Represents a type of hardware"""
-    
+
     def __init__(self):
         """Initialise object state"""
         self.__id = ""
@@ -44,7 +44,7 @@ class HardwareType(object):
     def name(self, val):
         """Set the hardware type name"""
         self.__name = val
-        
+
     @property
     def description(self):
         """Get the hardware type description"""
@@ -57,17 +57,19 @@ class HardwareType(object):
 
     @staticmethod
     def from_dict(dictionary):
+        """Create HardwareType from dictionary"""
         mappings = {"id": "id",
                     "name": "name",
                     "description": "description"}
         return HardwareType._map_from_dict(dictionary, mappings)
-        
+
     @staticmethod
     def from_mongo_result(dictionary):
+        """Create HardwareType from MongoDB result dictionary"""
         mappings = {"_id": "id",
                     "_HardwareType__name": "name",
                     "_HardwareType__description": "description"}
-        return HardwareType._map_from_dict(dictionary, mappings)       
+        return HardwareType._map_from_dict(dictionary, mappings)
 
     @staticmethod
     def _map_from_dict(dictionary, mappings):
@@ -76,7 +78,8 @@ class HardwareType(object):
         set_attr = ft.partial(setattr, hardware_type)
         get_attr = ft.partial(getattr, hardware_type)
 
-        list(map(lambda m: set_attr(mappings[m], dictionary.get(m, get_attr(mappings[m]))), mappings))
+        list(map(lambda m:
+                 set_attr(mappings[m], dictionary.get(m, get_attr(mappings[m]))), mappings))
         return hardware_type
 
     def __eq__(self, other):

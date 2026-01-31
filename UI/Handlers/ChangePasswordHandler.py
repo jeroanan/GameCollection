@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Cryptography.BCryptHashProvider import BCryptHashProvider
+from Cryptography.bcrypt_hash_provider import BCryptHashProvider
 from UI.Handlers.Handler import Handler
 from icarus_user import User
 
