@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 import game as g
 import Interactors.interactor_factory as factory
-import Interactors.GameInteractors as gi
+import Interactors.game_interactors as gi
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.ViewGameHandler as vgh
 import UI.Handlers.Session.Session as sess

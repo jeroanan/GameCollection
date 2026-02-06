@@ -19,7 +19,7 @@ from unittest.mock import Mock
 from test.Handlers.HandlerTestAssertions import \
     get_missing_param_assertion, get_empty_param_assertion
 from game import Game
-from Interactors.GameInteractors import AddGameInteractor
+from Interactors.game_interactors import AddGameInteractor
 from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler

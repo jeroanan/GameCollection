@@ -18,7 +18,7 @@ import json
 
 import Data.data_load as dl
 import Interactors.Exceptions.unrecognised_interactor_type_exception as uite
-import Interactors.CollectionInteractors as ci
+import Interactors.collection_interactors as ci
 import Interactors.LoggingInteractor as li
 import Interactors.GenreInteractors as gi
 import Interactors.HardwareInteractors as hi
@@ -68,13 +68,25 @@ class InteractorFactory:
         #TODO: I Will need to clean this up at some point.
         interactors = {
             "Search.SearchInteractor": "search_interactor",
+            "GameInteractors.AddGameInteractor": "game_interactors",
+            "GameInteractors.CountGamesInteractor": "game_interactors",
+            "GameInteractors.DeleteGameInteractor": "game_interactors",
+            "GameInteractors.GetGameInteractor": "game_interactors",
+            "GameInteractors.GetGamesInteractor": "game_interactors",
+            "GameInteractors.UpdateGameInteractor": "game_interactors",
         }
 
+        print(interactor_type)
         if interactor_type in interactors:
-            [mod, class_name] = str.split(interactor_type, ".")
-            module = importlib.import_module(f"Interactors.{mod}.{interactors[interactor_type]}")
-            class_ = getattr(module, class_name)
-
+            try:
+                [mod, class_name] = str.split(interactor_type, ".")
+                module = importlib.import_module(
+                    f"Interactors.{mod}.{interactors[interactor_type]}")
+                class_ = getattr(module, class_name)
+            except ModuleNotFoundError:
+                [_m, class_name] = str.split(interactor_type, ".")
+                module = importlib.import_module(f"Interactors.{interactors[interactor_type]}")
+                class_ = getattr(module, class_name)
         else:
             try:
                 module = __import__("Interactors." + interactor_type, fromlist=interactor_type)

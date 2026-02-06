@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 import game as g
 import hardware as h
-import Interactors.CollectionInteractors as ci
+import Interactors.collection_interactors as ci
 import Interactors.interactor_factory as factory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.GetExportHandler as geh

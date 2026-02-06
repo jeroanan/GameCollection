@@ -1,5 +1,5 @@
 """Provides unit tests for the IndexHandler class"""
-# Copyright (c) David Wilson 2015
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,7 @@ from unittest.mock import Mock
 from Data.config import Config
 from game import Game
 from hardware import Hardware
-import Interactors.GameInteractors as game_interactors
+import Interactors.game_interactors as game_interactors
 import Interactors.HardwareInteractors as hardware_interactors
 from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
