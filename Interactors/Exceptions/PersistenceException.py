@@ -1,2 +1,0 @@
-class PersistenceException(Exception):
-    pass

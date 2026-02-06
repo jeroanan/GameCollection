@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Interactors for Game related use cases."""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Exceptions.PersistenceException import PersistenceException
+from Interactors.Exceptions.persistence_exception import PersistenceException
 from Interactors.Interactor import Interactor
 
 
@@ -53,7 +54,7 @@ class CountGamesInteractor(Interactor):
 
 class DeleteGameInteractor(Interactor):
     """Delete a game."""
-    
+
     def execute(self, game, user_id):
         """Tell persistence to delete the given game.
         :param game_id: An object of type Game -- the game to be deleted
@@ -84,10 +85,10 @@ class GetGameInteractor(Interactor):
 
 class GetGamesInteractor(Interactor):
     """Get all games in the user's collection"""
-    
+
     def execute(self, params):
-        """Gets a list of games in the user's collection from persistence. If a platform is specified then get games for
-        that platform, else get games for all platforms.
+        """Gets a list of games in the user's collection from persistence. If a platform is 
+        specified then get games for that platform, else get games for all platforms.
         :param params: An object of type GetGamesInteractorParams
         :returns: A list of Game
         """
@@ -100,7 +101,7 @@ class GetGamesInteractor(Interactor):
 
 class UpdateGameInteractor(Interactor):
     """Update the details of a game"""
-    
+
     def execute(self, game, user_id):
         """Tells persistence to update a game
         :param game: An object of type Game

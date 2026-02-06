@@ -1,5 +1,5 @@
 """Handles Game Update requests"""
-# Copyright (c) David Wilson 2015
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from game import Game
-from Interactors.Exceptions.PersistenceException import PersistenceException
+from Interactors.Exceptions.persistence_exception import PersistenceException
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 

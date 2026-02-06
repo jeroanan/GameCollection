@@ -17,7 +17,7 @@ from unittest.mock import Mock
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from abstract_persistence import AbstractPersistence
-from Interactors.Exceptions.PersistenceException import PersistenceException
+from Interactors.Exceptions.persistence_exception import PersistenceException
 from Interactors.Interactor import Interactor
 from Interactors.GameInteractors import UpdateGameInteractor
 
