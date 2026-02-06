@@ -1,6 +1,6 @@
 """Interactors for User functionality"""
 
-# Copyright (c) 2015 David Wilson
+# Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,8 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Cryptography.hash_provider import HashProvider
-from Interactors.Exceptions.InteractorFactoryNotSetException import InteractorFactoryNotSetException
+from Interactors.Exceptions.interactor_factory_not_set_exception \
+    import InteractorFactoryNotSetException
 from Interactors.Exceptions.UserExistsException import UserExistsException
 from Interactors.Interactor import Interactor
 from Interactors.LoggingInteractor import LoggingInteractor
@@ -26,6 +27,7 @@ class AddUserInteractor(LoggingInteractor):
 
     def __init__(self):
         """Initialise AddUserInteractor"""
+        super().__init__()
         self.__hash_provider = None
         self.__user_exists = lambda user: user.user_id != ""
 
@@ -36,7 +38,7 @@ class AddUserInteractor(LoggingInteractor):
         self.__stop_if_user_exists(user)
         user.password = self.__hash_provider.hash_text(user.password)
         self.persistence.add_user(user)
-        self.logger.info("New user: {user_id}".format(user_id=user.user_id))
+        self.logger.info(f"New user: {user.user_id}")
 
     def __validate(self, user):
         if user is None:
@@ -49,9 +51,14 @@ class AddUserInteractor(LoggingInteractor):
             raise UserExistsException
 
     def set_hash_provider(self, hash_provider):
+        """Set the hash provider for this object to use for encrypting passwords.
+        :param hash_provider: The instance of the HashProvider object to use"""
         self.__hash_provider = hash_provider
 
     def get_hash_provider(self):
+        """Get the hash provider for this object to use for encrypting passwords.
+        :returns: The instance of the HashProvider object used by this object for encrypting 
+                    passwords"""
         return self.__hash_provider
 
 
@@ -139,19 +146,16 @@ class LoginInteractor(LoggingInteractor):
         :returns: True if login is successful, otherwise False
         """
         self.__validate(user)
-        hashed_pw = self.__hash_provider.hash_text(user.password)
         db_user = self.persistence.get_user(user)
         if db_user.user_id == "":
-            self.logger.info("Failed login attempt: unknown user id {user_id}"
-                             .format(user_id=user.user_id))
+            self.logger.info(f"Failed login attempt: unknown user id {user.user_id}")
             return False
         correct_pw = self.__hash_provider.verify_password(user.password, db_user.password)
 
         if correct_pw:
-            self.logger.info("Successful login: {user_id}".format(user_id=user.user_id))
+            self.logger.info(f"Successful login: {user.user_id}")
         else:
-            self.logger.info("Failed login attempt: invalid password for {user_id}"
-                             .format(user_id=user.user_id))
+            self.logger.info(f"Failed login attempt: invalid password for {user.user_id}")
         return correct_pw
 
     def __validate(self, user):
@@ -161,6 +165,8 @@ class LoginInteractor(LoggingInteractor):
         self.validate_string_field("password", user.password)
 
     def set_hash_provider(self, param):
+        """Set the hash provider for this object to use for encrypting passwords.
+            :param param: The instance of the HashProvider object to use"""
         if not isinstance(param, HashProvider):
             raise ValueError
         self.__hash_provider = param

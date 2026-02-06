@@ -1,6 +1,6 @@
 """Hash provider interface."""
 
-class HashProvider(object):
+class HashProvider:
     """Hash provider interface."""
 
     def hash_text(self, text):
