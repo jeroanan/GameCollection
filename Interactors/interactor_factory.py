@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+import importlib
 import json
 
 import Data.data_load as dl
@@ -64,13 +65,25 @@ class InteractorFactory:
         raise uite.UnrecognisedInteractorTypeException
 
     def __string_to_interactor(self, interactor_type):
-        try:
-            module = __import__("Interactors." + interactor_type, fromlist=interactor_type)
-        except ImportError:  #We're using one of the new classes to group interactors by feature.
-            it = str.split(interactor_type, ".")
-            module = __import__("Interactors." + it[0], fromlist=it[1])
-        class_name = str.split(interactor_type, ".")[1]
-        class_ = getattr(module, class_name)
+        #TODO: I Will need to clean this up at some point.
+        interactors = {
+            "Search.SearchInteractor": "search_interactor",
+        }
+
+        if interactor_type in interactors:
+            [mod, class_name] = str.split(interactor_type, ".")
+            module = importlib.import_module(f"Interactors.{mod}.{interactors[interactor_type]}")
+            class_ = getattr(module, class_name)
+
+        else:
+            try:
+                module = __import__("Interactors." + interactor_type, fromlist=interactor_type)
+            except ImportError:
+                #We're using one of the new classes to group interactors by feature.
+                it = str.split(interactor_type, ".")
+                module = __import__("Interactors." + it[0], fromlist=it[1])
+            class_name = str.split(interactor_type, ".")[1]
+            class_ = getattr(module, class_name)
         instantiated = class_()
         instantiated.persistence = self.__persistence
         return instantiated
