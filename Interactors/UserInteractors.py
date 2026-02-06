@@ -17,7 +17,7 @@
 from Cryptography.hash_provider import HashProvider
 from Interactors.Exceptions.interactor_factory_not_set_exception \
     import InteractorFactoryNotSetException
-from Interactors.Exceptions.UserExistsException import UserExistsException
+from Interactors.Exceptions.user_exists_exception import UserExistsException
 from Interactors.Interactor import Interactor
 from Interactors.LoggingInteractor import LoggingInteractor
 
