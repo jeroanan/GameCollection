@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Unit tests for the GetHardwareListInteractorParams class"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,7 +15,8 @@
 
 import unittest
 
-from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
+from Interactors.Hardware.Params.get_hardware_list_interactor_params \
+    import GetHardwareListInteractorParams
 
 class TestGetHardwareInteractorParams(unittest.TestCase):
     """Unit tests for the GetHardwareListInteractorParams class"""

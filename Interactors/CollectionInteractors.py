@@ -15,7 +15,7 @@
 
 import Interactors.Interactor as interactor
 import Interactors.Game.Params.get_games_interactor_params as ggip
-import Interactors.Hardware.Params.GetHardwareListInteractorParams as ghlip
+import Interactors.Hardware.Params.get_hardware_list_interactor_params as ghlip
 
 
 class ExportCollectionInteractor(interactor.Interactor):

@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""The All Hardware page"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -14,13 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Hardware.Params.GetHardwareListInteractorParams import GetHardwareListInteractorParams
+from Interactors.Hardware.Params.get_hardware_list_interactor_params \
+    import GetHardwareListInteractorParams
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
 class AllHardwareHandler(AuthenticatedHandler):
     """The All Hardware page"""
-    
+
     def get_page(self, args):
         """The All Hardware page
         Shows a list of all the hardware that the current user has in their collection.

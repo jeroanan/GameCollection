@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Parameters to be passed to GetHardwareListInteractor.execute"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-class GetHardwareListInteractorParams(object):
+class GetHardwareListInteractorParams:
     """Parameters to be passed to GetHardwareListInteractor.execute"""
 
     def __init__(self):
@@ -95,8 +96,8 @@ class GetHardwareListInteractorParams(object):
         return p
 
     def __eq__(self, other):
-        return (self.number_of_items==other.number_of_items and 
-                self.platform==other.platform and 
+        return (self.number_of_items==other.number_of_items and
+                self.platform==other.platform and
                 self.sort_field==other.sort_field and
                 self.sort_direction==other.sort_direction and
                 self.user_id==other.user_id)
