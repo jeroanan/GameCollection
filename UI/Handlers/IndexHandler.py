@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Handles requests for the index page"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,12 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import Interactors.Game.Params.GetGamesInteractorParams as ggip
+import Interactors.Game.Params.get_games_interactor_params as ggip
 import Interactors.Hardware.Params.GetHardwareListInteractorParams as ghlip
 import Persistence.Exceptions.UnrecognisedFieldNameException as ufen
 import  UI.Handlers.AuthenticatedHandler as ah
 
-
+#TODO: Does this work? Is it tested??
 class IndexHandler(ah.AuthenticatedHandler):
     """Handles requests for the index page"""
 
@@ -31,7 +32,7 @@ class IndexHandler(ah.AuthenticatedHandler):
 
         def count_items(interactor_type_string):
             interactor = self.interactor_factory.create(interactor_type_string)
-            return interactor.execute(self.session.get_value("user_id"))        
+            return interactor.execute(self.session.get_value("user_id"))
 
         self.__count_games = lambda: count_items("CountGamesInteractor")
         self.__count_hardware = lambda: count_items("CountHardwareInteractor")
@@ -65,18 +66,25 @@ class IndexHandler(ah.AuthenticatedHandler):
         except ufen.UnrecognisedFieldNameException:
             raise cherrypy.HTTPRedirect("/")
 
-        return self.renderer.render("index.html", games=games, hardware=hardware,
-                                    title="Games Collection", game_sort_field=self.__game_sort,
-                                    game_sort_dir=self.__game_sort_dir, hw_sort_field=self.__hardware_sort,
+        return self.renderer.render("index.html",
+                                    games=games,
+                                    hardware=hardware,
+                                    title="Games Collection",
+                                    game_sort_field=self.__game_sort,
+                                    game_sort_dir=self.__game_sort_dir,
+                                    hw_sort_field=self.__hardware_sort,
                                     number_of_games=(self.__count_games()),
-                                    number_of_hardware=(self.__count_hardware()), hw_sort_dir=self.__hardware_sort_dir)
+                                    number_of_hardware=(self.__count_hardware()),
+                                    hw_sort_dir=self.__hardware_sort_dir)
 
     def __init_sorting(self, args):
 
         def init_game_sorting():
             default_sort_field = "title"
             default_sort_direction = "asc"
-            self.__game_sort = self.set_if_null(args.get("gamesort", default_sort_field), default_sort_field)
+            self.__game_sort = self.set_if_null(
+                args.get("gamesort", default_sort_field),
+                default_sort_field)
             self.__game_sort_dir = self.set_if_null(args.get("gamesortdir", default_sort_direction),
                                                     default_sort_direction)
 
@@ -89,7 +97,7 @@ class IndexHandler(ah.AuthenticatedHandler):
             default_sort_direction = "asc"
 
             self.__hardware_sort = if_null("hardwaresort", default_sort_field)
-            self. __hardware_sort_dir = if_null("hardwaresortdir", default_sort_direction)
+            self.__hardware_sort_dir = if_null("hardwaresortdir", default_sort_direction)
 
         init_game_sorting()
         init_hardware_sorting()
@@ -118,4 +126,3 @@ class IndexHandler(ah.AuthenticatedHandler):
 
         get_hardware_list_interactor = self.interactor_factory.create("GetHardwareListInteractor")
         return get_hardware_list_interactor.execute(p)
-

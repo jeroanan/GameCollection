@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Interactor for exporting a user's collection"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -13,13 +14,15 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import Interactors.Interactor as interactor
-import Interactors.Game.Params.GetGamesInteractorParams as ggip
+import Interactors.Game.Params.get_games_interactor_params as ggip
 import Interactors.Hardware.Params.GetHardwareListInteractorParams as ghlip
 
 
 class ExportCollectionInteractor(interactor.Interactor):
-    
+    """Interactor for exporting a user's collection"""
+
     def __init__(self, interactor_factory):
+        super().__init__()
         self.__interactor_factory = interactor_factory
 
     def execute(self, data_sets_to_export, user_id):
@@ -41,6 +44,6 @@ class ExportCollectionInteractor(interactor.Interactor):
                 interactor = self.__interactor_factory.create(interactor_type)
                 params = p()
                 params.user_id = user_id
-                data[ds] = interactor.execute(params)                
+                data[ds] = interactor.execute(params)
 
         return data
