@@ -1,4 +1,5 @@
-from Interactors.Search.Params.SearchInteractorParams import SearchInteractorParams
+"""The Search Handler."""
+from Interactors.Search.Params.search_interactor_params import SearchInteractorParams
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
@@ -13,14 +14,18 @@ class SearchHandler(AuthenticatedHandler):
     """
     def get_page(self, params):
         super().get_page(params)
-                
+
         interactor = self.interactor_factory.create("SearchInteractor")
         p = self.__get_interactor_params(params)
         results = interactor.execute(p)
 
-        return self.renderer.render(template="search.html", title="Search Results", games=list(results),
-                                    search_term=p.search_term, game_sort_field=p.sort_field,
-                                    game_sort_direction=p.sort_direction, query="searchterm=%s" % p.search_term)        
+        return self.renderer.render(template="search.html",
+                                    title="Search Results",
+                                    games=list(results),
+                                    search_term=p.search_term,
+                                    game_sort_field=p.sort_field,
+                                    game_sort_direction=p.sort_direction,
+                                    query=f"searchterm={p.search_term}")
 
     def __get_interactor_params(self, params):
         p = SearchInteractorParams()
@@ -29,5 +34,3 @@ class SearchHandler(AuthenticatedHandler):
         p.search_term = params.get("searchterm", "")
         p.user_id = self.session.get_value("user_id")
         return p
-        
-        
