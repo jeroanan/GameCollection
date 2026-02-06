@@ -16,7 +16,7 @@
 import json
 
 import Data.data_load as dl
-import Interactors.Exceptions.UnrecognisedInteractorTypeException as uite
+import Interactors.Exceptions.unrecognised_interactor_type_exception as uite
 import Interactors.CollectionInteractors as ci
 import Interactors.LoggingInteractor as li
 import Interactors.GenreInteractors as gi

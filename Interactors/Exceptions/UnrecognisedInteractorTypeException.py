@@ -1,2 +1,0 @@
-class UnrecognisedInteractorTypeException(Exception):
-    pass
