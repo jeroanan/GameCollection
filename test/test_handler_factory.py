@@ -45,7 +45,7 @@ from UI.Handlers.GenresHandler import GenresHandler
 import UI.Handlers.GetExportHandler as geh
 from UI.Handlers.handler_factory import HandlerFactory
 from UI.Handlers.HardwareTypesHandler import HardwareTypesHandler
-from UI.Handlers.IndexHandler import IndexHandler
+from UI.Handlers.index_handler import IndexHandler
 from UI.Handlers.LoginHandler import LoginHandler
 from UI.Handlers.LogoutHandler import LogoutHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler

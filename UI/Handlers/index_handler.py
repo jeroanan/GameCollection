@@ -13,12 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+import cherrypy
+
 import Interactors.Game.Params.get_games_interactor_params as ggip
 import Interactors.Hardware.Params.get_hardware_list_interactor_params as ghlip
 import Persistence.Exceptions.UnrecognisedFieldNameException as ufen
 import  UI.Handlers.AuthenticatedHandler as ah
 
-#TODO: Does this work? Is it tested??
+#TODO: Does this work? Is it tested?? Is it even used??
 class IndexHandler(ah.AuthenticatedHandler):
     """Handles requests for the index page"""
 

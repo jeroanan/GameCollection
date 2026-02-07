@@ -20,7 +20,7 @@ import json
 
 from UI.Cookies.Cookies import Cookies
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
-from UI.Handlers.IndexHandler import IndexHandler
+from UI.Handlers.index_handler import IndexHandler
 from UI.Handlers.Session.Session import Session
 
 class HandlerFactory:

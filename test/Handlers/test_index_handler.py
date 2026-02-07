@@ -23,7 +23,7 @@ import Interactors.game_interactors as game_interactors
 import Interactors.hardware_interactors as hardware_interactors
 from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.IndexHandler import IndexHandler
+from UI.Handlers.index_handler import IndexHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 
