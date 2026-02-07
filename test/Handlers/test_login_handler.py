@@ -2,7 +2,7 @@
 import unittest
 from unittest.mock import Mock
 import cherrypy
-from UI.Handlers.Handler import Handler
+from UI.Handlers.handler import Handler
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.LoginHandler import LoginHandler
 from UI.Handlers.Session.Session import Session

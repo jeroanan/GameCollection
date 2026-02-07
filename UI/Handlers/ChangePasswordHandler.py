@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Cryptography.bcrypt_hash_provider import BCryptHashProvider
-from UI.Handlers.Handler import Handler
+from UI.Handlers.handler import Handler
 from icarus_user import User
 
 class ChangePasswordHandler(Handler):

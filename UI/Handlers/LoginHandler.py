@@ -1,11 +1,14 @@
+"""Handler for the login page."""
 import cherrypy
-from UI.Handlers.Handler import Handler
+from UI.Handlers.handler import Handler
 
 
 class LoginHandler(Handler):
-    def get_page(self, args):
+    """Handler for the login page."""
+
+    def get_page(self, _args):
+        """Returns the login page."""
         self.check_session()
         if self.logged_in():
-            raise cherrypy.HTTPRedirect("/")        
+            raise cherrypy.HTTPRedirect("/")
         return self.renderer.render("login.html")
-

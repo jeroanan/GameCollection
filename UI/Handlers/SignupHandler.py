@@ -16,7 +16,7 @@
 from Cryptography.bcrypt_hash_provider import BCryptHashProvider
 from Interactors.Exceptions.user_exists_exception import UserExistsException
 from icarus_user import User
-from UI.Handlers.Handler import Handler
+from UI.Handlers.handler import Handler
 
 class SignupHandler(Handler):
     """ Handler for user signup requests. """
