@@ -97,6 +97,14 @@ class InteractorFactory:
             "PlatformInteractors.GetPlatformInteractor": "platform_interactors",
             "PlatformInteractors.GetPlatformsInteractor": "platform_interactors",
             "PlatformInteractors.UpdatePlatformInteractor": "platform_interactors",
+            "UserInteractors.AddUserInteractor": "user_interactors",
+            "UserInteractors.ChangePasswordInteractor": "user_interactors",
+            "UserInteractors.DeleteUserInteractor": "user_interactors",
+            "UserInteractors.GetUserInteractor": "user_interactors",
+            "UserInteractors.GetUsersInteractor": "user_interactors",
+            "UserInteractors.LoginInteractor": "user_interactors",
+            "UserInteractors.UpdateUserInteractor": "user_interactors",
+
         }
 
         print(interactor_type)

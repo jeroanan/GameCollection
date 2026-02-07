@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import Mock
 
 from Interactors.interactor_factory import InteractorFactory
-from Interactors.UserInteractors import ChangePasswordInteractor
+from Interactors.user_interactors import ChangePasswordInteractor
 from UI.Handlers.ChangePasswordHandler import ChangePasswordHandler
 from UI.Handlers.Handler import Handler
 from icarus_user import User

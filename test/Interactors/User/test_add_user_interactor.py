@@ -19,7 +19,7 @@ from abstract_persistence import AbstractPersistence
 from Cryptography.hash_provider import HashProvider
 from Interactors.Exceptions.user_exists_exception import UserExistsException
 from Interactors.logging_interactor import LoggingInteractor
-from Interactors.UserInteractors import AddUserInteractor
+from Interactors.user_interactors import AddUserInteractor
 from icarus_user import User
 
 

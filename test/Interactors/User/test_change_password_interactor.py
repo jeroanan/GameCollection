@@ -18,10 +18,11 @@ from unittest.mock import Mock
 
 from abstract_persistence import AbstractPersistence
 from Cryptography.hash_provider import HashProvider
-from Interactors.Exceptions.interactor_factory_not_set_exception import InteractorFactoryNotSetException
+from Interactors.Exceptions.interactor_factory_not_set_exception import \
+    InteractorFactoryNotSetException
 from Interactors.interactor_factory import InteractorFactory
 from Interactors.logging_interactor import LoggingInteractor
-from Interactors.UserInteractors import ChangePasswordInteractor, GetUserInteractor
+from Interactors.user_interactors import ChangePasswordInteractor, GetUserInteractor
 from icarus_user import User
 
 

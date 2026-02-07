@@ -21,7 +21,7 @@ from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Session.Session import Session
 from UI.TemplateRenderer import TemplateRenderer
 from Interactors.interactor_factory import InteractorFactory
-from Interactors.UserInteractors import GetUserInteractor
+from Interactors.user_interactors import GetUserInteractor
 from icarus_user import User
 
 
