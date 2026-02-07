@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import Mock
 
 from abstract_persistence import AbstractPersistence
-from Interactors.Interactor import Interactor
+from Interactors.interactor import Interactor
 from Interactors.UserInteractors import UpdateUserInteractor
 from icarus_user import User
 

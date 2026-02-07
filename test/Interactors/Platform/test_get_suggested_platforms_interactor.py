@@ -18,7 +18,7 @@ from unittest.mock import Mock
 from test.Interactors.interactor_test_base import InteractorTestBase
 import abstract_persistence
 import Interactors.PlatformInteractors as platform_interactors
-from Interactors.Interactor import Interactor
+from Interactors.interactor import Interactor
 from icarus_platform import Platform
 
 

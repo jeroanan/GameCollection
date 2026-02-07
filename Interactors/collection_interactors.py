@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import Interactors.Interactor as interactor
+import Interactors.interactor as interactor
 import Interactors.Game.Params.get_games_interactor_params as ggip
 import Interactors.Hardware.Params.get_hardware_list_interactor_params as ghlip
 

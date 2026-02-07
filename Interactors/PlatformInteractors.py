@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Interactors for platforms"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -14,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import Interactors.Interactor as i
+import Interactors.interactor as i
 
 
 class AddPlatformInteractor(i.Interactor):
@@ -31,8 +32,8 @@ class AddPlatformInteractor(i.Interactor):
 
     def __stop_if_platform_exists(self, platform):
         """
-        If persistence tells us that a platform with a different id but the same name already exists,
-        raise PlatformExistsException.
+        If persistence tells us that a platform with a different id but the same name already 
+        exists, raise PlatformExistsException.
         """
         existing_platforms = self.persistence.get_platforms()
         matching_platforms = [p for p in existing_platforms if p.name == platform.name]
@@ -101,7 +102,7 @@ class GetPlatformsInteractor(i.Interactor):
 
 class GetSuggestedPlatformsInteractor(i.Interactor):
     """Get the list of suggested platforms"""
-    
+
     def __init__(self, suggested_platforms):
         """Initialise the suggested platforms"""
         super().__init__()
@@ -110,11 +111,12 @@ class GetSuggestedPlatformsInteractor(i.Interactor):
     def execute(self):
         """
         Get the list of suggested platforms
-        :returns: A list of Platform objects sorted by name containing details of the suggested platforms
+        :returns: A list of Platform objects sorted by name containing details of the suggested 
+                    platforms
         """
 
         platforms = list(self.persistence.get_platforms())
-        suggested_platforms = self.__suggested_platforms()        
+        suggested_platforms = self.__suggested_platforms()
         result = [p for p in suggested_platforms if p not in platforms]
         return sorted(result, key=lambda x: x.name)
 
@@ -130,13 +132,15 @@ class UpdatePlatformInteractor(i.Interactor):
 
         self.__validate(platform)
         self.__stop_if_platform_is_invalid(platform)
-        
+
         self.persistence.update_platform(platform)
 
     def __stop_if_platform_is_invalid(self, platform):
         print(platform.id)
         existing_platforms = self.persistence.get_platforms()
-        matching_platforms = [x for x in existing_platforms if (x.name==platform.name and str(x.id)!=platform.id)]
+        matching_platforms = [x for x
+                              in existing_platforms
+                              if (x.name==platform.name and str(x.id)!=platform.id)]
         this_platform = [x for x in existing_platforms if str(x.id)==platform.id]
 
         if len(this_platform) == 0:
@@ -150,8 +154,11 @@ class UpdatePlatformInteractor(i.Interactor):
         self.validate_string_field("Platform", platform.name)
 
 class PlatformExistsException(Exception):
-    pass
+    """
+    Raised when an attempt is made to add a platform with the same name as an existing platform
+    """
 
 class PlatformNotFoundException(Exception):
-    pass
-
+    """
+    Raised when an attempt is made to update or delete a platform that does not exist
+    """

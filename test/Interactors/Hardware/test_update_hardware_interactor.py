@@ -1,7 +1,7 @@
 """Unit tests for UpdateHardwareInteractor."""
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from Interactors.Interactor import Interactor
+from Interactors.interactor import Interactor
 from Interactors.hardware_interactors import UpdateHardwareInteractor
 
 

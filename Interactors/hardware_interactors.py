@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Interactor import Interactor
+from Interactors.interactor import Interactor
 
 
 class AddHardwareTypeInteractor(Interactor):

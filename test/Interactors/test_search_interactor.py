@@ -1,7 +1,7 @@
 """Unit tests for SearchInteractor"""
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from Interactors.Interactor import Interactor
+from Interactors.interactor import Interactor
 from Interactors.Search.Params.search_interactor_params import SearchInteractorParams
 from Interactors.Search.search_interactor import SearchInteractor
 

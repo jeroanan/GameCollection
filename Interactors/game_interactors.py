@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Interactors.Exceptions.persistence_exception import PersistenceException
-from Interactors.Interactor import Interactor
+from Interactors.interactor import Interactor
 
 
 class AddGameInteractor(Interactor):

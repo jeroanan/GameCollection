@@ -15,7 +15,7 @@
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from Interactors.game_interactors import GetGameInteractor
-from Interactors.Interactor import Interactor
+from Interactors.interactor import Interactor
 
 
 class TestGetGameInteractor(InteractorTestBase):

@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import Mock
 
 import abstract_persistence as ap
-import Interactors.Interactor as i
+import Interactors.interactor as i
 import Interactors.hardware_interactors as hi
 
 class TestGetHardwareTypeListInteractor(unittest.TestCase):
