@@ -20,7 +20,7 @@ from Data.config import Config
 from game import Game
 from hardware import Hardware
 import Interactors.game_interactors as game_interactors
-import Interactors.HardwareInteractors as hardware_interactors
+import Interactors.hardware_interactors as hardware_interactors
 from Interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.IndexHandler import IndexHandler

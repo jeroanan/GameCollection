@@ -20,7 +20,7 @@ from test.Handlers.HandlerTestAssertions import \
     get_missing_param_assertion, get_empty_param_assertion
 from hardware import Hardware
 from Interactors.interactor_factory import InteractorFactory
-from Interactors.HardwareInteractors import SaveHardwareInteractor
+from Interactors.hardware_interactors import SaveHardwareInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler

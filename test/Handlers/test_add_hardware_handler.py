@@ -16,7 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 import Interactors.interactor_factory as factory
 import Interactors.PlatformInteractors as pi
 import hardware_type as ht

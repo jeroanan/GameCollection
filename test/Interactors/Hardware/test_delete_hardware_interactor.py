@@ -16,7 +16,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from Interactors.HardwareInteractors import DeleteHardwareInteractor
+from Interactors.hardware_interactors import DeleteHardwareInteractor
 from Interactors.Interactor import Interactor
 
 

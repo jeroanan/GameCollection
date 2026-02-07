@@ -2,7 +2,7 @@
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from Interactors.Interactor import Interactor
-from Interactors.HardwareInteractors import UpdateHardwareInteractor
+from Interactors.hardware_interactors import UpdateHardwareInteractor
 
 
 class TestUpdateHardwareInteractor(InteractorTestBase):

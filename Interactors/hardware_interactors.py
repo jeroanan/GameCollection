@@ -1,3 +1,4 @@
+"""Hardware Interactors"""
 # Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
@@ -31,7 +32,7 @@ class AddHardwareTypeInteractor(Interactor):
             TypeError: hardware_type is None
             ValueError: hardware_type.name or hardware_type.description is None or empty
             HardwareTypeExistsException: A hardware type with the same name already exists
-        """        
+        """
 
         def validate():
             if hardware_type is None:
@@ -47,14 +48,14 @@ class AddHardwareTypeInteractor(Interactor):
         def stop_if_hardware_type_exists():
             existing_hardware_types = self.persistence.get_hardware_types_list()
             this_hardware_type = [x for x in existing_hardware_types if x.name==hardware_type.name]
-        
+
             if len(this_hardware_type)>0:
-                raise HardwareTypeExistsException            
+                raise HardwareTypeExistsException
 
         validate()
         stop_if_hardware_type_exists()
 
-        self.persistence.add_hardware_type(hardware_type)        
+        self.persistence.add_hardware_type(hardware_type)
 
 
 class CountHardwareInteractor(Interactor):
@@ -78,7 +79,7 @@ class CountHardwareTypesInteractor(Interactor):
 
 class DeleteHardwareInteractor(Interactor):
     """Delete an item of hardware"""
-    
+
     def execute(self, hardware_id, user_id):
         """Tells the interactor to delete the given item of hardware.
         param hardware_id: The uuid of the item of hardware to be deleted
@@ -104,13 +105,13 @@ class DeleteHardwareTypeInteractor(Interactor):
             hardware_type: The hardware type to be deleted
 
         Raises:
-            HardwareTypeNotFoundException: The hardware type to be deleted was not founda
+            HardwareTypeNotFoundException: The hardware type to be deleted was not found
         """
 
         def stop_if_hardware_type_does_not_exist():
             existing_hardware_types = self.persistence.get_hardware_types_list()
             this_hardware_type = [x for x in existing_hardware_types if str(x.id)==hardware_type.id]
-        
+
             if len(this_hardware_type)==0:
                 raise HardwareTypeNotFoundException
 
@@ -120,7 +121,7 @@ class DeleteHardwareTypeInteractor(Interactor):
 
 class GetHardwareDetailsInteractor(Interactor):
     """Get details of a specific item of hardware"""
-    
+
     def execute(self, hardware_id, user_id):
         """Requests the details of a specific item of hardware from persistence.
         param hardware_id: The uuid of the item of hardware to retrieve.
@@ -137,7 +138,7 @@ class GetHardwareDetailsInteractor(Interactor):
 
 class GetHardwareListInteractor(Interactor):
     """Get a list of the user's hardware"""
-    
+
     def execute(self, params):
         """Request a list of the user's hardware from persistence
         param params: An object of type GetHardwareListInteractorParams
@@ -149,14 +150,16 @@ class GetHardwareListInteractor(Interactor):
 
 
 class GetHardwareTypeInteractor(Interactor):
-    
+    """Get a specific hardware type"""
+
     def execute(self, hardware_type):
+        """Get a specific hardware type."""
         return self.persistence.get_hardware_type(hardware_type)
 
 
 class UpdateHardwareTypeInteractor(Interactor):
     """Update a hardware type"""
-    
+
     def execute(self, hardware_type):
         """
         Update a hardware type.
@@ -167,7 +170,8 @@ class UpdateHardwareTypeInteractor(Interactor):
         Raises:
             TypeError: hardware_type is None
             ValueError: One of the required members of hardware_type is empty/None
-            HardwareTypeExistsException: A hardware type with the same name exists as a different record
+            HardwareTypeExistsException: A hardware type with the same name exists as a different 
+                record
             HardwareTypeNotFoundException: The hardware type does not exist
         """
 
@@ -176,14 +180,14 @@ class UpdateHardwareTypeInteractor(Interactor):
                 raise TypeError("hardware_type cannot be null")
 
             required_fields = ['name', 'description']
-            
+
             for rf in required_fields:
                 attr_val = getattr(hardware_type, rf)
                 if  attr_val is None or str.strip(attr_val) == '':
                     raise ValueError(rf)
 
-        def stop_if_hardware_type_exists_with_different_id():            
-            different_hardware_type = [x for x in existing_hardware_types 
+        def stop_if_hardware_type_exists_with_different_id():
+            different_hardware_type = [x for x in existing_hardware_types
                                        if x.name==hardware_type.name and x.id!=hardware_type.name]
 
             if len(different_hardware_type)>0:
@@ -208,24 +212,26 @@ class GetHardwareTypeListInteractor(Interactor):
     """Get a list of all hardware types stored in the system"""
 
     def execute(self):
-         """Get a list of all hardware types stored in the system
-         :returns: A list of HardwareType objects. All hardware types stored in the system.
-         """
-         return self.persistence.get_hardware_types_list()
+        """Get a list of all hardware types stored in the system
+        :returns: A list of HardwareType objects. All hardware types stored in the system.
+        """
+        return self.persistence.get_hardware_types_list()
 
 
 class GetSuggestedHardwareTypesInteractor(Interactor):
     """Get suggested hardware types"""
-    
+
     def __init__(self, suggested_hardware_types):
         """Initialise object state.
         :param suggested_hardware_types: A function to get the list of suggested hardware types.
         """
+        super().__init__()
         self.__suggested_hardware_types = suggested_hardware_types
 
     def execute(self):
         """Get suggested hardware types.
-        :returns: A list of HardwareType objects. The suggested hardware types not already stored in the system.
+        :returns: A list of HardwareType objects. The suggested hardware types not already stored 
+                    in the system.
         """
         suggested_hardware_types = self.__suggested_hardware_types()
         hardware_types = self.persistence.get_hardware_types_list()
@@ -234,11 +240,12 @@ class GetSuggestedHardwareTypesInteractor(Interactor):
 
 class SaveHardwareInteractor(Interactor):
     """Logic for saving hardware"""
-    
+
     def execute(self, hardware, user_id):
         """Tell persistence to save an item of hardware.
         param hardware: An instance of Hardware. The item of hardware to be saved.
-        param user_id: The uuid of the user whose collection the item of hardware should be added to.
+        param user_id: The uuid of the user whose collection the item of hardware should be 
+                         added to.
         returns: None
         """
         self.__validate(hardware)
@@ -261,7 +268,7 @@ class SaveHardwareInteractor(Interactor):
 
 class UpdateHardwareInteractor(Interactor):
     """Update an item of hardware"""
-    
+
     def execute(self, hardware, user_id):
         """Tell persistence to update the given item of hardware
         :param hardware: An instance of Hardware. The item of hardware to be updated.
@@ -281,8 +288,8 @@ class UpdateHardwareInteractor(Interactor):
         self.validate_integer_field("Number boxed", hardware.num_boxed)
 
 class HardwareTypeExistsException(Exception):
-    pass
+    """Raised when a hardware type with the same name already exists in the system"""
 
 
 class HardwareTypeNotFoundException(Exception):
-    pass
+    """Raised when a hardware type is not found in the system"""

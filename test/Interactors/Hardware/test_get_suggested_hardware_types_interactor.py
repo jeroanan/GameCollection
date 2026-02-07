@@ -21,7 +21,7 @@ from unittest.mock import Mock
 import abstract_persistence as ap
 import hardware_type as h
 import Interactors.Interactor as interactor
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 
 class TestGetSuggestedHardwareTypesInteractor(unittest.TestCase):
     """Unit tests for GetSuggestedHardwareTypesInteractor."""

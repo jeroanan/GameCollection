@@ -21,7 +21,7 @@ import Interactors.Exceptions.unrecognised_interactor_type_exception as uite
 import Interactors.collection_interactors as ci
 import Interactors.LoggingInteractor as li
 import Interactors.genre_interactors as gi
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 import Interactors.PlatformInteractors as pi
 
 
@@ -79,6 +79,19 @@ class InteractorFactory:
             "GenreInteractors.GetGenreInteractor": "genre_interactors",
             "GenreInteractors.GetGenresInteractor": "genre_interactors",
             "GenreInteractors.UpdateGenreInteractor": "genre_interactors",
+            "HardwareInteractors.AddHardwareInteractor": "hardware_interactors",
+            "HardwareInteractors.AddHardwareTypeInteractor": "hardware_interactors",
+            "HardwareInteractors.CountHardwareInteractor": "hardware_interactors",
+            "HardwareInteractors.CountHardwareTypesInteractor": "hardware_interactors",
+            "HardwareInteractors.DeleteHardwareInteractor": "hardware_interactors",
+            "HardwareInteractors.DeleteHardwareTypeInteractor": "hardware_interactors",
+            "HardwareInteractors.GetHardwareDetailsInteractor": "hardware_interactors",
+            "HardwareInteractors.GetHardwareListInteractor": "hardware_interactors",
+            "HardwareInteractors.GetHardwareTypeInteractor": "hardware_interactors",
+            "HardwareInteractors.GetHardwareTypeListInteractor": "hardware_interactors",
+            "HardwareInteractors.SaveHardwareInteractor": "hardware_interactors",
+            "HardwareInteractors.UpdateHardwareInteractor": "hardware_interactors",
+            "HardwareInteractors.UpdateHardwareTypeInteractor": "hardware_interactors",
         }
 
         print(interactor_type)

@@ -18,7 +18,7 @@
 import json
 
 import hardware_type as ht
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 
 

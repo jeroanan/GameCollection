@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import Mock
 
 import hardware_type as ht
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 import Interactors.interactor_factory as factory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.EditHardwareTypeHandler as ehth

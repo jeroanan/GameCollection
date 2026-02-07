@@ -20,7 +20,7 @@ from unittest.mock import Mock
 
 import hardware_type as ht
 from Interactors import interactor_factory
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.HardwareTypesHandler as hth
 import UI.Handlers.Session.Session as session

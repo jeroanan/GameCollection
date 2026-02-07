@@ -20,7 +20,7 @@ import game as g
 import hardware as h
 import Interactors.game_interactors as gi
 import Interactors.collection_interactors as ci
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 import Interactors.Interactor as interactor
 import Interactors.interactor_factory as interactor_factory
 

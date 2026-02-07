@@ -15,7 +15,7 @@
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from Interactors.Interactor import Interactor
-from Interactors.HardwareInteractors import SaveHardwareInteractor
+from Interactors.hardware_interactors import SaveHardwareInteractor
 
 
 class TestSaveHardwareInteractor(InteractorTestBase):

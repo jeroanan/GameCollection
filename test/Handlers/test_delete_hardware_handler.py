@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import Mock
 
 import test.Handlers.HandlerTestAssertions as hta
-import Interactors.HardwareInteractors as hi
+import Interactors.hardware_interactors as hi
 import Interactors.interactor_factory as factory
 import UI.Handlers.DeleteHardwareHandler as dhh
 import UI.Handlers.AuthenticatedHandler as ah
