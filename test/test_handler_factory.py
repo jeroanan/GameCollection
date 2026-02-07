@@ -33,7 +33,7 @@ from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 from UI.Handlers.DeleteHardwareTypeHandler import DeleteHardwareTypeHandler
 from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.DeleteUserHandler import DeleteUserHandler
-from UI.Handlers.EditGameHandler import EditGameHandler
+from UI.Handlers.edit_game_handler import EditGameHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
 from UI.Handlers.EditHardwareHandler import EditHardwareHandler
 from UI.Handlers.EditHardwareTypeHandler import EditHardwareTypeHandler

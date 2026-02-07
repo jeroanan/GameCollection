@@ -6,7 +6,7 @@
 				"addhardwaretype": "AddHardwareTypeHandler",
             "platforms": "PlatformsHandler",
             "addplatform": "AddPlatformHandler",
-            "editgame": "EditGameHandler",
+            "editgame": "edit_game_handler",
             "updategame": "UpdateGameHandler",
             "deletegame": "delete_game_handler",
 				"edithardwaretype": "EditHardwareTypeHandler",

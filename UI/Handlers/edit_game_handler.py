@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Handles requests for the Edit Game page"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -28,9 +29,11 @@ class EditGameHandler(ah.AuthenticatedHandler):
         """
         super().get_page(args)
 
-        interactor_get = lambda x: self.interactor_factory.create(x).execute()
-        platforms =  interactor_get("GetPlatformsInteractor")
-        genres = interactor_get("GetGenresInteractor")
+        def get_interactor(interactor_name):
+            return self.interactor_factory.create(interactor_name).execute()
+
+        platforms =  get_interactor("GetPlatformsInteractor")
+        genres = get_interactor("GetGenresInteractor")
 
         def get_game(game_id):
             get_game_interactor = self.interactor_factory.create("GetGameInteractor")
@@ -42,11 +45,11 @@ class EditGameHandler(ah.AuthenticatedHandler):
         game = g.Game()
         try:
             game = get_game(args.get("gameid", ""))            
-            page_title = "{title} ({platform})".format(title=game.title, platform=game.platform)
+            page_title = f"{game.title} ({game.platform})"
         except gnfe.GameNotFoundException:
             game_found = False
             page_title = "Game Not Found"
 
-        return self.renderer.render("editgame.html", game=game, title=page_title, 
-                                    platforms=platforms, game_found=game_found, 
+        return self.renderer.render("editgame.html", game=game, title=page_title,
+                                    platforms=platforms, game_found=game_found,
                                     genres=genres)

@@ -52,6 +52,7 @@ class HandlerFactory:
             handlers = {
                 "add_genre_handler": "AddGenreHandler",
                 "delete_game_handler": "DeleteGameHandler",
+                "edit_game_handler": "EditGameHandler",
             }
             if ht in handlers:
                 module = importlib.import_module(f"UI.Handlers.{ht}")
