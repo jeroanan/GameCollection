@@ -19,7 +19,7 @@ from unittest.mock import Mock
 import game as g
 import genre as ge
 import Interactors.game_interactors as gi
-import Interactors.GenreInteractors as gei
+import Interactors.genre_interactors as gei
 import Interactors.PlatformInteractors as pi
 import Interactors.interactor_factory as factory
 import icarus_platform as p

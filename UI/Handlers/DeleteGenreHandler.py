@@ -1,3 +1,4 @@
+"""Handles requests to delete a genre"""
 # Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,7 +15,7 @@
 
 import json
 
-import Interactors.GenreInteractors as gi
+import Interactors.genre_interactors as gi
 import genre as g
 import UI.Handlers.AuthenticatedHandler as ah
 
@@ -51,7 +52,7 @@ class DeleteGenreHandler(ah.AuthenticatedHandler):
         try:
             interactor.execute(g.Genre.from_dict(params))
             result['result'] = 'ok'
-        except gi.GenreNotFoundException:
+        except gi.GenreNotFoundException: # TODO: This doesn't seem to exist..
             result['result'] = 'not_found'
         except:
             result['result'] = 'error'

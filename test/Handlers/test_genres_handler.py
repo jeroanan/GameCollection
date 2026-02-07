@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import Mock
 
 import genre as g
-import Interactors.GenreInteractors as gi
+import Interactors.genre_interactors as gi
 import Interactors.interactor_factory as ifactory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.GenresHandler as gh

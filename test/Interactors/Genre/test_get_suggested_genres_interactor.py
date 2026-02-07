@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 import abstract_persistence
 import Interactors.Interactor as interactor
-import Interactors.GenreInteractors as gi
+import Interactors.genre_interactors as gi
 import genre as genre
 
 

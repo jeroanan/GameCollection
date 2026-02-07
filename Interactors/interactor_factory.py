@@ -20,7 +20,7 @@ import Data.data_load as dl
 import Interactors.Exceptions.unrecognised_interactor_type_exception as uite
 import Interactors.collection_interactors as ci
 import Interactors.LoggingInteractor as li
-import Interactors.GenreInteractors as gi
+import Interactors.genre_interactors as gi
 import Interactors.HardwareInteractors as hi
 import Interactors.PlatformInteractors as pi
 
@@ -74,6 +74,11 @@ class InteractorFactory:
             "GameInteractors.GetGameInteractor": "game_interactors",
             "GameInteractors.GetGamesInteractor": "game_interactors",
             "GameInteractors.UpdateGameInteractor": "game_interactors",
+            "GenreInteractors.AddGenreInteractor": "genre_interactors",
+            "GenreInteractors.DeleteGenreInteractor": "genre_interactors",
+            "GenreInteractors.GetGenreInteractor": "genre_interactors",
+            "GenreInteractors.GetGenresInteractor": "genre_interactors",
+            "GenreInteractors.UpdateGenreInteractor": "genre_interactors",
         }
 
         print(interactor_type)

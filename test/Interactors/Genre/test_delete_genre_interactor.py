@@ -17,7 +17,7 @@
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from genre import Genre
-from Interactors.GenreInteractors import DeleteGenreInteractor
+from Interactors.genre_interactors import DeleteGenreInteractor
 from Interactors.Interactor import Interactor
 
 

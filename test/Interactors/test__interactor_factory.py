@@ -23,7 +23,7 @@ from Interactors.Exceptions.unrecognised_interactor_type_exception \
     import UnrecognisedInteractorTypeException
 import Interactors.collection_interactors as collection_interactors
 import Interactors.game_interactors as game_interactors
-import Interactors.GenreInteractors as genre_interactors
+import Interactors.genre_interactors as genre_interactors
 import Interactors.HardwareInteractors as hardware_interactors
 import Interactors.interactor_factory as interactor_factory
 import Interactors.PlatformInteractors as platform_interactors

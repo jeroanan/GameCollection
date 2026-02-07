@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Interactors for genres"""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -50,7 +51,7 @@ class GetGenreInteractor(i.Interactor):
 
 class GetGenresInteractor(i.Interactor):
     """Get all genres"""
-    
+
     def execute(self):
         """Get all genres from persistence
         :returns: A list of Genre objects representing all genres in the system."""
@@ -58,12 +59,15 @@ class GetGenresInteractor(i.Interactor):
 
 
 class GetSuggestedGenresInteractor(i.Interactor):
-    
+    """Get suggested genres"""
     def __init__(self, get_suggested_genres):
         super().__init__()
         self.__get_suggested_genres = get_suggested_genres
 
     def execute(self):
+        """Get suggested genres from persistence
+        :returns: A list of Genre objects representing suggested genres that are not already in 
+                the system."""
         genres = list(self.persistence.get_genres())
         suggested_genres = self.__get_suggested_genres()
         result = [s for s in suggested_genres if s not in genres]
