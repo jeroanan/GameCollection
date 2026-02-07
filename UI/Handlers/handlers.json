@@ -29,7 +29,7 @@
             "signup": "SignupHandler",
             "signin": "SigninHandler",
 				"logout": "LogoutHandler",
-				"genres": "GenresHandler",
+				"genres": "genres_handler",
 				"addgenre": "add_genre_handler",
 				"editgenre": "EditGenreHandler",
 				"updategenre": "UpdateGenreHandler",

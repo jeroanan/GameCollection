@@ -41,7 +41,7 @@ from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.EditUserHandler import EditUserHandler
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 import UI.Handlers.ExportCollectionHandler as ech
-from UI.Handlers.GenresHandler import GenresHandler
+from UI.Handlers.genres_handler import GenresHandler
 import UI.Handlers.GetExportHandler as geh
 from UI.Handlers.handler_factory import HandlerFactory
 from UI.Handlers.HardwareTypesHandler import HardwareTypesHandler
