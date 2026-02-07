@@ -29,4 +29,3 @@ class LoggingInteractor(Interactor):
     @logger.setter
     def logger(self, value):
         self.__logger = value
-

@@ -19,7 +19,7 @@ import json
 import Data.data_load as dl
 import Interactors.Exceptions.unrecognised_interactor_type_exception as uite
 import Interactors.collection_interactors as ci
-import Interactors.LoggingInteractor as li
+import Interactors.logging_interactor as li
 import Interactors.genre_interactors as gi
 import Interactors.hardware_interactors as hi
 import Interactors.PlatformInteractors as pi

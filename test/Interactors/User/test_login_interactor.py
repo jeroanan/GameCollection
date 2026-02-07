@@ -19,7 +19,7 @@ from mock import Mock
 
 from abstract_persistence import AbstractPersistence
 from Cryptography.hash_provider import HashProvider
-from Interactors.LoggingInteractor import LoggingInteractor
+from Interactors.logging_interactor import LoggingInteractor
 from Interactors.UserInteractors import LoginInteractor
 from icarus_user import User
 

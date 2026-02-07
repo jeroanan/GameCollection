@@ -19,7 +19,7 @@ from Interactors.Exceptions.interactor_factory_not_set_exception \
     import InteractorFactoryNotSetException
 from Interactors.Exceptions.user_exists_exception import UserExistsException
 from Interactors.interactor import Interactor
-from Interactors.LoggingInteractor import LoggingInteractor
+from Interactors.logging_interactor import LoggingInteractor
 
 
 class AddUserInteractor(LoggingInteractor):
