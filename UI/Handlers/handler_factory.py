@@ -1,3 +1,4 @@
+"""Factory for creating handlers."""
 # copyright (c) David Wilson 2015, 2026
 # This file is part of Icarus.
 
@@ -22,7 +23,8 @@ from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHand
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.Session.Session import Session
 
-class HandlerFactory(object):
+class HandlerFactory:
+    """Factory for creating handlers."""
 
     def __init__(self, interactor_factory, renderer, config):
         self.__interactor_factory = interactor_factory
@@ -31,10 +33,11 @@ class HandlerFactory(object):
         self.__handlers = self.__load_handlers()
 
     def __load_handlers(self):
-        with open("UI/Handlers/handlers.json") as f:
-            return json.load(f)["handlers"][0]        
+        with open("UI/Handlers/handlers.json", encoding="utf-8") as f:
+            return json.load(f)["handlers"][0]
 
     def create(self, handler_type):
+        """Create a handler of the given type."""
         handler = None
 
         def renew_cookies():
@@ -74,5 +77,3 @@ class HandlerFactory(object):
         handler.cookies = Cookies()
         renew_cookies()
         return handler
-
-    

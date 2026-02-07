@@ -43,7 +43,7 @@ from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHand
 import UI.Handlers.ExportCollectionHandler as ech
 from UI.Handlers.GenresHandler import GenresHandler
 import UI.Handlers.GetExportHandler as geh
-from UI.Handlers.HandlerFactory import HandlerFactory
+from UI.Handlers.handler_factory import HandlerFactory
 from UI.Handlers.HardwareTypesHandler import HardwareTypesHandler
 from UI.Handlers.IndexHandler import IndexHandler
 from UI.Handlers.LoginHandler import LoginHandler
