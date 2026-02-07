@@ -1,5 +1,5 @@
 """Provides unit tests for DeletePlatformHandler."""
-# Copyright (c) David Wilson 2015
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -17,7 +17,7 @@ import test.Handlers.HandlerTestAssertions as hta
 import unittest
 from unittest.mock import Mock
 
-import Interactors.PlatformInteractors as pi
+import Interactors.platform_interactors as pi
 import Interactors.interactor_factory as factory
 import UI.Handlers.DeletePlatformHandler as dph
 import UI.Handlers.AuthenticatedHandler as ah

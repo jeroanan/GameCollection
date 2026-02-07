@@ -1,3 +1,4 @@
+"""Handle requests to add a platform"""
 # Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
@@ -16,7 +17,7 @@
 
 import json
 
-import Interactors.PlatformInteractors as pi
+import Interactors.platform_interactors as pi
 import icarus_platform as p
 import UI.Handlers.AuthenticatedHandler as ah
 
@@ -46,7 +47,7 @@ class AddPlatformHandler(ah.AuthenticatedHandler):
             result['result'] = 'validation_failed'
         else:
             interactor = self.interactor_factory.create('AddPlatformInteractor')
-            
+
             try:
                 interactor.execute(p.Platform.from_dict(args))
                 result['result'] = 'ok'

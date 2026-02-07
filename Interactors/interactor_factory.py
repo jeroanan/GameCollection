@@ -22,7 +22,7 @@ import Interactors.collection_interactors as ci
 import Interactors.logging_interactor as li
 import Interactors.genre_interactors as gi
 import Interactors.hardware_interactors as hi
-import Interactors.PlatformInteractors as pi
+import Interactors.platform_interactors as pi
 
 
 class InteractorFactory:
@@ -92,6 +92,11 @@ class InteractorFactory:
             "HardwareInteractors.SaveHardwareInteractor": "hardware_interactors",
             "HardwareInteractors.UpdateHardwareInteractor": "hardware_interactors",
             "HardwareInteractors.UpdateHardwareTypeInteractor": "hardware_interactors",
+            "PlatformInteractors.AddPlatformInteractor": "platform_interactors",
+            "PlatformInteractors.DeletePlatformInteractor": "platform_interactors",
+            "PlatformInteractors.GetPlatformInteractor": "platform_interactors",
+            "PlatformInteractors.GetPlatformsInteractor": "platform_interactors",
+            "PlatformInteractors.UpdatePlatformInteractor": "platform_interactors",
         }
 
         print(interactor_type)

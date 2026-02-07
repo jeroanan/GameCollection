@@ -1,3 +1,4 @@
+"""Handle requests to update an existing platform"""
 # Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
 import json
 
 import icarus_platform as p
-import Interactors.PlatformInteractors as pi
+import Interactors.platform_interactors as pi
 import UI.Handlers.AuthenticatedHandler as ah
 
 
@@ -26,12 +27,14 @@ class UpdatePlatformHandler(ah.AuthenticatedHandler):
         """
         Handle requests to update an existing platform
         :param params: A dictionary containing details of the platform to be updated
-        :returns: A json object with one key, result, containing the result of the update operation. This can be:
-                  + ok -- Update was ok
-                  + validation_failed -- Validation of params failed
-                  + alread_exists -- the platform to be updated already exists with a different id
-                  + not_found -- the platform to be updated does not exist
-                  + error -- some other error occurred
+        :returns: A json object with one key, result, containing the result of the update operation. 
+                    This can be:
+                        + ok -- Update was ok
+                        + validation_failed -- Validation of params failed
+                        + alread_exists -- the platform to be updated already exists with a 
+                                            different id
+                        + not_found -- the platform to be updated does not exist
+                        + error -- some other error occurred
           
                   Only in the case of ok will the record have been updated.
         """
@@ -54,11 +57,10 @@ class UpdatePlatformHandler(ah.AuthenticatedHandler):
             except Exception as e:
                 print(e)
                 result['result'] = 'error'
-        
+
         return json.dumps(result)
 
     def __validate_params(self, params):
         if params is None:
             return False
         return self.validate_params(params, ["id", "name"])
-    

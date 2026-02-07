@@ -18,7 +18,7 @@ from unittest.mock import Mock
 
 from test.Handlers.HandlerTestAssertions import \
     (get_missing_param_assertion, get_empty_param_assertion)
-from Interactors.PlatformInteractors import GetPlatformInteractor
+from Interactors.platform_interactors import GetPlatformInteractor
 from Interactors.interactor_factory import InteractorFactory
 from icarus_platform import Platform
 from UI.Handlers.EditPlatformHandler import EditPlatformHandler

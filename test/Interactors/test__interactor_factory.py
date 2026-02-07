@@ -26,7 +26,7 @@ import Interactors.game_interactors as game_interactors
 import Interactors.genre_interactors as genre_interactors
 import Interactors.hardware_interactors as hardware_interactors
 import Interactors.interactor_factory as interactor_factory
-import Interactors.PlatformInteractors as platform_interactors
+import Interactors.platform_interactors as platform_interactors
 import Interactors.Search.search_interactor as search_interactor
 import Interactors.UserInteractors as user_interactors
 import abstract_persistence

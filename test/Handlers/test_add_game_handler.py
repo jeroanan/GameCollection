@@ -1,5 +1,5 @@
 """Unit tests for the AddGameHandler class"""
-# Copyright (c) 2015 David Wilson
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@ from unittest.mock import Mock
 
 import genre as g
 from Interactors.interactor_factory import InteractorFactory
-import Interactors.PlatformInteractors as pi
+import Interactors.platform_interactors as pi
 import icarus_platform as p
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler

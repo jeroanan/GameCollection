@@ -20,7 +20,7 @@ import game as g
 import genre as ge
 import Interactors.game_interactors as gi
 import Interactors.genre_interactors as gei
-import Interactors.PlatformInteractors as pi
+import Interactors.platform_interactors as pi
 import Interactors.interactor_factory as factory
 import icarus_platform as p
 import UI.Handlers.Session.Session as sess

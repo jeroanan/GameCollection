@@ -1,3 +1,4 @@
+"""Handles requests to delete a platform"""
 # copyright (c) David Wilson 2015, 2026
 # This file is part of Icarus.
 
@@ -16,7 +17,7 @@
 
 import json
 
-import Interactors.PlatformInteractors as pi
+import Interactors.platform_interactors as pi
 import UI.Handlers.AuthenticatedHandler as ah
 
 
