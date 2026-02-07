@@ -25,7 +25,7 @@ import Interactors.interactor_factory as factory
 import Interactors.platform_interactors as pi
 import icarus_platform as p
 import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.EditHardwareHandler as ehh
+import UI.Handlers.edit_hardware_handler as ehh
 import UI.Handlers.Session.Session as sess
 import UI.TemplateRenderer as renderer
 

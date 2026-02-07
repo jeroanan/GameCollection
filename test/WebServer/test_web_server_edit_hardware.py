@@ -1,7 +1,7 @@
 """Unit tests for WebServer EditHardware endpoint."""
 from unittest.mock import Mock
 from test.WebServer.web_server_test_base import WebServerTestBase
-from UI.Handlers.EditHardwareHandler import EditHardwareHandler
+from UI.Handlers.edit_hardware_handler import EditHardwareHandler
 
 
 class TestWebServerEditHardware(WebServerTestBase):

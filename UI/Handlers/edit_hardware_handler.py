@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Handles requests for the Edit Hardware page"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -19,8 +20,8 @@ import UI.Handlers.AuthenticatedHandler as ah
 
 
 class EditHardwareHandler(ah.AuthenticatedHandler):
+    """Handles requests for the Edit Hardware page"""
 
-    
     def get_page(self, args):
         """The Edit Hardware page.
         param args: A dictionary containing the keys:
@@ -29,7 +30,7 @@ class EditHardwareHandler(ah.AuthenticatedHandler):
         If the hardware is not found then a "Hardware Not Found" message is displayed to the user.
         """
         super().get_page(args)
-        create_interactor = lambda x: self.interactor_factory.create(x)
+        create_interactor = self.interactor_factory.create
         get_hardware_details_interactor = create_interactor("GetHardwareDetailsInteractor")
         get_platforms_interactor = create_interactor("GetPlatformsInteractor")
         get_hardware_types_list_interactor = create_interactor("GetHardwareTypeListInteractor")
@@ -41,7 +42,7 @@ class EditHardwareHandler(ah.AuthenticatedHandler):
         hardware_found = True
 
         try:
-            hardware = get_hardware_details_interactor.execute(args.get("hardwareid", ""), 
+            hardware = get_hardware_details_interactor.execute(args.get("hardwareid", ""),
                                                                self.session.get_value("user_id"))
             hardware_types = get_hardware_types_list_interactor.execute()
             platforms = get_platforms_interactor.execute()
@@ -49,6 +50,9 @@ class EditHardwareHandler(ah.AuthenticatedHandler):
             page_title = "Hardware Not Found"
             hardware_found = False
 
-        return self.renderer.render("edithardware.html", hardware=hardware,
-                                    platforms=platforms, hardware_types=hardware_types, title=page_title,
+        return self.renderer.render("edithardware.html",
+                                    hardware=hardware,
+                                    platforms=platforms,
+                                    hardware_types=hardware_types,
+                                    title=page_title,
                                     hardware_found=hardware_found)

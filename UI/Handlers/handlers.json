@@ -14,7 +14,7 @@
             "editplatform": "EditPlatformHandler",
             "updateplatform": "UpdatePlatformHandler",
             "deleteplatform": "DeletePlatformHandler",
-            "edithardware": "EditHardwareHandler",
+            "edithardware": "edit_hardware_handler",
 				"hardwaretypes": "HardwareTypesHandler",
             "updatehardware": "UpdateHardwareHandler",
 				"updatehardwaretype": "UpdateHardwareTypeHandler",

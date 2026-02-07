@@ -35,7 +35,7 @@ from UI.Handlers.DeletePlatformHandler import DeletePlatformHandler
 from UI.Handlers.DeleteUserHandler import DeleteUserHandler
 from UI.Handlers.edit_game_handler import EditGameHandler
 from UI.Handlers.EditGenreHandler import EditGenreHandler
-from UI.Handlers.EditHardwareHandler import EditHardwareHandler
+from UI.Handlers.edit_hardware_handler import EditHardwareHandler
 from UI.Handlers.EditHardwareTypeHandler import EditHardwareTypeHandler
 from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.EditUserHandler import EditUserHandler
