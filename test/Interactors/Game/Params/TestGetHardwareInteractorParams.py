@@ -15,7 +15,7 @@
 
 import unittest
 
-from interactors.Hardware.Params.get_hardware_list_interactor_params \
+from interactors.hardware.Params.get_hardware_list_interactor_params \
     import GetHardwareListInteractorParams
 
 class TestGetHardwareInteractorParams(unittest.TestCase):

@@ -16,7 +16,7 @@
 import cherrypy
 
 import interactors.game.Params.get_games_interactor_params as ggip
-import interactors.Hardware.Params.get_hardware_list_interactor_params as ghlip
+import interactors.hardware.Params.get_hardware_list_interactor_params as ghlip
 import Persistence.Exceptions.UnrecognisedFieldNameException as ufen
 import  UI.Handlers.AuthenticatedHandler as ah
 
