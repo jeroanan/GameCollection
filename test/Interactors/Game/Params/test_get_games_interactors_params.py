@@ -12,9 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+"""Tests for the GetGamesInteractorParams class"""
+
 import unittest
 
-from interactors.Game.Params.get_games_interactor_params import GetGamesInteractorParams
+from interactors.game.Params.get_games_interactor_params import GetGamesInteractorParams
 
 
 class TestGetGamesInteractorParams(unittest.TestCase):
