@@ -1,2 +1,0 @@
-class UnrecognisedFieldNameException(Exception):
-    pass

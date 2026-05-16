@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import game as g
-import Persistence.Exceptions.GameNotFoundException as gnfe
+from Persistence.Exceptions.exceptions import GameNotFoundException
 import UI.Handlers.AuthenticatedHandler as ah
 
 
@@ -46,7 +46,7 @@ class EditGameHandler(ah.AuthenticatedHandler):
         try:
             game = get_game(args.get("gameid", ""))            
             page_title = f"{game.title} ({game.platform})"
-        except gnfe.GameNotFoundException:
+        except GameNotFoundException:
             game_found = False
             page_title = "Game Not Found"
 

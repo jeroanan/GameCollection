@@ -17,7 +17,7 @@ import cherrypy
 
 import interactors.game.Params.get_games_interactor_params as ggip
 import interactors.hardware.Params.get_hardware_list_interactor_params as ghlip
-import Persistence.Exceptions.UnrecognisedFieldNameException as ufen
+from Persistence.Exceptions.exceptions import UnrecognisedFieldNameException
 import  UI.Handlers.AuthenticatedHandler as ah
 
 #TODO: Does this work? Is it tested?? Is it even used??
@@ -65,7 +65,7 @@ class IndexHandler(ah.AuthenticatedHandler):
         try:
             games = self.__get_games()
             hardware = self.__get_hardware()
-        except ufen.UnrecognisedFieldNameException as exc:
+        except UnrecognisedFieldNameException as exc:
             raise cherrypy.HTTPRedirect("/") from exc
 
         return self.renderer.render("index.html",
@@ -115,7 +115,7 @@ class IndexHandler(ah.AuthenticatedHandler):
 
         try:
             games = get_games_interactor.execute(p)
-        except ufen.UnrecognisedFieldNameException as exc:
+        except UnrecognisedFieldNameException as exc:
             raise cherrypy.HTTPRedirect("/") from exc
         return games
 

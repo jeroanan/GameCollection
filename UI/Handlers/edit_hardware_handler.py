@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import Persistence.Exceptions.HardwareNotFoundException as hnfe
+from Persistence.Exceptions.exceptions import HardwareNotFoundException
 import UI.Handlers.AuthenticatedHandler as ah
 
 
@@ -46,7 +46,7 @@ class EditHardwareHandler(ah.AuthenticatedHandler):
                                                                self.session.get_value("user_id"))
             hardware_types = get_hardware_types_list_interactor.execute()
             platforms = get_platforms_interactor.execute()
-        except hnfe.HardwareNotFoundException:
+        except HardwareNotFoundException:
             page_title = "Hardware Not Found"
             hardware_found = False
 
