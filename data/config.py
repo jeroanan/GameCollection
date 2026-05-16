@@ -6,7 +6,7 @@ import os
 class Config:
     """Handles application configuration."""
     def __init__(self):
-        with open("Data/config.json", encoding="utf-8") as f:
+        with open("data/config.json", encoding="utf-8") as f:
             data = json.load(f)
             self.__data = data["config"]
 

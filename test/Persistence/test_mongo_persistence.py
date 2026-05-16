@@ -18,7 +18,7 @@ from unittest.mock import Mock
 from logging import Logger
 from pymongo import MongoClient
 
-from Data.config import Config
+from data.config import Config
 from Persistence.mongo_persistence import MongoPersistence
 
 class TestMongoPersistence(unittest.TestCase):

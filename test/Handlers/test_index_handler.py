@@ -16,7 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
-from Data.config import Config
+from data.config import Config
 from game import Game
 from hardware import Hardware
 import Interactors.game_interactors as game_interactors
