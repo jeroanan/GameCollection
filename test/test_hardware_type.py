@@ -32,7 +32,7 @@ class TestHardwareType(unittest.TestCase):
                     "description": mappings["description"]}
 
         hardware_type = ht.HardwareType.from_dict(mappings)
-        
+
         list(map(lambda x: self.assertEqual(getattr(hardware_type, x), expected[x]), expected))
 
     def test_from_mongo_result_returns_hardware_type(self):
