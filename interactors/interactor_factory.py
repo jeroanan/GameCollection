@@ -67,7 +67,6 @@ class InteractorFactory:
     def __string_to_interactor(self, interactor_type):
         #TODO: I Will need to clean this up at some point.
         interactors = {
-            "Search.SearchInteractor": "search_interactor",
             "GameInteractors.AddGameInteractor": "game_interactors",
             "GameInteractors.CountGamesInteractor": "game_interactors",
             "GameInteractors.DeleteGameInteractor": "game_interactors",
@@ -97,6 +96,7 @@ class InteractorFactory:
             "PlatformInteractors.GetPlatformInteractor": "platform_interactors",
             "PlatformInteractors.GetPlatformsInteractor": "platform_interactors",
             "PlatformInteractors.UpdatePlatformInteractor": "platform_interactors",
+            "Search.SearchInteractor": "search.search_interactor",
             "UserInteractors.AddUserInteractor": "user_interactors",
             "UserInteractors.ChangePasswordInteractor": "user_interactors",
             "UserInteractors.DeleteUserInteractor": "user_interactors",

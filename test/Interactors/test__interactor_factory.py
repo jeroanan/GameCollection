@@ -27,7 +27,7 @@ import interactors.genre_interactors as genre_interactors
 import interactors.hardware_interactors as hardware_interactors
 import interactors.interactor_factory as interactor_factory
 import interactors.platform_interactors as platform_interactors
-import interactors.Search.search_interactor as search_interactor
+import interactors.search.search_interactor as search_interactor
 import interactors.user_interactors as user_interactors
 import abstract_persistence
 

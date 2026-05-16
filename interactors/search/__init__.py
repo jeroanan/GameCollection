@@ -1,0 +1,1 @@
+"""Interactors for searching."""
