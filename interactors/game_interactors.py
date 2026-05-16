@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from interactors.Exceptions.persistence_exception import PersistenceException
+from interactors.exceptions.persistence_exception import PersistenceException
 from interactors.interactor import Interactor
 
 
@@ -111,8 +111,8 @@ class UpdateGameInteractor(Interactor):
         self.__validate(game)
         try:
             self.persistence.update_game(game, user_id)
-        except:
-            raise PersistenceException
+        except Exception as exc:
+            raise PersistenceException from exc
 
     def __validate(self, game):
         if game is None:

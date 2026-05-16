@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import interactors.interactor as interactor
+from interactors import interactor
 import interactors.Game.Params.get_games_interactor_params as ggip
 import interactors.Hardware.Params.get_hardware_list_interactor_params as ghlip
 
@@ -41,9 +41,9 @@ class ExportCollectionInteractor(interactor.Interactor):
         for ds in data_sets_to_export:
             if ds in interactor_constructors:
                 interactor_type, p = interactor_constructors[ds]
-                interactor = self.__interactor_factory.create(interactor_type)
+                i = self.__interactor_factory.create(interactor_type)
                 params = p()
                 params.user_id = user_id
-                data[ds] = interactor.execute(params)
+                data[ds] = i.execute(params)
 
         return data

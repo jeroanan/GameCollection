@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from game import Game
-from interactors.Exceptions.persistence_exception import PersistenceException
+from interactors.exceptions.persistence_exception import PersistenceException
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 

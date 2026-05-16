@@ -15,9 +15,9 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Cryptography.hash_provider import HashProvider
-from interactors.Exceptions.interactor_factory_not_set_exception \
+from interactors.exceptions.interactor_factory_not_set_exception \
     import InteractorFactoryNotSetException
-from interactors.Exceptions.user_exists_exception import UserExistsException
+from interactors.exceptions.user_exists_exception import UserExistsException
 from interactors.interactor import Interactor
 from interactors.logging_interactor import LoggingInteractor
 
