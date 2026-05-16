@@ -19,16 +19,16 @@ from logging import Logger
 import unittest
 from unittest.mock import Mock
 
-from Interactors.Exceptions.unrecognised_interactor_type_exception \
+from interactors.Exceptions.unrecognised_interactor_type_exception \
     import UnrecognisedInteractorTypeException
-import Interactors.collection_interactors as collection_interactors
-import Interactors.game_interactors as game_interactors
-import Interactors.genre_interactors as genre_interactors
-import Interactors.hardware_interactors as hardware_interactors
-import Interactors.interactor_factory as interactor_factory
-import Interactors.platform_interactors as platform_interactors
-import Interactors.Search.search_interactor as search_interactor
-import Interactors.user_interactors as user_interactors
+import interactors.collection_interactors as collection_interactors
+import interactors.game_interactors as game_interactors
+import interactors.genre_interactors as genre_interactors
+import interactors.hardware_interactors as hardware_interactors
+import interactors.interactor_factory as interactor_factory
+import interactors.platform_interactors as platform_interactors
+import interactors.Search.search_interactor as search_interactor
+import interactors.user_interactors as user_interactors
 import abstract_persistence
 
 

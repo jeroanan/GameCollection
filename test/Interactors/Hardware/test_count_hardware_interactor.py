@@ -19,8 +19,8 @@ from unittest.mock import Mock
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from abstract_persistence import AbstractPersistence
-from Interactors.hardware_interactors import CountHardwareInteractor
-from Interactors.interactor import Interactor
+from interactors.hardware_interactors import CountHardwareInteractor
+from interactors.interactor import Interactor
 
 
 class TestCountHardwareInteractor(InteractorTestBase):

@@ -18,11 +18,11 @@ from unittest.mock import Mock
 
 import game as g
 import hardware as h
-import Interactors.game_interactors as gi
-import Interactors.collection_interactors as ci
-import Interactors.hardware_interactors as hi
-import Interactors.interactor as interactor
-import Interactors.interactor_factory as interactor_factory
+import interactors.game_interactors as gi
+import interactors.collection_interactors as ci
+import interactors.hardware_interactors as hi
+import interactors.interactor as interactor
+import interactors.interactor_factory as interactor_factory
 
 class TestExportCollectionInteractor(unittest.TestCase):
     """Tests for ExportCollectionInteractor."""

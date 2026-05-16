@@ -15,11 +15,11 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Cryptography.hash_provider import HashProvider
-from Interactors.Exceptions.interactor_factory_not_set_exception \
+from interactors.Exceptions.interactor_factory_not_set_exception \
     import InteractorFactoryNotSetException
-from Interactors.Exceptions.user_exists_exception import UserExistsException
-from Interactors.interactor import Interactor
-from Interactors.logging_interactor import LoggingInteractor
+from interactors.Exceptions.user_exists_exception import UserExistsException
+from interactors.interactor import Interactor
+from interactors.logging_interactor import LoggingInteractor
 
 
 class AddUserInteractor(LoggingInteractor):

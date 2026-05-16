@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 import cherrypy
 
-from Interactors import interactor_factory
+from interactors import interactor_factory
 from UI.TemplateRenderer import TemplateRenderer
 from UI.web_server import WebServer
 

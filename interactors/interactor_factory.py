@@ -17,12 +17,12 @@ import importlib
 import json
 
 import data.data_load as dl
-import Interactors.Exceptions.unrecognised_interactor_type_exception as uite
-import Interactors.collection_interactors as ci
-import Interactors.logging_interactor as li
-import Interactors.genre_interactors as gi
-import Interactors.hardware_interactors as hi
-import Interactors.platform_interactors as pi
+import interactors.Exceptions.unrecognised_interactor_type_exception as uite
+import interactors.collection_interactors as ci
+import interactors.logging_interactor as li
+import interactors.genre_interactors as gi
+import interactors.hardware_interactors as hi
+import interactors.platform_interactors as pi
 
 
 class InteractorFactory:
@@ -33,7 +33,7 @@ class InteractorFactory:
         self.__logger = logger
 
     def __load_interactors(self):
-        with open("Interactors/interactors.json", encoding="utf-8") as f:
+        with open("interactors/interactors.json", encoding="utf-8") as f:
             return json.load(f)["interactors"][0]
 
     def create(self, interactor_type):
@@ -112,19 +112,19 @@ class InteractorFactory:
             try:
                 [mod, class_name] = str.split(interactor_type, ".")
                 module = importlib.import_module(
-                    f"Interactors.{mod}.{interactors[interactor_type]}")
+                    f"interactors.{mod}.{interactors[interactor_type]}")
                 class_ = getattr(module, class_name)
             except ModuleNotFoundError:
                 [_m, class_name] = str.split(interactor_type, ".")
-                module = importlib.import_module(f"Interactors.{interactors[interactor_type]}")
+                module = importlib.import_module(f"interactors.{interactors[interactor_type]}")
                 class_ = getattr(module, class_name)
         else:
             try:
-                module = __import__("Interactors." + interactor_type, fromlist=interactor_type)
+                module = __import__("interactors." + interactor_type, fromlist=interactor_type)
             except ImportError:
                 #We're using one of the new classes to group interactors by feature.
                 it = str.split(interactor_type, ".")
-                module = __import__("Interactors." + it[0], fromlist=it[1])
+                module = __import__("interactors." + it[0], fromlist=it[1])
             class_name = str.split(interactor_type, ".")[1]
             class_ = getattr(module, class_name)
         instantiated = class_()

@@ -14,8 +14,8 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from Interactors.interactor import Interactor
-from Interactors.hardware_interactors import SaveHardwareInteractor
+from interactors.interactor import Interactor
+from interactors.hardware_interactors import SaveHardwareInteractor
 
 
 class TestSaveHardwareInteractor(InteractorTestBase):

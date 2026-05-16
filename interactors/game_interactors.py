@@ -13,8 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Interactors.Exceptions.persistence_exception import PersistenceException
-from Interactors.interactor import Interactor
+from interactors.Exceptions.persistence_exception import PersistenceException
+from interactors.interactor import Interactor
 
 
 class AddGameInteractor(Interactor):

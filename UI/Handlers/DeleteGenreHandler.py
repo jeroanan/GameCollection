@@ -15,7 +15,7 @@
 
 import json
 
-import Interactors.genre_interactors as gi
+import interactors.genre_interactors as gi
 import genre as g
 import UI.Handlers.AuthenticatedHandler as ah
 

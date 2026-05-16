@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import Interactors.interactor as interactor
-import Interactors.Game.Params.get_games_interactor_params as ggip
-import Interactors.Hardware.Params.get_hardware_list_interactor_params as ghlip
+import interactors.interactor as interactor
+import interactors.Game.Params.get_games_interactor_params as ggip
+import interactors.Hardware.Params.get_hardware_list_interactor_params as ghlip
 
 
 class ExportCollectionInteractor(interactor.Interactor):

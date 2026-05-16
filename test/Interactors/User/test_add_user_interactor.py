@@ -17,9 +17,9 @@ import unittest
 from unittest.mock import Mock
 from abstract_persistence import AbstractPersistence
 from Cryptography.hash_provider import HashProvider
-from Interactors.Exceptions.user_exists_exception import UserExistsException
-from Interactors.logging_interactor import LoggingInteractor
-from Interactors.user_interactors import AddUserInteractor
+from interactors.Exceptions.user_exists_exception import UserExistsException
+from interactors.logging_interactor import LoggingInteractor
+from interactors.user_interactors import AddUserInteractor
 from icarus_user import User
 
 

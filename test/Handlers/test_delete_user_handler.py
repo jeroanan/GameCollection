@@ -16,8 +16,8 @@
 import unittest
 from unittest.mock import Mock
 
-from Interactors.user_interactors import DeleteUserInteractor
-from Interactors.interactor_factory import InteractorFactory
+from interactors.user_interactors import DeleteUserInteractor
+from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.DeleteUserHandler import DeleteUserHandler
 from UI.Handlers.Session.Session import Session

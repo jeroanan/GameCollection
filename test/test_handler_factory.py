@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import Mock
 
 from data.config import Config
-from Interactors.interactor_factory import InteractorFactory
+from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.add_genre_handler import AddGenreHandler
 from UI.Handlers.AddHardwareHandler import AddHardwareHandler

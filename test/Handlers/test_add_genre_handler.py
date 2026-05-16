@@ -21,8 +21,8 @@ from test.Handlers.HandlerTestAssertions import (get_missing_param_assertion,
                                                     get_empty_param_assertion,
                                                     assert_operation_on_params_returns_true)
 from genre import Genre
-from Interactors.genre_interactors import AddGenreInteractor
-from Interactors.interactor_factory import InteractorFactory
+from interactors.genre_interactors import AddGenreInteractor
+from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.add_genre_handler import AddGenreHandler
 from UI.Handlers.Session.Session import Session

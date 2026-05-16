@@ -17,8 +17,8 @@ import unittest
 from unittest.mock import Mock
 
 import genre as g
-import Interactors.genre_interactors as gi
-import Interactors.interactor_factory as ifactory
+import interactors.genre_interactors as gi
+import interactors.interactor_factory as ifactory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.genres_handler as gh
 import UI.Handlers.Session.Session as session

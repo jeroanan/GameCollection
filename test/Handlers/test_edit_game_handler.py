@@ -18,10 +18,10 @@ from unittest.mock import Mock
 
 import game as g
 import genre as ge
-import Interactors.game_interactors as gi
-import Interactors.genre_interactors as gei
-import Interactors.platform_interactors as pi
-import Interactors.interactor_factory as factory
+import interactors.game_interactors as gi
+import interactors.genre_interactors as gei
+import interactors.platform_interactors as pi
+import interactors.interactor_factory as factory
 import icarus_platform as p
 import UI.Handlers.Session.Session as sess
 import UI.Handlers.edit_game_handler as egh

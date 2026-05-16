@@ -19,8 +19,8 @@ import unittest
 from unittest.mock import Mock
 
 import genre as g
-from Interactors.interactor_factory import InteractorFactory
-import Interactors.platform_interactors as pi
+from interactors.interactor_factory import InteractorFactory
+import interactors.platform_interactors as pi
 import icarus_platform as p
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler

@@ -19,8 +19,8 @@ import unittest
 from unittest.mock import Mock
 
 import test.Handlers.HandlerTestAssertions as hta
-import Interactors.interactor_factory as factory
-import Interactors.hardware_interactors as hi
+import interactors.interactor_factory as factory
+import interactors.hardware_interactors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as session
 import UI.Handlers.UpdateHardwareTypeHandler as handler

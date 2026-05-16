@@ -20,7 +20,7 @@ import logging
 import os
 
 from data.config import Config
-from Interactors.interactor_factory import InteractorFactory
+from interactors.interactor_factory import InteractorFactory
 from Persistence.mongo_persistence import MongoPersistence
 from UI.web_server import WebServer
 

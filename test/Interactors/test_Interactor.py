@@ -1,5 +1,5 @@
 import unittest
-from Interactors.interactor import Interactor
+from interactors.interactor import Interactor
 
 
 class TestInteractor(unittest.TestCase):

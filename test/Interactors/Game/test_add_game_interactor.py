@@ -14,8 +14,8 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from Interactors.game_interactors import AddGameInteractor
-from Interactors.interactor import Interactor
+from interactors.game_interactors import AddGameInteractor
+from interactors.interactor import Interactor
 
 
 class TestAddGameInteractor(InteractorTestBase):

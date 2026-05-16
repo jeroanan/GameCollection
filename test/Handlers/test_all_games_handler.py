@@ -17,8 +17,8 @@ import unittest
 from unittest.mock import Mock
 
 from game import Game
-from Interactors.game_interactors import GetGamesInteractor
-from Interactors.interactor_factory import InteractorFactory
+from interactors.game_interactors import GetGamesInteractor
+from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler

@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import Mock
 
 from data.config import Config
-from Interactors.interactor_factory import InteractorFactory
+from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.handler_factory import HandlerFactory
 from UI.TemplateRenderer import TemplateRenderer
 from UI.web_server import WebServer

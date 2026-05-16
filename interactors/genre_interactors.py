@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import Interactors.interactor as i
+import interactors.interactor as i
 
 
 class AddGenreInteractor(i.Interactor):

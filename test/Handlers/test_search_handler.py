@@ -3,8 +3,8 @@ import unittest
 from unittest.mock import Mock
 import cherrypy
 
-from Interactors.interactor_factory import InteractorFactory
-from Interactors.Search.search_interactor import SearchInteractor
+from interactors.interactor_factory import InteractorFactory
+from interactors.Search.search_interactor import SearchInteractor
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.SearchHandler import SearchHandler

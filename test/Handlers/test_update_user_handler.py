@@ -15,8 +15,8 @@
 
 import unittest
 from unittest.mock import Mock
-from Interactors.interactor_factory import InteractorFactory
-from Interactors.user_interactors import UpdateUserInteractor
+from interactors.interactor_factory import InteractorFactory
+from interactors.user_interactors import UpdateUserInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UpdateUserHandler import UpdateUserHandler

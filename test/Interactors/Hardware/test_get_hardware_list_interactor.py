@@ -14,10 +14,10 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from Interactors.hardware_interactors import GetHardwareListInteractor
-from Interactors.Hardware.Params.get_hardware_list_interactor_params import \
+from interactors.hardware_interactors import GetHardwareListInteractor
+from interactors.Hardware.Params.get_hardware_list_interactor_params import \
     GetHardwareListInteractorParams
-from Interactors.interactor import Interactor
+from interactors.interactor import Interactor
 
 
 class TestGetHardwareListInteractor(InteractorTestBase):

@@ -19,9 +19,9 @@ from unittest.mock import Mock
 from data.config import Config
 from game import Game
 from hardware import Hardware
-import Interactors.game_interactors as game_interactors
-import Interactors.hardware_interactors as hardware_interactors
-from Interactors.interactor_factory import InteractorFactory
+import interactors.game_interactors as game_interactors
+import interactors.hardware_interactors as hardware_interactors
+from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.index_handler import IndexHandler
 from UI.Handlers.Session.Session import Session

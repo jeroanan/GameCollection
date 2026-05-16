@@ -14,7 +14,7 @@
 
 import unittest
 
-from Interactors.Game.Params.get_games_interactor_params import GetGamesInteractorParams
+from interactors.Game.Params.get_games_interactor_params import GetGamesInteractorParams
 
 
 class TestGetGamesInteractorParams(unittest.TestCase):

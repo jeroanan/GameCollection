@@ -15,8 +15,8 @@
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from genre import Genre
-from Interactors.interactor import Interactor
-from Interactors.genre_interactors import UpdateGenreInteractor
+from interactors.interactor import Interactor
+from interactors.genre_interactors import UpdateGenreInteractor
 
 
 class TestUpdateGenreInteractor(InteractorTestBase):

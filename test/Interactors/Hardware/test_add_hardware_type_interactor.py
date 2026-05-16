@@ -20,8 +20,8 @@ import unittest.mock as mock
 
 import abstract_persistence
 import hardware_type as ht
-import Interactors.interactor as interactor
-import Interactors.hardware_interactors as hi
+import interactors.interactor as interactor
+import interactors.hardware_interactors as hi
 
 
 class TestAddHardwareTypeInteractor(unittest.TestCase):

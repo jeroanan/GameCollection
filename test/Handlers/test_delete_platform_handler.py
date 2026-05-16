@@ -17,8 +17,8 @@ import test.Handlers.HandlerTestAssertions as hta
 import unittest
 from unittest.mock import Mock
 
-import Interactors.platform_interactors as pi
-import Interactors.interactor_factory as factory
+import interactors.platform_interactors as pi
+import interactors.interactor_factory as factory
 import UI.Handlers.DeletePlatformHandler as dph
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as sess
