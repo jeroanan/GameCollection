@@ -20,6 +20,7 @@
             "type": "shell",
             "command": "pylint",
             "args": [
+                "--ignore-paths=.venv",
                 "."
             ],
             "group": {

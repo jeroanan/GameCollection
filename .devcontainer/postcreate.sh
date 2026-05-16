@@ -1,5 +1,7 @@
 #!/bin/sh
 
+python -m venv .venv
+. .venv/bin/activate
 pip install --upgrade setuptools pip
-pip install --user -r requirements.txt
+pip install -r requirements.txt
 mkdir -p sessions/
