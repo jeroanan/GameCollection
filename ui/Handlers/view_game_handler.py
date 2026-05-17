@@ -28,7 +28,7 @@ class ViewGameHandler(ah.AuthenticatedHandler):
                        * id - the unique id of the game to be viewed
         :returns: The rendered HTML of the View Game page.
         """
-        super().get_page(params)        
+        super().get_page(params)
         interactor = self.interactor_factory.create("GetGameInteractor")
         game = interactor.execute(g.Game.from_dict(params).id, self.session.get_value("user_id"))
         game.notes = markdown.markdown(game.notes)

@@ -57,6 +57,7 @@ class HandlerFactory:
                 "add_hardware_handler": "AddHardwareHandler",
                 "add_hardware_type_handler": "AddHardwareTypeHandler",
                 "add_platform_handler": "AddPlatformHandler",
+                "change_password_handler": "ChangePasswordHandler",
                 "delete_game_handler": "DeleteGameHandler",
                 "delete_genre_handler": "DeleteGenreHandler",
                 "delete_hardware_handler": "DeleteHardwareHandler",

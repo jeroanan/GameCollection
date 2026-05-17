@@ -41,7 +41,8 @@
             "deleteuser": "delete_user_handler",
             "viewgame": "view_game_handler",
             "exportcollection": "export_collection_handler",
-            "getexportcollection": "get_export_handler"
+            "getexportcollection": "get_export_handler",
+            "changepassword": "change_password_handler"
          }
       ]
 }
