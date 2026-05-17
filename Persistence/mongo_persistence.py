@@ -24,9 +24,9 @@ from abstract_persistence import AbstractPersistence
 from genre import Genre
 from Persistence.Exceptions.exceptions import GameNotFoundException
 from Persistence.Exceptions.exceptions import HardwareNotFoundException
-from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
-from Persistence.Mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
-from Persistence.Mappers.SortFieldMapper import SortFieldMapper
+from Persistence.mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
+from Persistence.mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
+from Persistence.mappers.SortFieldMapper import SortFieldMapper
 from game import Game
 from hardware import Hardware
 import hardware_type as ht

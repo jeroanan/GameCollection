@@ -2,7 +2,7 @@
 
 import unittest
 from Persistence.Exceptions.exceptions import UnrecognisedFieldNameException
-from Persistence.Mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
+from Persistence.mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 
 
 class TestHardwareSortFieldMapper(unittest.TestCase):
