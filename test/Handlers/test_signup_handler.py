@@ -21,7 +21,7 @@ from interactors.user_interactors import AddUserInteractor, GetUserInteractor, L
 from ui.Cookies.Cookies import Cookies
 from ui.Handlers.handler import Handler
 from ui.Handlers.Session.Session import Session
-from ui.Handlers.SignupHandler import SignupHandler
+from ui.Handlers.signup_handler import SignupHandler
 from icarus_user import User
 
 

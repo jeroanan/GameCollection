@@ -20,7 +20,7 @@ from interactors.platform_interactors import GetPlatformsInteractor, GetSuggeste
 from interactors.interactor_factory import InteractorFactory
 from icarus_platform import Platform
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.PlatformsHandler import PlatformsHandler
+from ui.Handlers.platforms_handler import PlatformsHandler
 from ui.Handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 

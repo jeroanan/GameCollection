@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.SearchHandler import SearchHandler
+from ui.Handlers.search_handler import SearchHandler
 
 
 class TestWebServerSearch(WebServerTestBase):

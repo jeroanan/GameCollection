@@ -5,7 +5,7 @@ import cherrypy
 
 from ui.Cookies.Cookies import Cookies
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.LogoutHandler import LogoutHandler
+from ui.Handlers.logout_handler import LogoutHandler
 from ui.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
 from ui.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from ui.Handlers.Session.Session import Session

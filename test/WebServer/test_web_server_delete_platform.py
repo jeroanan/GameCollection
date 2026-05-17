@@ -1,7 +1,7 @@
 """Unit tests for the WebServer's DeletePlatform functionality."""
 from unittest.mock import Mock
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.DeletePlatformHandler import DeletePlatformHandler
+from ui.Handlers.delete_platform_handler import DeletePlatformHandler
 
 
 class TestWebServerDeletePlatform(WebServerTestBase):

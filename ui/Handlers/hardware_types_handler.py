@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Handle requests for the Hardware Types page"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -17,17 +18,24 @@
 import ui.Handlers.authenticated_handler as ah
 
 
-class PlatformsHandler(ah.AuthenticatedHandler):
+class HardwareTypesHandler(ah.AuthenticatedHandler):
+    """Handle requests for the Hardware Types page"""
 
-    def get_page(self, args):
-        super().get_page(args)
+    def get_page(self, params):
+        """Handle requests for the Hardware Types page
+        :param params: An empty dictionary
+        """
+        super().get_page(params)
 
         def interactor_get(interactor_type):
             interactor = self.interactor_factory.create(interactor_type)
             return interactor.execute()
 
-        platforms = interactor_get("GetPlatformsInteractor")
-        suggested_platforms = interactor_get("GetSuggestedPlatformsInteractor")
+        hardware_types = interactor_get("GetHardwareTypeListInteractor")
+        suggested_hardware_types = interactor_get("GetSuggestedHardwareTypesInteractor")
 
-        return self.renderer.render("platforms.html", title="Manage Platforms", platforms=platforms,
-                                    suggested_platforms=suggested_platforms)
+        return self.renderer.render(
+            "hardwaretypes.html",
+            title="Manage Hardware Types",
+            hardware_types=hardware_types,
+            suggested_hardware_types=suggested_hardware_types)

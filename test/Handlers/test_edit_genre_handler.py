@@ -20,7 +20,7 @@ from genre import Genre
 from interactors.genre_interactors import GetGenreInteractor
 from interactors.interactor_factory import InteractorFactory
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.EditGenreHandler import EditGenreHandler
+from ui.Handlers.edit_genre_handler import EditGenreHandler
 from ui.Handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 

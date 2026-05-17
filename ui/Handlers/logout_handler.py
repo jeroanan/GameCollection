@@ -1,9 +1,11 @@
+"""Handler for logging out."""
 import cherrypy
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
 
 
 class LogoutHandler(AuthenticatedHandler):
-    
+    """Handler for logging out."""
+
     def get_page(self, args):
         super().get_page(args)
         self.check_cookies()

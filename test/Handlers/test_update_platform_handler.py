@@ -21,7 +21,7 @@ import interactors.interactor_factory as factory
 import interactors.platform_interactors as pi
 import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.Session.Session as sess
-import ui.Handlers.UpdatePlatformHandler as uph
+import ui.Handlers.update_platform_handler as uph
 
 
 class TestUpdatePlatformHandler(unittest.TestCase):

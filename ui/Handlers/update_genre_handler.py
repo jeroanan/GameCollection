@@ -1,3 +1,4 @@
+"""Handle requests to update a genre"""
 # Copyright (c) 2015, 2026 David Wilson
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

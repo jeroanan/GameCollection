@@ -19,7 +19,7 @@ from interactors.interactor_factory import InteractorFactory
 from interactors.user_interactors import UpdateUserInteractor
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.Session.Session import Session
-from ui.Handlers.UpdateUserHandler import UpdateUserHandler
+from ui.Handlers.update_user_handler import UpdateUserHandler
 from icarus_user import User
 
 

@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Handler for exporting a user's collection as JSON."""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -20,6 +21,7 @@ import ui.Handlers.authenticated_handler as ah
 
 
 class GetExportHandler(ah.AuthenticatedHandler):
+    """Handler for exporting a user's collection as JSON."""
 
     def get_page(self, params):
         super().get_page(params)
@@ -27,7 +29,7 @@ class GetExportHandler(ah.AuthenticatedHandler):
 
         if not isinstance(p, list):
             p = p.split(',')
-        
+
         interactor = self.interactor_factory.create('ExportCollectionInteractor')
         collection_data = interactor.execute(p, self.session.get_value("user_id"))
 
@@ -39,6 +41,6 @@ class GetExportHandler(ah.AuthenticatedHandler):
             result[k] = values
 
         cherrypy.response.headers['Content-Type'] = 'application/json'
-        cherrypy.response.headers['Content-Disposition'] = 'attachment; filename="icarus_collection.json"'
+        cherrypy.response.headers['Content-Disposition'] = \
+            'attachment; filename="icarus_collection.json"'
         return json.dumps(result).encode('utf-8')
-

@@ -1,4 +1,5 @@
-# Copyright (c) David Wilson 2015
+"""Handler for exporting the collection."""
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,18 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+
 import ui.Handlers.authenticated_handler as ah
 
 
-class AddHardwareHandler(ah.AuthenticatedHandler):
+class ExportCollectionHandler(ah.AuthenticatedHandler):
+    """Handler for exporting the collection."""
 
-    def get_page(self, args):
-
-        execute_interactor = lambda x: self.interactor_factory.create(x).execute()
-
-        platforms = execute_interactor("GetPlatformsInteractor")
-        hardware_types = execute_interactor("GetHardwareTypeListInteractor")
-        
-        super().get_page(args)
-        return self.renderer.render("addhardware.html", title="Add Hardware", platforms=platforms, 
-                                    hardware_types=hardware_types)
+    def get_page(self, params):
+        super().get_page(params)
+        return self.renderer.render('exportcollection.html', title='Export Collection')

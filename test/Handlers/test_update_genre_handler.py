@@ -21,7 +21,7 @@ from interactors.genre_interactors import UpdateGenreInteractor
 from interactors.interactor_factory import InteractorFactory
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.Session.Session import Session
-from ui.Handlers.UpdateGenreHandler import UpdateGenreHandler
+from ui.Handlers.update_genre_handler import UpdateGenreHandler
 
 class TestUpdateGenreHandler(unittest.TestCase):
     """Unit tests for the UpdateGenreHandler class"""

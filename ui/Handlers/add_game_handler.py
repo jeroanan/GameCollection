@@ -1,3 +1,5 @@
+"""The Add Game page""" 
+
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
 
 
@@ -17,4 +19,8 @@ class AddGameHandler(AuthenticatedHandler):
 
         platforms = get_from_interactor("GetPlatformsInteractor")
         genres = get_from_interactor("GetGenresInteractor")
-        return self.renderer.render("addgame.html", title="Add Game", platforms=platforms, genres=genres)
+        return self.renderer.render(
+            "addgame.html",
+            title="Add Game",
+            platforms=platforms,
+            genres=genres)

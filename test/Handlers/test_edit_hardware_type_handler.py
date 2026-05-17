@@ -20,7 +20,7 @@ import hardware_type as ht
 import interactors.hardware_interactors as hi
 import interactors.interactor_factory as factory
 import ui.Handlers.authenticated_handler as ah
-import ui.Handlers.EditHardwareTypeHandler as ehth
+import ui.Handlers.edit_hardware_type_handler as ehth
 import ui.Handlers.Session.Session as session
 import ui.template_renderer as renderer
 

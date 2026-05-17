@@ -19,7 +19,7 @@ from unittest.mock import Mock
 
 import interactors.platform_interactors as pi
 import interactors.interactor_factory as factory
-import ui.Handlers.AddPlatformHandler as aph
+import ui.Handlers.add_platform_handler as aph
 import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.Session.Session as sess
 

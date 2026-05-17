@@ -21,7 +21,7 @@ from unittest.mock import Mock
 import test.Handlers.HandlerTestAssertions as hta
 import interactors.hardware_interactors as hi
 import interactors.interactor_factory as factory
-import ui.Handlers.DeleteHardwareHandler as dhh
+import ui.Handlers.delete_hardware_handler as dhh
 import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.Session.Session as sess
 

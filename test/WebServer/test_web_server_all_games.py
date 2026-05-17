@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.AllGamesHandler import AllGamesHandler
+from ui.Handlers.all_games_handler import AllGamesHandler
 
 
 class TestWebServerAllGames(WebServerTestBase):

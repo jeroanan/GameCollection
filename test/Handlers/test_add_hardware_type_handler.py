@@ -21,7 +21,7 @@ import test.Handlers.HandlerTestAssertions as hta
 
 import interactors.interactor_factory as factory
 import interactors.hardware_interactors as hi
-import ui.Handlers.AddHardwareTypeHandler as ath
+import ui.Handlers.add_hardware_type_handler as ath
 import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.Session.Session as session
 

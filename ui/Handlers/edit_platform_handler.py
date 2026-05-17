@@ -1,7 +1,9 @@
+"""Handler for editing a platform."""
 from ui.Handlers.authenticated_handler import AuthenticatedHandler
 
 
 class EditPlatformHandler(AuthenticatedHandler):
+    """Handler for editing a platform."""
 
     def get_page(self, args):
         super().get_page(args)
@@ -13,4 +15,3 @@ class EditPlatformHandler(AuthenticatedHandler):
         except:
             return ""
         return self.renderer.render("editplatform.html", platform=platform, title="Edit Platform")
-

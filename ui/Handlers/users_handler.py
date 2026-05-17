@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Handle requests for the users page"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -18,12 +19,11 @@ import ui.Handlers.authenticated_handler as ah
 
 
 class UsersHandler(ah.AuthenticatedHandler):
-    # Handle requests for the users page
-    
+    """Handle requests for the users page"""
+
     def get_page(self, params):
         """Handle requests for the users page."""
         super().get_page(params)
         interactor = self.interactor_factory.create("GetUsersInteractor")
         users = interactor.execute()
         return self.renderer.render("users.html", title="User Management", users=list(users))
-

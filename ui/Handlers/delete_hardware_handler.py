@@ -1,4 +1,4 @@
-# Copyright (c) David Wilson 2015
+# Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -31,7 +31,7 @@ class DeleteHardwareHandler(AuthenticatedHandler):
             return ""
 
         interactor = self.interactor_factory.create("DeleteHardwareInteractor")
-        try:            
+        try:
             interactor.execute(args.get("id", ""), self.session.get_value("user_id"))
         except:
             return ""

@@ -22,7 +22,7 @@ import interactors.user_interactors as ui
 import ui.Cookies.Cookies as cookies
 import ui.Handlers.handler as handler
 import ui.Handlers.Session.Session as session
-import ui.Handlers.SigninHandler as sh
+import ui.Handlers.signin_handler as sh
 import icarus_user as user
 
 

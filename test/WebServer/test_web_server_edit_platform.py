@@ -1,7 +1,7 @@
 """Unit tests for WebServer EditPlatform endpoint."""
 from unittest.mock import Mock
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.EditPlatformHandler import EditPlatformHandler
+from ui.Handlers.edit_platform_handler import EditPlatformHandler
 
 
 class TestWebServerEditPlatform(WebServerTestBase):
