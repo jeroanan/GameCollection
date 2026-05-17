@@ -1,3 +1,4 @@
+"""Tests for the Platform class"""
 # Copyright (c) David Wilson 2015, 2026
 # Icarus is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -11,22 +12,26 @@
 
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
-    
+
 import unittest
 
 from icarus_platform import Platform
 
 
 class TestPlatform(unittest.TestCase):
-    
+    """Tests for the Platform class"""
+
     def test_from_dict(self):
+        """Test that from_dict can be called with a dictionary"""
         Platform.from_dict({"":""})
 
     def test_from_dict_returns_platform(self):
+        """Test that from_dict returns a Platform object"""
         result = Platform.from_dict({"":""})
         self.assertIsInstance(result, Platform)
 
     def test_from_dict_performs_mappings(self):
+        """Test that from_dict performs the expected mappings"""
         d  = {"name": "name",
               "description": "description"}
         result = Platform.from_dict(d)
@@ -48,4 +53,3 @@ class TestPlatform(unittest.TestCase):
         self.assertEqual(d["_id"], p.id)
         self.assertEqual(d["_Platform__name"], p.name)
         self.assertEqual(d["_Platform__description"], p.description)
-        

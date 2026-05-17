@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Tools for use with mapper tests"""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -14,7 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
+#TODO: Don't think any of this is actually used...
+
 def get_map_checker(target_mapper):
+    """Returns a function that checks whether the given field of the mapped object
+    is equal to the expected value."""
     def map_checker(expected_value, field_name):
         return expected_value == getattr(mapped, field_name)
 

@@ -44,5 +44,3 @@ class TestGetGamesInteractorParams(unittest.TestCase):
         }
 
         list(map(lambda m: self.assertEqual(dictionary[m], mappings[m]), mappings))
-
-

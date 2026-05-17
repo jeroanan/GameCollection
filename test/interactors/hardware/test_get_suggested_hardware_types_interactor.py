@@ -20,7 +20,7 @@ from unittest.mock import Mock
 
 import persistence.abstract_persistence as ap
 import hardware_type as h
-import interactors.interactor as interactor
+from interactors import interactor
 import interactors.hardware_interactors as hi
 
 class TestGetSuggestedHardwareTypesInteractor(unittest.TestCase):

@@ -16,12 +16,12 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-import unittest.mock as mock
+from unittest import mock 
 
-import persistence.abstract_persistence as abstract_persistence
+from persistence import abstract_persistence
 import hardware_type as ht
-import interactors.interactor as interactor
-import interactors.hardware_interactors as hi
+from interactors import interactor
+from interactors import hardware_interactors as hi
 
 
 class TestAddHardwareTypeInteractor(unittest.TestCase):

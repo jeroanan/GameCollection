@@ -16,10 +16,10 @@
 import unittest
 from unittest.mock import Mock
 
-import persistence.abstract_persistence as abstract_persistence
-import interactors.interactor as interactor
+from persistence import abstract_persistence
+from interactors import interactor
 import interactors.genre_interactors as gi
-import genre as genre
+import genre
 
 
 class TestGetSuggestedGenresInteractor(unittest.TestCase):
