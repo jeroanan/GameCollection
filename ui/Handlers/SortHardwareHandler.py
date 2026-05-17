@@ -15,7 +15,7 @@
 
 from interactors.params.get_hardware_list_interactor_params \
     import GetHardwareListInteractorParams
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 
 
 class SortHardwareHandler(AuthenticatedHandler):

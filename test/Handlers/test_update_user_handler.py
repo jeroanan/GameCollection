@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import Mock
 from interactors.interactor_factory import InteractorFactory
 from interactors.user_interactors import UpdateUserInteractor
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.Session.Session import Session
 from ui.Handlers.UpdateUserHandler import UpdateUserHandler
 from icarus_user import User

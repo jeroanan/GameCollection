@@ -18,7 +18,7 @@ import cherrypy
 import interactors.params.get_games_interactor_params as ggip
 import interactors.params.get_hardware_list_interactor_params as ghlip
 from persistence.exceptions import UnrecognisedFieldNameException
-import  ui.Handlers.AuthenticatedHandler as ah
+import  ui.Handlers.authenticated_handler as ah
 
 #TODO: Does this work? Is it tested?? Is it even used??
 class IndexHandler(ah.AuthenticatedHandler):

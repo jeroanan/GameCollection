@@ -19,7 +19,7 @@ from unittest.mock import Mock
 import genre as g
 import interactors.genre_interactors as gi
 import interactors.interactor_factory as ifactory
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.genres_handler as gh
 import ui.Handlers.Session.Session as session
 import ui.template_renderer as tr

@@ -17,7 +17,7 @@ import json
 
 import interactors.genre_interactors as gi
 import genre as g
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 
 class DeleteGenreHandler(ah.AuthenticatedHandler):
     """Handles requests to delete a genre"""

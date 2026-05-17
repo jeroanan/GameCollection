@@ -15,7 +15,7 @@
 import markdown
 
 import game as g
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 
 
 class ViewGameHandler(ah.AuthenticatedHandler):

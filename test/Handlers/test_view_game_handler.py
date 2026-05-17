@@ -19,7 +19,7 @@ from unittest.mock import Mock
 import game as g
 import interactors.interactor_factory as factory
 import interactors.game_interactors as gi
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.ViewGameHandler as vgh
 import ui.Handlers.Session.Session as sess
 import ui.template_renderer as tr

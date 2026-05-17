@@ -15,7 +15,7 @@
 
 import game as g
 from persistence.exceptions import GameNotFoundException
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 
 
 class EditGameHandler(ah.AuthenticatedHandler):

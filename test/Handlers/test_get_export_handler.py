@@ -20,7 +20,7 @@ import game as g
 import hardware as h
 import interactors.collection_interactors as ci
 import interactors.interactor_factory as factory
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.GetExportHandler as geh
 import ui.Handlers.Session.Session as sess
 

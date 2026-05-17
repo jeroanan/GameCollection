@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from interactors.params.get_games_interactor_params import GetGamesInteractorParams
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 
 
 class AllGamesHandler(AuthenticatedHandler):

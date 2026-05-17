@@ -16,7 +16,7 @@ import json
 
 import hardware_type as ht
 import interactors.hardware_interactors as hi
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 
 
 class DeleteHardwareTypeHandler(ah.AuthenticatedHandler):

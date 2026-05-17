@@ -1,4 +1,4 @@
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 
 
 class EditPlatformHandler(AuthenticatedHandler):

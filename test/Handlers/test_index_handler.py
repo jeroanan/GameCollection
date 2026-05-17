@@ -22,7 +22,7 @@ from hardware import Hardware
 import interactors.game_interactors as game_interactors
 import interactors.hardware_interactors as hardware_interactors
 from interactors.interactor_factory import InteractorFactory
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.index_handler import IndexHandler
 from ui.Handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer

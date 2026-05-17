@@ -22,7 +22,7 @@ from game import Game
 from interactors.exceptions import PersistenceException
 from interactors.interactor_factory import InteractorFactory
 from interactors.game_interactors import UpdateGameInteractor
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.Session.Session import Session
 from ui.Handlers.UpdateGameHandler import UpdateGameHandler
 from ui.template_renderer import TemplateRenderer

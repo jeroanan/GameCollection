@@ -13,7 +13,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from genre import Genre
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 
 
 class UpdateGenreHandler(AuthenticatedHandler):

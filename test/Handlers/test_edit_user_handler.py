@@ -16,7 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.EditUserHandler import EditUserHandler
 from ui.Handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer

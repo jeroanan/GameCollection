@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import cherrypy
 
 from ui.Cookies.Cookies import Cookies
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.LogoutHandler import LogoutHandler
 from ui.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
 from ui.Handlers.Exceptions.SessionNotSetException import SessionNotSetException

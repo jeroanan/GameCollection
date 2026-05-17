@@ -21,7 +21,7 @@ from test.Handlers.HandlerTestAssertions import \
 from hardware import Hardware
 from interactors.interactor_factory import InteractorFactory
 from interactors.hardware_interactors import SaveHardwareInteractor
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.Session.Session import Session
 from ui.Handlers.SaveHardwareHandler import SaveHardwareHandler
 from ui.template_renderer import TemplateRenderer

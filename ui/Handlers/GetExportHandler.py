@@ -16,7 +16,7 @@ import json
 
 import cherrypy
 
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 
 
 class GetExportHandler(ah.AuthenticatedHandler):

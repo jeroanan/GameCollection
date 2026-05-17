@@ -23,7 +23,7 @@ from test.Handlers.HandlerTestAssertions import (get_missing_param_assertion,
 from genre import Genre
 from interactors.genre_interactors import AddGenreInteractor
 from interactors.interactor_factory import InteractorFactory
-from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.authenticated_handler import AuthenticatedHandler
 from ui.Handlers.add_genre_handler import AddGenreHandler
 from ui.Handlers.Session.Session import Session
 

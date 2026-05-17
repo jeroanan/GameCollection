@@ -17,7 +17,7 @@ import json
 
 import icarus_platform as p
 import interactors.platform_interactors as pi
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 
 
 class UpdatePlatformHandler(ah.AuthenticatedHandler):

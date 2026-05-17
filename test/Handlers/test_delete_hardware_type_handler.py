@@ -19,7 +19,7 @@ from unittest.mock import Mock
 
 import interactors.hardware_interactors as hi
 import interactors.interactor_factory as factory
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 import ui.Handlers.DeleteHardwareTypeHandler as handler
 import ui.Handlers.Session.Session as session
 

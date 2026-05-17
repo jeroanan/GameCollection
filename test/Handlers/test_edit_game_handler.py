@@ -25,7 +25,7 @@ import interactors.interactor_factory as factory
 import icarus_platform as p
 import ui.Handlers.Session.Session as sess
 import ui.Handlers.edit_game_handler as egh
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 import ui.template_renderer as tr
 
 

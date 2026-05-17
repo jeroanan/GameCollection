@@ -13,7 +13,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.authenticated_handler as ah
 
 
 class ExportCollectionHandler(ah.AuthenticatedHandler):
