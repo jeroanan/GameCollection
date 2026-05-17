@@ -18,7 +18,7 @@
 import unittest
 from unittest.mock import Mock
 
-import test.handlers.HandlerTestAssertions as hta
+import test.handlers.handler_test_assertions as hta
 import interactors.interactor_factory as factory
 import interactors.hardware_interactors as hi
 import ui.handlers.authenticated_handler as ah

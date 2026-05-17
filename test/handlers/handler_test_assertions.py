@@ -93,8 +93,8 @@ def get_exceptions_returns_json_result_value_assertion(test_class, handler, inte
             exceptions_and_results: A list of tuples. Each tuple is (exception_type, result_value).
         """
         assertion = get_exception_returns_json_result_value_assertion(
-            test_class, 
-            handler, 
+            test_class,
+            handler,
             interactor)
 
         for ec in exceptions_and_results:

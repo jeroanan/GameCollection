@@ -18,7 +18,7 @@
 import unittest
 from unittest.mock import Mock
 
-from test.handlers.HandlerTestAssertions import \
+from test.handlers.handler_test_assertions import \
     get_missing_param_assertion, get_empty_param_assertion
 from hardware import Hardware
 from interactors.interactor_factory import InteractorFactory

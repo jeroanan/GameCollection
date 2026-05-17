@@ -17,7 +17,7 @@ from functools import partial
 import unittest
 from unittest.mock import Mock
 
-from test.handlers.HandlerTestAssertions import (get_missing_param_assertion,
+from test.handlers.handler_test_assertions import (get_missing_param_assertion,
                                                     get_empty_param_assertion,
                                                     assert_operation_on_params_returns_true)
 from genre import Genre

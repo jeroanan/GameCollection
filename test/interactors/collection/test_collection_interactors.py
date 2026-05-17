@@ -21,8 +21,8 @@ import hardware as h
 import interactors.game_interactors as gi
 import interactors.collection_interactors as ci
 import interactors.hardware_interactors as hi
-import interactors.interactor as interactor
-import interactors.interactor_factory as interactor_factory
+from interactors import interactor
+from interactors import interactor_factory
 
 class TestExportCollectionInteractor(unittest.TestCase):
     """Tests for ExportCollectionInteractor."""

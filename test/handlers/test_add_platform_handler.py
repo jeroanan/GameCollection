@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import test.handlers.HandlerTestAssertions as hta
+import test.handlers.handler_test_assertions as hta
 import unittest
 from unittest.mock import Mock
 
