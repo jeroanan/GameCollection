@@ -25,7 +25,7 @@ from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.index_handler import IndexHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestIndexHandler(unittest.TestCase):

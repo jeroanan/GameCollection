@@ -23,7 +23,7 @@ from interactors.user_interactors import GetUsersInteractor
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UsersHandler import UsersHandler
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 from icarus_user import User
 
 

@@ -19,7 +19,7 @@ from unittest.mock import Mock
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.ExportCollectionHandler as ech
 import UI.Handlers.Session.Session as sess
-import UI.TemplateRenderer as tr
+import UI.template_renderer as tr
 
 
 class TestExportCollectionHandler(unittest.TestCase):

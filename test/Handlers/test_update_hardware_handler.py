@@ -26,7 +26,7 @@ from interactors.hardware_interactors import UpdateHardwareInteractor
 from UI.Handlers.AddGameHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestUpdateHardwareHandler(unittest.TestCase):

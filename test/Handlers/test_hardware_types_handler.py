@@ -24,7 +24,7 @@ import interactors.hardware_interactors as hi
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.HardwareTypesHandler as hth
 import UI.Handlers.Session.Session as session
-import UI.TemplateRenderer as tr
+import UI.template_renderer as tr
 
 
 class TestHardwareTypesHandler(unittest.TestCase):

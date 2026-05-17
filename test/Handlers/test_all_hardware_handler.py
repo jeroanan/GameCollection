@@ -24,7 +24,7 @@ from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AllHardwareHandler import AllHardwareHandler
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestAllHardwareHandler(unittest.TestCase):

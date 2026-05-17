@@ -22,7 +22,7 @@ from icarus_platform import Platform
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.PlatformsHandler import PlatformsHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestPlatformsHandler(unittest.TestCase):

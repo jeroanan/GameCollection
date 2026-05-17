@@ -24,7 +24,7 @@ from icarus_platform import Platform
 from UI.Handlers.EditPlatformHandler import EditPlatformHandler
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 class TestEditPlatformHandler(unittest.TestCase):
     """Unit tests for the EditPlatformHandler class"""

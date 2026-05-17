@@ -2,10 +2,11 @@
 from jinja2 import Environment, PackageLoader
 
 
-class TemplateRenderer(object):
+class TemplateRenderer:
     """Renders templates using Jinja2."""
 
     def render(self, template, **args):
+        """Renders a template with the given arguments."""
         template = self.__get_template(template)
         return template.render(args)
 

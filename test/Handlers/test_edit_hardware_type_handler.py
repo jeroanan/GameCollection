@@ -22,7 +22,7 @@ import interactors.interactor_factory as factory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.EditHardwareTypeHandler as ehth
 import UI.Handlers.Session.Session as session
-import UI.TemplateRenderer as renderer
+import UI.template_renderer as renderer
 
 
 class TestEditHardwareTypeHandler(unittest.TestCase):

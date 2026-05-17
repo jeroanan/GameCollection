@@ -22,7 +22,7 @@ from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.SortGamesHandler import SortGamesHandler
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestSortGamesHandler(unittest.TestCase):

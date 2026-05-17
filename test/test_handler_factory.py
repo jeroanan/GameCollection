@@ -64,7 +64,7 @@ from UI.Handlers.UpdatePlatformHandler import UpdatePlatformHandler
 from UI.Handlers.UpdateUserHandler import UpdateUserHandler
 from UI.Handlers.UsersHandler import UsersHandler
 from UI.Handlers.ViewGameHandler import ViewGameHandler
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestHandlerFactory(unittest.TestCase):

@@ -24,7 +24,7 @@ from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.delete_game_handler import DeleteGameHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 class TestDeleteGameHandler(unittest.TestCase):
     """Unit tests for the DeleteGameHandler class"""

@@ -9,7 +9,7 @@ from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.SearchHandler import SearchHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestSearchHandler(unittest.TestCase):

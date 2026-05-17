@@ -24,7 +24,7 @@ from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.SaveGameHandler import SaveGameHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 class TestSaveGameHandler(unittest.TestCase):
     """Unit tests for the SaveGameHandler class"""

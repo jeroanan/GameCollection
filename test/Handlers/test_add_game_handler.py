@@ -25,7 +25,7 @@ import icarus_platform as p
 from UI.Handlers.AddGameHandler import AddGameHandler
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestAddGameHandler(unittest.TestCase):

@@ -6,7 +6,7 @@ from UI.Handlers.handler import Handler
 from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from UI.Handlers.LoginHandler import LoginHandler
 from UI.Handlers.Session.Session import Session
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestLoginHandler(unittest.TestCase):

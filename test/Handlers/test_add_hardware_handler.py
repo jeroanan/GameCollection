@@ -24,7 +24,7 @@ import icarus_platform as platform
 import UI.Handlers.AddHardwareHandler as ahh
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.Session.Session as sess
-import UI.TemplateRenderer as renderer
+import UI.template_renderer as renderer
 
 
 class TestAddHardwareHandler(unittest.TestCase):

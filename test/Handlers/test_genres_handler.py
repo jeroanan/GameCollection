@@ -22,7 +22,7 @@ import interactors.interactor_factory as ifactory
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.genres_handler as gh
 import UI.Handlers.Session.Session as session
-import UI.TemplateRenderer as tr
+import UI.template_renderer as tr
 
 
 class TestGenresHandler(unittest.TestCase):

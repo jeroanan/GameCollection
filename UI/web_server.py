@@ -21,7 +21,7 @@ import cherrypy
 from UI.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 
 from UI.Handlers.handler_factory import HandlerFactory
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class WebServer:

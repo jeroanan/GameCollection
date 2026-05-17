@@ -22,7 +22,7 @@ from interactors.interactor_factory import InteractorFactory
 from UI.Handlers.AllGamesHandler import AllGamesHandler
 from UI.Handlers.Session.Session import Session
 from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.TemplateRenderer import TemplateRenderer
+from UI.template_renderer import TemplateRenderer
 
 
 class TestAllGamesHandler(unittest.TestCase):

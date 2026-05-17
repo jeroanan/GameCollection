@@ -26,7 +26,7 @@ import icarus_platform as p
 import UI.Handlers.Session.Session as sess
 import UI.Handlers.edit_game_handler as egh
 import UI.Handlers.AuthenticatedHandler as ah
-import UI.TemplateRenderer as tr
+import UI.template_renderer as tr
 
 
 class TestEditGameHandler(unittest.TestCase):

@@ -27,7 +27,7 @@ import icarus_platform as p
 import UI.Handlers.AuthenticatedHandler as ah
 import UI.Handlers.edit_hardware_handler as ehh
 import UI.Handlers.Session.Session as sess
-import UI.TemplateRenderer as renderer
+import UI.template_renderer as renderer
 
 
 class TestEditHardwareHandler(unittest.TestCase):
