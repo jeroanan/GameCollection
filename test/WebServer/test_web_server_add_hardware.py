@@ -1,7 +1,7 @@
 """Provides unit tests for the WebServer's AddHardware functionality."""
 from unittest.mock import Mock
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.add_hardware_handler import AddHardwareHandler
+from ui.handlers.add_hardware_handler import AddHardwareHandler
 
 
 class TestWebServerAddHardware(WebServerTestBase):

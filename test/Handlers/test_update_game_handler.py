@@ -22,9 +22,9 @@ from game import Game
 from interactors.exceptions import PersistenceException
 from interactors.interactor_factory import InteractorFactory
 from interactors.game_interactors import UpdateGameInteractor
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.Session.Session import Session
-from ui.Handlers.update_game_handler import UpdateGameHandler
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.Session.Session import Session
+from ui.handlers.update_game_handler import UpdateGameHandler
 from ui.template_renderer import TemplateRenderer
 
 

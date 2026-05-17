@@ -1,7 +1,7 @@
 """Unit tests for WebServer EditGame page."""
 from unittest.mock import Mock
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.edit_game_handler import EditGameHandler
+from ui.handlers.edit_game_handler import EditGameHandler
 
 
 class TestWebServerEditGame(WebServerTestBase):

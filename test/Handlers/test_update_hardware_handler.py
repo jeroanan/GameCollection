@@ -23,9 +23,9 @@ from test.Handlers.HandlerTestAssertions import \
 from hardware import Hardware
 from interactors.interactor_factory import InteractorFactory
 from interactors.hardware_interactors import UpdateHardwareInteractor
-from ui.Handlers.add_game_handler import AuthenticatedHandler
-from ui.Handlers.Session.Session import Session
-from ui.Handlers.update_hardware_handler import UpdateHardwareHandler
+from ui.handlers.add_game_handler import AuthenticatedHandler
+from ui.handlers.Session.Session import Session
+from ui.handlers.update_hardware_handler import UpdateHardwareHandler
 from ui.template_renderer import TemplateRenderer
 
 

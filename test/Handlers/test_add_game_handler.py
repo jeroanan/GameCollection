@@ -22,9 +22,9 @@ import genre as g
 from interactors.interactor_factory import InteractorFactory
 import interactors.platform_interactors as pi
 import icarus_platform as p
-from ui.Handlers.add_game_handler import AddGameHandler
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.Session.Session import Session
+from ui.handlers.add_game_handler import AddGameHandler
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 
 

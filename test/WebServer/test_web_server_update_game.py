@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.update_game_handler import UpdateGameHandler
+from ui.handlers.update_game_handler import UpdateGameHandler
 
 
 class TestWebServerUpdateGame(WebServerTestBase):

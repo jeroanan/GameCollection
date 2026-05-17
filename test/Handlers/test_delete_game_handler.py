@@ -21,9 +21,9 @@ from test.Handlers.HandlerTestAssertions import \
 from game import Game
 from interactors.game_interactors import DeleteGameInteractor
 from interactors.interactor_factory import InteractorFactory
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.delete_game_handler import DeleteGameHandler
-from ui.Handlers.Session.Session import Session
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.delete_game_handler import DeleteGameHandler
+from ui.handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 
 class TestDeleteGameHandler(unittest.TestCase):

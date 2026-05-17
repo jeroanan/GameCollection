@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.index_handler import IndexHandler
+from ui.handlers.index_handler import IndexHandler
 
 
 class TestWebServerIndex(WebServerTestBase):

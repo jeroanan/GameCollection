@@ -18,9 +18,9 @@ import logging
 
 import cherrypy
 
-from ui.Handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
+from ui.handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 
-from ui.Handlers.handler_factory import HandlerFactory
+from ui.handlers.handler_factory import HandlerFactory
 from ui.template_renderer import TemplateRenderer
 
 

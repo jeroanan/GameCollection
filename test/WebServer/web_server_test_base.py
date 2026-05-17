@@ -4,7 +4,7 @@ from unittest.mock import Mock
 
 from data.config import Config
 from interactors.interactor_factory import InteractorFactory
-from ui.Handlers.handler_factory import HandlerFactory
+from ui.handlers.handler_factory import HandlerFactory
 from ui.template_renderer import TemplateRenderer
 from ui.web_server import WebServer
 

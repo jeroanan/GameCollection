@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.add_platform_handler import AddPlatformHandler
+from ui.handlers.add_platform_handler import AddPlatformHandler
 
 
 class TestWebServerAddPlatform(WebServerTestBase):

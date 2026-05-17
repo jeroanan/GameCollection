@@ -18,8 +18,8 @@ from unittest.mock import Mock
 
 from interactors.interactor_factory import InteractorFactory
 from interactors.user_interactors import ChangePasswordInteractor
-from ui.Handlers.change_password_handler import ChangePasswordHandler
-from ui.Handlers.handler import Handler
+from ui.handlers.change_password_handler import ChangePasswordHandler
+from ui.handlers.handler import Handler
 from icarus_user import User
 
 class TestChangePasswordHandler(unittest.TestCase):

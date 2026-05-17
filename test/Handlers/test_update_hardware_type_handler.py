@@ -21,9 +21,9 @@ from unittest.mock import Mock
 import test.Handlers.HandlerTestAssertions as hta
 import interactors.interactor_factory as factory
 import interactors.hardware_interactors as hi
-import ui.Handlers.authenticated_handler as ah
-import ui.Handlers.Session.Session as session
-import ui.Handlers.update_hardware_type_handler as handler
+import ui.handlers.authenticated_handler as ah
+import ui.handlers.Session.Session as session
+import ui.handlers.update_hardware_type_handler as handler
 
 
 class TestUpdateHardwareTypeHandler(unittest.TestCase):

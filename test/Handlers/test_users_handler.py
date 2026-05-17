@@ -20,9 +20,9 @@ from unittest.mock import Mock
 
 from interactors.interactor_factory import InteractorFactory
 from interactors.user_interactors import GetUsersInteractor
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.Session.Session import Session
-from ui.Handlers.users_handler import UsersHandler
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.Session.Session import Session
+from ui.handlers.users_handler import UsersHandler
 from ui.template_renderer import TemplateRenderer
 from icarus_user import User
 

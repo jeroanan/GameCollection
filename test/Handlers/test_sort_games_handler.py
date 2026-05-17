@@ -19,9 +19,9 @@ from unittest.mock import Mock
 from game import Game
 from interactors.game_interactors import GetGamesInteractor
 from interactors.interactor_factory import InteractorFactory
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.Session.Session import Session
-from ui.Handlers.sort_games_handler import SortGamesHandler
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.Session.Session import Session
+from ui.handlers.sort_games_handler import SortGamesHandler
 from ui.template_renderer import TemplateRenderer
 
 

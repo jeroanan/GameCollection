@@ -21,9 +21,9 @@ from unittest.mock import Mock
 import hardware_type as ht
 from interactors import interactor_factory
 import interactors.hardware_interactors as hi
-import ui.Handlers.authenticated_handler as ah
-import ui.Handlers.hardware_types_handler as hth
-import ui.Handlers.Session.Session as session
+import ui.handlers.authenticated_handler as ah
+import ui.handlers.hardware_types_handler as hth
+import ui.handlers.Session.Session as session
 import ui.template_renderer as tr
 
 

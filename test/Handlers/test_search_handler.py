@@ -5,10 +5,10 @@ import cherrypy
 
 from interactors.interactor_factory import InteractorFactory
 from interactors.search_interactor import SearchInteractor
-from ui.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.search_handler import SearchHandler
-from ui.Handlers.Session.Session import Session
+from ui.handlers.Exceptions.SessionNotSetException import SessionNotSetException
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.search_handler import SearchHandler
+from ui.handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 
 

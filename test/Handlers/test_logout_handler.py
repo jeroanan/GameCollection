@@ -4,11 +4,11 @@ from unittest.mock import Mock
 import cherrypy
 
 from ui.Cookies.Cookies import Cookies
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.logout_handler import LogoutHandler
-from ui.Handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
-from ui.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from ui.Handlers.Session.Session import Session
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.logout_handler import LogoutHandler
+from ui.handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
+from ui.handlers.Exceptions.SessionNotSetException import SessionNotSetException
+from ui.handlers.Session.Session import Session
 
 class TestLogoutHandler(unittest.TestCase):
     """Unit tests for the LogoutHandler class"""

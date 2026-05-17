@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from ui.Handlers.save_game_handler import SaveGameHandler
+from ui.handlers.save_game_handler import SaveGameHandler
 
 
 class TestWebServerSaveGame(WebServerTestBase):

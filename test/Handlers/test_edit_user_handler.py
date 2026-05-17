@@ -16,9 +16,9 @@
 import unittest
 from unittest.mock import Mock
 
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.edit_user_handler import EditUserHandler
-from ui.Handlers.Session.Session import Session
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.edit_user_handler import EditUserHandler
+from ui.handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 from interactors.interactor_factory import InteractorFactory
 from interactors.user_interactors import GetUserInteractor

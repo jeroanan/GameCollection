@@ -21,9 +21,9 @@ from unittest.mock import Mock
 from hardware import Hardware
 from interactors.hardware_interactors import GetHardwareListInteractor
 from interactors.interactor_factory import InteractorFactory
-from ui.Handlers.all_hardware_handler import AllHardwareHandler
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.Session.Session import Session
+from ui.handlers.all_hardware_handler import AllHardwareHandler
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 
 

@@ -16,9 +16,9 @@
 import unittest
 from unittest.mock import Mock
 
-import ui.Handlers.authenticated_handler as ah
-import ui.Handlers.export_collection_handler as ech
-import ui.Handlers.Session.Session as sess
+import ui.handlers.authenticated_handler as ah
+import ui.handlers.export_collection_handler as ech
+import ui.handlers.Session.Session as sess
 import ui.template_renderer as tr
 
 

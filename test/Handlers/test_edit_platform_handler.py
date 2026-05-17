@@ -21,9 +21,9 @@ from test.Handlers.HandlerTestAssertions import \
 from interactors.platform_interactors import GetPlatformInteractor
 from interactors.interactor_factory import InteractorFactory
 from icarus_platform import Platform
-from ui.Handlers.edit_platform_handler import EditPlatformHandler
-from ui.Handlers.authenticated_handler import AuthenticatedHandler
-from ui.Handlers.Session.Session import Session
+from ui.handlers.edit_platform_handler import EditPlatformHandler
+from ui.handlers.authenticated_handler import AuthenticatedHandler
+from ui.handlers.Session.Session import Session
 from ui.template_renderer import TemplateRenderer
 
 class TestEditPlatformHandler(unittest.TestCase):
