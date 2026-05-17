@@ -20,7 +20,7 @@ from bson.objectid import InvalidId
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-from abstract_persistence import AbstractPersistence
+from persistence.abstract_persistence import AbstractPersistence
 from genre import Genre
 from persistence.exceptions import GameNotFoundException
 from persistence.exceptions import HardwareNotFoundException

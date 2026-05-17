@@ -1,7 +1,7 @@
 """Base class for interactor unit tests."""
 import unittest
 from mock import Mock
-from abstract_persistence import AbstractPersistence
+from persistence.abstract_persistence import AbstractPersistence
 from game import Game
 from hardware import Hardware
 from icarus_platform import Platform

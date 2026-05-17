@@ -16,7 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
-from abstract_persistence import AbstractPersistence
+from persistence.abstract_persistence import AbstractPersistence
 from Cryptography.hash_provider import HashProvider
 from interactors.exceptions.interactor_factory_not_set_exception import \
     InteractorFactoryNotSetException

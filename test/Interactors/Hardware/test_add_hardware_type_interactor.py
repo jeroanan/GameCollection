@@ -18,7 +18,7 @@
 import unittest
 import unittest.mock as mock
 
-import abstract_persistence
+import persistence.abstract_persistence as abstract_persistence
 import hardware_type as ht
 import interactors.interactor as interactor
 import interactors.hardware_interactors as hi

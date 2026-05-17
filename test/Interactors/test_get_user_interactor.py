@@ -16,7 +16,7 @@
 from unittest.mock import Mock
 
 from test.Interactors.interactor_test_base import InteractorTestBase
-from abstract_persistence import AbstractPersistence
+from persistence.abstract_persistence import AbstractPersistence
 from interactors.interactor import Interactor
 from interactors.user_interactors import GetUserInteractor
 from icarus_user import User

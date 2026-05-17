@@ -29,7 +29,7 @@ import interactors.interactor_factory as interactor_factory
 import interactors.platform_interactors as platform_interactors
 import interactors.search.search_interactor as search_interactor
 import interactors.user_interactors as user_interactors
-import abstract_persistence
+import persistence.abstract_persistence as abstract_persistence
 
 
 class TestInteractorFactory(unittest.TestCase):

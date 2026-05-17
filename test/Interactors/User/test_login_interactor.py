@@ -17,7 +17,7 @@ from test.Interactors.interactor_test_base import InteractorTestBase
 from logging import Logger
 from mock import Mock
 
-from abstract_persistence import AbstractPersistence
+from persistence.abstract_persistence import AbstractPersistence
 from Cryptography.hash_provider import HashProvider
 from interactors.logging_interactor import LoggingInteractor
 from interactors.user_interactors import LoginInteractor
