@@ -1,3 +1,4 @@
+"""A class for handling cookies"""
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -15,17 +16,21 @@
 
 import cherrypy
 
-class Cookies(object):
-    
+class Cookies:
+    """A class for handling cookies"""
+
     def set_cookie(self, key, value):
+        """Set a cookie with the specified key and value"""
         cherrypy.response.cookie[key] = value
         cherrypy.response.cookie[key]['max-age'] = 3600
 
     def clear_cookie(self, key):
+        """Clear a cookie with the specified key"""
         cherrypy.response.cookie[key] = ""
         cherrypy.response.cookie[key]["expires"] = 0
 
     def renew_cookie(self, key):
+        """Renew a cookie with the specified key"""
         if key in cherrypy.request.cookie:
             cherrypy.response.cookie[key] = cherrypy.request.cookie[key].coded_value
             cherrypy.response.cookie[key]["expires"] = 3600

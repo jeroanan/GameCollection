@@ -18,7 +18,7 @@
 import importlib
 import json
 
-from ui.Cookies.Cookies import Cookies
+from ui.Cookies.cookies import Cookies
 from ui.handlers.Exceptions.UnrecognisedHandlerException import UnrecognisedHandlerException
 from ui.handlers.index_handler import IndexHandler
 from ui.handlers.Session.Session import Session
