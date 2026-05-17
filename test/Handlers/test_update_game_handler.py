@@ -19,7 +19,7 @@ from unittest.mock import Mock
 from test.Handlers.HandlerTestAssertions import \
     get_missing_param_assertion, get_empty_param_assertion
 from game import Game
-from interactors.exceptions.persistence_exception import PersistenceException
+from interactors.exceptions import PersistenceException
 from interactors.interactor_factory import InteractorFactory
 from interactors.game_interactors import UpdateGameInteractor
 from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler

@@ -1,7 +1,6 @@
 """Interactor for searching the games collection"""
 from interactors.interactor import Interactor
 
-#TODO: Is this file in the right place?
 class SearchInteractor(Interactor):
     """Interactor for searching the games collection"""
 

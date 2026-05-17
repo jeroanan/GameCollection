@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from interactors.exceptions.persistence_exception import PersistenceException
+from interactors.exceptions import PersistenceException
 from interactors.interactor import Interactor
 
 

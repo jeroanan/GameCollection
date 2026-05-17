@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from Cryptography.bcrypt_hash_provider import BCryptHashProvider
-from interactors.exceptions.user_exists_exception import UserExistsException
+from interactors.exceptions import UserExistsException
 from icarus_user import User
 from ui.Handlers.handler import Handler
 

@@ -19,8 +19,7 @@ from logging import Logger
 import unittest
 from unittest.mock import Mock
 
-from interactors.exceptions.unrecognised_interactor_type_exception \
-    import UnrecognisedInteractorTypeException
+from interactors.exceptions import UnrecognisedInteractorTypeException
 import interactors.collection_interactors as collection_interactors
 import interactors.game_interactors as game_interactors
 import interactors.genre_interactors as genre_interactors

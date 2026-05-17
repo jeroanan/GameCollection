@@ -17,7 +17,7 @@ import importlib
 import json
 
 import data.data_load as dl
-import interactors.exceptions.unrecognised_interactor_type_exception as uite
+from interactors.exceptions import UnrecognisedInteractorTypeException 
 import interactors.collection_interactors as ci
 import interactors.logging_interactor as li
 import interactors.genre_interactors as gi
@@ -62,7 +62,7 @@ class InteractorFactory:
             return self.__initialise_interactor(
                 self.__string_to_interactor(self.__interactors[interactor_type]))
 
-        raise uite.UnrecognisedInteractorTypeException
+        raise UnrecognisedInteractorTypeException
 
     def __string_to_interactor(self, interactor_type):
         #TODO: I Will need to clean this up at some point.

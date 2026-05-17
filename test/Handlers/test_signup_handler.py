@@ -15,7 +15,7 @@
 
 import unittest
 from unittest.mock import Mock
-from interactors.exceptions.user_exists_exception import UserExistsException
+from interactors.exceptions import UserExistsException
 from interactors.interactor_factory import InteractorFactory
 from interactors.user_interactors import AddUserInteractor, GetUserInteractor, LoginInteractor
 from ui.Cookies.Cookies import Cookies
