@@ -1,7 +1,7 @@
 """HardwareSortFieldMapper unit tests."""
 
 import unittest
-from Persistence.Exceptions.exceptions import UnrecognisedFieldNameException
+from Persistence.exceptions import UnrecognisedFieldNameException
 from Persistence.mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
 
 

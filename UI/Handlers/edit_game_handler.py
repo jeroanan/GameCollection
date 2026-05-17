@@ -14,7 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import game as g
-from Persistence.Exceptions.exceptions import GameNotFoundException
+from Persistence.exceptions import GameNotFoundException
 import UI.Handlers.AuthenticatedHandler as ah
 
 

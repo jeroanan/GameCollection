@@ -2,7 +2,7 @@
 This module contains the SortFieldMapper class, which is responsible for mapping user-friendly 
 field names to their corresponding internal representations in the Game class.
 """
-from Persistence.Exceptions.exceptions import UnrecognisedFieldNameException
+from Persistence.exceptions import UnrecognisedFieldNameException
 
 
 class SortFieldMapper(object):
