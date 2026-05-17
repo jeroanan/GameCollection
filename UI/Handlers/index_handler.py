@@ -17,7 +17,7 @@ import cherrypy
 
 import interactors.game.Params.get_games_interactor_params as ggip
 import interactors.hardware.Params.get_hardware_list_interactor_params as ghlip
-from Persistence.exceptions import UnrecognisedFieldNameException
+from persistence.exceptions import UnrecognisedFieldNameException
 import  UI.Handlers.AuthenticatedHandler as ah
 
 #TODO: Does this work? Is it tested?? Is it even used??

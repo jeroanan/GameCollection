@@ -22,11 +22,11 @@ from pymongo.errors import ConnectionFailure
 
 from abstract_persistence import AbstractPersistence
 from genre import Genre
-from Persistence.exceptions import GameNotFoundException
-from Persistence.exceptions import HardwareNotFoundException
-from Persistence.mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
-from Persistence.mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
-from Persistence.mappers.SortFieldMapper import SortFieldMapper
+from persistence.exceptions import GameNotFoundException
+from persistence.exceptions import HardwareNotFoundException
+from persistence.mappers.HardwareSortFieldMapper import HardwareSortFieldMapper
+from persistence.mappers.MongoSortDirectionMapper import MongoSortDirectionMapper
+from persistence.mappers.SortFieldMapper import SortFieldMapper
 from game import Game
 from hardware import Hardware
 import hardware_type as ht

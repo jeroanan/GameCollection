@@ -1,8 +1,8 @@
 """SortFieldMapper unit tests."""
 import unittest
 
-from Persistence.exceptions import UnrecognisedFieldNameException
-from Persistence.mappers.SortFieldMapper import SortFieldMapper
+from persistence.exceptions import UnrecognisedFieldNameException
+from persistence.mappers.SortFieldMapper import SortFieldMapper
 
 
 class TestSortFieldMapper(unittest.TestCase):

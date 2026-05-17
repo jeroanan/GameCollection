@@ -1,6 +1,6 @@
 """Maps user-friendly field names to the corresponding private 
 attribute names in the Hardware class."""
-from Persistence.exceptions import UnrecognisedFieldNameException
+from persistence.exceptions import UnrecognisedFieldNameException
 
 class HardwareSortFieldMapper(object):
     """Maps user-friendly field names to the corresponding private 

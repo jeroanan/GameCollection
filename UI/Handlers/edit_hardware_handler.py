@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from Persistence.exceptions import HardwareNotFoundException
+from persistence.exceptions import HardwareNotFoundException
 import UI.Handlers.AuthenticatedHandler as ah
 
 
