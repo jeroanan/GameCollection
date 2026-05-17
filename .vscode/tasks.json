@@ -18,8 +18,10 @@
         {
             "label": "Run Pylint: Whole Project",
             "type": "shell",
-            "command": "pylint",
+            "command": "${config:python.defaultInterpreterPath}",
             "args": [
+                "-m",
+                "pylint",
                 "--ignore-paths=.venv",
                 "."
             ],
