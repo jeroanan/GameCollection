@@ -1,5 +1,5 @@
 """The Search Handler."""
-from interactors.search.Params.search_interactor_params import SearchInteractorParams
+from interactors.params.search_interactor_params import SearchInteractorParams
 from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 

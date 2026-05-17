@@ -15,7 +15,7 @@
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from interactors.hardware_interactors import GetHardwareListInteractor
-from interactors.hardware.Params.get_hardware_list_interactor_params import \
+from interactors.params.get_hardware_list_interactor_params import \
     GetHardwareListInteractorParams
 from interactors.interactor import Interactor
 

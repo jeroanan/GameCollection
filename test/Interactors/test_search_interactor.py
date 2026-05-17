@@ -2,7 +2,7 @@
 
 from test.Interactors.interactor_test_base import InteractorTestBase
 from interactors.interactor import Interactor
-from interactors.search.Params.search_interactor_params import SearchInteractorParams
+from interactors.params.search_interactor_params import SearchInteractorParams
 from interactors.search_interactor import SearchInteractor
 
 

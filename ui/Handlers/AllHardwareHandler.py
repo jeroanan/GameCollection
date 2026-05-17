@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from interactors.hardware.Params.get_hardware_list_interactor_params \
+from interactors.params.get_hardware_list_interactor_params \
     import GetHardwareListInteractorParams
 from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
 

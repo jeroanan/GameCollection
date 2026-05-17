@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-from interactors.game.Params.get_games_interactor_params import GetGamesInteractorParams
+from interactors.params.get_games_interactor_params import GetGamesInteractorParams
 from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
 
 
