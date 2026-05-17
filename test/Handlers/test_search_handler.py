@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import cherrypy
 
 from interactors.interactor_factory import InteractorFactory
-from interactors.search.search_interactor import SearchInteractor
+from interactors.search_interactor import SearchInteractor
 from ui.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
 from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
 from ui.Handlers.SearchHandler import SearchHandler

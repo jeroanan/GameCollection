@@ -96,7 +96,7 @@ class InteractorFactory:
             "PlatformInteractors.GetPlatformInteractor": "platform_interactors",
             "PlatformInteractors.GetPlatformsInteractor": "platform_interactors",
             "PlatformInteractors.UpdatePlatformInteractor": "platform_interactors",
-            "Search.SearchInteractor": "search.search_interactor",
+            "Search.SearchInteractor": "search_interactor",
             "UserInteractors.AddUserInteractor": "user_interactors",
             "UserInteractors.ChangePasswordInteractor": "user_interactors",
             "UserInteractors.DeleteUserInteractor": "user_interactors",
@@ -107,7 +107,6 @@ class InteractorFactory:
 
         }
 
-        print(interactor_type)
         if interactor_type in interactors:
             try:
                 [mod, class_name] = str.split(interactor_type, ".")
