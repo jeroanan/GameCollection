@@ -19,10 +19,10 @@ from unittest.mock import Mock
 from game import Game
 from interactors.game_interactors import GetGamesInteractor
 from interactors.interactor_factory import InteractorFactory
-from UI.Handlers.AllGamesHandler import AllGamesHandler
-from UI.Handlers.Session.Session import Session
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.AllGamesHandler import AllGamesHandler
+from ui.Handlers.Session.Session import Session
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.template_renderer import TemplateRenderer
 
 
 class TestAllGamesHandler(unittest.TestCase):

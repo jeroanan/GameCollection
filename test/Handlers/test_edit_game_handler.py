@@ -23,10 +23,10 @@ import interactors.genre_interactors as gei
 import interactors.platform_interactors as pi
 import interactors.interactor_factory as factory
 import icarus_platform as p
-import UI.Handlers.Session.Session as sess
-import UI.Handlers.edit_game_handler as egh
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.template_renderer as tr
+import ui.Handlers.Session.Session as sess
+import ui.Handlers.edit_game_handler as egh
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.template_renderer as tr
 
 
 class TestEditGameHandler(unittest.TestCase):

@@ -22,10 +22,10 @@ import genre as g
 from interactors.interactor_factory import InteractorFactory
 import interactors.platform_interactors as pi
 import icarus_platform as p
-from UI.Handlers.AddGameHandler import AddGameHandler
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.Session.Session import Session
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.AddGameHandler import AddGameHandler
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.Session.Session import Session
+from ui.template_renderer import TemplateRenderer
 
 
 class TestAddGameHandler(unittest.TestCase):

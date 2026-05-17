@@ -19,10 +19,10 @@ from unittest.mock import Mock
 from interactors.platform_interactors import GetPlatformsInteractor, GetSuggestedPlatformsInteractor
 from interactors.interactor_factory import InteractorFactory
 from icarus_platform import Platform
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.PlatformsHandler import PlatformsHandler
-from UI.Handlers.Session.Session import Session
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.PlatformsHandler import PlatformsHandler
+from ui.Handlers.Session.Session import Session
+from ui.template_renderer import TemplateRenderer
 
 
 class TestPlatformsHandler(unittest.TestCase):

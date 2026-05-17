@@ -5,11 +5,11 @@ import cherrypy
 
 from interactors.interactor_factory import InteractorFactory
 from interactors.search.search_interactor import SearchInteractor
-from UI.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.SearchHandler import SearchHandler
-from UI.Handlers.Session.Session import Session
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.Exceptions.SessionNotSetException import SessionNotSetException
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.SearchHandler import SearchHandler
+from ui.Handlers.Session.Session import Session
+from ui.template_renderer import TemplateRenderer
 
 
 class TestSearchHandler(unittest.TestCase):

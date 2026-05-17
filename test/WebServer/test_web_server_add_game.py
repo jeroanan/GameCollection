@@ -1,7 +1,7 @@
 """Provides tests for the WebServer's AddGame functionality."""
 from test.WebServer.web_server_test_base import WebServerTestBase
 from unittest.mock import Mock
-from UI.Handlers.AddGameHandler import AddGameHandler
+from ui.Handlers.AddGameHandler import AddGameHandler
 
 
 class TestWebServerAddGame(WebServerTestBase):

@@ -20,9 +20,9 @@ import game as g
 import hardware as h
 import interactors.collection_interactors as ci
 import interactors.interactor_factory as factory
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.GetExportHandler as geh
-import UI.Handlers.Session.Session as sess
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.GetExportHandler as geh
+import ui.Handlers.Session.Session as sess
 
 
 class TestGetExportHandler(unittest.TestCase):

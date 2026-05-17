@@ -19,9 +19,9 @@ from unittest.mock import Mock
 
 import interactors.platform_interactors as pi
 import interactors.interactor_factory as factory
-import UI.Handlers.DeletePlatformHandler as dph
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.Session.Session as sess
+import ui.Handlers.DeletePlatformHandler as dph
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.Session.Session as sess
 
 
 class TestDeletePlatformHandler(unittest.TestCase):

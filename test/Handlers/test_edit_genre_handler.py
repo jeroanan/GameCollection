@@ -19,10 +19,10 @@ from unittest.mock import Mock
 from genre import Genre
 from interactors.genre_interactors import GetGenreInteractor
 from interactors.interactor_factory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.EditGenreHandler import EditGenreHandler
-from UI.Handlers.Session.Session import Session
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.EditGenreHandler import EditGenreHandler
+from ui.Handlers.Session.Session import Session
+from ui.template_renderer import TemplateRenderer
 
 
 class TestEditGenreHandler(unittest.TestCase):

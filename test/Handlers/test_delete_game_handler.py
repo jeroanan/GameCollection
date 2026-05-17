@@ -21,10 +21,10 @@ from test.Handlers.HandlerTestAssertions import \
 from game import Game
 from interactors.game_interactors import DeleteGameInteractor
 from interactors.interactor_factory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.delete_game_handler import DeleteGameHandler
-from UI.Handlers.Session.Session import Session
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.delete_game_handler import DeleteGameHandler
+from ui.Handlers.Session.Session import Session
+from ui.template_renderer import TemplateRenderer
 
 class TestDeleteGameHandler(unittest.TestCase):
     """Unit tests for the DeleteGameHandler class"""

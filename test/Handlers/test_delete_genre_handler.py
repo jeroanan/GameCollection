@@ -19,9 +19,9 @@ from unittest.mock import Mock
 from genre import Genre
 from interactors.interactor_factory import InteractorFactory
 from interactors.genre_interactors import DeleteGenreInteractor
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.DeleteGenreHandler import DeleteGenreHandler
-from UI.Handlers.Session.Session import Session
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.DeleteGenreHandler import DeleteGenreHandler
+from ui.Handlers.Session.Session import Session
 
 
 class TestDeleteGenreHandler(unittest.TestCase):

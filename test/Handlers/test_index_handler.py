@@ -22,10 +22,10 @@ from hardware import Hardware
 import interactors.game_interactors as game_interactors
 import interactors.hardware_interactors as hardware_interactors
 from interactors.interactor_factory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.index_handler import IndexHandler
-from UI.Handlers.Session.Session import Session
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.index_handler import IndexHandler
+from ui.Handlers.Session.Session import Session
+from ui.template_renderer import TemplateRenderer
 
 
 class TestIndexHandler(unittest.TestCase):

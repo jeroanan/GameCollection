@@ -23,9 +23,9 @@ from test.Handlers.HandlerTestAssertions import (get_missing_param_assertion,
 from genre import Genre
 from interactors.genre_interactors import AddGenreInteractor
 from interactors.interactor_factory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.add_genre_handler import AddGenreHandler
-from UI.Handlers.Session.Session import Session
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.add_genre_handler import AddGenreHandler
+from ui.Handlers.Session.Session import Session
 
 
 class TestAddGenreHandler(unittest.TestCase):

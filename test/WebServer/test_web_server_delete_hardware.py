@@ -1,7 +1,7 @@
 """Tests for the WebServer's DeleteHardware functionality."""
 from unittest.mock import Mock
 from test.WebServer.web_server_test_base import WebServerTestBase
-from UI.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
+from ui.Handlers.DeleteHardwareHandler import DeleteHardwareHandler
 
 
 class TestWebServerDeleteHardware(WebServerTestBase):

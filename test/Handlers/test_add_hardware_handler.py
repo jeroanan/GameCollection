@@ -21,10 +21,10 @@ import interactors.interactor_factory as factory
 import interactors.platform_interactors as pi
 import hardware_type as ht
 import icarus_platform as platform
-import UI.Handlers.AddHardwareHandler as ahh
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.Session.Session as sess
-import UI.template_renderer as renderer
+import ui.Handlers.AddHardwareHandler as ahh
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.Session.Session as sess
+import ui.template_renderer as renderer
 
 
 class TestAddHardwareHandler(unittest.TestCase):

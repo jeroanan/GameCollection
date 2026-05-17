@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from UI.Handlers.SaveHardwareHandler import SaveHardwareHandler
+from ui.Handlers.SaveHardwareHandler import SaveHardwareHandler
 
 
 class TestWebServerSaveHardware(WebServerTestBase):

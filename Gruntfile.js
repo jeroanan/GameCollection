@@ -4,51 +4,51 @@ module.exports = function(grunt) {
 	 grunt.initConfig({
 		  pkg: grunt.file.readJSON('package.json'),
 		  jshint: {
-				all: ['UI/markup/js/script.js', 'UI/markup/js/editgame.js', 'UI/markup/js/init.js',
-						'UI/markup/js/login.js', 'UI/markup/js/require/urls.js',	'UI/markup/js/validation.js',
-						'UI/markup/js/platforms.js', 'UI/markup/js/hardwaretypes.js', 'UI/markup/js/genres.js',
-						'UI/markup/js/games.js', 'UI/markup/js/hardware.js', 'UI/markup/js/users.js',
-						'UI/markup/js/ajax.js', 'UI/markup/js/collection.js']
+				all: ['ui/markup/js/script.js', 'ui/markup/js/editgame.js', 'ui/markup/js/init.js',
+						'ui/markup/js/login.js', 'ui/markup/js/require/urls.js',	'ui/markup/js/validation.js',
+						'ui/markup/js/platforms.js', 'ui/markup/js/hardwaretypes.js', 'ui/markup/js/genres.js',
+						'ui/markup/js/games.js', 'ui/markup/js/hardware.js', 'ui/markup/js/users.js',
+						'ui/markup/js/ajax.js', 'ui/markup/js/collection.js']
 		  },
 		  qunit: {
-				all: ['UI/markup/tests/**/*.html']
+				all: ['ui/markup/tests/**/*.html']
 		  },
 		  uglify: {
 				script_min : {
 					 options: {
 						  sourceMap: true,
-						  sourceMapName: 'UI/markup/js/script.min.js.map'
+						  sourceMapName: 'ui/markup/js/script.min.js.map'
 					 },
 					 files: {
-						  'UI/markup/js/init.min.js': 'UI/markup/js/init.js',
-						  'UI/markup/js/script.min.js': ['UI/markup/js/script.js', 'UI/markup/js/validation.js',
-																	'UI/markup/js/urls.js'],
+						  'ui/markup/js/init.min.js': 'ui/markup/js/init.js',
+						  'ui/markup/js/script.min.js': ['ui/markup/js/script.js', 'ui/markup/js/validation.js',
+																	'ui/markup/js/urls.js'],
 
-						  'UI/markup/js/ajax.min.js': 'UI/markup/js/ajax.js',
-						  'UI/markup/js/genres.min.js': 'UI/markup/js/genres.js',
-						  'UI/markup/js/hardwaretypes.min.js': 'UI/markup/js/hardwaretypes.js',
-						  'UI/markup/js/platforms.min.js': 'UI/markup/js/platforms.js',
-						  'UI/markup/js/users.min.js': 'UI/markup/js/users.js',
-						  'UI/markup/js/failusers.min.js': 'UI/markup/js/failusers.js',
-						  'UI/markup/js/hardware.min.js': 'UI/markup/js/hardware.js',
-						  'UI/markup/js/games.min.js': 'UI/markup/js/games.js',
-						  'UI/markup/js/login.min.js': 'UI/markup/js/login.js',
-						  'UI/markup/js/faillogin.min.js': 'UI/markup/js/faillogin.js',
-						  'UI/markup/js/collection.min.js': 'UI/markup/js/collection.js'
+						  'ui/markup/js/ajax.min.js': 'ui/markup/js/ajax.js',
+						  'ui/markup/js/genres.min.js': 'ui/markup/js/genres.js',
+						  'ui/markup/js/hardwaretypes.min.js': 'ui/markup/js/hardwaretypes.js',
+						  'ui/markup/js/platforms.min.js': 'ui/markup/js/platforms.js',
+						  'ui/markup/js/users.min.js': 'ui/markup/js/users.js',
+						  'ui/markup/js/failusers.min.js': 'ui/markup/js/failusers.js',
+						  'ui/markup/js/hardware.min.js': 'ui/markup/js/hardware.js',
+						  'ui/markup/js/games.min.js': 'ui/markup/js/games.js',
+						  'ui/markup/js/login.min.js': 'ui/markup/js/login.js',
+						  'ui/markup/js/faillogin.min.js': 'ui/markup/js/faillogin.js',
+						  'ui/markup/js/collection.min.js': 'ui/markup/js/collection.js'
 					 }
 				}
 		  },
 		  cssmin: {
 				target: {
 					 files: [{
-						  src: 'UI/markup/css/style.css',
-						  dest: 'UI/markup/css/style.min.css'
+						  src: 'ui/markup/css/style.css',
+						  dest: 'ui/markup/css/style.min.css'
 					 }]
 				}
 		  },
 		  replace: {
 				requireJsCacheBuster: {
-					 src: 'UI/markup/js/init.js',
+					 src: 'ui/markup/js/init.js',
 					 overwrite: true,
 					 replacements: [{
 						  from: /bust=.*\"/g,
@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 		  },
 		  watch: {
 				scripts: {
-					 files: ['!UI/markup/js/*.min.js', '!UI/markup/js/init/.js', 'UI/markup/js/*.js'],
+					 files: ['!ui/markup/js/*.min.js', '!ui/markup/js/init/.js', 'ui/markup/js/*.js'],
 					 tasks: ['uglify', 'replace']
 				}
 		  }

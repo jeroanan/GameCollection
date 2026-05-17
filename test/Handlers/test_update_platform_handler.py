@@ -19,9 +19,9 @@ from unittest.mock import Mock
 import test.Handlers.HandlerTestAssertions as hta
 import interactors.interactor_factory as factory
 import interactors.platform_interactors as pi
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.Session.Session as sess
-import UI.Handlers.UpdatePlatformHandler as uph
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.Session.Session as sess
+import ui.Handlers.UpdatePlatformHandler as uph
 
 
 class TestUpdatePlatformHandler(unittest.TestCase):

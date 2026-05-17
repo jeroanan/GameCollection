@@ -19,9 +19,9 @@ from unittest.mock import Mock
 from genre import Genre
 from interactors.genre_interactors import UpdateGenreInteractor
 from interactors.interactor_factory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.Session.Session import Session
-from UI.Handlers.UpdateGenreHandler import UpdateGenreHandler
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.Session.Session import Session
+from ui.Handlers.UpdateGenreHandler import UpdateGenreHandler
 
 class TestUpdateGenreHandler(unittest.TestCase):
     """Unit tests for the UpdateGenreHandler class"""

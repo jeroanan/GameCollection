@@ -21,9 +21,9 @@ from unittest.mock import Mock
 import test.Handlers.HandlerTestAssertions as hta
 import interactors.hardware_interactors as hi
 import interactors.interactor_factory as factory
-import UI.Handlers.DeleteHardwareHandler as dhh
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.Session.Session as sess
+import ui.Handlers.DeleteHardwareHandler as dhh
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.Session.Session as sess
 
 class TestDeleteHardwareHandler(unittest.TestCase):
     """Unit tests for the DeleteHardwareHandler class"""

@@ -19,9 +19,9 @@ from unittest.mock import Mock
 
 import interactors.platform_interactors as pi
 import interactors.interactor_factory as factory
-import UI.Handlers.AddPlatformHandler as aph
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.Session.Session as sess
+import ui.Handlers.AddPlatformHandler as aph
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.Session.Session as sess
 
 class TestAddPlatformHandler(unittest.TestCase):
     """Unit tests for all methods in the AddPlatformHandler class"""

@@ -18,10 +18,10 @@ from unittest.mock import Mock
 from interactors.exceptions.user_exists_exception import UserExistsException
 from interactors.interactor_factory import InteractorFactory
 from interactors.user_interactors import AddUserInteractor, GetUserInteractor, LoginInteractor
-from UI.Cookies.Cookies import Cookies
-from UI.Handlers.handler import Handler
-from UI.Handlers.Session.Session import Session
-from UI.Handlers.SignupHandler import SignupHandler
+from ui.Cookies.Cookies import Cookies
+from ui.Handlers.handler import Handler
+from ui.Handlers.Session.Session import Session
+from ui.Handlers.SignupHandler import SignupHandler
 from icarus_user import User
 
 

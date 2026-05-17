@@ -16,10 +16,10 @@
 import unittest
 from unittest.mock import Mock
 
-import UI.Handlers.AuthenticatedHandler as ah
-import UI.Handlers.ExportCollectionHandler as ech
-import UI.Handlers.Session.Session as sess
-import UI.template_renderer as tr
+import ui.Handlers.AuthenticatedHandler as ah
+import ui.Handlers.ExportCollectionHandler as ech
+import ui.Handlers.Session.Session as sess
+import ui.template_renderer as tr
 
 
 class TestExportCollectionHandler(unittest.TestCase):

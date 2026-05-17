@@ -19,10 +19,10 @@ from unittest.mock import Mock
 from hardware import Hardware
 from interactors.hardware_interactors import GetHardwareListInteractor
 from interactors.interactor_factory import InteractorFactory
-from UI.Handlers.AuthenticatedHandler import AuthenticatedHandler
-from UI.Handlers.Session.Session import Session
-from UI.Handlers.SortHardwareHandler import SortHardwareHandler
-from UI.template_renderer import TemplateRenderer
+from ui.Handlers.AuthenticatedHandler import AuthenticatedHandler
+from ui.Handlers.Session.Session import Session
+from ui.Handlers.SortHardwareHandler import SortHardwareHandler
+from ui.template_renderer import TemplateRenderer
 
 
 class TestSortHardwareHandler(unittest.TestCase):

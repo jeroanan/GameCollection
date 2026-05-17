@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 from test.WebServer.web_server_test_base import WebServerTestBase
-from UI.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
+from ui.Handlers.UpdateHardwareHandler import UpdateHardwareHandler
 
 
 class TestWebServerUpdateHardware(WebServerTestBase):
