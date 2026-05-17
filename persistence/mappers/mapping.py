@@ -1,4 +1,5 @@
-# Copyright (c) 2015 David Wilson
+"""Mapping utilities for handling data transformations."""
+# Copyright (c) 2015, 2026 David Wilson
 # This file is part of Icarus.
 
 # Icarus is free software: you can redistribute it and/or modify
@@ -17,6 +18,7 @@
 from copy import copy
 
 def do_mapping(mappings, mongo_result, dest):
+    """Maps the results of a MongoDB query to an object."""
     d = copy(dest)
     for k in mappings:
         if k in mongo_result:

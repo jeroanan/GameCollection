@@ -5,7 +5,7 @@ field names to their corresponding internal representations in the Game class.
 from persistence.exceptions import UnrecognisedFieldNameException
 
 
-class SortFieldMapper(object):
+class SortFieldMapper:
     """The SortFieldMapper class provides a mapping from user-friendly field names to the internal 
     field names used in the Game class."""
 

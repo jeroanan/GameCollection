@@ -2,7 +2,7 @@
 attribute names in the Hardware class."""
 from persistence.exceptions import UnrecognisedFieldNameException
 
-class HardwareSortFieldMapper(object):
+class HardwareSortFieldMapper:
     """Maps user-friendly field names to the corresponding private 
     attribute names in the Hardware class."""
     def __init__(self):
