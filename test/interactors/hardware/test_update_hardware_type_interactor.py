@@ -19,7 +19,7 @@ from unittest.mock import Mock
 import persistence.abstract_persistence as ap
 import hardware_type as ht
 import interactors.hardware_interactors as hi
-from interactors import interactor as interactor
+from interactors import interactor
 
 
 class TestUpdateHardwareTypeInteractor(unittest.TestCase):

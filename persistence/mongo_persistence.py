@@ -20,10 +20,9 @@ from bson.objectid import InvalidId
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
-from persistence.abstract_persistence import AbstractPersistence
 from genre import Genre
-from persistence.exceptions import GameNotFoundException
-from persistence.exceptions import HardwareNotFoundException
+from persistence.abstract_persistence import AbstractPersistence
+from persistence.exceptions import GameNotFoundException, HardwareNotFoundException
 from persistence.mappers.hardware_sort_field_mapper import HardwareSortFieldMapper
 from persistence.mappers.mongo_sort_direction_mapper import MongoSortDirectionMapper
 from persistence.mappers.sort_field_mapper import SortFieldMapper
@@ -344,11 +343,11 @@ class MongoPersistence(AbstractPersistence):
         :returns: A list of instances of Game -- the search results
         """
         mapped_sort_field = SortFieldMapper().map(sort_field)
-        sorder = MongoSortDirectionMapper().map(sort_dir)        
+        sorder = MongoSortDirectionMapper().map(sort_dir)
         results = self.__db.games.find(
             {"user_id": str(user_id),  "$or": [
-                 {"_Game__title": {"$regex": ".*%s.*" % search_term, "$options": "i"}},
-                 {"_Game__platform": {"$regex": ".*%s.*" % search_term, "$options": "i"}}]})
+                 {"_Game__title": {"$regex": f".*{search_term}.*", "$options": "i"}},
+                 {"_Game__platform": {"$regex": f".*{search_term}.*", "$options": "i"}}]})
         return map(Game.from_mongo_result, results.sort(mapped_sort_field, sorder))
 
     def get_user(self, user):

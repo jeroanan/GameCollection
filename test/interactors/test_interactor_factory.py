@@ -20,15 +20,15 @@ import unittest
 from unittest.mock import Mock
 
 from interactors.exceptions import UnrecognisedInteractorTypeException
-import interactors.collection_interactors as collection_interactors
-import interactors.game_interactors as game_interactors
-import interactors.genre_interactors as genre_interactors
-import interactors.hardware_interactors as hardware_interactors
-import interactors.interactor_factory as interactor_factory
-import interactors.platform_interactors as platform_interactors
-import interactors.search_interactor as search_interactor
-import interactors.user_interactors as user_interactors
-import persistence.abstract_persistence as abstract_persistence
+from interactors import collection_interactors
+from interactors import game_interactors
+from interactors import genre_interactors
+from interactors import hardware_interactors
+from interactors import interactor_factory
+from interactors import platform_interactors
+from interactors import search_interactor
+from interactors import user_interactors
+from persistence import abstract_persistence
 
 
 class TestInteractorFactory(unittest.TestCase):

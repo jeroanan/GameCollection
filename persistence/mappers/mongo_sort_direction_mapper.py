@@ -2,7 +2,7 @@
 import pymongo
 
 
-class MongoSortDirectionMapper(object):
+class MongoSortDirectionMapper:
     """Mapper to convert sort direction from string to pymongo constant."""
 
     def map(self, sort_order):

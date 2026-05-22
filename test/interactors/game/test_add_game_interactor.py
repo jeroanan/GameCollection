@@ -54,7 +54,8 @@ class TestAddGameInteractor(InteractorTestBase):
         self.__execute(self.get_game(num_boxed=1, num_copies=2, num_manuals=3))
 
         for iv in integer_validations:
-            self.assertTrue(self.validate_integer_field_was_called_with(iv, integer_validations[iv]))
+            self.assertTrue(
+                self.validate_integer_field_was_called_with(iv, integer_validations[iv]))
 
     def test_execute_validates_string_fields(self):
         """Test that calling AddGameInteractor.execute causes all string fields in game to be 

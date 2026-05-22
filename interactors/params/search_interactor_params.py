@@ -1,5 +1,5 @@
 """Class to hold parameters for SearchInteractor"""
-class SearchInteractorParams(object):
+class SearchInteractorParams:
     """Class to hold parameters for SearchInteractor"""
 
     def __init__(self):

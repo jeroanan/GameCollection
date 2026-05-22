@@ -16,7 +16,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
-from unittest import mock 
+from unittest import mock
 
 from persistence import abstract_persistence
 import hardware_type as ht
