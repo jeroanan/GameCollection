@@ -19,8 +19,7 @@ from unittest.mock import Mock
 from data.config import Config
 from game import Game
 from hardware import Hardware
-import interactors.game_interactors as game_interactors
-import interactors.hardware_interactors as hardware_interactors
+from interactors import (game_interactors, hardware_interactors)
 from interactors.interactor_factory import InteractorFactory
 from ui.handlers.authenticated_handler import AuthenticatedHandler
 from ui.handlers.index_handler import IndexHandler

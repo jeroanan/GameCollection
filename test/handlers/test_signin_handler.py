@@ -19,8 +19,8 @@ from unittest.mock import Mock
 
 import interactors.interactor_factory as factory
 import interactors.user_interactors as ui
-import ui.Cookies.cookies as cookies
-import ui.handlers.handler as handler
+from ui.Cookies import cookies
+from ui.handlers import handler
 import ui.handlers.Session.Session as session
 import ui.handlers.signin_handler as sh
 import icarus_user as user
