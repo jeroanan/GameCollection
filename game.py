@@ -54,6 +54,7 @@ class Game:
 
         return Game._from_dict(mongo_result, mappings)
 
+    #TODO: Can probably clean this dict stuff up between the domain objects
     @staticmethod
     def from_dict(dictionary):
         """Initialises an instance of Game from a dictionary.

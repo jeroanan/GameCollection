@@ -13,119 +13,22 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from dataclasses import dataclass, field
 import functools as ft
 import json
 
 
+@dataclass
 class Hardware():
     """Represents an item of hardware"""
-
-    def __init__(self):
-        """Initialise object state"""
-        self.__id = ""
-        self.__hardware_type = ""
-        self.__name = ""
-        self.__platform = ""
-        self.__num_owned = ""
-        self.__num_boxed = ""
-        self.__notes = ""
-        self.__user_id = ""
-
-    @property
-    def id(self):
-        """Get the unique identifier of the hardware item"""
-        return self.__id
-
-    @id.setter
-    def id(self, value):
-        """Set the unique identifier of the hardware item"""
-        self.__id = value
-
-    @property
-    def hardware_type(self):
-        """Get the hardware type of the hardware item"""
-        return self.__hardware_type
-
-    @hardware_type.setter
-    def hardware_type(self, val):
-        """Set the hardware type of the hardware item"""
-        self.__hardware_type = val
-
-    @property
-    def name(self):
-        """Get the name of the hardware item"""
-        return self.__name
-
-    @name.setter
-    def name(self, value):
-        """Set the name of the hardware item"""
-        self.__name = value
-
-    @property
-    def platform(self):
-        """Get the platform of the hardware item"""
-        return self.__platform
-
-    @platform.setter
-    def platform(self, value):
-        """Set the platform of the hardware item"""
-        self.__platform = value
-
-    @property
-    def num_owned(self):
-        """Get the number of pieces of this hardware item owned"""
-        return self.__num_owned
-
-    @num_owned.setter
-    def num_owned(self, value):
-        """Set the number of pieces of this hardware item owned"""
-        self.__num_owned = value
-
-    @property
-    def num_boxed(self):
-        """Get the number of pieces of this hardware item boxed"""
-        return self.__num_boxed
-
-    @num_boxed.setter
-    def num_boxed(self, value):
-        """Set the number of pieces of this hardware item boxed"""
-        self.__num_boxed = value
-
-    @property
-    def notes(self):
-        """Get notes for this hardware item"""
-        return self.__notes
-
-    @notes.setter
-    def notes(self, value):
-        """Set notes for this hardware item"""
-        self.__notes = value
-
-    @property
-    def user_id(self):
-        """Get the user_id against this hardware item"""
-        return self.__user_id
-
-    @user_id.setter
-    def user_id(self, value):
-        """Set the user_id against this hardware item"""
-        self.__user_id = value
-
-    def __eq__(self, other):
-        """Is this instance of Hardware equal to another instance of hardware?
-        The following fields are checked for equality:
-           * id
-           * name
-           * num_owned
-           * num_boxed
-           * notes
-           * user_id
-        :param other: An instance of Hardware. The object to compare the current one against
-        :returns: True if this object is equal to other. Otherwise False
-        """
-        return (self.id == other.id and self.name == other.name and
-                self.num_owned == other.num_owned and self.num_boxed == other.num_boxed and
-                self.notes == other.notes and self.user_id == other.user_id)
+    id: str = field(default="")
+    hardware_type: str = field(default="")
+    name: str = field(default="")
+    platform: str = field(default="")
+    num_owned: str = field(default="")
+    num_boxed: str = field(default="")
+    notes: str = field(default="")
+    user_id: str = field(default="")
 
     @staticmethod
     def from_mongo_result(mongo_result):
@@ -179,6 +82,7 @@ class Hardware():
 
         return Hardware._from_dict(dictionary, mappings)
 
+    #TODO: Can probably clean this dict stuff up between the domain objects
     @staticmethod
     def _from_dict(dictionary, mappings):
         hardware = Hardware()
