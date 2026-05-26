@@ -13,67 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from dataclasses import dataclass, field
+
+@dataclass
 class GetHardwareListInteractorParams:
     """Parameters to be passed to GetHardwareListInteractor.execute"""
+    number_of_items: int = field(default=999999)
+    platform: str = field(default=None)
+    sort_field: str = field(default="name")
+    sort_direction: str = field(default="")
+    user_id: str = field(default="")
 
-    def __init__(self):
-        """Initialise object state"""        
-        self.__number_of_items = 999999
-        self.__platform = None
-        self.__sort_field = "name"
-        self.__sort_direction = ""
-        self.__user_id = ""
-
-    @property
-    def number_of_items(self):
-        """Get the number of hardware items to retrieve"""
-        return self.__number_of_items
-
-    @number_of_items.setter
-    def number_of_items(self, val):
-        """Set the number of hardware items to retrieve"""
-        self.__number_of_items = val
-
-    @property
-    def sort_field(self):
-        """Get the field to sort hardware items by"""
-        return self.__sort_field
-
-    @sort_field.setter
-    def sort_field(self, val):
-        """Set the field to sort hardware items by"""
-        self.__sort_field = val
-
-    @property
-    def sort_direction(self):
-        """Get the direction to sort hardware items in"""
-        return self.__sort_direction
-
-    @sort_direction.setter
-    def sort_direction(self, val):
-        """Set the direction to sort hardware items in"""
-        self.__sort_direction = val
-
-    @property
-    def platform(self):
-        """Get the platform to retrieve hardware for"""
-        return self.__platform
-
-    @platform.setter
-    def platform(self, val):
-        """Set the platform to retrieve hardware for"""
-        self.__platform = val
-
-    @property
-    def user_id(self):
-        """Get the user_id to retrieve games for"""
-        return self.__user_id
-
-    @user_id.setter
-    def user_id(self, val):
-        """Set the user_id to retrieve games for"""
-        self.__user_id = val
-
+    #TODO: Cleanup, unify
     @staticmethod
     def from_dict(dictionary):
         """Initialises an instance of GetHardwareListInteractorParams from a dictionary.
@@ -94,10 +45,3 @@ class GetHardwareListInteractorParams:
         p.user_id = dictionary.get("user_id", p.user_id)
 
         return p
-
-    def __eq__(self, other):
-        return (self.number_of_items==other.number_of_items and
-                self.platform==other.platform and
-                self.sort_field==other.sort_field and
-                self.sort_direction==other.sort_direction and
-                self.user_id==other.user_id)

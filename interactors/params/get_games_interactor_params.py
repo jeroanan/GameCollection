@@ -13,80 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from dataclasses import dataclass, field
+
+@dataclass
 class GetGamesInteractorParams:
     """Parameters for GetGamesInteractor.execute"""
+    sort_field: str = field(default="title")
+    sort_direction: str = field(default="ASC")
+    number_of_games: int = field(default=999999)
+    platform: str = field(default=None)
+    user_id: str = field(default="")
 
-    def __init__(self):
-        """Initialise object state"""
-        self.__sort_field = "title"
-        self.__sort_direction = "ASC"
-        self.__number_of_games = 999999
-        self.__platform = None
-        self.__user_id = ""
-
-    @property
-    def sort_field(self):
-        """Get the field to sort games by"""
-        return self.__sort_field
-
-    @sort_field.setter
-    def sort_field(self, val):
-        """Set the field to sort games by"""
-        self.__sort_field=val
-
-    @property
-    def sort_direction(self):
-        """Get the direction to sort games in"""
-        return self.__sort_direction
-
-    @sort_direction.setter
-    def sort_direction(self, val):
-        """Set the direction to sort games in"""
-        self.__sort_direction = val
-
-    @property
-    def number_of_games(self):
-        """Get the number of games to be retrieved"""
-        return self.__number_of_games
-
-    @number_of_games.setter
-    def number_of_games(self, val):
-        """Set the number of games to be retrieved"""
-        self.__number_of_games = val
-
-    @property
-    def platform(self):
-        """Get the platform to retrieve games for"""
-        return self.__platform
-
-    @platform.setter
-    def platform(self, val):
-        """Set the platform to retrieve games for"""
-        self.__platform = val
-
-    @property
-    def user_id(self):
-        """Get the user id to retrieve games for"""
-        return self.__user_id
-
-    @user_id.setter
-    def user_id(self, val):
-        """Set the user id to retrieve games for"""
-        self.__user_id = val
-
-    def __eq__(self, other):
-        """Test that this instance of GetGamesInteractor is equal to another.
-        This is done by comparing the following properties:
-           * sort_field
-           * sort_direction
-           * number_of_games
-           * platform
-        :returns: True if this instance of GetGamesInteractor matches other. False otherwise."""
-        return (self.sort_field == other.sort_field and
-                self.sort_direction == other.sort_direction and
-                self.number_of_games == other.number_of_games and
-                self.platform == other.platform)
-
+    #TOO: Cleanup, unify
     @staticmethod
     def from_dict(dictionary):
         """Initialise an instance of GetGamesInteractorParams from a dictionary.
