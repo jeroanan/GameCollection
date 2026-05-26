@@ -37,7 +37,8 @@ class WebServer:
         if self.__renderer is None:
             self.__renderer = TemplateRenderer()
         if self.__logger is None:
-            self.__logger = logging.basicConfig()
+            self.__logger = logging.getLogger("Icarus.WebServer")
+            logging.basicConfig()
 
     @property
     def renderer(self):
@@ -68,8 +69,8 @@ class WebServer:
 
         try:
             return self.__get_page(args[0], kwargs)
-        except UnrecognisedHandlerException:
-            raise cherrypy.NotFound
+        except UnrecognisedHandlerException as exc:
+            raise cherrypy.NotFound from exc
 
     def __get_page(self, handler_name, args):
         handler = self.handler_factory.create(handler_name)
