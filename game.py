@@ -13,140 +13,23 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
-import functools as ft
+from dataclasses import dataclass, field
 import json
 
 
+@dataclass
 class Game:
     """Represents a game"""
-
-    def __init__(self):
-        """Initialise object state"""
-        self.__id = ""
-        self.__genre = ""
-        self.__title = ""
-        self.__platform = ""
-        self.__num_copies = 0
-        self.__num_boxed = 0
-        self.__num_manuals = 0
-        self.__notes = ""
-        self.__date_purchased = ""
-        self.__approximate_date_purchased = False
-
-    @property
-    def id(self):
-        """Get game id"""
-        return self.__id
-
-    @id.setter
-    def id(self, value):
-        """Set game id"""
-        self.__id = value
-
-    @property
-    def genre(self):
-        """Get game genre"""
-        return self.__genre
-
-    @genre.setter
-    def genre(self, val):
-        """Set game genre"""
-        self.__genre = val
-
-    @property
-    def title(self):
-        """Get game title"""
-        return self.__title
-
-    @title.setter
-    def title(self, value):
-        """Set game title"""
-        self.__title = value
-
-    @property
-    def platform(self):
-        """Get game platform"""
-        return self.__platform
-
-    @platform.setter
-    def platform(self, value):
-        """Set game platform"""
-        self.__platform = value
-
-    @property
-    def num_copies(self):
-        """Get number of copies of the game owned"""
-        return self.__num_copies
-
-    @num_copies.setter
-    def num_copies(self, value):
-        """Set number of copies of the game owned"""
-        self.__num_copies = value
-
-    @property
-    def num_boxed(self):
-        """Get number of copies of the game boxed"""
-        return self.__num_boxed
-
-    @num_boxed.setter
-    def num_boxed(self, value):
-        """Set number of copies of the game boxed"""
-        self.__num_boxed = value
-
-    @property
-    def num_manuals(self):
-        """Get number of manuals owned for the game"""
-        return self.__num_manuals
-
-    @num_manuals.setter
-    def num_manuals(self, value):
-        """Set number of manuals owned for the game"""
-        self.__num_manuals = value
-
-    @property
-    def notes(self):
-        """Get notes held against the game"""
-        return self.__notes
-
-    @notes.setter
-    def notes(self, value):
-        """Set notes held against the game"""
-        self.__notes = value
-
-    @property
-    def date_purchased(self):
-        """Get the date the game was purchased on"""
-        return self.__date_purchased
-
-    @date_purchased.setter
-    def date_purchased(self, value):
-        """Set the date the game was purchased on"""
-        self.__date_purchased = value
-
-    @property
-    def approximate_date_purchased(self):
-        """Get whether the game's purchase date is approximate"""
-        return self.__approximate_date_purchased
-
-    @approximate_date_purchased.setter
-    def approximate_date_purchased(self, value):
-        """Set whether the game's purchase date is approximate"""
-        self.__approximate_date_purchased = value
-
-    def __eq__(self, other):
-        """Test whether this instance of Game is equal to another
-        This happens by comparing the following properties:
-           * title
-           * platform
-           * num_copies
-           * num_boxed
-           * num_manuals
-           * notes
-        :returns: True if this instance of Game is equal to other, otherwise False
-        """
-        return (self.title == other.title and self.platform == other.platform and
-                self.num_copies == other.num_copies and self.num_boxed == other.num_boxed and
-                self.num_manuals == other.num_manuals and self.notes == other.notes)
+    id: str = field(default="")
+    genre: str = field(default="")
+    title: str = field(default="")
+    platform: str = field(default="")
+    num_copies: int = field(default=0)
+    num_boxed: int = field(default=0)
+    num_manuals: int = field(default=0)
+    notes: str = field(default="")
+    date_purchased: str = field(default="")
+    approximate_date_purchased: bool = field(default=False)
 
     @staticmethod
     def from_mongo_result(mongo_result):
@@ -182,6 +65,7 @@ class Game:
         # game.attr, dictionary.key
         mappings = {"id": "id",
                     "date_purchased": "datepurchased",
+                    "approximate_date_purchased": "approximatedatepurchased",
                     "genre": "genre",
                     "title": "title",
                     "num_copies": "numcopies",
@@ -193,15 +77,25 @@ class Game:
         return Game._from_dict(dictionary, mappings)
 
     @staticmethod
-    def _from_dict(dictionary, mappings):
-        game = Game()
+    def _from_dict(d, mappings):
 
-        set_attr = ft.partial(setattr, game)
-        get_attr = ft.partial(getattr, game)
         def dict_get(x):
-            return dictionary[x[0]] if x[0] in dictionary else get_attr(x[1])
+            return d[mappings[x[0]]] if mappings[x[0]] in d else getattr(Game, x[0])
 
-        list(map(lambda m: set_attr(m, dict_get((mappings[m], m))), mappings))
+        game = Game(id=dict_get(("id", "id")),
+                    genre=dict_get(("genre", "genre")),
+                    title=dict_get(("title", "title")),
+                    num_copies=dict_get(("num_copies", "num_copies")),
+                    num_boxed=dict_get(("num_boxed", "num_boxed")),
+                    num_manuals=dict_get(("num_manuals", "num_manuals")),
+                    platform=dict_get(("platform", "platform")),
+                    notes=dict_get(("notes", "notes")),
+                    date_purchased=dict_get(("date_purchased", "date_purchased")),
+                    approximate_date_purchased=dict_get((
+                        "approximate_date_purchased", 
+                        "approximate_date_purchased"
+                    )))
+
         return game
 
     def to_json(self):
