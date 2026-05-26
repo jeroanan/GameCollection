@@ -13,55 +13,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from dataclasses import dataclass, field
+
+@dataclass
 class Platform:
     """Represents a platform"""
 
-    def __init__(self):
-        """Initialise object state"""
-        self.__id = ""
-        self.__name = ""
-        self.__description = ""
+    id: str = field(default="")
+    name: str = field(default="")
+    description: str = field(default="")
 
-    @property
-    def id(self):
-        """Get the platform id"""
-        return self.__id
-
-    @id.setter
-    def id(self, value):
-        """Set the platform id"""
-        self.__id = value
-
-    @property
-    def name(self):
-        """Get the platform name"""
-        return self.__name
-
-    @name.setter
-    def name(self, value):
-        """Set the platform name"""
-        self.__name = value
-
-    @property
-    def description(self):
-        """Get the platform description"""
-        return self.__description
-
-    @description.setter
-    def description(self, value):
-        """Set the platform description"""
-        self.__description = value
-
-    def __eq__(self, other):
-        """Test that this instance of Platform is equal to another.
-        This happens by comparing the following properties:
-           * name
-           * description
-        :param other: Another instance of Platform
-        :returns: True if the two instances of Platform, otherwise False
-        """
-        return self.name == other.name and self.description == other.description
-
+    # TODO: Probably be able to unfiy this dict stuff with the other domain objs.
     @staticmethod
     def from_dict(dictionary):
         """Initialises an instance of Platform from a dictionary.

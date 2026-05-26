@@ -1,6 +1,7 @@
 """Unit tests for UpdateHardwareInteractor."""
 
 from test.interactors.interactor_test_base import InteractorTestBase
+from hardware import Hardware
 from interactors.interactor import Interactor
 from interactors.hardware_interactors import UpdateHardwareInteractor
 
@@ -14,7 +15,7 @@ class TestUpdateHardwareInteractor(InteractorTestBase):
         self.__target.persistence = self.persistence
         self.__target.validate_integer_field = self.validate_integer_field
         self.__target.validate_string_field = self.validate_string_field
-        self.__hardware = self.get_hardware(name="name")
+        self.__hardware = Hardware(name="name")#self.get_hardware(name="name")
 
     def test_is_instance_of_interactor(self):
         """Test that UpdateHardwareInteractor is an Interactor."""

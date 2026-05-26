@@ -14,6 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.interactors.interactor_test_base import InteractorTestBase
+from game import Game
 from interactors.game_interactors import DeleteGameInteractor
 from interactors.interactor import Interactor
 
@@ -35,7 +36,7 @@ class TestDeleteGameInteractor(InteractorTestBase):
     def test_execute_calls_persistence_method(self):
         """Test that calling DeleteGameInteractor.execute causes persistence.delete_game to be 
         called"""
-        game = self.get_game(game_id="1337")
+        game = Game(id="1337")
         self.__execute(game, "user_id")
         self.persistence.delete_game.assert_called_with(game, "user_id")
 
@@ -46,7 +47,7 @@ class TestDeleteGameInteractor(InteractorTestBase):
 
     def test_execute_validates_id_field(self):
         """Test that calling DeleteGameInteractor.execute causes the id field to be validated."""
-        game = self.get_game(game_id="id")
+        game = Game(id="id")
         self.__execute(game)
         self.assertTrue(self.validate_string_field_was_called_with("Game id", game.id))
 

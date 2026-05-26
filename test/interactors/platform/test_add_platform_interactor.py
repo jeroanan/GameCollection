@@ -20,7 +20,7 @@ from unittest.mock import Mock
 from test.interactors.interactor_test_base import InteractorTestBase
 import interactors.platform_interactors as pi
 from interactors.interactor import Interactor
-import icarus_platform as p
+from icarus_platform import Platform
 
 
 class TestAddPlatformInteractor(InteractorTestBase):
@@ -40,7 +40,7 @@ class TestAddPlatformInteractor(InteractorTestBase):
 
             platforms = []
             for ep in existing_platforms:
-                platforms.append(p.Platform.from_dict(ep))
+                platforms.append(Platform.from_dict(ep))
 
             return platforms
 
@@ -63,19 +63,19 @@ class TestAddPlatformInteractor(InteractorTestBase):
     def test_execute_with_non_blank_id_raises_value_error(self):
         """Test that calling AddPlatformInteractor.execute with a populated platform id causes 
         ValueError to be raised"""
-        self.assertRaises(ValueError, self.__target.execute, self.get_platform(platform_id="id"))
+        self.assertRaises(ValueError, self.__target.execute, Platform(id="id"))
 
     def test_execute_validates_platform_name_field(self):
         """Test that calling AddPlatformInteractor.execute causes the platform's name to be 
         validated"""
-        platform = self.get_platform(name="")
+        platform = Platform(name="")
         self.__target.execute(platform)
         self.assertTrue(self.validate_string_field_was_called_with("Platform name", platform.name))
 
     def test_execute_calls_persistence_to_add_platform(self):
         """Test that calling AddPlatformInteractor.execute causes persistence.add_platform to be 
         executed"""
-        self.__target.execute(self.get_platform(name="platform"))
+        self.__target.execute(Platform(name="platform"))
         self.assertTrue(self.persistence.add_platform.called)
 
     def test_execute_with_existing_platform_name_raises_platform_exists_exception(self):
@@ -86,4 +86,4 @@ class TestAddPlatformInteractor(InteractorTestBase):
         self.assertRaises(
             pi.PlatformExistsException,
             self.__target.execute,
-            self.get_platform(name='existing_platform'))
+            Platform(name='existing_platform'))

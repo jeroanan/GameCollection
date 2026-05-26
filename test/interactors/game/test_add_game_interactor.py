@@ -14,6 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.interactors.interactor_test_base import InteractorTestBase
+from game import Game
 from interactors.game_interactors import AddGameInteractor
 from interactors.interactor import Interactor
 
@@ -35,7 +36,7 @@ class TestAddGameInteractor(InteractorTestBase):
 
     def test_execute_calls_persistence_method(self):
         """Test that calling AddGameInteractor.execute causes persistence.add_game to be called"""
-        game = self.get_game()
+        game = Game()
         user_id = "1234"
         self.__execute(game, user_id)
         self.persistence.add_game.assert_called_with(game, user_id)
@@ -51,7 +52,7 @@ class TestAddGameInteractor(InteractorTestBase):
         integer_validations = {"Number of boxed items": 1,
                                "Number of copies": 2,
                                "Number of manuals": 3}        
-        self.__execute(self.get_game(num_boxed=1, num_copies=2, num_manuals=3))
+        self.__execute(Game(num_boxed=1, num_copies=2, num_manuals=3))
 
         for iv in integer_validations:
             self.assertTrue(
@@ -62,13 +63,13 @@ class TestAddGameInteractor(InteractorTestBase):
         validated"""
         string_validations = {"Platform": "platform",
                               "Game title": "title"}
-        self.__execute(self.get_game(title="title", platform="platform"))
+        self.__execute(Game(title="title", platform="platform"))
         for sv in string_validations:
             self.assertTrue(self.validate_string_field_was_called_with(sv, string_validations[sv]))
 
     def test_execute_with_game_id_raises_value_error(self):
         """Test that adding a game with its id property set raises a ValueError"""
-        game = self.get_game(game_id="id")
+        game = Game(id="id")
         self.assertRaises(ValueError, self.__execute, game)
 
     def __execute(self, game, user_id="1234"):

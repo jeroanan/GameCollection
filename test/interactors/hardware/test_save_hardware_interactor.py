@@ -14,6 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from test.interactors.interactor_test_base import InteractorTestBase
+from hardware import Hardware
 from interactors.interactor import Interactor
 from interactors.hardware_interactors import SaveHardwareInteractor
 
@@ -28,11 +29,7 @@ class TestSaveHardwareInteractor(InteractorTestBase):
         self.__target.persistence = self.persistence
         self.__target.validate_integer_field = self.validate_integer_field
         self.__target.validate_string_field = self.validate_string_field
-        self.__hardware = self.get_hardware(
-            name="name",
-            platform="platform",
-            num_owned=1,
-            num_boxed=1)
+        self.__hardware = Hardware(name="name", platform="platform", num_owned=1, num_boxed=1)
 
     def test_is_instance_of_interactor(self):
         """Assert that SaveHardwareInteractor is an instance of Interactor"""
@@ -41,7 +38,7 @@ class TestSaveHardwareInteractor(InteractorTestBase):
     def test_execute_calls_persistence(self):
         """Test that calling SaveHardwareInteractor.execute causes persistence.save_hardware to 
         be called"""
-        hardware = self.get_hardware()
+        hardware = Hardware()
         user_id = "1234"
         self.__execute(hardware, user_id)
         self.persistence.save_hardware.assert_called_with(hardware, user_id)
@@ -54,7 +51,7 @@ class TestSaveHardwareInteractor(InteractorTestBase):
     def test_execute_with_id_set_raises_value_error(self):
         """Test that calling SaveHardwareInteractor.execute with hardware.id set causes a 
         ValueError to be raised"""
-        self.assertRaises(ValueError, self.__execute, self.get_hardware(hardware_id="id"))
+        self.assertRaises(ValueError, self.__execute, Hardware(id="id"))#self.get_hardware(hardware_id="id"))
 
     def test_execute_validates_string_fields(self):
         """Test that calling SaveHardwareInteractor.execute causes the string members of Hardware 

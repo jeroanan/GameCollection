@@ -17,6 +17,7 @@ from unittest.mock import Mock
 
 from test.interactors.interactor_test_base import InteractorTestBase
 from persistence.abstract_persistence import AbstractPersistence
+from game import Game
 from interactors.exceptions import PersistenceException
 from interactors.interactor import Interactor
 from interactors.game_interactors import UpdateGameInteractor
@@ -32,7 +33,7 @@ class TestUpdateGameInteractor(InteractorTestBase):
         self.__target.persistence = self.persistence
         self.__target.validate_string_field = self.validate_string_field
         self.__target.validate_integer_field = self.validate_integer_field
-        self.__game = self.get_game(
+        self.__game = Game(
             title="title",
             platform="platform",
             num_copies=1,

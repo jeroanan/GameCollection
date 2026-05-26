@@ -18,7 +18,7 @@ from unittest.mock import Mock
 import test.interactors.interactor_test_base as itb
 import interactors.interactor as i
 import interactors.platform_interactors as pi
-import icarus_platform as p
+from icarus_platform import Platform
 
 
 class TestUpdatePlatformInteractor(itb.InteractorTestBase):
@@ -41,7 +41,7 @@ class TestUpdatePlatformInteractor(itb.InteractorTestBase):
 
             platforms = []
             for ep in existing_platforms:
-                platforms.append(p.Platform.from_dict(ep))
+                platforms.append(Platform.from_dict(ep))
 
             return platforms
 
@@ -50,7 +50,7 @@ class TestUpdatePlatformInteractor(itb.InteractorTestBase):
         self.__target.persistence.get_platforms = Mock(return_value=get_stored_platforms())
         self.__target.validate_integer_field = self.validate_integer_field
         self.__target.validate_string_field = self.validate_string_field
-        self.__platform = self.get_platform()
+        self.__platform = Platform()
         self.__platform.id = "1414"
 
     def test_is_instance_of_interactor(self):
