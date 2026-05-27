@@ -9,17 +9,12 @@ from interactors.params.get_games_interactor_params import GetGamesInteractorPar
 from persistence.exceptions import GameNotFoundException
 from persistence.mongo_persistence import MongoPersistence
 
-class TestMongoPersistenceGames(unittest.TestCase):
-    def setUp(self) -> None:
-        self.logger = MagicMock(Logger)
-        self.config = MagicMock(Config)
-        self.mongo_client = MagicMock(MongoClient)
-        self.mongo_client.GamesCollection = Mock()
+from test.persistence.mongo.mongo_test_base import MongoTestBase
 
-        self.mongo_persistence = MongoPersistence(
-            logger=self.logger,
-            config=self.config,
-            mongo_client=self.mongo_client)
+class TestMongoPersistenceGames(MongoTestBase):
+
+    def setUp(self) -> None:
+        super().setUp()
 
     def test_game_from_mongo_result_performs_mapping(self) -> None:
         """Test that mapping a Game object from a MonoDB result is correct"""

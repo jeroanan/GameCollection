@@ -22,18 +22,11 @@ from data.config import Config
 from genre import Genre
 from hardware_type import HardwareType
 from persistence.mongo_persistence import MongoPersistence
+from test.persistence.mongo.mongo_test_base import MongoTestBase
+    
 
-class TestMongoPersistence(unittest.TestCase):
+class TestMongoPersistence(MongoTestBase):
     """Unit tests for the MongoPersistence class."""
-    def setUp(self) -> None:
-        self.logger = Mock(Logger)
-        self.config = Mock(Config)
-        self.mongo_client = Mock(MongoClient)
-        self.mongo_client.GamesCollection = Mock()
-        self.mongo_persistence: MongoPersistence = MongoPersistence(
-            logger=self.logger,
-            config=self.config,
-            mongo_client=self.mongo_client)
 
     def test_constructs(self) -> None:
         """Tests that the MongoPersistence constructs correctly."""
