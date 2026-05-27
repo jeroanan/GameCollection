@@ -13,12 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from logging import Logger
 import sys
+from typing import Any
 
 from bson import ObjectId
 from bson.errors import InvalidId
-from logging import Logger
-from typing import Any
 from pymongo import MongoClient
 from pymongo.cursor import Cursor
 from pymongo.errors import ConnectionFailure
@@ -28,14 +28,12 @@ from genre import Genre
 from hardware_type import HardwareType
 from interactors.params.get_games_interactor_params import GetGamesInteractorParams
 from interactors.params.get_hardware_list_interactor_params import GetHardwareListInteractorParams
-from persistence.abstract_persistence import AbstractPersistence
 from persistence.exceptions import GameNotFoundException, HardwareNotFoundException
 from persistence.mappers.hardware_sort_field_mapper import HardwareSortFieldMapper
 from persistence.mappers.mongo_sort_direction_mapper import MongoSortDirectionMapper
 from persistence.mappers.sort_field_mapper import SortFieldMapper
 from game import Game
 from hardware import Hardware
-import hardware_type as ht
 from icarus_platform import Platform
 from icarus_user import User
 
@@ -75,6 +73,7 @@ class MongoPersistence:
         if self.__client is not None:
             self.__client.close()
 
+    #Games
     def add_game(self, game: Game, user_id: str) -> None:
         """Add a single game.
         :param params: An object of type Game
@@ -113,19 +112,6 @@ class MongoPersistence:
         :returns: The number of games in the user's collection
         """
         return self.__db.games.count_documents({"user_id": str(user_id)})
-
-    def count_hardware(self, user_id: str) -> int:
-        """Counts the items of hardware
-        :param user_id: The uuid of the current user.
-        :returns: The number of items of hardware
-        """
-        return self.__db.hardware.count_documents({"user_id": str(user_id)})
-
-    def count_hardware_types(self) -> int:
-        """Counts the number of hardware types in the system
-        :returns: The number of hardware types in the system
-        """
-        return self.__db.hardware_types.count_documents({})
 
     def get_game(self, game_id: str, user_id: str) -> Game:
         """Gets a specific game if it matches the given user.
@@ -172,6 +158,43 @@ class MongoPersistence:
 
         return Game._from_dict(mongo_result, mappings)
 
+    def update_game(self, game: Game, user_id: str) -> None:
+        """Update the given game if it belongs to the given user
+        :param game_id: An object of type Game -- the game to be updated
+        :param user_id: A string containing the uuid of the given user
+        :returns: None
+        """
+        gd = game.__dict__
+        gd["user_id"] = str(user_id)
+        self.__db.games.update_one({
+            "_id": ObjectId(game.id),
+            "user_id": str(user_id)
+        }, {"$set": gd}, upsert=False)
+
+    def delete_game(self, game: Game, user_id: str) -> None:
+        """Delete the given game if it belongs to the given user
+        :param game: An object of type Game -- the game to be deleted
+        :param user_id: A string containing the uuid of the given user
+        :returns: None
+        """
+        self.__db.games.delete_one({
+            "_id": ObjectId(game.id),
+            "user_id": str(user_id)
+        })
+
+    # Hardware
+    def count_hardware(self, user_id: str) -> int:
+        """Counts the items of hardware
+        :param user_id: The uuid of the current user.
+        :returns: The number of items of hardware
+        """
+        return self.__db.hardware.count_documents({"user_id": str(user_id)})
+
+    def count_hardware_types(self) -> int:
+        """Counts the number of hardware types in the system
+        :returns: The number of hardware types in the system
+        """
+        return self.__db.hardware_types.count_documents({})
 
     def get_platforms(self) -> list[Platform]:
         """Get a list of platforms
@@ -187,7 +210,7 @@ class MongoPersistence:
         :returns: an object of type platform containing the requested platform
         """
         mongo_result = self.__db.platforms.find_one({"_id": ObjectId(platform_id)})
-        
+ 
         if mongo_result is None:
             raise GameNotFoundException()
 
@@ -205,19 +228,6 @@ class MongoPersistence:
         """
         self.__db.platforms.update_one(
             {"_id": ObjectId(platform.id)}, {"$set": platform.__dict__}, upsert=False)
-
-    def update_game(self, game: Game, user_id: str) -> None:
-        """Update the given game if it belongs to the given user
-        :param game_id: An object of type Game -- the game to be updated
-        :param user_id: A string containing the uuid of the given user
-        :returns: None
-        """
-        gd = game.__dict__
-        gd["user_id"] = str(user_id)
-        self.__db.games.update_one({
-            "_id": ObjectId(game.id),
-            "user_id": str(user_id)
-        }, {"$set": gd}, upsert=False)
 
     #TODO: ultimately rename
     @staticmethod
@@ -315,17 +325,6 @@ class MongoPersistence:
         :param platform_id: The id of the platform to be deleted
         """
         self.__db.platforms.delete_one({"_id": ObjectId(platform_id)})
-
-    def delete_game(self, game: Game, user_id: str) -> None:
-        """Delete the given game if it belongs to the given user
-        :param game: An object of type Game -- the game to be deleted
-        :param user_id: A string containing the uuid of the given user
-        :returns: None
-        """
-        self.__db.games.delete_one({
-            "_id": ObjectId(game.id),
-            "user_id": str(user_id)
-        })
 
     def add_hardware_type(self, hardware_type: HardwareType) -> None:
         """Add a hardware type.

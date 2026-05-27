@@ -13,14 +13,20 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Any
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, MagicMock
 from logging import Logger
-from pymongo import MongoClient
+from pymongo import MongoClient 
+from pymongo import cursor
+from pymongo.cursor import Cursor
 
 from data.config import Config
+from game import Game
 from genre import Genre
 from hardware_type import HardwareType
+from interactors.params.get_games_interactor_params import GetGamesInteractorParams
+from persistence.exceptions import GameNotFoundException
 from persistence.mongo_persistence import MongoPersistence
 
 class TestMongoPersistence(unittest.TestCase):
@@ -39,6 +45,7 @@ class TestMongoPersistence(unittest.TestCase):
         """Tests that the MongoPersistence constructs correctly."""
         self.assertIsNotNone(self.mongo_persistence)
 
+    ## Games
     def test_game_from_mongo_result_performs_mapping(self) -> None:
         """Test that mapping a Game object from a MonoDB result is correct"""
 
@@ -73,12 +80,100 @@ class TestMongoPersistence(unittest.TestCase):
         for k,v in expected_mappings.items():
             self.assertEqual(gd[k], v)
 
+    def test_add_game_makes_call(self) -> None:
+        """Tests that add_game makes a call to the database."""
+        game = Mock()
+        self.mongo_persistence.add_game(game, "user_id")
+        self.assertTrue(self.mongo_client.GamesCollection.games.insert_one.called)
+
+    def test_get_all_games_makes_call(self) -> None:
+        """Tests that get_all_games makes a call to the database."""
+        interactor_params = GetGamesInteractorParams(user_id="test-user")
+        game_json = [
+            { "_id": "a", "_Game__title": "title" },
+            { "_id": "b", "_Game__title": "title 2" }
+        ]
+        cursor = MagicMock()
+
+        self.mongo_client.GamesCollection.games.find = MagicMock(return_value=cursor)
+        cursor.sort.return_value = cursor
+        cursor.limit.return_value = game_json
+        self.mongo_persistence.get_all_games(interactor_params)
+        self.assertTrue(self.mongo_client.GamesCollection.games.find.called_once_with(
+            {"user_id": interactor_params.user_id})
+        )
+    
+    def test_get_all_games_for_platform_makes_call(self) -> None:
+        """Tests that get_all_games_for_platform makes a call to the database."""
+        interactor_params = GetGamesInteractorParams(user_id="test-user", platform="test-platform")
+        game_json = [
+            { "_id": "a", "_Game__title": "title" },
+            { "_id": "b", "_Game__title": "title 2" }
+        ]
+        cursor = MagicMock()
+
+        self.mongo_client.GamesCollection.games.find = MagicMock(return_value=cursor)
+        cursor.sort.return_value = cursor
+        cursor.limit.return_value = game_json
+        self.mongo_persistence.get_all_games_for_platform(interactor_params)
+        self.assertTrue(self.mongo_client.GamesCollection.games.find.called_once_with(
+            {"user_id": interactor_params.user_id, "platform": interactor_params.platform})
+        )
+
+    def test_count_games_makes_call(self) -> None:
+        """Tests that count_games makes a call to the database."""
+        interactor_params = GetGamesInteractorParams(user_id="test-user")
+        self.mongo_persistence.count_games(user_id=interactor_params.user_id)
+        self.assertTrue(self.mongo_client.GamesCollection.games.count_documents.called_once_with(
+            {"user_id": interactor_params.user_id})
+        )
+
+    def test_get_game_makes_call(self) -> None:
+        """Tests that get_game makes a call to the database."""
+        cursor = MagicMock()
+        self.mongo_client.GamesCollection.games.find_one = MagicMock(return_value=cursor)
+        self.mongo_persistence.get_game("666f6f2d6261722d71757578", "user-id")
+        self.assertTrue(self.mongo_client.GamesCollection.games.find_one.called_once_with(
+            {"_id": "666f6f2d6261722d71757578", "user_id": "user-id"})
+        )
+
+    def test_get_game_no_games_returned_raises_game_not_found_exception(self) -> None:
+        """Tests that get_game raises a GameNotFoundException if no games are returned."""
+        self.mongo_client.GamesCollection.games.find_one = MagicMock(return_value=None)
+        with self.assertRaises(GameNotFoundException):
+            self.mongo_persistence.get_game("666f6f2d6261722d71757578", "user-id")
+
+    def test_get_game_invalid_id_raises_game_not_found_exception(self) -> None:
+        """Tests that get_game raises a GameNotFoundException if an invalid ID is provided."""
+        cursor = MagicMock()
+        self.mongo_client.GamesCollection.games.find_one = MagicMock(return_value=cursor)
+        with self.assertRaises(GameNotFoundException):
+            self.mongo_persistence.get_game("invalid-id", "user-id")
+
+    def test_update_game_makes_call(self) -> None:
+        """Tests that update_game makes a call to the database."""
+        game = Mock()
+        game.id = "666f6f2d6261722d71757578"
+        self.mongo_client.GamesCollection.games.update_one = MagicMock()
+        self.mongo_persistence.update_game(game, "user_id")
+        self.assertTrue(self.mongo_client.GamesCollection.games.update_one.called)
+
+    def test_delete_game_makes_call(self) -> None:
+        """Tests that delete_game makes a call to the database."""
+        game = MagicMock()
+        game.id = "666f6f2d6261722d71757578"
+        self.mongo_client.GamesCollection.games.delete_one = MagicMock()
+        self.mongo_persistence.delete_game(game, "user_id")
+        self.assertTrue(self.mongo_client.GamesCollection.games.delete_one.called)
+
+    ## Genres
+
     def test_from_mongo_result_returns_genre(self) -> None:
         """Tests that from_mongo_result returns a Genre instance"""
         g = self.mongo_persistence.genre_from_mongo_result({"": ""})
         self.assertIsInstance(g, Genre)
 
-    def test_from_mongo_result_does_mappings(self) -> None:
+    def test_genre_from_mongo_result_does_mappings(self) -> None:
         """Tests that from_mongo_result maps dictionary keys to Genre attributes"""
         d = {"_id": "id",
              "_Genre__name": "name",
