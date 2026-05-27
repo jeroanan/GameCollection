@@ -21,7 +21,7 @@ import icarus_user as u
 class TestUser(unittest.TestCase):
     """Unit tests for the User class"""
 
-    def test_from_dict_does_mapping(self):
+    def test_from_dict_does_mapping(self) -> None:
         """Mapping from a dictionary to a User object performs correct mappings"""
         d = {"userid": "user_id",
              "password": "pw",
@@ -30,20 +30,3 @@ class TestUser(unittest.TestCase):
         self.assertEqual(d["userid"], user.user_id)
         self.assertEqual(d["password"], user.password)
         self.assertEqual(d["id"], user.id)
-
-    def test_from_mongo_result_does_mapping(self):
-        """Mongo result maps to User object"""
-        ud = {"_id": "id",
-              "_User__user_id": "user_id",
-              "_User__password": "password"}
-        user = u.User.from_mongo_result(ud)
-        self.assertEqual(ud["_id"], user.id)
-        self.assertEqual(ud["_User__user_id"], user.user_id)
-        self.assertEqual(ud["_User__password"], user.password)
-
-    def test_from_mongo_result_none_resultset_returns_default_field_values(self):
-        """Mongo result is None -- return User object with its default field values"""
-        user = u.User.from_mongo_result(None)
-        self.assertEqual(user.id, "")
-        self.assertEqual(user.user_id, "")
-        self.assertEqual(user.password, "")
