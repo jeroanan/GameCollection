@@ -13,35 +13,38 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from persistence.abstract_persistence import AbstractPersistence
+from typing import Any, Callable
+
 class Interactor:
     """A base class for interactor objects."""
 
-    def __init__(self):
-        self.__persistence = None
-        self.__interactor_factory = None
+    def __init__(self) -> None:
+        self.__persistence: AbstractPersistence | None = None
+        self.__interactor_factory: Any = None
 
     @property
-    def persistence(self):
+    def persistence(self) -> AbstractPersistence | None:
         """The object to use for persistence"""
         return self.__persistence
 
     @persistence.setter
-    def persistence(self, value):
+    def persistence(self, value: AbstractPersistence) -> None:
         """The object to use for persistence"""
         self.__persistence = value
 
     @property
-    def interactor_factory(self):
+    def interactor_factory(self) -> Any:
         """The object to use to create other interactor objects"""
         return self.__interactor_factory
 
     @interactor_factory.setter
-    def interactor_factory(self, value):
+    def interactor_factory(self, value: Any) -> None:
         """The object to use to create other interactor objects"""
         self.__interactor_factory = value
 
 
-    def validate_string_field(self, field_name, field_value):
+    def validate_string_field(self, field_name: str, field_value: str) -> None:
         """Throw a ValueError if field_value is None or an empty string.
         :param field_name: The textual name of the field. Used in the event of the field being 
                             invalid
@@ -49,7 +52,7 @@ class Interactor:
         if field_value is None or str(field_value).strip() == "":
             raise ValueError(f"{field_name} must have a value")
 
-    def validate_string_fields(self, validations):
+    def validate_string_fields(self, validations: dict[str, str]) -> None:
         """Run validate_string_field for a collection of fields.
         :param validations. A dictionary:
           * Key -- The textual name of the field to test
@@ -57,7 +60,7 @@ class Interactor:
         """
         self.__validate_fields(self.validate_string_field, validations)
 
-    def validate_integer_field(self, field_name, field_value):
+    def validate_integer_field(self, field_name: str, field_value: str) -> None:
         """Throw a value error if the given field value is not a numeric digit
         :param field_name: The textual name of the field. Used in the event of the field being 
                             invalid
@@ -65,7 +68,7 @@ class Interactor:
         if not str(field_value).isdigit():
             raise ValueError(f"{field_name} must be a number")
 
-    def validate_integer_fields(self, validations):
+    def validate_integer_fields(self, validations: dict[str, str]) -> None:
         """Run validate_integer_field for a collection of fields.
         :param validations. A dictionary:
           * Key -- The textual name of the field to test
@@ -73,6 +76,6 @@ class Interactor:
         """
         self.__validate_fields(self.validate_integer_field, validations)
 
-    def __validate_fields(self, validation_function, validations):
+    def __validate_fields(self, validation_function: Callable[[str, str], None], validations: dict[str, str]) -> None:
         for v in validations:
             validation_function(v, validations[v])

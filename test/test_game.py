@@ -21,41 +21,7 @@ from game import Game
 class TestGame(unittest.TestCase):
     """Unit tests for the Game class"""
 
-    def test_from_mongo_result_performs_mapping(self):
-        """Test that mapping a Game object from a MonoDB result is correct"""
-
-        gd = {
-            "_id": "id",
-            "_Game__genre": "genre",
-            "_Game__title": "title",
-            "_Game__platform": "platform",
-            "_Game__num_copies": 1,
-            "_Game__num_boxed": 2,
-            "_Game__num_manuals": 3,
-            "_Game__notes": "notes",
-            "_Game__date_purchased": "2015-05-23",
-            "_Game__approximate_date_purchased": True
-        }
-
-        g = Game.from_mongo_result(gd)
-
-        expected_mappings = {
-            "_id": g.id,
-            "_Game__title": g.title,
-            "_Game__genre": g.genre,
-            "_Game__platform": g.platform,
-            "_Game__num_copies": g.num_copies,
-            "_Game__num_boxed": g.num_boxed,
-            "_Game__num_manuals": g.num_manuals,
-            "_Game__notes": g.notes,
-            "_Game__date_purchased": g.date_purchased,
-            "_Game__approximate_date_purchased": g.approximate_date_purchased
-        }
-
-        for k,v in expected_mappings.items():
-            self.assertEqual(gd[k], v)
-
-    def test_from_dict(self):
+    def test_from_dict(self) -> None:
         """Test that mapping a game object from a dictionary is correct."""
 
         gd = {

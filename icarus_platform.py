@@ -14,6 +14,7 @@
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
 from dataclasses import dataclass, field
+from typing import Any
 
 @dataclass
 class Platform:
@@ -25,7 +26,7 @@ class Platform:
 
     # TODO: Probably be able to unfiy this dict stuff with the other domain objs.
     @staticmethod
-    def from_dict(dictionary):
+    def from_dict(dictionary: dict[str, Any]) -> 'Platform':
         """Initialises an instance of Platform from a dictionary.
         :param d: A dictionary containing some or all of the following keys:
            * id
@@ -38,20 +39,4 @@ class Platform:
         platform.id = dictionary.get("id", platform.id)
         platform.name = dictionary.get("name", platform.name)
         platform.description = dictionary.get("description", platform.description)
-        return platform
-
-    @staticmethod
-    def from_mongo_result(mongo_result):
-        """Initialises an instance of Platform from a dictionary.
-        :param mongo_result: A MongoDB result as a dictionary. The following keys are expected:
-           * _id
-           * _Platform__name
-           * _Platform__description
-        :returns: An instance of Platform with its properties set. Keys missing from mongo_result
-                  will be initialised to their default values.
-        """
-        platform = Platform()
-        platform.id = mongo_result["_id"]
-        platform.name = mongo_result["_Platform__name"]
-        platform.description = mongo_result["_Platform__description"]
         return platform

@@ -16,6 +16,7 @@
 import unittest
 from unittest.mock import Mock
 
+from interactors.interactor import Interactor
 from persistence.abstract_persistence import AbstractPersistence
 from Cryptography.hash_provider import HashProvider
 from interactors.exceptions import InteractorFactoryNotSetException
@@ -28,7 +29,7 @@ from icarus_user import User
 class TestChangePasswordInteractor(unittest.TestCase):
     """Unit tests for the ChangePasswordInteractor class"""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """setUp function for all unit tests in this class"""
         self.__get_user_interactor = self.__setup_get_user_interactor()
         self.__interactor_factory = self.__setup_interactor_factory()
@@ -39,73 +40,74 @@ class TestChangePasswordInteractor(unittest.TestCase):
         self.__hash_provider = Mock(HashProvider)
         self.__target.set_hash_provider(self.__hash_provider)
 
-    def __setup_get_user_interactor(self):
+    def __setup_get_user_interactor(self) -> Mock:
 
-        def get_user_interactor_execute(user):
+        def get_user_interactor_execute(user: User) -> User:
             return self.__get_user(user_id=user.user_id, password="MyOldPassword", uid="123456")
 
         get_user_interactor = Mock(GetUserInteractor)
         get_user_interactor.execute = Mock(side_effect=get_user_interactor_execute)
         return get_user_interactor
 
-    def __setup_interactor_factory(self):
+    def __setup_interactor_factory(self) -> InteractorFactory:
 
-        def interactor_factory_create(_interactor_type):
+        def interactor_factory_create(_interactor_type: str) -> Interactor:
             return self.__get_user_interactor
 
         interactor_factory = Mock(InteractorFactory)
         interactor_factory.create = Mock(side_effect=interactor_factory_create)
         return interactor_factory
 
-    def test_is_logging_interactor(self):
+    def test_is_logging_interactor(self) -> None:
         """Test that ChangePasswordInteractor is an instance of LoggingInteractor"""
         self.assertIsInstance(self.__target, LoggingInteractor)
 
-    def test_user_is_nothing_raises_type_error(self):
+    def test_user_is_nothing_raises_type_error(self) -> None:
         """Test that calling ChangePasswordInteractor.execute with a null user raises a TypeError"""
         self.assertRaises(TypeError, self.__target.execute, None)
 
-    def test_user_id_is_empty_raises_value_error(self):
+    def test_user_id_is_empty_raises_value_error(self) -> None:
         """Test that calling ChangePasswordInteractor.execute with an empty user_id raises 
         ValueError"""
         u = self.__get_user("", "")
         self.assertRaises(ValueError, self.__target.execute, u)
 
-    def test_password_is_empty_raises_value_error(self):
+    def test_password_is_empty_raises_value_error(self) -> None:
         """Test that calling ChangePasswordInteractor.execute with an empty password raises 
         ValueError"""
         u = self.__get_user(password="")
         self.assertRaises(ValueError, self.__target.execute, u)
 
-    def test_interactor_factory_not_set_raises_interactor_factory_not_set_exception(self):
+    def test_interactor_factory_not_set_raises_interactor_factory_not_set_exception(self) -> None:
         """Test that calling ChangePasswordInteractor.execute without setting interactor_factory 
         raises InteractorFactoryNotSetException"""
         self.__target.interactor_factory = None
         self.assertRaises(InteractorFactoryNotSetException, self.__target.execute, User())
 
-    def test_executes_user_interactor(self):
+    def test_executes_user_interactor(self) -> None:
         """Test that calling ChangePasswordInteractor.execute correctly causes 
         GetUserInteractor.execute to be called"""
         u = self.__get_user()
         self.__target.execute(u)
         self.__get_user_interactor.execute.assert_called_with(u)
 
-    def test_user_found_creates_calls_change_password_persistence_method(self):
+    def test_user_found_creates_calls_change_password_persistence_method(self) -> None:
         """Test that calling ChangePasswordInteractor.execute correctly causes 
         persistence.change_password to be called"""
         u = self.__get_user()
-        dbu = self.__get_user(uid="123456", password=u.password)
+        password = self.__hash_provider.hash_text(u.password)
+        dbu = self.__get_user(uid="123456", password=password)
         self.__target.execute(u)
         self.__persistence.change_password.assert_called_with(dbu)
 
-    def test_user_found_hashes_password(self):
+    def test_user_found_hashes_password(self) -> None:
         """Test that calling ChangePasswordInteractor.execute correctly causes 
         hash_provider.hash_text to be called"""
         u = self.__get_user()
         self.__target.execute(u)
         self.__hash_provider.hash_text.assert_called_with(u.password)
 
-    def __get_user(self, user_id="user", password="password", uid="id"):
+    def __get_user(self, user_id: str = "user", password: str = "password", uid: str = "id") -> User:
         u = User()
         u.user_id = user_id
         u.password = password

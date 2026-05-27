@@ -15,12 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Any
 import unittest
 from unittest.mock import Mock
 
 import genre as g
 from interactors.interactor_factory import InteractorFactory
-import interactors.platform_interactors as pi
+from interactors.interactor import Interactor
+from interactors.platform_interactors import GetPlatformsInteractor
+from interactors.genre_interactors import GetGenresInteractor
 import icarus_platform as p
 from ui.handlers.add_game_handler import AddGameHandler
 from ui.handlers.authenticated_handler import AuthenticatedHandler
@@ -31,10 +34,10 @@ from ui.template_renderer import TemplateRenderer
 class TestAddGameHandler(unittest.TestCase):
     """Unit tests for the AddGameHandler class"""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """setUp function for all unit tests in this class"""
 
-        def initialise_interactor(interactor_type, return_value):
+        def initialise_interactor(interactor_type: Interactor, return_value: Any) -> Mock:
             interactor = Mock(interactor_type)
             interactor.execute = Mock(return_value=return_value)
             return interactor
@@ -44,20 +47,32 @@ class TestAddGameHandler(unittest.TestCase):
         interactor_factory = Mock(InteractorFactory)
 
         get_platforms_interactor = initialise_interactor(
-            pi.GetPlatformsInteractor,
+            GetPlatformsInteractor(),
             self.__platforms)
 
-        interactor_factory.create = Mock(return_value=get_platforms_interactor)
+        get_genres_interactor = initialise_interactor(
+            GetGenresInteractor(),
+            self.__genres)
+
+        def create_interactor(interactor_type: str) -> Mock:
+            if interactor_type == "GetPlatformsInteractor":
+                return get_platforms_interactor
+            elif interactor_type == "GetGenresInteractor":
+                return get_genres_interactor
+            else:
+                raise ValueError("Unknown interactor type: " + interactor_type)
+
+        interactor_factory.create = Mock(side_effect=create_interactor)
         self.__renderer = Mock(TemplateRenderer)
         self.__target = AddGameHandler(interactor_factory, self.__renderer)
         session = Mock(Session)
         self.__target.session = session
 
-    def test_is_instance_of_authenticated_handler(self):
+    def test_is_instance_of_authenticated_handler(self) -> None:
         """Test that AddGameHandler is an instance of AuthenticatedHandler"""
         self.assertIsInstance(self.__target, AuthenticatedHandler)
 
-    def test_get_page_calls_renderer(self):
+    def test_get_page_calls_renderer(self) -> None:
         """Test that calling AddGameHandler.get_page causes renderer.render to be called 
         correctly"""
         self.__target.get_page({})

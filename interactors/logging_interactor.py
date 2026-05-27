@@ -12,20 +12,22 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from logging import Logger
+
 from interactors.interactor import Interactor
 
 class LoggingInteractor(Interactor):
     """Logging Interactor -- holds the logger object"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
-        self.__logger = None
+        self.__logger : Logger | None = None
 
     @property
-    def logger(self):
+    def logger(self) -> Logger | None:
         """The logger object to use for logging"""
         return self.__logger
 
     @logger.setter
-    def logger(self, value):
+    def logger(self, value: Logger) -> None:
         self.__logger = value

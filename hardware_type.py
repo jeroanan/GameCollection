@@ -13,50 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from dataclasses import dataclass, field
 import functools as ft
 
-
+@dataclass
 class HardwareType:
     """Represents a type of hardware"""
-
-    def __init__(self):
-        """Initialise object state"""
-        self.__id = ""
-        self.__name = ""
-        self.__description = ""
-
-    @property
-    def id(self):
-        """Get the hardware type id"""
-        return self.__id
-
-    @id.setter
-    def id(self, val):
-        """Set the hardware type id"""
-        self.__id = val
-
-    @property
-    def name(self):
-        """Get the hardware type name"""
-        return self.__name
-
-    @name.setter
-    def name(self, val):
-        """Set the hardware type name"""
-        self.__name = val
-
-    @property
-    def description(self):
-        """Get the hardware type description"""
-        return self.__description
-
-    @description.setter
-    def description(self, val):
-        """Set the hardware type description"""
-        self.__description = val
+    id: str = field(default="")
+    name: str = field(default="")
+    description: str = field(default="")
 
     @staticmethod
-    def from_dict(dictionary):
+    def from_dict(dictionary: dict[str, str]) -> 'HardwareType':
         """Create HardwareType from dictionary"""
         mappings = {"id": "id",
                     "name": "name",
@@ -64,15 +32,7 @@ class HardwareType:
         return HardwareType._map_from_dict(dictionary, mappings)
 
     @staticmethod
-    def from_mongo_result(dictionary):
-        """Create HardwareType from MongoDB result dictionary"""
-        mappings = {"_id": "id",
-                    "_HardwareType__name": "name",
-                    "_HardwareType__description": "description"}
-        return HardwareType._map_from_dict(dictionary, mappings)
-
-    @staticmethod
-    def _map_from_dict(dictionary, mappings):
+    def _map_from_dict(dictionary: dict[str, str], mappings: dict[str, str]) -> 'HardwareType':
         hardware_type = HardwareType()
 
         set_attr = ft.partial(setattr, hardware_type)
@@ -81,6 +41,3 @@ class HardwareType:
         list(map(lambda m:
                  set_attr(mappings[m], dictionary.get(m, get_attr(mappings[m]))), mappings))
         return hardware_type
-
-    def __eq__(self, other):
-        return self.name == other.name

@@ -15,7 +15,7 @@
 
 from dataclasses import dataclass, field
 import json
-
+from typing import Any
 
 @dataclass
 class Game:
@@ -31,32 +31,9 @@ class Game:
     date_purchased: str = field(default="")
     approximate_date_purchased: bool = field(default=False)
 
-    @staticmethod
-    def from_mongo_result(mongo_result):
-        """Initialises an instance of Game from a MongoDB result.
-        :param mongo_result: A MongoDB result as a dictionary. 
-                             See mappings below for details on expected keys.
-        :returns: An instance of Game with its properties set.
-                  Missing keys from mongo_result will have their property set as the default.
-        """
-
-        # game.attr, mongo_result.key
-        mappings = {"genre": "_Game__genre",
-                    "id": "_id",
-                    "title":"_Game__title",
-                    "platform": "_Game__platform",
-                    "num_copies": "_Game__num_copies",
-                    "num_boxed": "_Game__num_boxed",
-                    "num_manuals": "_Game__num_manuals",
-                    "notes": "_Game__notes",
-                    "date_purchased": "_Game__date_purchased",
-                    "approximate_date_purchased": "_Game__approximate_date_purchased"}
-
-        return Game._from_dict(mongo_result, mappings)
-
     #TODO: Can probably clean this dict stuff up between the domain objects
     @staticmethod
-    def from_dict(dictionary):
+    def from_dict(dictionary: dict[str, Any]) -> "Game":
         """Initialises an instance of Game from a dictionary.
         
         :param dictionary: A dictionary.  See mapping below for details on expected keys.
@@ -78,9 +55,9 @@ class Game:
         return Game._from_dict(dictionary, mappings)
 
     @staticmethod
-    def _from_dict(d, mappings):
+    def _from_dict(d: dict[str, Any], mappings: dict[str, str]) -> "Game":
 
-        def dict_get(x):
+        def dict_get(x: tuple[str, str]) -> Any:
             return d[mappings[x[0]]] if mappings[x[0]] in d else getattr(Game, x[0])
 
         game = Game(id=dict_get(("id", "id")),
@@ -99,7 +76,7 @@ class Game:
 
         return game
 
-    def to_json(self):
+    def to_json(self) -> str:
         """Convert this instance of Game to a JSON string.
         :returns: A JSON string representing this instance of Game.
         """

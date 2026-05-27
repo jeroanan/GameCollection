@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from typing import Any
 import unittest
 from unittest import mock
 
@@ -27,34 +28,34 @@ from interactors import hardware_interactors as hi
 class TestAddHardwareTypeInteractor(unittest.TestCase):
     """Unit tests for the AddHardwareTypeInteractor class"""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """setUp for all unit tests in this class"""
         self.__persistence = mock.Mock(abstract_persistence.AbstractPersistence)
         self.__target = hi.AddHardwareTypeInteractor()
         self.__target.persistence = self.__persistence
         self.__required_fields = ['name', 'description']
 
-    def test_is_instance_of_interactor(self):
+    def test_is_instance_of_interactor(self) -> None:
         """Test that AddHardwareTypeInteractor is an instance of Interactor"""
         self.assertIsInstance(self.__target, interactor.Interactor)
 
-    def test_none_hardware_raises_type_error(self):
+    def test_none_hardware_raises_type_error(self) -> None:
         """Test that passing a hardware_type of None causes a TypeError to be raised"""
         self.assertRaises(TypeError, self.__target.execute, None)
 
-    def test_null_or_empty_required_field_raises_value_error(self):
+    def test_null_or_empty_required_field_raises_value_error(self) -> None:
         """Test that passing in required members of Platform causes a ValueError to be raised"""
         self.__assert_forbidden_value_raises_value_error(None)
         self.__assert_forbidden_value_raises_value_error('')
         self.__assert_forbidden_value_raises_value_error(' ')
 
-    def __assert_forbidden_value_raises_value_error(self, forbidden_value):
+    def __assert_forbidden_value_raises_value_error(self, forbidden_value: Any) -> None:
         for rf in self.__required_fields:
             hardware_type = self.__get_hardware_type()
             setattr(hardware_type, rf, forbidden_value)
             self.assertRaises(ValueError, self.__target.execute, hardware_type)
 
-    def test_hardware_type_already_exists_raises_hardware_type_exists_exception(self):
+    def test_hardware_type_already_exists_raises_hardware_type_exists_exception(self) -> None:
         """Test that adding a hardware type that already exists causes HardwareTypeExistsException 
         to be raised"""
         existing_hardware_type = self.__get_hardware_type()
@@ -67,7 +68,7 @@ class TestAddHardwareTypeInteractor(unittest.TestCase):
             self.__target.execute,
             existing_hardware_type)
 
-    def __get_hardware_type(self):
+    def __get_hardware_type(self) -> ht.HardwareType:
         h = {'name': 'name',
              'description': 'description'}
         return ht.HardwareType.from_dict(h)

@@ -26,7 +26,7 @@ from ui.web_server import WebServer
 
 WorkingDirectory = os.path.dirname(os.path.abspath(__file__))
 
-def init_logger():
+def init_logger() -> logging.Logger:
     """Initializes and returns the application logger."""
     _logger = logging.getLogger("Icarus")
     _logger.setLevel(logging.INFO)

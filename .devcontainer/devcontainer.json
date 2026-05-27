@@ -19,10 +19,22 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": ".devcontainer/postcreate.sh"
+	"postCreateCommand": ".devcontainer/postcreate.sh",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",       // Core Python support
+				"ms-python.vscode-pylance", // Fast, built-in type checking & autocomplete
+				"ms-python.mypy-type-checker" // The official Mypy extension
+			],
+			// 2. Optional: Force VS Code to use the Mypy extension for linting
+			"settings": {
+				"mypy-type-checker.importStrategy": "fromEnvironment"
+			}
+		}
+	}
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"

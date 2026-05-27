@@ -16,7 +16,7 @@
 from dataclasses import dataclass, field
 import functools as ft
 import json
-
+from typing import Any
 
 @dataclass
 class Hardware():
@@ -31,32 +31,7 @@ class Hardware():
     user_id: str = field(default="")
 
     @staticmethod
-    def from_mongo_result(mongo_result):
-        """Initialises Hardware object from a MongoDB result.
-        :param mongo_result: A MongoDB result as a dictionary. The following keys are expected:
-                             * _id
-                             * _Hardware__name
-                             * _Hardware__num_owned
-                             * _Hardware__num_boxed
-                             * _Hardware__notes
-                             * _Hardware__hardware_type
-        :returns: A Hardware object with its properties properly initialised. 
-                  Any missing keys from mongo_db will cause the object to have that property 
-                  initialised as its default.
-        """
-        # hardware.attr, mongo_result.key
-        mappings = {"id": "_id",
-                    "name": "_Hardware__name",
-                    "platform": "_Hardware__platform",
-                    "num_owned": "_Hardware__num_owned",
-                    "num_boxed": "_Hardware__num_boxed",
-                    "notes": "_Hardware__notes",
-                    "hardware_type": "_Hardware__hardware_type"}
-
-        return Hardware._from_dict(mongo_result, mappings)
-
-    @staticmethod
-    def from_dict(dictionary):
+    def from_dict(dictionary: dict[str, Any]) -> "Hardware":
         """Initialises Hardware object from a dictionary.
         :param dictionary: A dictionary containing the following keys:
                             * name
@@ -84,19 +59,19 @@ class Hardware():
 
     #TODO: Can probably clean this dict stuff up between the domain objects
     @staticmethod
-    def _from_dict(dictionary, mappings):
+    def _from_dict(dictionary: dict[str, Any], mappings: dict[str, str]) -> "Hardware":
         hardware = Hardware()
 
         set_attr = ft.partial(setattr, hardware)
         get_attr = ft.partial(getattr, hardware)
 
-        def dict_get(x):
+        def dict_get(x: tuple[str, str]) -> Any:
             return dictionary.get(x[0], get_attr(x[1]))
 
         list(map(lambda m: set_attr(m, dict_get((mappings[m],m))), mappings))
         return hardware
 
-    def to_json(self):
+    def to_json(self) -> str:
         """Convert this Hardware object to a JSON string"""
 
         attrs = ["hardware_type", "name", "platform", "num_owned", "num_boxed", "notes"]

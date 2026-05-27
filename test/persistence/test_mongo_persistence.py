@@ -19,23 +19,144 @@ from logging import Logger
 from pymongo import MongoClient
 
 from data.config import Config
+from genre import Genre
+from hardware_type import HardwareType
 from persistence.mongo_persistence import MongoPersistence
 
 class TestMongoPersistence(unittest.TestCase):
     """Unit tests for the MongoPersistence class."""
-    def setUp(self):
+    def setUp(self) -> None:
         self.logger = Mock(Logger)
         self.config = Mock(Config)
         self.mongo_client = Mock(MongoClient)
         self.mongo_client.GamesCollection = Mock()
-        self.mongo_persistence = MongoPersistence(
+        self.mongo_persistence: MongoPersistence = MongoPersistence(
             logger=self.logger,
             config=self.config,
             mongo_client=self.mongo_client)
 
-    def tearDown(self):
-        self.mongo_persistence = None
-
-    def test_constructs(self):
+    def test_constructs(self) -> None:
         """Tests that the MongoPersistence constructs correctly."""
         self.assertIsNotNone(self.mongo_persistence)
+
+    def test_game_from_mongo_result_performs_mapping(self) -> None:
+        """Test that mapping a Game object from a MonoDB result is correct"""
+
+        gd = {
+            "_id": "id",
+            "_Game__genre": "genre",
+            "_Game__title": "title",
+            "_Game__platform": "platform",
+            "_Game__num_copies": 1,
+            "_Game__num_boxed": 2,
+            "_Game__num_manuals": 3,
+            "_Game__notes": "notes",
+            "_Game__date_purchased": "2015-05-23",
+            "_Game__approximate_date_purchased": True
+        }
+
+        g = self.mongo_persistence.game_from_mongo_result(gd)
+
+        expected_mappings = {
+            "_id": g.id,
+            "_Game__title": g.title,
+            "_Game__genre": g.genre,
+            "_Game__platform": g.platform,
+            "_Game__num_copies": g.num_copies,
+            "_Game__num_boxed": g.num_boxed,
+            "_Game__num_manuals": g.num_manuals,
+            "_Game__notes": g.notes,
+            "_Game__date_purchased": g.date_purchased,
+            "_Game__approximate_date_purchased": g.approximate_date_purchased
+        }
+
+        for k,v in expected_mappings.items():
+            self.assertEqual(gd[k], v)
+
+    def test_from_mongo_result_returns_genre(self) -> None:
+        """Tests that from_mongo_result returns a Genre instance"""
+        g = self.mongo_persistence.genre_from_mongo_result({"": ""})
+        self.assertIsInstance(g, Genre)
+
+    def test_from_mongo_result_does_mappings(self) -> None:
+        """Tests that from_mongo_result maps dictionary keys to Genre attributes"""
+        d = {"_id": "id",
+             "_Genre__name": "name",
+             "_Genre__description": "description"}
+        g = self.mongo_persistence.genre_from_mongo_result(d)
+        self.assertEqual(d["_id"], g.id)
+        self.assertEqual(d["_Genre__name"], g.name)
+        self.assertEqual(d["_Genre__description"], g.description)
+
+    def test_from_mongo_result_returns_hardware_type(self) -> None:
+        """Tests that from_mongo_result returns a HardwareType instance."""
+        hardware_type = self.mongo_persistence.hardware_type_from_mongo_result({"":""})
+        self.assertIsInstance(hardware_type, HardwareType)
+
+    def test_from_mongo_result_maps_correctly(self) -> None:
+        """Tests that from_mongo_result performs correct mappings."""
+        mongo_result = {"_id": "id",
+                        "_HardwareType__name": "name",
+                        "_HardwareType__description": "description"}
+
+        expected = {"id": mongo_result["_id"],
+                    "name": mongo_result["_HardwareType__name"],
+                    "description": mongo_result["_HardwareType__description"]}
+
+        hardware_type = self.mongo_persistence.hardware_type_from_mongo_result(mongo_result)
+
+        list(map(lambda x: self.assertEqual(expected[x], getattr(hardware_type, x), x), expected))
+
+    def test_hardware_from_mongo_result_performs_mapping(self) -> None:
+        """Mapping mongo result to Hardware object properly initialises object."""
+
+        hd = {
+            "_id": "id",
+            "_Hardware__name": "name",
+            "_Hardware__platform": "platform",
+            "_Hardware__num_owned": 1,
+            "_Hardware__num_boxed": 2,
+            "_Hardware__notes": "notes",
+            "_Hardware__hardware_type": "ht"
+        }
+
+        h = self.mongo_persistence.hardware_from_mongo_result(hd)
+
+        expected_mappings = {
+            "_id": h.id,
+            "_Hardware__name": h.name,
+            "_Hardware__platform": h.platform,
+            "_Hardware__num_owned": h.num_owned,
+            "_Hardware__num_boxed": h.num_boxed,
+            "_Hardware__notes": h.notes,
+            "_Hardware__hardware_type": h.hardware_type
+        }
+
+        for k, v in expected_mappings.items():
+            self.assertEqual(hd[k], v)
+
+    def test_platform_from_mongo_result_performs_mapping(self) -> None:
+        """Initialise the mapper
+        :param mongo_result: A MongoDB result. The following fields
+        can currently be mapped:
+          * _id
+          * _Platform__name
+          * _Platform__description
+        """
+        d = {"_id": "id",
+             "_Platform__name": "name",
+             "_Platform__description": "description"}
+        p = self.mongo_persistence.platform_from_mongo_result(d)
+        self.assertEqual(d["_id"], p.id)
+        self.assertEqual(d["_Platform__name"], p.name)
+        self.assertEqual(d["_Platform__description"], p.description)
+
+    def test_user_from_mongo_result_does_mapping(self) -> None:
+        """Mongo result maps to User object"""
+        ud = {"_id": "id",
+              "_User__user_id": "user_id",
+              "_User__password": "password"}
+        user = self.mongo_persistence.user_from_mongo_result(ud)
+        self.assertEqual(ud["_id"], user.id)
+        self.assertEqual(ud["_User__user_id"], user.user_id)
+        self.assertEqual(ud["_User__password"], user.password)

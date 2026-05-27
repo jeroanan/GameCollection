@@ -18,6 +18,9 @@ from interactors.exceptions import PersistenceException
 from ui.handlers.authenticated_handler import AuthenticatedHandler
 
 
+
+#TODO: Something not working with updating games..
+
 class UpdateGameHandler(AuthenticatedHandler):
     """Handles Game Update requests"""
 

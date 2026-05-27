@@ -21,35 +21,7 @@ import hardware as hw
 class TestHardware(unittest.TestCase):
     """Unit tests for the Hardware class"""
 
-    def test_from_mongo_result_performs_mapping(self):
-        """Mapping mongo result to Hardware object properly initialises object."""
-
-        hd = {
-            "_id": "id",
-            "_Hardware__name": "name",
-            "_Hardware__platform": "platform",
-            "_Hardware__num_owned": 1,
-            "_Hardware__num_boxed": 2,
-            "_Hardware__notes": "notes",
-            "_Hardware__hardware_type": "ht"
-        }
-
-        h = hw.Hardware.from_mongo_result(hd)
-
-        expected_mappings = {
-            "_id": h.id,
-            "_Hardware__name": h.name,
-            "_Hardware__platform": h.platform,
-            "_Hardware__num_owned": h.num_owned,
-            "_Hardware__num_boxed": h.num_boxed,
-            "_Hardware__notes": h.notes,
-            "_Hardware__hardware_type": h.hardware_type
-        }
-
-        for k, v in expected_mappings.items():
-            self.assertEqual(hd[k], v)
-
-    def test_from_dict_performs_mappings(self):
+    def test_from_dict_performs_mappings(self) -> None:
         """Mapping a dictionary to Hardware object properly initialises object"""
 
         hd = {

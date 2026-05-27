@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>.
 
+from genre import Genre
 import interactors.interactor as i
 
 
@@ -52,7 +53,7 @@ class GetGenreInteractor(i.Interactor):
 class GetGenresInteractor(i.Interactor):
     """Get all genres"""
 
-    def execute(self):
+    def execute(self) -> list[Genre]:
         """Get all genres from persistence
         :returns: A list of Genre objects representing all genres in the system."""
         return self.persistence.get_genres()

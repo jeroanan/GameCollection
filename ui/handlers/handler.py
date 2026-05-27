@@ -15,79 +15,86 @@
 # You should have received a copy of the GNU General Public License
 # along with Icarus.  If not, see <http://www.gnu.org/licenses/>
 
+from typing import Any
+
 import cherrypy
+
+from interactors.interactor_factory import InteractorFactory
+from ui.Cookies.cookies import Cookies
 from ui.handlers.Exceptions.CookiesNotSetException import CookiesNotSetException
 from ui.handlers.Exceptions.SessionNotSetException import SessionNotSetException
+from ui.handlers.Session.Session import Session
+from ui.template_renderer import TemplateRenderer
 
 class Handler:
     """Base class for all handlers. Provides common functionality and properties."""
 
-    def __init__(self, interactor_factory, renderer):
+    def __init__(self, interactor_factory: InteractorFactory, renderer: TemplateRenderer) -> None:
         self.__interactor_factory = interactor_factory
         self.__renderer = renderer
-        self.__session = None
-        self.__cookies = None
+        self.__session: Session | None = None
+        self.__cookies: Cookies | None = None
 
     @property
-    def interactor_factory(self):
+    def interactor_factory(self) -> InteractorFactory:
         """Returns the interactor factory."""
         return self.__interactor_factory
 
     @property
-    def renderer(self):
+    def renderer(self) -> TemplateRenderer:
         """Returns the renderer."""
         return self.__renderer
 
     @property
-    def session(self):
+    def session(self) -> Session | None:
         """Returns the session."""
         return self.__session
 
     @session.setter
-    def session(self, val):
+    def session(self, val: Session) -> None:
         self.__session =  val
 
     @property
-    def cookies(self):
+    def cookies(self) -> Cookies | None:
         """Returns the cookies."""
         return self.__cookies
 
     @cookies.setter
-    def cookies(self, val):
+    def cookies(self, val: Cookies) -> None:
         self.__cookies = val
 
-    def set_if_null(self, variable, value):
+    def set_if_null(self, variable: Any, value: Any) -> Any:
         """Returns the variable if it is not None, otherwise returns the value."""
         if variable is None:
             return value
         return variable
 
-    def check_session(self):
+    def check_session(self) -> None:
         """Checks if the session is set, if not raises an exception."""
         if self.session is None:
             raise SessionNotSetException
 
-    def check_cookies(self):
+    def check_cookies(self) -> None:
         """Checks if the cookies are set, if not raises an exception."""
         if self.cookies is None:
             raise CookiesNotSetException
 
-    def logged_in(self):
+    def logged_in(self) -> bool:
         """Returns True if the user is logged in, False otherwise."""
         return self.session.get_value("user_id") != ""
 
-    def redirect_if_not_logged_in(self):
+    def redirect_if_not_logged_in(self) -> None:
         """Redirects to the login page if the user is not logged in."""
         if not self.logged_in():
             raise cherrypy.HTTPRedirect("/login")
 
-    def validate_params(self, params, fields):
+    def validate_params(self, params: dict[str, str], fields: list[str]) -> bool:
         """Validates that the required fields are present in the params and are not empty."""
         invalid_fields = sum(map(
             lambda x: x not in params or str(params[x]).strip() == "" or params[x] is None, fields))
         return invalid_fields == 0
 
-    def renew_cookies(self):
+    def renew_cookies(self) -> None:
         """Renews the cookies for the user."""
         if self.__cookies is None:
             raise ValueError("Cookies object not set")

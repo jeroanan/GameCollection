@@ -19,18 +19,19 @@ from interactors.exceptions import InteractorFactoryNotSetException
 from interactors.exceptions import UserExistsException
 from interactors.interactor import Interactor
 from interactors.logging_interactor import LoggingInteractor
+from icarus_user import User
 
 
 class AddUserInteractor(LoggingInteractor):
     """Add a user"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialise AddUserInteractor"""
         super().__init__()
         self.__hash_provider = None
         self.__user_exists = lambda user: user.user_id != ""
 
-    def execute(self, user):
+    def execute(self, user: User) -> None:
         """Add a user.
         :param user: An object of type User. The user to be added"""
         self.__validate(user)
@@ -64,11 +65,11 @@ class AddUserInteractor(LoggingInteractor):
 class ChangePasswordInteractor(LoggingInteractor):
     """Logic to change a user's password"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
-        self.__hash_provider = HashProvider()
+        self.__hash_provider: HashProvider = HashProvider()
 
-    def execute(self, user):
+    def execute(self, user: User) -> None:
         """Use persistence to change a user's password.
         :param user: An object of type User. The user_id and password fields are mandatory.
                      The new password should be set in the password field.
@@ -81,7 +82,7 @@ class ChangePasswordInteractor(LoggingInteractor):
 
         self.persistence.change_password(db_user)
 
-    def __validate(self, user):
+    def __validate(self, user: User) -> None:
         if user is None:
             raise TypeError
         if self.interactor_factory is None:
@@ -89,7 +90,7 @@ class ChangePasswordInteractor(LoggingInteractor):
         self.validate_string_field("user_id", user.user_id)
         self.validate_string_field("password", user.password)
 
-    def set_hash_provider(self, param):
+    def set_hash_provider(self, param: HashProvider) -> None:
         """Set the hash provider for this object to use for encrypting passwords.
         :param param: The instance of the HashProvider object to use"""
         if not isinstance(param, HashProvider):

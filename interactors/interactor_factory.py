@@ -15,8 +15,12 @@
 
 import importlib
 import json
+from logging import Logger
+from typing import Any
 
 import data.data_load as dl
+from interactors.interactor import Interactor
+from persistence.abstract_persistence import AbstractPersistence
 from interactors.exceptions import UnrecognisedInteractorTypeException 
 import interactors.collection_interactors as ci
 import interactors.logging_interactor as li
@@ -27,16 +31,16 @@ import interactors.platform_interactors as pi
 
 class InteractorFactory:
     """Factory for creating interactors."""
-    def __init__(self, persistence, logger):
+    def __init__(self, persistence: AbstractPersistence, logger: Logger):
         self.__persistence = persistence
         self.__interactors = self.__load_interactors()
         self.__logger = logger
 
-    def __load_interactors(self):
+    def __load_interactors(self) -> Any:
         with open("interactors/interactors.json", encoding="utf-8") as f:
             return json.load(f)["interactors"][0]
 
-    def create(self, interactor_type):
+    def create(self, interactor_type: str) -> Any:
         """Create an Interactor of the specified type.
         :param interactor_type: A string indicating which type of Interactor should be created.
         :returns: An interactor of the specified type. If interactor_type does not correspond to a
@@ -64,7 +68,7 @@ class InteractorFactory:
 
         raise UnrecognisedInteractorTypeException
 
-    def __string_to_interactor(self, interactor_type):
+    def __string_to_interactor(self, interactor_type: str) -> Interactor:
         #TODO: I Will need to clean this up at some point.
         interactors = {
             "GameInteractors.AddGameInteractor": "game_interactors",
@@ -130,7 +134,7 @@ class InteractorFactory:
         instantiated.persistence = self.__persistence
         return instantiated
 
-    def __initialise_interactor(self, interactor):
+    def __initialise_interactor(self, interactor: Interactor) -> Interactor:
         interactor.persistence = self.__persistence
         if isinstance(interactor, li.LoggingInteractor):
             interactor.logger = self.__logger

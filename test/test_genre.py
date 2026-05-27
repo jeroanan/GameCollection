@@ -19,12 +19,12 @@ from genre import Genre
 class TestGenre(unittest.TestCase):
     """Tests for the Genre class"""
 
-    def test_from_dict_returns_genre(self):
+    def test_from_dict_returns_genre(self) -> None:
         """Tests that from_dict returns a Genre instance"""
         g = Genre.from_dict({"": ""})
         self.assertIsInstance(g, Genre)
 
-    def test_from_dict_does_mappings(self):
+    def test_from_dict_does_mappings(self) -> None:
         """Tests that from_dict maps dictionary keys to Genre attributes"""
         d = {"name": "name",
              "description": "description",
@@ -33,18 +33,3 @@ class TestGenre(unittest.TestCase):
         self.assertEqual(d["name"], g.name)
         self.assertEqual(d["description"], g.description)
         self.assertEqual(d["id"], g.id)
-
-    def test_from_mongo_result_returns_genre(self):
-        """Tests that from_mongo_result returns a Genre instance"""
-        g = Genre.from_mongo_result({"": ""})
-        self.assertIsInstance(g, Genre)
-
-    def test_from_mongo_result_does_mappings(self):
-        """Tests that from_mongo_result maps dictionary keys to Genre attributes"""
-        d = {"_id": "id",
-             "_Genre__name": "name",
-             "_Genre__description": "description"}
-        g = Genre.from_mongo_result(d)
-        self.assertEqual(d["_id"], g.id)
-        self.assertEqual(d["_Genre__name"], g.name)
-        self.assertEqual(d["_Genre__description"], g.description)

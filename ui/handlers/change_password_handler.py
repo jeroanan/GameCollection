@@ -20,23 +20,22 @@ from icarus_user import User
 class ChangePasswordHandler(Handler):
     """Handler for changing a user's password."""
 
-    def get_page(self, params):
+    def get_page(self, params: dict[str, str]) -> None:
         """Handle parameters for changing the password.
         param params: A dictionary that is expected to contain user_id and password entries.
         TypeError will be thrown when params is None.
         ValueError will be thrown if user_id or password are None/empty.
         """
-        def validate():
+        def validate() -> None:
             if params is None:
                 raise TypeError
 
-            def throw_if_empty(x):
+            def throw_if_empty(x: str) -> None:
                 if params.get(x, "") =="":
                     raise ValueError(x)
 
             ps = ["user_id", "password"]
             list(map(throw_if_empty, ps))
-
 
         validate()
         interactor = self.interactor_factory.create("ChangePasswordInteractor")

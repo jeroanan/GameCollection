@@ -25,18 +25,18 @@ from icarus_user import User
 class TestChangePasswordHandler(unittest.TestCase):
     """Unit tests for the ChangePasswordHandler class"""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """setUp function for all unit tests in this class"""
         interactor_factory = Mock(InteractorFactory)
         self.__interactor = Mock(ChangePasswordInteractor)
         interactor_factory.create = Mock(return_value=self.__interactor)
         self.__target = ChangePasswordHandler(interactor_factory, None)
 
-    def test_is_handler(self):
+    def test_is_handler(self) -> None:
         """Test that ChangePasswordHandler is an instance of Handler"""
         self.assertIsInstance(self.__target, Handler)
 
-    def test_get_page_missing_required_param_raises_value_error(self):
+    def test_get_page_missing_required_param_raises_value_error(self) -> None:
         """Test that calling ChangePasswordHandler.get_page with missing required parameters 
         raises a ValueError"""
         required_params = ["user_id", "password"]
@@ -45,7 +45,7 @@ class TestChangePasswordHandler(unittest.TestCase):
             del p[rp]
             self.assertRaises(ValueError, self.__target.get_page, p)
 
-    def test_get_page_empty_required_params_raises_value_error(self):
+    def test_get_page_empty_required_params_raises_value_error(self) -> None:
         """Test that calling ChangePasswordHandler.get_page with empty required parameters raises 
         a ValueError"""
         required_params = ["user_id", "password"]
@@ -54,19 +54,19 @@ class TestChangePasswordHandler(unittest.TestCase):
             p[rp] = ""
             self.assertRaises(ValueError, self.__target.get_page, p)
 
-    def test_get_page_executes_interactor(self):
+    def test_get_page_executes_interactor(self) -> None:
         """Test that caling ChangePasswordHandler.get_page correctly causes 
         ChangePasswordInteractor.execute to be called"""
         self.__target.get_page(self.__get_params())
         self.__interactor.execute.assert_called_with(self.__get_user())
 
-    def __get_params(self):
+    def __get_params(self) -> dict[str, str]:
         return {"user_id": "user",
                 "password": "password"}
 
-    def __get_user(self):
+    def __get_user(self) -> User:
         p = self.__get_params()
         u = User()
         u.user_id = p["user_id"]
-        u.password = ["password"]
+        u.password = p["password"]
         return u

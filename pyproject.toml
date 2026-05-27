@@ -1,0 +1,12 @@
+[tool.mypy]
+# Enable strict mode (turns on almost all optional type-checking flags)
+strict = true
+
+# Ignore missing imports for third-party libraries that don't have types
+ignore_missing_imports = true
+
+# Exclude specific directories (like virtual environments)
+exclude = [
+    '(^|/)\.venv/',
+    '(^|/)build/',
+]
