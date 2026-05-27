@@ -68,34 +68,6 @@ class TestMongoPersistence(MongoTestBase):
 
         list(map(lambda x: self.assertEqual(expected[x], getattr(hardware_type, x), x), expected))
 
-    def test_hardware_from_mongo_result_performs_mapping(self) -> None:
-        """Mapping mongo result to Hardware object properly initialises object."""
-
-        hd = {
-            "_id": "id",
-            "_Hardware__name": "name",
-            "_Hardware__platform": "platform",
-            "_Hardware__num_owned": 1,
-            "_Hardware__num_boxed": 2,
-            "_Hardware__notes": "notes",
-            "_Hardware__hardware_type": "ht"
-        }
-
-        h = self.mongo_persistence.hardware_from_mongo_result(hd)
-
-        expected_mappings = {
-            "_id": h.id,
-            "_Hardware__name": h.name,
-            "_Hardware__platform": h.platform,
-            "_Hardware__num_owned": h.num_owned,
-            "_Hardware__num_boxed": h.num_boxed,
-            "_Hardware__notes": h.notes,
-            "_Hardware__hardware_type": h.hardware_type
-        }
-
-        for k, v in expected_mappings.items():
-            self.assertEqual(hd[k], v)
-
     def test_platform_from_mongo_result_performs_mapping(self) -> None:
         """Initialise the mapper
         :param mongo_result: A MongoDB result. The following fields

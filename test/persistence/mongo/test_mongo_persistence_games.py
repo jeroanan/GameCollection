@@ -16,11 +16,9 @@ class TestMongoPersistenceGames(MongoTestBase):
     def setUp(self) -> None:
         super().setUp()
 
-    def test_game_from_mongo_result_performs_mapping(self) -> None:
-        """Test that mapping a Game object from a MonoDB result is correct"""
-
-        gd = {
-            "_id": "id",
+        self.game_id = "666f6f2d6261722d71757578"
+        self.mongo_game = {
+            "_id": self.game_id,
             "_Game__genre": "genre",
             "_Game__title": "title",
             "_Game__platform": "platform",
@@ -32,7 +30,10 @@ class TestMongoPersistenceGames(MongoTestBase):
             "_Game__approximate_date_purchased": True
         }
 
-        g = self.mongo_persistence.game_from_mongo_result(gd)
+    def test_game_from_mongo_result_performs_mapping(self) -> None:
+        """Test that mapping a Game object from a MonoDB result is correct"""
+
+        g = self.mongo_persistence.game_from_mongo_result(self.mongo_game)
 
         expected_mappings = {
             "_id": g.id,
@@ -48,7 +49,7 @@ class TestMongoPersistenceGames(MongoTestBase):
         }
 
         for k,v in expected_mappings.items():
-            self.assertEqual(gd[k], v)
+            self.assertEqual(self.mongo_game[k], v)
 
     def test_add_game_makes_call(self) -> None:
         """Tests that add_game makes a call to the database."""
@@ -59,15 +60,11 @@ class TestMongoPersistenceGames(MongoTestBase):
     def test_get_all_games_makes_call(self) -> None:
         """Tests that get_all_games makes a call to the database."""
         interactor_params = GetGamesInteractorParams(user_id="test-user")
-        game_json = [
-            { "_id": "a", "_Game__title": "title" },
-            { "_id": "b", "_Game__title": "title 2" }
-        ]
         cursor = MagicMock()
 
         self.mongo_client.GamesCollection.games.find = MagicMock(return_value=cursor)
         cursor.sort.return_value = cursor
-        cursor.limit.return_value = game_json
+        cursor.limit.return_value = self.mongo_game
         self.mongo_persistence.get_all_games(interactor_params)
         self.assertTrue(self.mongo_client.GamesCollection.games.find.called_once_with(
             {"user_id": interactor_params.user_id})
@@ -76,15 +73,11 @@ class TestMongoPersistenceGames(MongoTestBase):
     def test_get_all_games_for_platform_makes_call(self) -> None:
         """Tests that get_all_games_for_platform makes a call to the database."""
         interactor_params = GetGamesInteractorParams(user_id="test-user", platform="test-platform")
-        game_json = [
-            { "_id": "a", "_Game__title": "title" },
-            { "_id": "b", "_Game__title": "title 2" }
-        ]
         cursor = MagicMock()
 
         self.mongo_client.GamesCollection.games.find = MagicMock(return_value=cursor)
         cursor.sort.return_value = cursor
-        cursor.limit.return_value = game_json
+        cursor.limit.return_value = self.mongo_game
         self.mongo_persistence.get_all_games_for_platform(interactor_params)
         self.assertTrue(self.mongo_client.GamesCollection.games.find.called_once_with(
             {"user_id": interactor_params.user_id, "platform": interactor_params.platform})
@@ -102,16 +95,16 @@ class TestMongoPersistenceGames(MongoTestBase):
         """Tests that get_game makes a call to the database."""
         cursor = MagicMock()
         self.mongo_client.GamesCollection.games.find_one = MagicMock(return_value=cursor)
-        self.mongo_persistence.get_game("666f6f2d6261722d71757578", "user-id")
+        self.mongo_persistence.get_game(self.game_id, "user-id")
         self.assertTrue(self.mongo_client.GamesCollection.games.find_one.called_once_with(
-            {"_id": "666f6f2d6261722d71757578", "user_id": "user-id"})
+            {"_id": self.game_id, "user_id": "user-id"})
         )
 
     def test_get_game_no_games_returned_raises_game_not_found_exception(self) -> None:
         """Tests that get_game raises a GameNotFoundException if no games are returned."""
         self.mongo_client.GamesCollection.games.find_one = MagicMock(return_value=None)
         with self.assertRaises(GameNotFoundException):
-            self.mongo_persistence.get_game("666f6f2d6261722d71757578", "user-id")
+            self.mongo_persistence.get_game(self.game_id, "user-id")
 
     def test_get_game_invalid_id_raises_game_not_found_exception(self) -> None:
         """Tests that get_game raises a GameNotFoundException if an invalid ID is provided."""
@@ -123,7 +116,7 @@ class TestMongoPersistenceGames(MongoTestBase):
     def test_update_game_makes_call(self) -> None:
         """Tests that update_game makes a call to the database."""
         game = Mock()
-        game.id = "666f6f2d6261722d71757578"
+        game.id = self.game_id
         self.mongo_client.GamesCollection.games.update_one = MagicMock()
         self.mongo_persistence.update_game(game, "user_id")
         self.assertTrue(self.mongo_client.GamesCollection.games.update_one.called)

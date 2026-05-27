@@ -190,12 +190,161 @@ class MongoPersistence:
         """
         return self.__db.hardware.count_documents({"user_id": str(user_id)})
 
+    def get_hardware_details(self, platform_id: str, user_id: str) -> Hardware:
+        """Gets the details of a specific item of hardware.
+        :param hardware_id: The uuid of the item of hardware to retrieve.
+        :param user_id: The uuid of the current user.
+        :returns: An instance of Hardware containing the requested item of hardware.
+        """
+        try:
+            h = self.__db.hardware.find_one({
+                "_id": ObjectId(platform_id),
+                "user_id": str(user_id)
+            })
+
+            if h is None:
+                raise HardwareNotFoundException()
+
+        except InvalidId as exc:
+            raise HardwareNotFoundException() from exc
+        return MongoPersistence.hardware_from_mongo_result(h)
+
+    def get_hardware_list(self, params: GetHardwareListInteractorParams) -> list[Hardware]:
+        """Get a list of all hardware in the user's collection
+        :param params: An instance of GetHardwareListInteractorParams
+        :returns: A list of instances of Hardware 
+        """
+        sorder = MongoSortDirectionMapper().map(params.sort_direction)
+        mapped_sort_field = HardwareSortFieldMapper().map(params.sort_field)
+        result = self.__db.hardware.find(
+            {"user_id": str(params.user_id)},
+            limit=params.number_of_items).sort(mapped_sort_field, sorder)
+
+        return list(map(lambda p: MongoPersistence.hardware_from_mongo_result(p), result))
+
+    def get_hardware_list_for_platform(self, params: GetHardwareListInteractorParams) -> list[Hardware]:
+        """Get a list of all hardware for a platform in the user's collection
+        param params: An instance of GetHardwareListInteractorParams
+        returns: A list of instances of Hardware
+        """
+        hardware = self.__db.hardware.find(
+            {"_Hardware__platform": params.platform, "user_id": str(params.user_id)},
+            limit=params.number_of_items)
+        return list(map(MongoPersistence.hardware_from_mongo_result, hardware))
+
+    def save_hardware(self, hardware: Hardware, user_id: str) -> None:
+        """Save an item of hardware.
+        :param hardware: An instance of Hardware. The item of hardware to be saved.
+        :param user_id: The uuid of the user whose collection the item of hardware should be 
+        added to.
+        :returns: None
+        """
+        hd = hardware.__dict__
+        hd["user_id"] = str(user_id)
+        self.__db.hardware.insert_one(hd)
+
+    def update_hardware(self, hardware: Hardware, user_id: str) -> None:
+        """Update the given item of hardware.
+        :param hardware: An instance of Hardware. The item of hardware to be updated.
+        :param user_id: The uuid of the current user.
+        :returns: None
+        """
+        hd = hardware.__dict__
+        hd["user_id"] = str(user_id)
+        self.__db.hardware.update_one({
+            "_id": ObjectId(hardware.id),
+            "user_id": str(user_id)
+        }, {"$set": hd}, upsert=False)
+
+    def delete_hardware(self, hardware_id: str, user_id: str) -> None:
+        """Delete the given item of hardware.
+        :param hardware_id: The uuid of the item of hardware to be deleted
+        :param user_id: The uuid of the current user
+        """
+        self.__db.hardware.delete_one({
+            "_id": ObjectId(hardware_id),
+            "user_id": str(user_id)
+        })
+
+    @staticmethod
+    def hardware_from_mongo_result(mongo_result: dict[str, Any]) -> "Hardware":
+        """Initialises Hardware object from a MongoDB result.
+        :param mongo_result: A MongoDB result as a dictionary. The following keys are expected:
+                             * _id
+                             * _Hardware__name
+                             * _Hardware__num_owned
+                             * _Hardware__num_boxed
+                             * _Hardware__notes
+                             * _Hardware__hardware_type
+        :returns: A Hardware object with its properties properly initialised. 
+                  Any missing keys from mongo_db will cause the object to have that property 
+                  initialised as its default.
+        """
+        # hardware.attr, mongo_result.key
+        mappings = {"id": "_id",
+                    "name": "_Hardware__name",
+                    "platform": "_Hardware__platform",
+                    "num_owned": "_Hardware__num_owned",
+                    "num_boxed": "_Hardware__num_boxed",
+                    "notes": "_Hardware__notes",
+                    "hardware_type": "_Hardware__hardware_type"}
+
+        return Hardware._from_dict(mongo_result, mappings)
+
+    #Hardware types
     def count_hardware_types(self) -> int:
         """Counts the number of hardware types in the system
         :returns: The number of hardware types in the system
         """
         return self.__db.hardware_types.count_documents({})
 
+    def get_hardware_types_list(self) -> list[HardwareType]:
+        """Gets the list of hardware types
+        :returns: A list of objects of type HardwareType containing the list of hardware.
+        """
+        return list(map(
+            MongoPersistence.hardware_type_from_mongo_result,
+            self.__db.hardware_types.find().sort("_HardwareType__name")))
+
+    def update_hardware_type(self, hardware_type: HardwareType) -> None:
+        """Update the given hardware type
+        :param hardware_type: The hardware type to be updated
+        """
+        self.__db.hardware_types.update({"_id": ObjectId(hardware_type.id)},
+                                        {"$set": hardware_type.__dict__}, upsert=False)
+
+    def delete_hardware_type(self, hardware_type: HardwareType) -> None:
+        """Delete the given hardware type.
+        :param hardware_type: The hardware type to be deleted
+        """
+        self.__db.hardware_types.delete_one({"_id": ObjectId(hardware_type.id)})
+
+    def add_hardware_type(self, hardware_type: HardwareType) -> None:
+        """Add a hardware type.
+        :param hardware_type: An object of type HardwareType. The hardware type to add.
+        """
+        self.__db.hardware_types.insert_one(hardware_type.__dict__)
+
+    def get_hardware_type(self, hardware_type: HardwareType) -> HardwareType:
+        """Get a specific hardware type record.
+        :param hardware_type: An instance of HardwareType. The hardware type to get.
+        :return: An instance of HardwareType. The requested hardware type.
+        """
+        h = self.__db.hardware_types.find_one({"_id": ObjectId(hardware_type.id)})
+        if h is None:
+            raise HardwareNotFoundException()
+
+        return MongoPersistence.hardware_type_from_mongo_result(h)
+
+    @staticmethod
+    def hardware_type_from_mongo_result(dictionary: dict[str, Any]) -> HardwareType:
+        """Create HardwareType from MongoDB result dictionary"""
+        mappings = {"_id": "id",
+                    "_HardwareType__name": "name",
+                    "_HardwareType__description": "description"}
+        return HardwareType._map_from_dict(dictionary, mappings)
+
+    #Platforms
     def get_platforms(self) -> list[Platform]:
         """Get a list of platforms
         :returns: A list of type Platform of all stored platforms
@@ -247,166 +396,19 @@ class MongoPersistence:
         platform.description = d["_Platform__description"]
         return platform
 
-    def get_hardware_details(self, platform_id: str, user_id: str) -> Hardware:
-        """Gets the details of a specific item of hardware.
-        :param hardware_id: The uuid of the item of hardware to retrieve.
-        :param user_id: The uuid of the current user.
-        :returns: An instance of Hardware containing the requested item of hardware.
-        """
-        try:
-            h = self.__db.hardware.find_one({
-                "_id": ObjectId(platform_id),
-                "user_id": str(user_id)
-            })
-
-            if h is None:
-                raise HardwareNotFoundException()
-
-        except InvalidId as exc:
-            raise HardwareNotFoundException() from exc
-        return MongoPersistence.hardware_from_mongo_result(h)
-
-    @staticmethod
-    def hardware_from_mongo_result(mongo_result: dict[str, Any]) -> "Hardware":
-        """Initialises Hardware object from a MongoDB result.
-        :param mongo_result: A MongoDB result as a dictionary. The following keys are expected:
-                             * _id
-                             * _Hardware__name
-                             * _Hardware__num_owned
-                             * _Hardware__num_boxed
-                             * _Hardware__notes
-                             * _Hardware__hardware_type
-        :returns: A Hardware object with its properties properly initialised. 
-                  Any missing keys from mongo_db will cause the object to have that property 
-                  initialised as its default.
-        """
-        # hardware.attr, mongo_result.key
-        mappings = {"id": "_id",
-                    "name": "_Hardware__name",
-                    "platform": "_Hardware__platform",
-                    "num_owned": "_Hardware__num_owned",
-                    "num_boxed": "_Hardware__num_boxed",
-                    "notes": "_Hardware__notes",
-                    "hardware_type": "_Hardware__hardware_type"}
-
-        return Hardware._from_dict(mongo_result, mappings)
-
-
-    def get_hardware_types_list(self) -> list[HardwareType]:
-        """Gets the list of hardware types
-        :returns: A list of objects of type HardwareType containing the list of hardware.
-        """
-        return list(map(
-            MongoPersistence.hardware_type_from_mongo_result,
-            self.__db.hardware_types.find().sort("_HardwareType__name")))
-
-    def update_hardware_type(self, hardware_type: HardwareType) -> None:
-        """Update the given hardware type
-        :param hardware_type: The hardware type to be updated
-        """
-        self.__db.hardware_types.update({"_id": ObjectId(hardware_type.id)},
-                                        {"$set": hardware_type.__dict__}, upsert=False)
-
-    def delete_hardware_type(self, hardware_type: HardwareType) -> None:
-        """Delete the given hardware type.
-        :param hardware_type: The hardware type to be deleted
-        """
-        self.__db.hardware_types.delete_one({"_id": ObjectId(hardware_type.id)})
-
-    def update_genre(self, genre: Genre) -> None:
-        """Update the details of a genre
-        :param genre: An object of type genre. The genre to be updated.
-        """
-        self.__db.genres.update_one(
-            {"_id": ObjectId(genre.id)}, {"$set": genre.__dict__}, upsert=False)
-
     def delete_platform(self, platform_id: str) -> None:
         """Delete a platform
         :param platform_id: The id of the platform to be deleted
         """
         self.__db.platforms.delete_one({"_id": ObjectId(platform_id)})
 
-    def add_hardware_type(self, hardware_type: HardwareType) -> None:
-        """Add a hardware type.
-        :param hardware_type: An object of type HardwareType. The hardware type to add.
+    # Genres
+    def update_genre(self, genre: Genre) -> None:
+        """Update the details of a genre
+        :param genre: An object of type genre. The genre to be updated.
         """
-        self.__db.hardware_types.insert_one(hardware_type.__dict__)
-
-    def get_hardware_list(self, params: GetHardwareListInteractorParams) -> list[Hardware]:
-        """Get a list of all hardware in the user's collection
-        :param params: An instance of GetHardwareListInteractorParams
-        :returns: A list of instances of Hardware 
-        """
-        sorder = MongoSortDirectionMapper().map(params.sort_direction)
-        mapped_sort_field = HardwareSortFieldMapper().map(params.sort_field)
-        result = self.__db.hardware.find(
-            {"user_id": str(params.user_id)},
-            limit=params.number_of_items).sort(mapped_sort_field, sorder)
-
-        return list(map(lambda p: MongoPersistence.hardware_from_mongo_result(p), result))
-
-    def get_hardware_list_for_platform(self, params: GetHardwareListInteractorParams) -> list[Hardware]:
-        """Get a list of all hardware for a platform in the user's collection
-        param params: An instance of GetHardwareListInteractorParams
-        returns: A list of instances of Hardware
-        """
-        hardware = self.__db.hardware.find(
-            {"_Hardware__platform": params.platform, "user_id": str(params.user_id)},
-            limit=params.number_of_items)
-        return list(map(MongoPersistence.hardware_from_mongo_result, hardware))
-
-    def get_hardware_type(self, hardware_type: HardwareType) -> HardwareType:
-        """Get a specific hardware type record.
-        :param hardware_type: An instance of HardwareType. The hardware type to get.
-        :return: An instance of HardwareType. The requested hardware type.
-        """
-        h = self.__db.hardware_types.find_one({"_id": ObjectId(hardware_type.id)})
-        if h is None:
-            raise HardwareNotFoundException()
-
-        return MongoPersistence.hardware_type_from_mongo_result(h)
-
-    @staticmethod
-    def hardware_type_from_mongo_result(dictionary: dict[str, Any]) -> HardwareType:
-        """Create HardwareType from MongoDB result dictionary"""
-        mappings = {"_id": "id",
-                    "_HardwareType__name": "name",
-                    "_HardwareType__description": "description"}
-        return HardwareType._map_from_dict(dictionary, mappings)
-
-    def save_hardware(self, hardware: Hardware, user_id: str) -> None:
-        """Save an item of hardware.
-        :param hardware: An instance of Hardware. The item of hardware to be saved.
-        :param user_id: The uuid of the user whose collection the item of hardware should be 
-        added to.
-        :returns: None
-        """
-        hd = hardware.__dict__
-        hd["user_id"] = str(user_id)
-        self.__db.hardware.insert_one(hd)
-
-    def update_hardware(self, hardware: Hardware, user_id: str) -> None:
-        """Update the given item of hardware.
-        :param hardware: An instance of Hardware. The item of hardware to be updated.
-        :param user_id: The uuid of the current user.
-        :returns: None
-        """
-        hd = hardware.__dict__
-        hd["user_id"] = str(user_id)
-        self.__db.hardware.update_one({
-            "_id": ObjectId(hardware.id),
-            "user_id": str(user_id)
-        }, {"$set": hd}, upsert=False)
-
-    def delete_hardware(self, hardware_id: str, user_id: str) -> None:
-        """Delete the given item of hardware.
-        :param hardware_id: The uuid of the item of hardware to be deleted
-        :param user_id: The uuid of the current user
-        """
-        self.__db.hardware.delete_one({
-            "_id": ObjectId(hardware_id),
-            "user_id": str(user_id)
-        })
+        self.__db.genres.update_one(
+            {"_id": ObjectId(genre.id)}, {"$set": genre.__dict__}, upsert=False)
 
     def get_genres(self) -> list[Genre]:
         """Get all genres.
@@ -454,6 +456,7 @@ class MongoPersistence:
         """
         self.__db.genres.delete_one({"_id": ObjectId(genre_id)})
 
+    # Search
     def search(self, search_term: str, sort_field: str, sort_dir: str, user_id: str) -> list[Game]:
         """Search the games collection
         :param search_term: The term to do the search upon
@@ -470,6 +473,7 @@ class MongoPersistence:
                  {"_Game__platform": {"$regex": f".*{search_term}.*", "$options": "i"}}]})
         return list(map(MongoPersistence.game_from_mongo_result, results.sort(mapped_sort_field, sorder)))
 
+    # Users
     def get_user(self, user: User) -> User:
         """Get a user by their user_id
         :param: An object of type User. The user to get. If the user's id property is set then it 
